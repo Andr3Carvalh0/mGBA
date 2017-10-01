@@ -20,6 +20,7 @@ public class LibraryActivity extends ParentActivity implements TabLayout.OnTabSe
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.pager) ViewPager mViewPager;
 
+    private static final int DEFAULT_PANEL = 1;
     private TabViewPager adapter;
 
     @Override
@@ -49,9 +50,11 @@ public class LibraryActivity extends ParentActivity implements TabLayout.OnTabSe
         adapter = new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount());
 
         mViewPager.setAdapter(adapter);
+        mViewPager.setCurrentItem(DEFAULT_PANEL);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(this);
+
     }
 
     @Override

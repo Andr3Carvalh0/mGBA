@@ -87,4 +87,6 @@
     <string name="Favorites">Favourites</string>
     <string name="GBA">Gameboy Advance</string>
     <string name="GBC">Gameboy Color</string>
+    <string name="no_games">No games.</string>
+    <string name="no_favourites">No favourites. You can add it by double tapping a game.</string>
 </resources>
