@@ -2,17 +2,15 @@ package io.mgba.View.Activities.Interfaces;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-
-import com.nononsenseapps.filepicker.Views.Activities.FilePickerActivity;
 import com.nononsenseapps.filepicker.Controllers.FilePickerUtils;
-
+import com.nononsenseapps.filepicker.Views.Activities.FilePickerActivity;
 import io.mgba.R;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;

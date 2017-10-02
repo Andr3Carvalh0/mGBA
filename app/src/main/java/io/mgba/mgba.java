@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.util.DisplayMetrics;
 
+import permissions.dispatcher.RuntimePermissions;
+
 public class mgba extends Application {
     private DisplayMetrics metrics;
 

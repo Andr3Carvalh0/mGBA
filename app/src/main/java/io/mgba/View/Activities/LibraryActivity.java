@@ -1,5 +1,6 @@
 package io.mgba.View.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -7,13 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
 import com.mikepenz.aboutlibraries.LibsBuilder;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.R;
 import io.mgba.View.Activities.Interfaces.ParentActivity;
+import io.mgba.View.Adapters.TabViewPager;
 
 public class LibraryActivity extends ParentActivity implements TabLayout.OnTabSelectedListener{
 
@@ -81,7 +81,9 @@ public class LibraryActivity extends ParentActivity implements TabLayout.OnTabSe
 
         if (item.getItemId() == R.id.action_settings)
         {
-
+            Intent settings = new Intent(this, SettingsActivity.class);
+            startActivity(settings);
+            return true;
         }
 
         return false;
@@ -101,4 +103,5 @@ public class LibraryActivity extends ParentActivity implements TabLayout.OnTabSe
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
 }

@@ -1,0 +1,19 @@
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.preference.PreferenceCategory
+        android:title="Storage">
+
+        <android.support.v7.preference.Preference
+            android:capitalize="words"
+            android:inputType="textCapWords"
+            android:key="games_folder"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="@string/prefs_not_set_folder_summary"
+            android:title="@string/pref_storage" />
+
+    </android.support.v7.preference.PreferenceCategory>
+
+</android.support.v7.preference.PreferenceScreen>

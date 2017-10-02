@@ -89,4 +89,5 @@
     <string name="GBC">Gameboy Color</string>
     <string name="no_games">No games.</string>
     <string name="no_favourites">No favourites. You can add it by double tapping a game.</string>
+    <string name="prefs_not_set_folder_summary">Not set.</string>
 </resources>

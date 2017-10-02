@@ -1,4 +1,4 @@
-package io.mgba.View.Fragments;
+package io.mgba.View.Fragments.Main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

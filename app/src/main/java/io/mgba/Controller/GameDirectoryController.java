@@ -1,4 +1,4 @@
-package io.mgba.Controller.File;
+package io.mgba.Controller;
 
 
 public class GameDirectoryController {
