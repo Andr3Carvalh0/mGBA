@@ -1,14 +1,16 @@
 package io.mgba.View.Activities;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+
+import io.mgba.Controller.PreferencesManager;
 import io.mgba.R;
 import io.mgba.View.Activities.Interfaces.ISettings;
-import io.mgba.View.Activities.Interfaces.ParentActivity;
+import io.mgba.View.Activities.Interfaces.PreferencesActivity;
 import io.mgba.View.Fragments.SettingsFragment;
+import io.mgba.mgba;
 
-public class SettingsActivity extends ParentActivity implements ISettings {
+public class SettingsActivity extends PreferencesActivity implements ISettings {
 
     private static final String TAG = "Storage_Fragment";
 
@@ -41,8 +43,11 @@ public class SettingsActivity extends ParentActivity implements ISettings {
         }
     }
 
-    protected void processDirectory(Uri dir){
-        System.out.println(dir);
+    protected void processDirectory(String dir){
+       super.processDirectory(dir);
+        FragmentManager fm = getSupportFragmentManager();
+        SettingsFragment fragment = (SettingsFragment) fm.findFragmentByTag(TAG);
+        fragment.changeGamesFolderSummary(dir);
     }
 
     @Override
@@ -54,5 +59,10 @@ public class SettingsActivity extends ParentActivity implements ISettings {
     @Override
     public void requestStoragePermission() {
         invokeFilePicker();
+    }
+
+    @Override
+    public String requestPreferencesValue(String key, String defaultValue) {
+        return ((mgba)getApplication()).getPreference(key, defaultValue);
     }
 }
