@@ -1,19 +1,25 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:id="@+id/content_container">
+        android:visibility="gone">
 
-        <android.support.v7.widget.RecyclerView
+        <com.l4digital.fastscroll.FastScrollRecyclerView
+            android:id="@+id/content_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/game"
-            android:id="@+id/content_recyclerView"/>
+            app:bubbleColor="@color/colorPrimary"
+            app:bubbleTextColor="@color/white"
+            app:handleColor="@color/grey"
+            app:hideScrollbar="false"
+            app:showTrack="false"
+            app:trackColor="@color/grey" />
+
     </RelativeLayout>
 
     <RelativeLayout

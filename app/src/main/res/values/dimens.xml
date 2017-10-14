@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="toolbar_container">72dp</dimen>
-    <dimen name="toolbar_body_margin">12dp</dimen>
+    <dimen name="body_margin">12dp</dimen>
     <dimen name="toolbar_body_margin_top">12dp</dimen>
     <dimen name="card_corner_radius">2dp</dimen>
     <dimen name="default_elevation">4dp</dimen>
@@ -11,5 +11,6 @@
     <dimen name="no_content_margin_top">172dp</dimen>
     <dimen name="no_content_favourites_margin_top">170dp</dimen>
     <dimen name="min_game_cover_size">130dp</dimen>
+    <dimen name="bottomsheet_header">172dp</dimen>
 
 </resources>

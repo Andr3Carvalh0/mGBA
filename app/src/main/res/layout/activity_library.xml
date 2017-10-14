@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<com.flipboard.bottomsheet.BottomSheetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomsheet"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="io.mgba.View.Activities.LibraryActivity">
+    android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/toolbar_container"
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_container"
-        android:elevation="@dimen/default_elevation"
-        android:background="@color/colorPrimary"/>
+        android:layout_height="match_parent"
+        tools:context="io.mgba.View.Activities.LibraryActivity">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginEnd="@dimen/toolbar_body_margin"
-        android:layout_marginLeft="@dimen/toolbar_body_margin"
-        android:layout_marginRight="@dimen/toolbar_body_margin"
-        android:layout_marginStart="@dimen/toolbar_body_margin"
-        android:layout_marginTop="@dimen/toolbar_body_margin"
-        android:minHeight="48dp"
-        app:cardCornerRadius="@dimen/card_corner_radius"
-        app:cardElevation="@dimen/default_elevation">
+        <View
+            android:id="@+id/toolbar_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_container"
+            android:background="@color/colorPrimary"
+            android:elevation="@dimen/default_elevation" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.arlib.floatingsearchview.FloatingSearchView
+            android:id="@+id/floating_search_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
-            app:navigationIcon="@drawable/ic_search_black_24dp"
-            app:title="@string/toolbar_title_tip"
-            app:titleTextAppearance="@style/ToolbarTextTheme" />
+            android:elevation="6dp"
+            app:floatingSearch_close_search_on_keyboard_dismiss="true"
+            app:floatingSearch_leftActionMode="noLeftAction"
+            app:floatingSearch_menu="@menu/library_menu"
+            app:floatingSearch_searchBarMarginLeft="@dimen/body_margin"
+            app:floatingSearch_searchBarMarginRight="@dimen/body_margin"
+            app:floatingSearch_searchBarMarginTop="@dimen/body_margin"
+            app:floatingSearch_searchHint="@string/toolbar_title_tip"
+            app:floatingSearch_showSearchKey="false"
+            app:floatingSearch_searchTextSize="12sp"
+            app:floatingSearch_suggestionsListAnimDuration="200" />
 
-    </android.support.v7.widget.CardView>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/tabLayout" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/tabLayout" />
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/toolbar_container"
+            android:background="@color/colorPrimary"
+            android:elevation="@dimen/default_elevation"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:tabIndicatorColor="@android:color/white" />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:tabIndicatorColor="@android:color/white"
-        android:elevation="@dimen/default_elevation"
-        android:layout_below="@+id/toolbar_container"
-        android:layout_alignParentStart="true" />
-
-
-
-</RelativeLayout>
+    </RelativeLayout>
+</com.flipboard.bottomsheet.BottomSheetLayout>

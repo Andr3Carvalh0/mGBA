@@ -12,32 +12,34 @@ public class mgba extends Application {
 
 
     public long getDeviceWidth(Activity activity){
-        activity.getWindowManager().getDefaultDisplay().getMetrics(getDisplayMetrics());
+        prepareDisplayMetrics();
+
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         return metrics.widthPixels;
     }
 
 
     public void savePreference(String key, String value) {
-        PreferencesManager pm = getPreferencesManager();
-        pm.save(key, value);
+        preparePreferencesManager();
+
+        preferencesManager.save(key, value);
     }
 
-    private PreferencesManager getPreferencesManager(){
+    private void preparePreferencesManager(){
         if(preferencesManager == null){
             preferencesManager = new PreferencesManager(getApplicationContext());
         }
-        return preferencesManager;
     }
 
-    private DisplayMetrics getDisplayMetrics(){
+    private void prepareDisplayMetrics(){
         if(metrics == null)
             metrics = new DisplayMetrics();
 
-        return metrics;
     }
 
     public String getPreference(String key, String defaultValue) {
-        PreferencesManager pm = getPreferencesManager();
-        return pm.get(key, defaultValue);
+        preparePreferencesManager();
+
+        return preferencesManager.get(key, defaultValue);
     }
 }
