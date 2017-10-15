@@ -8,18 +8,31 @@ import android.view.MenuItem;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.mgba.Controller.GameDirectoryController;
+import io.mgba.Controller.PreferencesManager;
+import io.mgba.Data.DTOs.GameboyAdvanceGame;
+import io.mgba.Data.DTOs.GameboyGame;
+import io.mgba.Data.DTOs.Interface.Game;
 import io.mgba.R;
-import io.mgba.View.Activities.Interfaces.ParentActivity;
+import io.mgba.View.Activities.Interfaces.BaseActivity;
+import io.mgba.View.Activities.Interfaces.ILibrary;
 import io.mgba.View.Adapters.TabViewPager;
+import io.mgba.mgba;
 
-public class LibraryActivity extends ParentActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener {
+public class LibraryActivity extends BaseActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, ILibrary{
 
     @BindView(R.id.floating_search_view) FloatingSearchView mToolbar;
     @BindView(R.id.pager) ViewPager mViewPager;
     @BindView(R.id.bottomsheet) BottomSheetLayout mSheetDialog;
+    @BindView(R.id.tabLayout) TabLayout mTabLayout;
 
+    private GameDirectoryController gamesController;
     private static final int DEFAULT_PANEL = 1;
     private TabViewPager adapter;
 
@@ -29,8 +42,11 @@ public class LibraryActivity extends ParentActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_library);
         ButterKnife.bind(this);
 
+        gamesController = new
+                GameDirectoryController((((mgba)getApplication()).getPreference(PreferencesManager.GAMES_DIRECTORY, "")));
         prepareToolbar();
         prepareViewPager();
+
     }
 
     private void prepareToolbar() {
@@ -38,16 +54,12 @@ public class LibraryActivity extends ParentActivity implements TabLayout.OnTabSe
     }
 
     private void prepareViewPager() {
-        TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.Favorites)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.GBA)));
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.GBC)));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-
-        adapter = new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount());
+        adapter = new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this);
 
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(DEFAULT_PANEL);
@@ -95,5 +107,20 @@ public class LibraryActivity extends ParentActivity implements TabLayout.OnTabSe
     @Override
     public void onSearchTextChanged(String oldQuery, String newQuery) {
 
+    }
+
+    @Override
+    public List<Game> getFavourites() {
+        return new LinkedList<>();
+    }
+
+    @Override
+    public List<GameboyAdvanceGame> getGBAGames() {
+        return (List<GameboyAdvanceGame>) gamesController.getGBAGames();
+    }
+
+    @Override
+    public List<GameboyGame> getGBGames() {
+        return (List<GameboyGame>) gamesController.getGBGames();
     }
 }

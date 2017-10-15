@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.nononsenseapps.filepicker.Controllers.FilePickerUtils;
@@ -23,7 +22,7 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public abstract class PreferencesActivity extends ParentActivity {
+public abstract class PreferencesActivity extends BaseActivity {
     private static final int DIR_CODE = 347;
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
