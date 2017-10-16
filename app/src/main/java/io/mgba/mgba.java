@@ -1,23 +1,33 @@
 package io.mgba;
 
-import android.app.Activity;
 import android.app.Application;
 import android.util.DisplayMetrics;
-
+import io.mgba.Controller.MetricsCalculator;
 import io.mgba.Controller.PreferencesManager;
 
 public class mgba extends Application {
-    private DisplayMetrics metrics;
     private PreferencesManager preferencesManager;
+    private MetricsCalculator metricsCalculator;
 
-
-    public long getDeviceWidth(Activity activity){
-        prepareDisplayMetrics();
-
-        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        return metrics.widthPixels;
+    public int[] getItemsPerColumn(){
+        prepareMetricsCalculator();
+        return metricsCalculator.calculate(getDeviceWidth());
     }
 
+    private long getDeviceWidth(){
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        return displayMetrics.widthPixels;
+    }
+
+    private long getDeviceHeight(){
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        return displayMetrics.heightPixels;
+    }
+
+    private long getDeviceDensity(){
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        return displayMetrics.densityDpi;
+    }
 
     public void savePreference(String key, String value) {
         preparePreferencesManager();
@@ -31,15 +41,19 @@ public class mgba extends Application {
         }
     }
 
-    private void prepareDisplayMetrics(){
-        if(metrics == null)
-            metrics = new DisplayMetrics();
-
+    private void prepareMetricsCalculator(){
+        if(metricsCalculator == null){
+            metricsCalculator = new MetricsCalculator(getApplicationContext());
+        }
     }
 
     public String getPreference(String key, String defaultValue) {
         preparePreferencesManager();
 
         return preferencesManager.get(key, defaultValue);
+    }
+
+    public int getDPWidth() {
+        return (int) MetricsCalculator.convertPixelsToDp(getDeviceWidth(), getApplicationContext());
     }
 }

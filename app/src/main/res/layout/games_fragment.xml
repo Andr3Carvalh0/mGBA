@@ -6,13 +6,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+
         android:id="@+id/content_container">
 
         <com.l4digital.fastscroll.FastScrollRecyclerView
             android:id="@+id/content_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
             app:bubbleColor="@color/colorPrimary"
             app:bubbleTextColor="@color/white"
             app:handleColor="@color/grey"
@@ -24,6 +27,7 @@
     <RelativeLayout
         android:id="@+id/no_content_container"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent">
 
         <ImageView

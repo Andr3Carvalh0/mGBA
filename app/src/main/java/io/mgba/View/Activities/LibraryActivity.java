@@ -22,10 +22,11 @@ import io.mgba.Data.DTOs.Interface.Game;
 import io.mgba.R;
 import io.mgba.View.Activities.Interfaces.BaseActivity;
 import io.mgba.View.Activities.Interfaces.ILibrary;
+import io.mgba.View.Activities.Interfaces.IMetrics;
 import io.mgba.View.Adapters.TabViewPager;
 import io.mgba.mgba;
 
-public class LibraryActivity extends BaseActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, ILibrary{
+public class LibraryActivity extends BaseActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, ILibrary, IMetrics{
 
     @BindView(R.id.floating_search_view) FloatingSearchView mToolbar;
     @BindView(R.id.pager) ViewPager mViewPager;
@@ -59,7 +60,7 @@ public class LibraryActivity extends BaseActivity implements TabLayout.OnTabSele
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.GBC)));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        adapter = new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this);
+        adapter = new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this, this);
 
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(DEFAULT_PANEL);
@@ -122,5 +123,15 @@ public class LibraryActivity extends BaseActivity implements TabLayout.OnTabSele
     @Override
     public List<GameboyGame> getGBGames() {
         return (List<GameboyGame>) gamesController.getGBGames();
+    }
+
+    @Override
+    public int[] getItemsPerColumn() {
+        return ((mgba)getApplication()).getItemsPerColumn();
+    }
+
+    @Override
+    public int getDPWidth() {
+        return ((mgba)getApplication()).getDPWidth();
     }
 }

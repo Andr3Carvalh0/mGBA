@@ -6,7 +6,7 @@ import io.mgba.Data.DTOs.GameboyAdvanceGame;
 import io.mgba.Data.DTOs.GameboyGame;
 import io.mgba.Data.DTOs.Interface.Game;
 
-public interface ILibrary {
+public interface ILibrary{
     List<Game> getFavourites();
     List<GameboyAdvanceGame> getGBAGames();
     List<GameboyGame> getGBGames();

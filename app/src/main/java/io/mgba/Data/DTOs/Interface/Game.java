@@ -3,11 +3,14 @@ package io.mgba.Data.DTOs.Interface;
 import java.io.File;
 
 public class Game {
-    private final File file;
+    private File file;
     private String name;
     private String game_title;
     private String game_code;
     private String maker_name;
+
+    public Game() {
+    }
 
     public Game(File file) {
         this.file = file;
@@ -42,6 +45,8 @@ public class Game {
     }
 
     public String getName() {
+        if(name == null)
+            return file.getName();
         return name;
     }
 

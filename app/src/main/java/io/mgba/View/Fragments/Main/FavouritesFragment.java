@@ -9,12 +9,9 @@ import java.util.List;
 
 import io.mgba.Data.DTOs.Interface.Game;
 import io.mgba.R;
-import io.mgba.View.Activities.Interfaces.ILibrary;
-import io.mgba.View.Fragments.Interfaces.BaseGameFragment;
+import io.mgba.View.Fragments.Interfaces.ParentGameFragment;
 
-public class FavouritesFragment extends BaseGameFragment {
-
-
+public class FavouritesFragment extends ParentGameFragment {
 
     protected View prepareView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         return inflater.inflate(R.layout.favourites_fragment, container, false);
@@ -22,6 +19,6 @@ public class FavouritesFragment extends BaseGameFragment {
 
     @Override
     protected List<? extends Game> getGames() {
-        return getLibraryController().getFavourites();
+        return controller.getFavourites();
     }
 }
