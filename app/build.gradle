@@ -65,6 +65,4 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
     compile 'com.google.guava:guava:23.2-android'
-    compile project(':filepicker')
-    compile project(':floatingsearchbar')
 }
