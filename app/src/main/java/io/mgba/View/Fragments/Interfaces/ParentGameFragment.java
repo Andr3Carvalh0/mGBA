@@ -17,7 +17,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Controller.MetricsCalculator;
-import io.mgba.Data.DTOs.GameboyAdvanceGame;
 import io.mgba.Data.DTOs.Interface.Game;
 import io.mgba.R;
 import io.mgba.View.Activities.Interfaces.ILibrary;
