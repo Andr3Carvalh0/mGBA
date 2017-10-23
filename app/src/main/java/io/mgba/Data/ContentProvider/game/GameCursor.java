@@ -1,10 +1,9 @@
 package io.mgba.Data.ContentProvider.game;
 
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import io.mgba.Data.ContentProvider.base.AbstractCursor;
-
 
 /**
  * Cursor wrapper for the {@code game} table.
@@ -27,13 +26,15 @@ public class GameCursor extends AbstractCursor implements GameModel {
     }
 
     /**
-     * File name
-     * Can be {@code null}.
+     * The gamefile's md5
+     * Cannot be {@code null}.
      */
-    @Nullable
+    @NonNull
     @Override
-    public String getFilename() {
-        String res = getStringOrNull(GameColumns.FILENAME);
+    public String getMd5() {
+        String res = getStringOrNull(GameColumns.MD5);
+        if (res == null)
+            throw new NullPointerException("The value of 'md5' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
@@ -60,46 +61,46 @@ public class GameCursor extends AbstractCursor implements GameModel {
     }
 
     /**
-     * The year when the game was releases
+     * The date when the game was releases
      * Can be {@code null}.
      */
     @Nullable
     @Override
-    public Integer getYear() {
-        Integer res = getIntegerOrNull(GameColumns.YEAR);
+    public String getReleased() {
+        String res = getStringOrNull(GameColumns.RELEASED);
         return res;
     }
 
     /**
-     * The game title from ROM
+     * The developer of the game
      * Can be {@code null}.
      */
     @Nullable
     @Override
-    public String getGtitle() {
-        String res = getStringOrNull(GameColumns.GTITLE);
+    public String getDeveloper() {
+        String res = getStringOrNull(GameColumns.DEVELOPER);
         return res;
     }
 
     /**
-     * The game code from ROM
+     * The game's genre
      * Can be {@code null}.
      */
     @Nullable
     @Override
-    public String getGcode() {
-        String res = getStringOrNull(GameColumns.GCODE);
+    public String getGenre() {
+        String res = getStringOrNull(GameColumns.GENRE);
         return res;
     }
 
     /**
-     * The game maker code from ROM
+     * The game's cover
      * Can be {@code null}.
      */
     @Nullable
     @Override
-    public String getGmaker() {
-        String res = getStringOrNull(GameColumns.GMAKER);
+    public String getCover() {
+        String res = getStringOrNull(GameColumns.COVER);
         return res;
     }
 
@@ -109,8 +110,8 @@ public class GameCursor extends AbstractCursor implements GameModel {
      */
     @Nullable
     @Override
-    public Integer getIsfavourite() {
-        Integer res = getIntegerOrNull(GameColumns.ISFAVOURITE);
+    public Boolean getIsfavourite() {
+        Boolean res = getBooleanOrNull(GameColumns.ISFAVOURITE);
         return res;
     }
 }

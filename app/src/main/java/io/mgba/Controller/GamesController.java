@@ -11,10 +11,11 @@ import java.util.List;
 import io.mgba.Data.DTOs.GameboyAdvanceGame;
 import io.mgba.Data.DTOs.GameboyGame;
 import io.mgba.Data.DTOs.Interface.Game;
-import io.mgba.Services.GBAService;
-import io.mgba.Services.GBService;
+import io.mgba.Services.ProcessingService;
 import io.mgba.Services.Utils.FilesService;
-import io.mgba.Services.Utils.GameService;
+
+import static io.mgba.View.Activities.MainActivity.GBA_CODE;
+import static io.mgba.View.Activities.MainActivity.GBC_CODE;
 
 /**
  * Handles the interaction with the FilesService. Its used to fetch a gamelist and start its process
@@ -38,8 +39,9 @@ public class GamesController {
             gba.add(new GameboyAdvanceGame(file));
         }
 
-        startProcessService(gba, GBAService.class);
+        startProcessService(gba, GBA_CODE);
     }
+
     public void getGBGames(){
         final List<File> gameList = filesService.getGameList(new GameboyColorExtensionPredicate());
 
@@ -49,14 +51,21 @@ public class GamesController {
             gbc.add(new GameboyGame(file));
         }
 
-        startProcessService(gbc, GBService.class);
+        startProcessService(gbc, GBC_CODE);
     }
 
-    private void startProcessService(ArrayList<? extends Game> list, Class service){
-        Intent intent = new Intent(ctx, service);
+    public void getFavourites() {
+
+    }
+
+    private void startProcessService(ArrayList<? extends Game> list, int action){
+        Intent intent = new Intent(ctx, ProcessingService.class);
         intent.putParcelableArrayListExtra("games", list);
+        intent.putExtra("action", action);
         ctx.startService(intent);
     }
+
+
 
     private class GameboyAdvancePredicate implements Predicate<Game> {
 

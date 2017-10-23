@@ -1,6 +1,6 @@
 package io.mgba.Data.ContentProvider.game;
 
-
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import io.mgba.Data.ContentProvider.base.BaseModel;
 
@@ -16,11 +16,11 @@ public interface GameModel extends BaseModel {
     long getId();
 
     /**
-     * File name
-     * Can be {@code null}.
+     * The gamefile's md5
+     * Cannot be {@code null}.
      */
-    @Nullable
-    String getFilename();
+    @NonNull
+    String getMd5();
 
     /**
      * The game name returned by the server
@@ -37,37 +37,37 @@ public interface GameModel extends BaseModel {
     String getDescription();
 
     /**
-     * The year when the game was releases
+     * The date when the game was releases
      * Can be {@code null}.
      */
     @Nullable
-    Integer getYear();
+    String getReleased();
 
     /**
-     * The game title from ROM
+     * The developer of the game
      * Can be {@code null}.
      */
     @Nullable
-    String getGtitle();
+    String getDeveloper();
 
     /**
-     * The game code from ROM
+     * The game's genre
      * Can be {@code null}.
      */
     @Nullable
-    String getGcode();
+    String getGenre();
 
     /**
-     * The game maker code from ROM
+     * The game's cover
      * Can be {@code null}.
      */
     @Nullable
-    String getGmaker();
+    String getCover();
 
     /**
      * Tells if the game is a favourite
      * Can be {@code null}.
      */
     @Nullable
-    Integer getIsfavourite();
+    Boolean getIsfavourite();
 }

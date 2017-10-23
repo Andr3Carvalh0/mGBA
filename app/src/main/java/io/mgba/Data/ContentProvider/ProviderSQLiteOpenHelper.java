@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.util.Log;
-
 import io.mgba.BuildConfig;
 import io.mgba.Data.ContentProvider.base.BaseSQLiteOpenHelperCallbacks;
 import io.mgba.Data.ContentProvider.game.GameColumns;
@@ -25,15 +24,15 @@ public class ProviderSQLiteOpenHelper extends SQLiteOpenHelper {
     public static final String SQL_CREATE_TABLE_GAME = "CREATE TABLE IF NOT EXISTS "
             + GameColumns.TABLE_NAME + " ( "
             + GameColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + GameColumns.FILENAME + " TEXT, "
+            + GameColumns.MD5 + " TEXT NOT NULL, "
             + GameColumns.NAME + " TEXT, "
             + GameColumns.DESCRIPTION + " TEXT, "
-            + GameColumns.YEAR + " INTEGER, "
-            + GameColumns.GTITLE + " TEXT, "
-            + GameColumns.GCODE + " TEXT, "
-            + GameColumns.GMAKER + " TEXT, "
-            + GameColumns.ISFAVOURITE + " INTEGER "
-            + ", CONSTRAINT unique_filename UNIQUE (filename) ON CONFLICT REPLACE"
+            + GameColumns.RELEASED + " TEXT, "
+            + GameColumns.DEVELOPER + " TEXT, "
+            + GameColumns.GENRE + " TEXT, "
+            + GameColumns.COVER + " TEXT, "
+            + GameColumns.ISFAVOURITE + " INTEGER DEFAULT 0 "
+            + ", CONSTRAINT unique_filename UNIQUE (md5) ON CONFLICT REPLACE"
             + " );";
 
 

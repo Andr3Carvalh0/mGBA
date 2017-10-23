@@ -1,6 +1,9 @@
 package io.mgba.View.Activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -26,6 +29,9 @@ import io.mgba.View.Adapters.TabViewPager;
 import io.mgba.mgba;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, IMain {
+    public static int FAVOURITES_CODE = 0;
+    public static int GBA_CODE = 1;
+    public static int GBC_CODE = 2;
 
     @BindView(R.id.floating_search_view) FloatingSearchView mToolbar;
     @BindView(R.id.pager) ViewPager mViewPager;
@@ -35,12 +41,15 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private GamesController gamesController;
     private static final int DEFAULT_PANEL = 1;
     private TabViewPager adapter;
+    private LibraryReceiver libraryReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
         ButterKnife.bind(this);
+
+        registerReceiver(libraryReceiver, null);
 
         gamesController = new
                 GamesController((((mgba)getApplication()).getPreference(PreferencesController.GAMES_DIRECTORY, "")), getApplicationContext());
@@ -112,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     //The result will be pass via a broadcastreceiver with id value as 0
     public void getFavouritesAsync() {
+        gamesController.getFavourites();
     }
 
     @Override
@@ -134,5 +144,19 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     public int getDPWidth() {
         return ((mgba)getApplication()).getDPWidth();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(libraryReceiver);
+    }
+
+    public class LibraryReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+        }
     }
 }

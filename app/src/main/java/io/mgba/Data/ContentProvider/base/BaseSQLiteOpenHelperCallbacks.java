@@ -2,11 +2,8 @@ package io.mgba.Data.ContentProvider.base;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-
 import android.util.Log;
-
 import io.mgba.BuildConfig;
-
 
 /**
  * Override this class to implement your custom database opening, creation or upgrade.
@@ -40,7 +37,7 @@ public class BaseSQLiteOpenHelperCallbacks {
 
     /**
      * Called when the database needs to be upgraded.
-     * @see android.database.sqlite.SQLiteOpenHelper#
+     * @see android.database.sqlite.SQLiteOpenHelper
      * onUpgrade(Context, SQLiteDatabase, int, int) onUpgrade
      */
     public void onUpgrade(final Context context, final SQLiteDatabase db, final int oldVersion, final int newVersion) {

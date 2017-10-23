@@ -3,6 +3,7 @@ package io.mgba.Data.ContentProvider.game;
 import android.content.Context;
 import android.content.ContentResolver;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import io.mgba.Data.ContentProvider.base.AbstractContentValues;
 
@@ -37,17 +38,14 @@ public class GameContentValues extends AbstractContentValues<GameContentValues> 
     }
 
     /**
-     * File name
+     * The gamefile's md5
      */
-    public GameContentValues putFilename(@Nullable String value) {
-        mContentValues.put(GameColumns.FILENAME, value);
+    public GameContentValues putMd5(@NonNull String value) {
+        if (value == null) throw new IllegalArgumentException("md5 must not be null");
+        mContentValues.put(GameColumns.MD5, value);
         return this;
     }
 
-    public GameContentValues putFilenameNull() {
-        mContentValues.putNull(GameColumns.FILENAME);
-        return this;
-    }
 
     /**
      * The game name returned by the server
@@ -76,61 +74,61 @@ public class GameContentValues extends AbstractContentValues<GameContentValues> 
     }
 
     /**
-     * The year when the game was releases
+     * The date when the game was releases
      */
-    public GameContentValues putYear(@Nullable Integer value) {
-        mContentValues.put(GameColumns.YEAR, value);
+    public GameContentValues putReleased(@Nullable String value) {
+        mContentValues.put(GameColumns.RELEASED, value);
         return this;
     }
 
-    public GameContentValues putYearNull() {
-        mContentValues.putNull(GameColumns.YEAR);
+    public GameContentValues putReleasedNull() {
+        mContentValues.putNull(GameColumns.RELEASED);
         return this;
     }
 
     /**
-     * The game title from ROM
+     * The developer of the game
      */
-    public GameContentValues putGtitle(@Nullable String value) {
-        mContentValues.put(GameColumns.GTITLE, value);
+    public GameContentValues putDeveloper(@Nullable String value) {
+        mContentValues.put(GameColumns.DEVELOPER, value);
         return this;
     }
 
-    public GameContentValues putGtitleNull() {
-        mContentValues.putNull(GameColumns.GTITLE);
+    public GameContentValues putDeveloperNull() {
+        mContentValues.putNull(GameColumns.DEVELOPER);
         return this;
     }
 
     /**
-     * The game code from ROM
+     * The game's genre
      */
-    public GameContentValues putGcode(@Nullable String value) {
-        mContentValues.put(GameColumns.GCODE, value);
+    public GameContentValues putGenre(@Nullable String value) {
+        mContentValues.put(GameColumns.GENRE, value);
         return this;
     }
 
-    public GameContentValues putGcodeNull() {
-        mContentValues.putNull(GameColumns.GCODE);
+    public GameContentValues putGenreNull() {
+        mContentValues.putNull(GameColumns.GENRE);
         return this;
     }
 
     /**
-     * The game maker code from ROM
+     * The game's cover
      */
-    public GameContentValues putGmaker(@Nullable String value) {
-        mContentValues.put(GameColumns.GMAKER, value);
+    public GameContentValues putCover(@Nullable String value) {
+        mContentValues.put(GameColumns.COVER, value);
         return this;
     }
 
-    public GameContentValues putGmakerNull() {
-        mContentValues.putNull(GameColumns.GMAKER);
+    public GameContentValues putCoverNull() {
+        mContentValues.putNull(GameColumns.COVER);
         return this;
     }
 
     /**
      * Tells if the game is a favourite
      */
-    public GameContentValues putIsfavourite(@Nullable Integer value) {
+    public GameContentValues putIsfavourite(@Nullable Boolean value) {
         mContentValues.put(GameColumns.ISFAVOURITE, value);
         return this;
     }

@@ -9,11 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
-
 import io.mgba.BuildConfig;
 import io.mgba.Data.ContentProvider.base.BaseContentProvider;
 import io.mgba.Data.ContentProvider.game.GameColumns;
-
 
 public class Provider extends BaseContentProvider {
     private static final String TAG = Provider.class.getSimpleName();

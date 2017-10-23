@@ -3,7 +3,6 @@ package io.mgba.Data.ContentProvider.base;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashSet;
-
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;

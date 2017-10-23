@@ -2,10 +2,8 @@ package io.mgba.Data.ContentProvider.base;
 
 import java.util.Date;
 import java.util.HashMap;
-
 import android.database.Cursor;
 import android.database.CursorWrapper;
-import android.provider.BaseColumns;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class AbstractCursor extends CursorWrapper {

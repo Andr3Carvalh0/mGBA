@@ -10,12 +10,18 @@ import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import io.mgba.Data.DTOs.GameJSON;
 import io.mgba.Data.DTOs.Interface.Game;
+import io.mgba.Services.Web.Interfaces.IRequest;
+import io.mgba.Services.Web.Interfaces.Web;
+import io.mgba.Services.Web.RetrofitClientFactory;
 
 public class GameService{
 
     private final Lock nLock;
     private final Context nCtx;
+    private IRequest request;
     private final LinkedList<Pair> queue;
     //Only support MAX_TASKS simultaneously
     private final int MAX_TASKS = 4;
@@ -56,9 +62,9 @@ public class GameService{
 
 
     public boolean process(Game game){
-        boolean failed = false;
+        boolean failed;
 
-        if( failed = (calculateMD5(game))) {
+        if(failed = (calculateMD5(game))) {
 
             //check db
 
@@ -66,8 +72,7 @@ public class GameService{
 
         return failed;
     }
-
-
+    
     private boolean calculateMD5(Game game) {
         FileInputStream input = null;
 
@@ -91,7 +96,8 @@ public class GameService{
         }
     }
 
-    private void fetchGameInformation(Game game, Function<String, String> fetch) throws InterruptedException {
+    private boolean fetchGameInformation(Game game) throws InterruptedException {
+        boolean result = false;
 
         try {
             nLock.lock();
@@ -100,10 +106,14 @@ public class GameService{
             queue.addLast(p);
 
             if(queue.size() < MAX_TASKS){
-                final String json = fetch.apply(p.game.getMD5());
-                p.setWoke(true);
+                final GameJSON gameJSON = fetchInformation(p.getGame().getMD5());
+
+                if((result = gameJSON != null))
+                    copyInformation(game, gameJSON);
 
                 queue.remove(p);
+
+                return result;
             }
 
             do{
@@ -111,17 +121,26 @@ public class GameService{
                     p.getmCondition().await();
                 }catch (InterruptedException e){
                     if(p.isWoke()){
-                        final String json = fetch.apply(p.game.getMD5());
+                        final GameJSON gameJSON = fetchInformation(p.getGame().getMD5());
 
+                        if((result = gameJSON != null))
+                            copyInformation(game, gameJSON);
                     }
 
                     queue.remove(p);
+
+                    return result;
                 }
 
                 if(p.isWoke()){
-                    final String json = fetch.apply(p.game.getMD5());
+                    final GameJSON gameJSON = fetchInformation(p.getGame().getMD5());
+
+                    if((result = gameJSON != null))
+                        copyInformation(game, gameJSON);
 
                     queue.remove(p);
+
+                    return result;
                 }
 
             }while (true);
@@ -145,5 +164,28 @@ public class GameService{
         }finally {
             nLock.unlock();
         }
+    }
+
+    private void copyInformation(Game game, GameJSON json){
+        game.setName(json.getName());
+        game.setDescription(json.getDescription());
+        game.setDeveloper(json.getDeveloper());
+        game.setGenre(json.getGenre());
+        game.setReleased(json.getReleased());
+        game.setCoverURL(json.getCover());
+    }
+
+    private GameJSON fetchInformation(String md5){
+        initRetrofit();
+        try {
+            return request.registerDevice(md5).execute().body();
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    private synchronized void initRetrofit(){
+        if(request == null)
+            request = Web.getAPI();
     }
 }

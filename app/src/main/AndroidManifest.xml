@@ -41,13 +41,9 @@
             android:theme="@style/SettingsTheme" />
 
         <service
-            android:name=".Services.GBAService"
+            android:name=".Services.ProcessingService"
             android:enabled="false"
             android:exported="false" />
-        <service
-            android:name=".Services.GBService"
-            android:enabled="false"
-            android:exported="false"></service>
     </application>
 
 </manifest>

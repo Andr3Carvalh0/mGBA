@@ -5,9 +5,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.content.CursorLoader;
-
 import io.mgba.Data.ContentProvider.base.AbstractSelection;
-
 
 /**
  * Selection for the {@code game} table.
@@ -93,43 +91,43 @@ public class GameSelection extends AbstractSelection<GameSelection> {
         return orderById(false);
     }
 
-    public GameSelection filename(String... value) {
-        addEquals(GameColumns.FILENAME, value);
+    public GameSelection md5(String... value) {
+        addEquals(GameColumns.MD5, value);
         return this;
     }
 
-    public GameSelection filenameNot(String... value) {
-        addNotEquals(GameColumns.FILENAME, value);
+    public GameSelection md5Not(String... value) {
+        addNotEquals(GameColumns.MD5, value);
         return this;
     }
 
-    public GameSelection filenameLike(String... value) {
-        addLike(GameColumns.FILENAME, value);
+    public GameSelection md5Like(String... value) {
+        addLike(GameColumns.MD5, value);
         return this;
     }
 
-    public GameSelection filenameContains(String... value) {
-        addContains(GameColumns.FILENAME, value);
+    public GameSelection md5Contains(String... value) {
+        addContains(GameColumns.MD5, value);
         return this;
     }
 
-    public GameSelection filenameStartsWith(String... value) {
-        addStartsWith(GameColumns.FILENAME, value);
+    public GameSelection md5StartsWith(String... value) {
+        addStartsWith(GameColumns.MD5, value);
         return this;
     }
 
-    public GameSelection filenameEndsWith(String... value) {
-        addEndsWith(GameColumns.FILENAME, value);
+    public GameSelection md5EndsWith(String... value) {
+        addEndsWith(GameColumns.MD5, value);
         return this;
     }
 
-    public GameSelection orderByFilename(boolean desc) {
-        orderBy(GameColumns.FILENAME, desc);
+    public GameSelection orderByMd5(boolean desc) {
+        orderBy(GameColumns.MD5, desc);
         return this;
     }
 
-    public GameSelection orderByFilename() {
-        orderBy(GameColumns.FILENAME, false);
+    public GameSelection orderByMd5() {
+        orderBy(GameColumns.MD5, false);
         return this;
     }
 
@@ -213,193 +211,168 @@ public class GameSelection extends AbstractSelection<GameSelection> {
         return this;
     }
 
-    public GameSelection year(Integer... value) {
-        addEquals(GameColumns.YEAR, value);
+    public GameSelection released(String... value) {
+        addEquals(GameColumns.RELEASED, value);
         return this;
     }
 
-    public GameSelection yearNot(Integer... value) {
-        addNotEquals(GameColumns.YEAR, value);
+    public GameSelection releasedNot(String... value) {
+        addNotEquals(GameColumns.RELEASED, value);
         return this;
     }
 
-    public GameSelection yearGt(int value) {
-        addGreaterThan(GameColumns.YEAR, value);
+    public GameSelection releasedLike(String... value) {
+        addLike(GameColumns.RELEASED, value);
         return this;
     }
 
-    public GameSelection yearGtEq(int value) {
-        addGreaterThanOrEquals(GameColumns.YEAR, value);
+    public GameSelection releasedContains(String... value) {
+        addContains(GameColumns.RELEASED, value);
         return this;
     }
 
-    public GameSelection yearLt(int value) {
-        addLessThan(GameColumns.YEAR, value);
+    public GameSelection releasedStartsWith(String... value) {
+        addStartsWith(GameColumns.RELEASED, value);
         return this;
     }
 
-    public GameSelection yearLtEq(int value) {
-        addLessThanOrEquals(GameColumns.YEAR, value);
+    public GameSelection releasedEndsWith(String... value) {
+        addEndsWith(GameColumns.RELEASED, value);
         return this;
     }
 
-    public GameSelection orderByYear(boolean desc) {
-        orderBy(GameColumns.YEAR, desc);
+    public GameSelection orderByReleased(boolean desc) {
+        orderBy(GameColumns.RELEASED, desc);
         return this;
     }
 
-    public GameSelection orderByYear() {
-        orderBy(GameColumns.YEAR, false);
+    public GameSelection orderByReleased() {
+        orderBy(GameColumns.RELEASED, false);
         return this;
     }
 
-    public GameSelection gtitle(String... value) {
-        addEquals(GameColumns.GTITLE, value);
+    public GameSelection developer(String... value) {
+        addEquals(GameColumns.DEVELOPER, value);
         return this;
     }
 
-    public GameSelection gtitleNot(String... value) {
-        addNotEquals(GameColumns.GTITLE, value);
+    public GameSelection developerNot(String... value) {
+        addNotEquals(GameColumns.DEVELOPER, value);
         return this;
     }
 
-    public GameSelection gtitleLike(String... value) {
-        addLike(GameColumns.GTITLE, value);
+    public GameSelection developerLike(String... value) {
+        addLike(GameColumns.DEVELOPER, value);
         return this;
     }
 
-    public GameSelection gtitleContains(String... value) {
-        addContains(GameColumns.GTITLE, value);
+    public GameSelection developerContains(String... value) {
+        addContains(GameColumns.DEVELOPER, value);
         return this;
     }
 
-    public GameSelection gtitleStartsWith(String... value) {
-        addStartsWith(GameColumns.GTITLE, value);
+    public GameSelection developerStartsWith(String... value) {
+        addStartsWith(GameColumns.DEVELOPER, value);
         return this;
     }
 
-    public GameSelection gtitleEndsWith(String... value) {
-        addEndsWith(GameColumns.GTITLE, value);
+    public GameSelection developerEndsWith(String... value) {
+        addEndsWith(GameColumns.DEVELOPER, value);
         return this;
     }
 
-    public GameSelection orderByGtitle(boolean desc) {
-        orderBy(GameColumns.GTITLE, desc);
+    public GameSelection orderByDeveloper(boolean desc) {
+        orderBy(GameColumns.DEVELOPER, desc);
         return this;
     }
 
-    public GameSelection orderByGtitle() {
-        orderBy(GameColumns.GTITLE, false);
+    public GameSelection orderByDeveloper() {
+        orderBy(GameColumns.DEVELOPER, false);
         return this;
     }
 
-    public GameSelection gcode(String... value) {
-        addEquals(GameColumns.GCODE, value);
+    public GameSelection genre(String... value) {
+        addEquals(GameColumns.GENRE, value);
         return this;
     }
 
-    public GameSelection gcodeNot(String... value) {
-        addNotEquals(GameColumns.GCODE, value);
+    public GameSelection genreNot(String... value) {
+        addNotEquals(GameColumns.GENRE, value);
         return this;
     }
 
-    public GameSelection gcodeLike(String... value) {
-        addLike(GameColumns.GCODE, value);
+    public GameSelection genreLike(String... value) {
+        addLike(GameColumns.GENRE, value);
         return this;
     }
 
-    public GameSelection gcodeContains(String... value) {
-        addContains(GameColumns.GCODE, value);
+    public GameSelection genreContains(String... value) {
+        addContains(GameColumns.GENRE, value);
         return this;
     }
 
-    public GameSelection gcodeStartsWith(String... value) {
-        addStartsWith(GameColumns.GCODE, value);
+    public GameSelection genreStartsWith(String... value) {
+        addStartsWith(GameColumns.GENRE, value);
         return this;
     }
 
-    public GameSelection gcodeEndsWith(String... value) {
-        addEndsWith(GameColumns.GCODE, value);
+    public GameSelection genreEndsWith(String... value) {
+        addEndsWith(GameColumns.GENRE, value);
         return this;
     }
 
-    public GameSelection orderByGcode(boolean desc) {
-        orderBy(GameColumns.GCODE, desc);
+    public GameSelection orderByGenre(boolean desc) {
+        orderBy(GameColumns.GENRE, desc);
         return this;
     }
 
-    public GameSelection orderByGcode() {
-        orderBy(GameColumns.GCODE, false);
+    public GameSelection orderByGenre() {
+        orderBy(GameColumns.GENRE, false);
         return this;
     }
 
-    public GameSelection gmaker(String... value) {
-        addEquals(GameColumns.GMAKER, value);
+    public GameSelection cover(String... value) {
+        addEquals(GameColumns.COVER, value);
         return this;
     }
 
-    public GameSelection gmakerNot(String... value) {
-        addNotEquals(GameColumns.GMAKER, value);
+    public GameSelection coverNot(String... value) {
+        addNotEquals(GameColumns.COVER, value);
         return this;
     }
 
-    public GameSelection gmakerLike(String... value) {
-        addLike(GameColumns.GMAKER, value);
+    public GameSelection coverLike(String... value) {
+        addLike(GameColumns.COVER, value);
         return this;
     }
 
-    public GameSelection gmakerContains(String... value) {
-        addContains(GameColumns.GMAKER, value);
+    public GameSelection coverContains(String... value) {
+        addContains(GameColumns.COVER, value);
         return this;
     }
 
-    public GameSelection gmakerStartsWith(String... value) {
-        addStartsWith(GameColumns.GMAKER, value);
+    public GameSelection coverStartsWith(String... value) {
+        addStartsWith(GameColumns.COVER, value);
         return this;
     }
 
-    public GameSelection gmakerEndsWith(String... value) {
-        addEndsWith(GameColumns.GMAKER, value);
+    public GameSelection coverEndsWith(String... value) {
+        addEndsWith(GameColumns.COVER, value);
         return this;
     }
 
-    public GameSelection orderByGmaker(boolean desc) {
-        orderBy(GameColumns.GMAKER, desc);
+    public GameSelection orderByCover(boolean desc) {
+        orderBy(GameColumns.COVER, desc);
         return this;
     }
 
-    public GameSelection orderByGmaker() {
-        orderBy(GameColumns.GMAKER, false);
+    public GameSelection orderByCover() {
+        orderBy(GameColumns.COVER, false);
         return this;
     }
 
-    public GameSelection isfavourite(Integer... value) {
-        addEquals(GameColumns.ISFAVOURITE, value);
-        return this;
-    }
-
-    public GameSelection isfavouriteNot(Integer... value) {
-        addNotEquals(GameColumns.ISFAVOURITE, value);
-        return this;
-    }
-
-    public GameSelection isfavouriteGt(int value) {
-        addGreaterThan(GameColumns.ISFAVOURITE, value);
-        return this;
-    }
-
-    public GameSelection isfavouriteGtEq(int value) {
-        addGreaterThanOrEquals(GameColumns.ISFAVOURITE, value);
-        return this;
-    }
-
-    public GameSelection isfavouriteLt(int value) {
-        addLessThan(GameColumns.ISFAVOURITE, value);
-        return this;
-    }
-
-    public GameSelection isfavouriteLtEq(int value) {
-        addLessThanOrEquals(GameColumns.ISFAVOURITE, value);
+    public GameSelection isfavourite(Boolean value) {
+        addEquals(GameColumns.ISFAVOURITE, toObjectArray(value));
         return this;
     }
 

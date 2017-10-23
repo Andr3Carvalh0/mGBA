@@ -18,9 +18,9 @@ public class GameColumns implements BaseColumns {
     public static final String _ID = BaseColumns._ID;
 
     /**
-     * File name
+     * The gamefile's md5
      */
-    public static final String FILENAME = "filename";
+    public static final String MD5 = "md5";
 
     /**
      * The game name returned by the server
@@ -33,24 +33,24 @@ public class GameColumns implements BaseColumns {
     public static final String DESCRIPTION = "description";
 
     /**
-     * The year when the game was releases
+     * The date when the game was releases
      */
-    public static final String YEAR = "year";
+    public static final String RELEASED = "released";
 
     /**
-     * The game title from ROM
+     * The developer of the game
      */
-    public static final String GTITLE = "gtitle";
+    public static final String DEVELOPER = "developer";
 
     /**
-     * The game code from ROM
+     * The game's genre
      */
-    public static final String GCODE = "gcode";
+    public static final String GENRE = "genre";
 
     /**
-     * The game maker code from ROM
+     * The game's cover
      */
-    public static final String GMAKER = "gmaker";
+    public static final String COVER = "cover";
 
     /**
      * Tells if the game is a favourite
@@ -62,26 +62,26 @@ public class GameColumns implements BaseColumns {
 
     public static final String[] ALL_COLUMNS = new String[] {
             _ID,
-            FILENAME,
+            MD5,
             NAME,
             DESCRIPTION,
-            YEAR,
-            GTITLE,
-            GCODE,
-            GMAKER,
+            RELEASED,
+            DEVELOPER,
+            GENRE,
+            COVER,
             ISFAVOURITE
     };
 
     public static boolean hasColumns(String[] projection) {
         if (projection == null) return true;
         for (String c : projection) {
-            if (c.equals(FILENAME) || c.contains("." + FILENAME)) return true;
+            if (c.equals(MD5) || c.contains("." + MD5)) return true;
             if (c.equals(NAME) || c.contains("." + NAME)) return true;
             if (c.equals(DESCRIPTION) || c.contains("." + DESCRIPTION)) return true;
-            if (c.equals(YEAR) || c.contains("." + YEAR)) return true;
-            if (c.equals(GTITLE) || c.contains("." + GTITLE)) return true;
-            if (c.equals(GCODE) || c.contains("." + GCODE)) return true;
-            if (c.equals(GMAKER) || c.contains("." + GMAKER)) return true;
+            if (c.equals(RELEASED) || c.contains("." + RELEASED)) return true;
+            if (c.equals(DEVELOPER) || c.contains("." + DEVELOPER)) return true;
+            if (c.equals(GENRE) || c.contains("." + GENRE)) return true;
+            if (c.equals(COVER) || c.contains("." + COVER)) return true;
             if (c.equals(ISFAVOURITE) || c.contains("." + ISFAVOURITE)) return true;
         }
         return false;
