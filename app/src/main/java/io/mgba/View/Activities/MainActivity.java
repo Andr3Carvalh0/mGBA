@@ -29,10 +29,6 @@ import io.mgba.View.Adapters.TabViewPager;
 import io.mgba.mgba;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, IMain {
-    public static int FAVOURITES_CODE = 0;
-    public static int GBA_CODE = 1;
-    public static int GBC_CODE = 2;
-
     @BindView(R.id.floating_search_view) FloatingSearchView mToolbar;
     @BindView(R.id.pager) ViewPager mViewPager;
     @BindView(R.id.bottomsheet) BottomSheetLayout mSheetDialog;
@@ -49,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_library);
         ButterKnife.bind(this);
 
-        registerReceiver(libraryReceiver, null);
+        libraryReceiver = new LibraryReceiver();
+        registerReceiver(libraryReceiver, new IntentFilter());
 
         gamesController = new
                 GamesController((((mgba)getApplication()).getPreference(PreferencesController.GAMES_DIRECTORY, "")), getApplicationContext());
@@ -119,31 +116,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     }
 
     @Override
-    //The result will be pass via a broadcastreceiver with id value as 0
-    public void getFavouritesAsync() {
-        gamesController.getFavourites();
-    }
-
-    @Override
-    //The result will be pass via a broadcastreceiver with id value as 1
-    public void getGBAGamesAsync() {
-        gamesController.getGBAGames();
-    }
-
-    @Override
-    //The result will be pass via a broadcastreceiver with id value as 2
-    public void getGBGamesAsync() {
-        gamesController.getGBGames();
-    }
-
-    @Override
     public int[] getItemsPerColumn() {
         return ((mgba)getApplication()).getItemsPerColumn();
-    }
-
-    @Override
-    public int getDPWidth() {
-        return ((mgba)getApplication()).getDPWidth();
     }
 
     @Override

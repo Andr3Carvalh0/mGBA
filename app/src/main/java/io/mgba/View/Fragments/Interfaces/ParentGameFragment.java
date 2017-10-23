@@ -41,8 +41,8 @@ public abstract class ParentGameFragment extends Fragment{
     public void onResume() {
         super.onResume();
 
-            mNoContentView.setVisibility(View.VISIBLE);
-            mMainView.setVisibility(View.GONE);
+        mNoContentView.setVisibility(View.VISIBLE);
+        mMainView.setVisibility(View.GONE);
 
     }
 

@@ -119,4 +119,12 @@ public class FilesService implements IFilesService{
 
         return fetchGames(predicate);
     }
+
+    @Override
+    public List<File> getGameList() {
+        if(gameDir == null)
+            return new LinkedList<>();
+
+        return fetchGames();
+    }
 }

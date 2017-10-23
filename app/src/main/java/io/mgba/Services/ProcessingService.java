@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import io.mgba.Data.DTOs.Interface.Game;
 import io.mgba.Services.Utils.GameService;
@@ -24,7 +23,6 @@ public class ProcessingService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         final GameService gameService = ((mgba) getApplication()).getGameService();
         final ArrayList<Game> games = intent.getParcelableArrayListExtra("games");
-        final int action = intent.getIntExtra("action", -1);
         final AtomicInteger count = new AtomicInteger(games.size());
 
         for (Game game : games) {
@@ -36,7 +34,7 @@ public class ProcessingService extends Service {
                 }
 
                 if(count.decrementAndGet() == 0)
-                    announceResult(games, action);
+                    announceResult(games);
 
             }).start();
         }
@@ -44,12 +42,11 @@ public class ProcessingService extends Service {
         return START_NOT_STICKY;
     }
 
-    private void announceResult(ArrayList<Game> list, int action){
+    private void announceResult(ArrayList<Game> list){
         Log.v(TAG, "Announcing results");
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.LibraryReceiver.class);
         intent.putParcelableArrayListExtra("games", list);
-        intent.putExtra("action", action);
 
         sendBroadcast(intent);
 
