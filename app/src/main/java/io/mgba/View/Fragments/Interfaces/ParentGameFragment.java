@@ -16,13 +16,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.mgba.Controller.MetricsCalculator;
 import io.mgba.Data.DTOs.Interface.Game;
 import io.mgba.R;
-import io.mgba.View.Activities.Interfaces.ILibrary;
-import io.mgba.View.Activities.Interfaces.IMetrics;
+import io.mgba.View.Activities.Interfaces.IMain;
 import io.mgba.View.Adapters.RecyclerView.LibraryAdapter;
-import io.mgba.View.Decorations.ItemDecoration;
+import io.mgba.View.Decorations.EqualSpacingItemDecoration;
+
 
 public abstract class ParentGameFragment extends Fragment{
 
@@ -36,31 +35,15 @@ public abstract class ParentGameFragment extends Fragment{
     protected FastScrollRecyclerView mRecyclerView;
 
     protected View mView;
-    protected ILibrary controller;
-    private IMetrics metricsController;
-    private List<Game> games = new LinkedList<>();
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (isVisibleToUser) {
-            fetchLibrary();
-        }
-    }
+    protected IMain controller;
 
     @Override
     public void onResume() {
         super.onResume();
 
-        if (games != null && games.size() != 0) {
-            mNoContentView.setVisibility(View.GONE);
-            mMainView.setVisibility(View.VISIBLE);
-            prepareRecyclerView(games);
-        }else{
             mNoContentView.setVisibility(View.VISIBLE);
             mMainView.setVisibility(View.GONE);
-        }
+
     }
 
     @Override
@@ -71,34 +54,23 @@ public abstract class ParentGameFragment extends Fragment{
         return mView;
     }
 
-    private void fetchLibrary() {
-        games = (List<Game>) getGames();
-    }
-
     private void prepareRecyclerView(List<? extends Game> games) {
-        int[] settings = metricsController.getItemsPerColumn();
+        int[] settings = controller.getItemsPerColumn();
 
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), settings[0]));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), settings[0], GridLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(new LibraryAdapter(games, settings[1]));
-        mRecyclerView.addItemDecoration
-                (new ItemDecoration((int)MetricsCalculator.convertPixelsToDp(
-                                    getResources().getDimensionPixelSize(R.dimen.game_space_borders), getContext()),
-                                    settings[0], metricsController.getDPWidth(),
-                                    settings[2], getContext()));
+        mRecyclerView.addItemDecoration(
+                new EqualSpacingItemDecoration(
+                    getResources().getDimensionPixelSize(R.dimen.game_space_borders),
+                    EqualSpacingItemDecoration.GRID
+                ));
     }
 
     protected View prepareView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.games_fragment, container, false);
     }
 
-    protected abstract List<? extends Game> getGames();
-
-    public void setController(@NonNull ILibrary controller) {
+    public void setController(@NonNull IMain controller) {
         this.controller = controller;
     }
-
-    public void setMetricsController(@NonNull IMetrics metricsController) {
-        this.metricsController = metricsController;
-    }
-
 }

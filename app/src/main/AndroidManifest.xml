@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Activities.LibraryActivity">
+        <activity android:name=".View.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,8 +37,17 @@
 
         <activity
             android:name=".View.Activities.SettingsActivity"
-            android:theme="@style/SettingsTheme"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+            android:theme="@style/SettingsTheme" />
+
+        <service
+            android:name=".Services.GBAService"
+            android:enabled="false"
+            android:exported="false" />
+        <service
+            android:name=".Services.GBService"
+            android:enabled="false"
+            android:exported="false"></service>
     </application>
 
 </manifest>

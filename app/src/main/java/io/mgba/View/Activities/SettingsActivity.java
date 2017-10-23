@@ -3,7 +3,6 @@ package io.mgba.View.Activities;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
-import io.mgba.Controller.PreferencesManager;
 import io.mgba.R;
 import io.mgba.View.Activities.Interfaces.ISettings;
 import io.mgba.View.Activities.Interfaces.PreferencesActivity;

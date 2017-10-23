@@ -17,8 +17,4 @@ public class FavouritesFragment extends ParentGameFragment {
         return inflater.inflate(R.layout.favourites_fragment, container, false);
     }
 
-    @Override
-    protected List<? extends Game> getGames() {
-        return controller.getFavourites();
-    }
 }

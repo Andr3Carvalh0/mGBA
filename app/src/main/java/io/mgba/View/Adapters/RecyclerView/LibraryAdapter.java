@@ -16,22 +16,14 @@ import io.mgba.R;
 import io.mgba.View.Adapters.RecyclerView.Interfaces.BaseAdapter;
 
 public class LibraryAdapter extends BaseAdapter implements FastScroller.SectionIndexer {
-    private final int cover_size;
 
     public LibraryAdapter(List<? extends Game> list, int cover_size) {
-        super(list, R.layout.game, (v) -> new ViewHolder((View) v));
-        this.cover_size = cover_size;
+        super(list, R.layout.game, (v) -> new ViewHolder((View) v, cover_size));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ViewGroup.LayoutParams params = ((ViewHolder)holder).masterContainer.getLayoutParams();
-        params.height = cover_size;
-        params.width = cover_size;
-
         ((ViewHolder)holder).gameTitle.setText(((Game)items.get(position)).getName());
-        ((ViewHolder)holder).masterContainer.setLayoutParams(params);
-
     }
 
     @Override
@@ -44,18 +36,21 @@ public class LibraryAdapter extends BaseAdapter implements FastScroller.SectionI
         @BindView(R.id.card_preview)
         ImageView gameCover;
 
-        @BindView(R.id.loading)
-        ProgressBar loading;
-
         @BindView(R.id.card_title)
         TextView gameTitle;
 
         @BindView(R.id.master_container)
         RelativeLayout masterContainer;
 
-        ViewHolder(View itemView) {
+        ViewHolder(View itemView, int cover_size) {
             super(itemView);
+
             ButterKnife.bind(this, itemView);
+            ViewGroup.LayoutParams params = masterContainer.getLayoutParams();
+
+            params.height = cover_size;
+            params.width = cover_size;
         }
+
     }
 }

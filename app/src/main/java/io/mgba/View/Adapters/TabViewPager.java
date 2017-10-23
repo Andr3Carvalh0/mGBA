@@ -3,8 +3,7 @@ package io.mgba.View.Adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import io.mgba.View.Activities.Interfaces.ILibrary;
-import io.mgba.View.Activities.Interfaces.IMetrics;
+import io.mgba.View.Activities.Interfaces.IMain;
 import io.mgba.View.Fragments.Interfaces.ParentGameFragment;
 import io.mgba.View.Fragments.Main.FavouritesFragment;
 import io.mgba.View.Fragments.Main.GameboyAdvanceFragment;
@@ -14,15 +13,13 @@ public class TabViewPager extends FragmentStatePagerAdapter{
 
     private final int mTabCount;
     private final ParentGameFragment fragments[];
-    private final ILibrary controller;
-    private final IMetrics metricsController;
+    private final IMain mainController;
 
-    public TabViewPager(FragmentManager fm, int tabCount, ILibrary controller, IMetrics metricsController) {
+    public TabViewPager(FragmentManager fm, int tabCount, IMain controller) {
         super(fm);
         this.mTabCount = tabCount;
         this.fragments = new ParentGameFragment[tabCount];
-        this.controller = controller;
-        this.metricsController = metricsController;
+        this.mainController = controller;
     }
 
     @Override
@@ -42,8 +39,7 @@ public class TabViewPager extends FragmentStatePagerAdapter{
                     fragments[2] = new GameboyColorFragment();
                     break;
             }
-            fragments[position].setController(controller);
-            fragments[position].setMetricsController(metricsController);
+            fragments[position].setController(mainController);
         }
 
         return fragments[position];

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.google.common.base.Function;
 import java.util.List;
+import java.util.function.BiFunction;
 
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected final List<T> items;

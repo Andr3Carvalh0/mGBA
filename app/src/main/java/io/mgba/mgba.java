@@ -2,16 +2,18 @@ package io.mgba;
 
 import android.app.Application;
 import android.util.DisplayMetrics;
-import io.mgba.Controller.MetricsCalculator;
-import io.mgba.Controller.PreferencesManager;
+import io.mgba.Controller.DisplayController;
+import io.mgba.Controller.PreferencesController;
+import io.mgba.Services.Utils.GameService;
 
 public class mgba extends Application {
-    private PreferencesManager preferencesManager;
-    private MetricsCalculator metricsCalculator;
+    private PreferencesController preferencesController;
+    private DisplayController displayController;
+    private GameService gameService;
 
     public int[] getItemsPerColumn(){
         prepareMetricsCalculator();
-        return metricsCalculator.calculate(getDeviceWidth());
+        return displayController.calculate(getDeviceWidth());
     }
 
     private long getDeviceWidth(){
@@ -19,41 +21,38 @@ public class mgba extends Application {
         return displayMetrics.widthPixels;
     }
 
-    private long getDeviceHeight(){
-        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        return displayMetrics.heightPixels;
-    }
-
-    private long getDeviceDensity(){
-        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        return displayMetrics.densityDpi;
-    }
-
     public void savePreference(String key, String value) {
         preparePreferencesManager();
 
-        preferencesManager.save(key, value);
+        preferencesController.save(key, value);
     }
 
     private void preparePreferencesManager(){
-        if(preferencesManager == null){
-            preferencesManager = new PreferencesManager(getApplicationContext());
+        if(preferencesController == null){
+            preferencesController = new PreferencesController(getApplicationContext());
         }
     }
 
     private void prepareMetricsCalculator(){
-        if(metricsCalculator == null){
-            metricsCalculator = new MetricsCalculator(getApplicationContext());
+        if(displayController == null){
+            displayController = new DisplayController(getApplicationContext());
         }
     }
 
     public String getPreference(String key, String defaultValue) {
         preparePreferencesManager();
 
-        return preferencesManager.get(key, defaultValue);
+        return preferencesController.get(key, defaultValue);
     }
 
     public int getDPWidth() {
-        return (int) MetricsCalculator.convertPixelsToDp(getDeviceWidth(), getApplicationContext());
+        return (int) DisplayController.convertPixelsToDp(getDeviceWidth(), getApplicationContext());
+    }
+
+    public synchronized GameService getGameService(){
+        if(gameService == null)
+            gameService = new GameService(getApplicationContext());
+
+        return gameService;
     }
 }

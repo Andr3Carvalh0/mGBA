@@ -6,12 +6,13 @@ import android.content.Intent;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.nononsenseapps.filepicker.Controllers.FilePickerUtils;
 import com.nononsenseapps.filepicker.Views.Activities.FilePickerActivity;
 
-import io.mgba.Controller.PreferencesManager;
+import io.mgba.Controller.PreferencesController;
 import io.mgba.R;
 import io.mgba.mgba;
 import permissions.dispatcher.NeedsPermission;
@@ -22,7 +23,7 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public abstract class PreferencesActivity extends BaseActivity {
+public abstract class PreferencesActivity extends AppCompatActivity {
     private static final int DIR_CODE = 347;
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -70,7 +71,7 @@ public abstract class PreferencesActivity extends BaseActivity {
     }
 
     protected void processDirectory(String dir){
-        ((mgba)getApplication()).savePreference(PreferencesManager.GAMES_DIRECTORY, dir);
+        ((mgba)getApplication()).savePreference(PreferencesController.GAMES_DIRECTORY, dir);
     }
 
 }
