@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 26
+        vectorDrawables.useSupportLibrary = true
+    }
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:support-v4:26.1.0'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:26.1.0'
+    compile 'org.apache.commons:commons-lang3:3.4'
+}
+
+task deleteFilePickerJar(type: Delete) {
+    delete 'libs/filepicker.jar'
+}
+
+task createFilePickerJar(type: Copy) {
+    from('build/intermediates/bundles/debug/')
+    into('libs/jars/')
+    include('classes.jar')
+    rename('classes.jar', 'filepicker.jar')
+}
+
+createFilePickerJar.dependsOn(deleteFilePickerJar, build)
