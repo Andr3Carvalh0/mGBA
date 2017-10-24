@@ -30,7 +30,7 @@ public class ProcessingController {
         this.ctx = app.getApplicationContext();
         this.games = games;
         this.onEnd = runnable;
-        this.count = new AtomicInteger(games.size());
+        this.count = new AtomicInteger(games.size() - 1);
         this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(MAX_THREADS);
     }
 

@@ -32,7 +32,7 @@
             app:floatingSearch_searchBarMarginRight="@dimen/body_margin"
             app:floatingSearch_searchBarMarginTop="@dimen/body_margin"
             app:floatingSearch_searchHint="@string/toolbar_title_tip"
-            app:floatingSearch_searchTextSize="12sp"
+            app:floatingSearch_searchTextSize="@dimen/toolbar_text_size"
             app:floatingSearch_showSearchKey="false"
             app:floatingSearch_suggestionsListAnimDuration="200" />
 

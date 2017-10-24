@@ -9,6 +9,7 @@
     <dimen name="game_space_borders">2dp</dimen>
     <dimen name="progress_bar_size">36dp</dimen>
     <dimen name="message_width">144dp</dimen>
+    <dimen name="toolbar_text_size">13sp</dimen>
     <dimen name="no_content_margin_top">172dp</dimen>
     <dimen name="no_content_favourites_margin_top">170dp</dimen>
     <dimen name="cover_size">137dp</dimen>

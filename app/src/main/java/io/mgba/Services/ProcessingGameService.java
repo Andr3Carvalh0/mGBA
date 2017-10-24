@@ -42,9 +42,6 @@ public class ProcessingGameService {
     }
 
     private boolean searchWeb(Game game){
-        if(game.getMD5() == null)
-            return false;
-
         try {
             final GameJSON json = mApplication.getWebService().getGameInformation(game.getMD5()).execute().body();
             copyInformation(game, json);
