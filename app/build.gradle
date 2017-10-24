@@ -62,11 +62,14 @@ dependencies {
     compile 'com.flipboard:bottomsheet-core:1.5.3'
     compile 'com.android.support:palette-v7:26.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'me.grantland:autofittextview:0.2.1'
+    compile 'com.google.android:flexbox:0.3.1'
+
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
-    compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
+
+
     compile 'com.google.guava:guava:23.2-android'
     compile project(':filepicker')
     compile project(':floatingsearchview')

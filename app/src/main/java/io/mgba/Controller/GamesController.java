@@ -5,14 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.common.base.Predicate;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import io.mgba.Data.DTOs.GameboyAdvanceGame;
-import io.mgba.Data.DTOs.GameboyGame;
-import io.mgba.Data.DTOs.Interface.Game;
-import io.mgba.Services.ProcessingService;
-import io.mgba.Services.Utils.FilesService;
+
+import io.mgba.Components.Services.ProcessingService;
+import io.mgba.Data.DTOs.Game;
+import io.mgba.Services.FilesService;
 
 /**
  * Handles the interaction with the FilesService. Its used to fetch a gamelist and start its process
@@ -45,20 +45,6 @@ public class GamesController {
         ctx.startService(intent);
     }
 
-    private class GameboyAdvancePredicate implements Predicate<Game> {
-
-        @Override
-        public boolean apply(@javax.annotation.Nullable Game input) {
-            return input instanceof GameboyAdvanceGame;
-        }
-    }
-    private class GameboyColorPredicate implements Predicate<Game> {
-
-        @Override
-        public boolean apply(@javax.annotation.Nullable Game input) {
-            return input instanceof GameboyGame;
-        }
-    }
     private class GameboyAdvanceExtensionPredicate implements Predicate<File> {
 
         @Override

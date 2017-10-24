@@ -3,6 +3,7 @@
     package="io.mgba">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".mgba"
@@ -12,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Activities.MainActivity">
+        <activity android:name=".Components.Views.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,13 +37,13 @@
             android:exported="false" />
 
         <activity
-            android:name=".View.Activities.SettingsActivity"
+            android:name=".Components.Views.Activities.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/SettingsTheme" />
 
         <service
-            android:name=".Services.ProcessingService"
-            android:enabled="false"
+            android:name=".Components.Services.ProcessingService"
+            android:enabled="true"
             android:exported="false" />
     </application>
 

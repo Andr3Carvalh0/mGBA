@@ -1,25 +1,18 @@
 package io.mgba;
 
+import android.app.ActivityManager;
 import android.app.Application;
-import android.util.DisplayMetrics;
-import io.mgba.Controller.DisplayController;
+import android.content.Context;
+
 import io.mgba.Controller.PreferencesController;
-import io.mgba.Services.Utils.GameService;
+import io.mgba.Data.Remote.Interfaces.IRequest;
+import io.mgba.Data.Remote.RetrofitClient;
+import io.mgba.Services.ProcessingGameService;
 
 public class mgba extends Application {
     private PreferencesController preferencesController;
-    private DisplayController displayController;
-    private GameService gameService;
-
-    public int[] getItemsPerColumn(){
-        prepareMetricsCalculator();
-        return displayController.calculate(getDeviceWidth());
-    }
-
-    private long getDeviceWidth(){
-        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        return displayMetrics.widthPixels;
-    }
+    private ProcessingGameService gameService;
+    private IRequest webService;
 
     public void savePreference(String key, String value) {
         preparePreferencesManager();
@@ -33,26 +26,33 @@ public class mgba extends Application {
         }
     }
 
-    private void prepareMetricsCalculator(){
-        if(displayController == null){
-            displayController = new DisplayController(getApplicationContext());
-        }
-    }
-
     public String getPreference(String key, String defaultValue) {
         preparePreferencesManager();
 
         return preferencesController.get(key, defaultValue);
     }
 
-    public int getDPWidth() {
-        return (int) DisplayController.convertPixelsToDp(getDeviceWidth(), getApplicationContext());
-    }
-
-    public synchronized GameService getGameService(){
+    public synchronized ProcessingGameService getGameService(){
         if(gameService == null)
-            gameService = new GameService(getApplicationContext());
+            gameService = new ProcessingGameService( this);
 
         return gameService;
+    }
+
+    public synchronized IRequest getWebService(){
+        if(webService == null)
+            webService =  RetrofitClient.getClient(IRequest.BASE_URL).create(IRequest.class);
+
+        return webService;
+    }
+
+    public boolean isServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
