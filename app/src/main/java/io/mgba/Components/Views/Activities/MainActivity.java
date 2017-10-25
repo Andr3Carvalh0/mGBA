@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(DEFAULT_PANEL);
+        mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(this);
