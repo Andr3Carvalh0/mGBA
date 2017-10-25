@@ -8,6 +8,7 @@ import com.google.common.base.Function;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import io.mgba.Components.Services.ProcessingService;
@@ -49,8 +50,29 @@ public class LibraryService implements ILibraryService {
 
     @Override
     public void finalize(ArrayList<Game> gameList){
+        cache = filter(gameList);
+        callback.apply(cache);
+    }
 
+    private LibraryLists filter(ArrayList<Game> list){
+        LinkedList<Game> favs = new LinkedList<>();
+        LinkedList<Game> gba = new LinkedList<>();
+        LinkedList<Game> gbc = new LinkedList<>();
 
+        for (Game game : list) {
+            if(game.isFavourite())
+                favs.add(game);
+
+            if(game.isAdvanced()){
+                gba.add(game);
+            }else{
+                gbc.add(game);
+            }
+        }
+
+        cache = new LibraryLists(favs, gba, gbc);
+
+        return cache;
     }
 
     private void startProcessService(ArrayList<? extends Game> list){

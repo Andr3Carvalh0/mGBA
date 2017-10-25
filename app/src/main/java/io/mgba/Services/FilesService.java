@@ -23,8 +23,8 @@ import io.mgba.Services.Interfaces.IFilesService;
  */
 public class FilesService implements IFilesService{
 
-    private static final LinkedList<String> GBC_FILES_SUPPORTED;
-    private static final LinkedList<String> GBA_FILES_SUPPORTED;
+    public static final LinkedList<String> GBC_FILES_SUPPORTED;
+    public static final LinkedList<String> GBA_FILES_SUPPORTED;
     private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     static {
@@ -81,6 +81,18 @@ public class FilesService implements IFilesService{
         }
 
         return new String(ret);
+    }
+
+    /**
+     * Gets the file extension.
+     * For example. For the file 'a.bc' this method will return 'bc'
+     * @param file The file to extract a extension
+     * @return the file's extension
+     */
+    public static String getFileExtension(File file){
+        return file.getName()
+                .substring(file.getName().lastIndexOf("."))
+                .substring(1);//removes "."
     }
 
     /**
@@ -145,19 +157,6 @@ public class FilesService implements IFilesService{
         final File[] files = gameDir.listFiles();
 
         return filter(files, predicate);
-    }
-
-    /**
-     * Gets the file extension.
-     * For example. For the file 'a.bc' this method will return 'bc'
-     * @param file The file to extract a extension
-     * @return the file's extension
-     */
-    @Override
-    public String getFileExtension(File file){
-        return file.getName()
-                .substring(file.getName().lastIndexOf("."))
-                .substring(1);//removes "."
     }
 
     @Override

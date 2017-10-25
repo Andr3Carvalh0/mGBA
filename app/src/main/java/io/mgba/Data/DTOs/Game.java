@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import java.io.File;
 
+import io.mgba.Services.FilesService;
+
 public class Game implements Parcelable {
 
     public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {
@@ -26,6 +28,7 @@ public class Game implements Parcelable {
     private String genre;
     private String coverURL;
     private String MD5;
+    private boolean favourite;
 
     public Game(File file) {
         this.file = file;
@@ -40,6 +43,7 @@ public class Game implements Parcelable {
         this.genre = in.readString();
         this.coverURL = in.readString();
         this.MD5 = in.readString();
+        this.favourite = in.readByte() != 0;
     }
 
     public String getName() {
@@ -105,6 +109,14 @@ public class Game implements Parcelable {
         this.MD5 = MD5;
     }
 
+    public boolean isFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -120,5 +132,11 @@ public class Game implements Parcelable {
         dest.writeString(this.genre);
         dest.writeString(this.coverURL);
         dest.writeString(this.MD5);
+        dest.writeByte(this.favourite ? (byte) 1 : (byte) 0);
+    }
+
+    public boolean isAdvanced() {
+        return FilesService.GBA_FILES_SUPPORTED
+                .contains(FilesService.getFileExtension(getFile()));
     }
 }

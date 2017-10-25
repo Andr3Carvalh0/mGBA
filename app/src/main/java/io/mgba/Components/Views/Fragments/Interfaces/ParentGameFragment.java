@@ -58,7 +58,7 @@ public abstract class ParentGameFragment extends Fragment{
 
 
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(new LibraryAdapter(games));
+        mRecyclerView.setAdapter(new LibraryAdapter(games, this));
     }
 
     protected View prepareView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

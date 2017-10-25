@@ -26,6 +26,12 @@ public class ContentProviderService {
             game.setDescription(cursor.getDescription());
             game.setGenre(cursor.getGenre());
 
+            try {
+                game.setFavourite(cursor.getIsfavourite());
+            }catch (NullPointerException e){
+                game.setFavourite(false);
+            }
+
             return true;
         }
 
@@ -42,6 +48,7 @@ public class ContentProviderService {
         values.putReleased(game.getReleased());
         values.putDeveloper(game.getDeveloper());
         values.putMd5(game.getMD5());
+        values.putIsfavourite(game.isFavourite());
 
         values.insert(mCtx);
     }
