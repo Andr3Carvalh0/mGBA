@@ -16,7 +16,6 @@ import io.mgba.Data.DTOs.Game;
 import io.mgba.Services.Interfaces.ILibraryService;
 import io.mgba.Services.LibraryService;
 
-
 public class LibraryController implements ILibraryController{
 
     private final ILibraryService service;

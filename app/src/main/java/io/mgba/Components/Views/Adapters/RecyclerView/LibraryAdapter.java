@@ -31,9 +31,16 @@ public class LibraryAdapter extends BaseAdapter implements FastScroller.SectionI
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ((ViewHolder)holder).gameTitle.setText(((Game)items.get(position)).getName());
-        Glide.with(view)
-             .load(((Game)items.get(position)).getCoverURL())
-             .into(((ViewHolder)holder).gameCover);
+
+        if(((Game)items.get(position)).getCoverURL() != null && !((Game)items.get(position)).getCoverURL().equals("null"))
+            Glide.with(view)
+                 .load(((Game)items.get(position)).getCoverURL())
+                 .into(((ViewHolder)holder).gameCover);
+    }
+
+    public void updateContent(List<? extends Game> list){
+        super.items = list;
+        notifyDataSetChanged();
     }
 
     @Override

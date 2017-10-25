@@ -10,9 +10,9 @@ import com.google.common.base.Function;
 import java.util.List;
 
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    protected final List<T> items;
     protected final int layout;
     private final Function<View, RecyclerView.ViewHolder> generateViewHolder;
+    protected List<T> items;
 
     public BaseAdapter(List<T> items, int layout, Function<View, RecyclerView.ViewHolder> generateViewHolder){
         this.items = items;

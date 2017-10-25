@@ -2,6 +2,7 @@ package io.mgba.Components.Views.Fragments.Interfaces;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
 
 
-public abstract class ParentGameFragment extends Fragment{
+public abstract class ParentGameFragment extends Fragment implements ILibraryConsumer{
 
     @BindView(R.id.no_content_container)
     protected RelativeLayout mNoContentView;
@@ -33,15 +34,7 @@ public abstract class ParentGameFragment extends Fragment{
     protected FastScrollRecyclerView mRecyclerView;
 
     protected View mView;
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        mNoContentView.setVisibility(View.VISIBLE);
-        mMainView.setVisibility(View.GONE);
-
-    }
+    private LibraryAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,17 +44,41 @@ public abstract class ParentGameFragment extends Fragment{
         return mView;
     }
 
-    private void prepareRecyclerView(List<? extends Game> games) {
-        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
-        layoutManager.setFlexWrap(FlexWrap.WRAP);
-        layoutManager.setJustifyContent(JustifyContent.SPACE_AROUND);
+    protected void prepareRecyclerView(List<? extends Game> games) {
+        if(games.size() == 0)
+            return;
 
 
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(new LibraryAdapter(games, this));
+        mNoContentView.setVisibility(View.GONE);
+        mMainView.setVisibility(View.VISIBLE);
+
+        if(adapter == null) {
+            FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
+            layoutManager.setFlexWrap(FlexWrap.WRAP);
+            layoutManager.setJustifyContent(JustifyContent.SPACE_AROUND);
+
+            mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+            adapter = new LibraryAdapter(games, this);
+            mRecyclerView.setAdapter(adapter);
+        }
+
+
+        adapter.updateContent(games);
     }
 
     protected View prepareView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.games_fragment, container, false);
     }
+
+    @Override
+    public void consume(List<Game> list){
+        if(isVisible()){
+            setGameList(list);
+            prepareRecyclerView(list);
+        }else {
+
+        }
+    }
+
+    protected abstract void setGameList(List<Game> list);
 }

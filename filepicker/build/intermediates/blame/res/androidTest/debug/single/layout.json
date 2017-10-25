@@ -1,43 +1,43 @@
 [
     {
-        "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_navigation_item_separator.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_navigation_item_separator.xml"
+        "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_action_menu_item_layout.xml"
     },
     {
-        "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_menu_item_layout.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_action_menu_item_layout.xml"
+        "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_navigation_item_separator.xml",
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_navigation_item_separator.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_activity_chooser_view_list_item.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_bottom_sheet_dialog.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_bottom_sheet_dialog.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_bottom_sheet_dialog.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_popup_menu_header_item_layout.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_navigation_menu_item.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_navigation_menu_item.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_navigation_menu_item.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_layout_snackbar.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_layout_snackbar.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_layout_snackbar.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\select_dialog_multichoice_material.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\select_dialog_multichoice_material.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\select_dialog_multichoice_material.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_activity_chooser_view.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_activity_chooser_view.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_activity_chooser_view.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\nnf_dialog_folder_name.xml",
@@ -45,115 +45,115 @@
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\tooltip.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\tooltip.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\tooltip.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_select_dialog_material.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_select_dialog_material.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_select_dialog_material.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_alert_dialog_title_material.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_alert_dialog_title_material.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_alert_dialog_title_material.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_media_action.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\e13690d1d0e2e41fb17c81aa14f73e07928764df\\output\\res\\layout\\notification_media_action.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\d16c1a0c214a8d812d65458df661e143\\res\\layout\\notification_media_action.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_big_media.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\e13690d1d0e2e41fb17c81aa14f73e07928764df\\output\\res\\layout\\notification_template_big_media.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\d16c1a0c214a8d812d65458df661e143\\res\\layout\\notification_template_big_media.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_bottom_navigation_item.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_bottom_navigation_item.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_bottom_navigation_item.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_screen_content_include.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_screen_content_include.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_screen_content_include.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_navigation_menu.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_navigation_menu.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_navigation_menu.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_mode_bar.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_action_mode_bar.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_action_mode_bar.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_media_cancel_action.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\e13690d1d0e2e41fb17c81aa14f73e07928764df\\output\\res\\layout\\notification_media_cancel_action.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\d16c1a0c214a8d812d65458df661e143\\res\\layout\\notification_media_cancel_action.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_screen_simple.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_screen_simple.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_screen_simple.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_dialog_title_material.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_dialog_title_material.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_dialog_title_material.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_part_time.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\5aef2e66a39173a5e05c5f3fc6eab6db63913bdd\\output\\res\\layout\\notification_template_part_time.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\0605663a6d400aeefd3f59e7dca9dab4\\res\\layout\\notification_template_part_time.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_menu_item_action_area.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_menu_item_action_area.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_menu_item_action_area.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_layout_snackbar_include.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_layout_snackbar_include.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_layout_snackbar_include.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_list_menu_item_layout.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_list_menu_item_layout.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_list_menu_item_layout.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_list_menu_item_checkbox.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_list_menu_item_checkbox.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_list_menu_item_checkbox.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_part_chronometer.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\5aef2e66a39173a5e05c5f3fc6eab6db63913bdd\\output\\res\\layout\\notification_template_part_chronometer.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\0605663a6d400aeefd3f59e7dca9dab4\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_media_custom.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\e13690d1d0e2e41fb17c81aa14f73e07928764df\\output\\res\\layout\\notification_template_media_custom.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\d16c1a0c214a8d812d65458df661e143\\res\\layout\\notification_template_media_custom.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_alert_dialog_material.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_alert_dialog_material.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_alert_dialog_material.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_navigation_item_subheader.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_navigation_item_subheader.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_navigation_item_subheader.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_list_menu_item_icon.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_list_menu_item_icon.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_list_menu_item_icon.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_navigation_item.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_navigation_item.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_navigation_item.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_text_input_password_icon.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_text_input_password_icon.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_text_input_password_icon.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_list_menu_item_radio.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_list_menu_item_radio.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_list_menu_item_radio.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_expanded_menu_layout.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_expanded_menu_layout.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_expanded_menu_layout.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_layout_tab_icon.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_layout_tab_icon.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_layout_tab_icon.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\nnf_filepicker_listitem_dir.xml",
@@ -161,67 +161,67 @@
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_layout_tab_text.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_layout_tab_text.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_layout_tab_text.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\select_dialog_singlechoice_material.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\select_dialog_singlechoice_material.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\select_dialog_singlechoice_material.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_big_media_narrow_custom.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\e13690d1d0e2e41fb17c81aa14f73e07928764df\\output\\res\\layout\\notification_template_big_media_narrow_custom.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\d16c1a0c214a8d812d65458df661e143\\res\\layout\\notification_template_big_media_narrow_custom.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_media.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\e13690d1d0e2e41fb17c81aa14f73e07928764df\\output\\res\\layout\\notification_template_media.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\d16c1a0c214a8d812d65458df661e143\\res\\layout\\notification_template_media.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_popup_menu_item_layout.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_popup_menu_item_layout.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_popup_menu_item_layout.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_navigation_item_header.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\0a246a74b40075e39cea9f40703fd00718f91761\\output\\res\\layout\\design_navigation_item_header.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_navigation_item_header.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\select_dialog_item_material.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\select_dialog_item_material.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\select_dialog_item_material.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_bar_view_list_nav_layout.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_lines_media.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\e13690d1d0e2e41fb17c81aa14f73e07928764df\\output\\res\\layout\\notification_template_lines_media.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\d16c1a0c214a8d812d65458df661e143\\res\\layout\\notification_template_lines_media.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_menu_layout.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_action_menu_layout.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_action_menu_layout.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_big_media_narrow.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\e13690d1d0e2e41fb17c81aa14f73e07928764df\\output\\res\\layout\\notification_template_big_media_narrow.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\d16c1a0c214a8d812d65458df661e143\\res\\layout\\notification_template_big_media_narrow.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\support_simple_spinner_dropdown_item.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_big_media_custom.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\e13690d1d0e2e41fb17c81aa14f73e07928764df\\output\\res\\layout\\notification_template_big_media_custom.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\d16c1a0c214a8d812d65458df661e143\\res\\layout\\notification_template_big_media_custom.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_mode_close_item_material.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_action_mode_close_item_material.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_action_mode_close_item_material.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_bar_up_container.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_action_bar_up_container.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_action_bar_up_container.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\nnf_activity_filepicker.xml",
@@ -229,15 +229,15 @@
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_screen_toolbar.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_screen_toolbar.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_screen_toolbar.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_bar_title_item.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_action_bar_title_item.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_action_bar_title_item.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_search_view.xml",
-        "source": "C:\\Android\\Device\\.android\\build-cache\\a68dcd5e17f5b30cc595bee66137d18f7baed8ca\\output\\res\\layout\\abc_search_view.xml"
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_search_view.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\nnf_fragment_filepicker.xml",

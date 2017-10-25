@@ -1,6 +1,5 @@
 package io.mgba.Services.Interfaces;
 
-
 import com.google.common.base.Function;
 
 import java.util.ArrayList;

@@ -3,8 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'me.tatarka:gradle-retrolambda:3.7.0'
+        classpath 'com.android.tools.build:gradle:3.0.0'
     }
 }
 
@@ -13,7 +12,7 @@ allprojects {
         jcenter()
         maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
         maven { url 'https://jitpack.io' }
-        maven { url "https://maven.google.com" }
+        google()
     }
 }
 

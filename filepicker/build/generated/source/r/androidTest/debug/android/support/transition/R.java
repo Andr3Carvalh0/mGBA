@@ -148,15 +148,15 @@ public final class R {
     }
     public static final class styleable {
         public static final int[] FontFamily = { 0x7f0100e4, 0x7f0100e5, 0x7f0100e6, 0x7f0100e7, 0x7f0100e8, 0x7f0100e9 };
-        public static final int[] FontFamilyFont = { 0x7f0100ea, 0x7f0100eb, 0x7f0100ec };
-        public static final int FontFamilyFont_font = 1;
-        public static final int FontFamilyFont_fontStyle = 0;
-        public static final int FontFamilyFont_fontWeight = 2;
         public static final int FontFamily_fontProviderAuthority = 0;
+        public static final int FontFamily_fontProviderPackage = 1;
+        public static final int FontFamily_fontProviderQuery = 2;
         public static final int FontFamily_fontProviderCerts = 3;
         public static final int FontFamily_fontProviderFetchStrategy = 4;
         public static final int FontFamily_fontProviderFetchTimeout = 5;
-        public static final int FontFamily_fontProviderPackage = 1;
-        public static final int FontFamily_fontProviderQuery = 2;
+        public static final int[] FontFamilyFont = { 0x7f0100ea, 0x7f0100eb, 0x7f0100ec };
+        public static final int FontFamilyFont_fontStyle = 0;
+        public static final int FontFamilyFont_font = 1;
+        public static final int FontFamilyFont_fontWeight = 2;
     }
 }

@@ -15,9 +15,6 @@ android {
                 cppFlags ""
             }
         }
-        jackOptions {
-            enabled true
-        }
 
         android.compileOptions.sourceCompatibility 1.8
         android.compileOptions.targetCompatibility 1.8
@@ -38,6 +35,10 @@ android {
             path "CMakeLists.txt"
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -45,7 +46,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile 'com.github.hotchemi:permissionsdispatcher:3.0.1'
     compile('com.mikepenz:aboutlibraries:5.9.7@aar') { transitive = true }
     compile 'com.android.support:appcompat-v7:26.1.0'
@@ -64,13 +64,10 @@ dependencies {
     compile 'me.grantland:autofittextview:0.2.1'
     compile 'com.google.android:flexbox:0.3.1'
     compile 'com.google.guava:guava:23.2-android'
-
     testCompile 'junit:junit:4.12'
-
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
-
-    compile project(':filepicker')
-    compile project(':floatingsearchview')
+    implementation project(':filepicker')
+    implementation project(':floatingsearchview')
 }

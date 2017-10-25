@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import io.mgba.Components.Services.ProcessingService;
 import io.mgba.Components.Views.Adapters.TabViewPager;
 import io.mgba.Controller.Interfaces.ILibraryController;
+import io.mgba.Controller.Interfaces.LibraryLists;
 import io.mgba.Controller.LibraryController;
 import io.mgba.Controller.PreferencesController;
 import io.mgba.R;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     private void prepareGames(){
         if(!((mgba)getApplication()).isServiceRunning(ProcessingService.class))
-            libraryController.prepareGames(null);
+            libraryController.prepareGames(this::onDoneFetch);
     }
 
     private void prepareToolbar() {
@@ -118,5 +119,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         libraryController.stop();
     }
 
+    private Void onDoneFetch(LibraryLists lists){
+        if(adapter != null)
+            adapter.consume(lists);
+
+        return null;
+    }
 
 }

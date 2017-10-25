@@ -131,27 +131,27 @@ public final class R {
     }
     public static final class styleable {
         public static final int[] FontFamily = { 0x7f0100e4, 0x7f0100e5, 0x7f0100e6, 0x7f0100e7, 0x7f0100e8, 0x7f0100e9 };
-        public static final int[] FontFamilyFont = { 0x7f0100ea, 0x7f0100eb, 0x7f0100ec };
-        public static final int FontFamilyFont_font = 1;
-        public static final int FontFamilyFont_fontStyle = 0;
-        public static final int FontFamilyFont_fontWeight = 2;
         public static final int FontFamily_fontProviderAuthority = 0;
+        public static final int FontFamily_fontProviderPackage = 1;
+        public static final int FontFamily_fontProviderQuery = 2;
         public static final int FontFamily_fontProviderCerts = 3;
         public static final int FontFamily_fontProviderFetchStrategy = 4;
         public static final int FontFamily_fontProviderFetchTimeout = 5;
-        public static final int FontFamily_fontProviderPackage = 1;
-        public static final int FontFamily_fontProviderQuery = 2;
+        public static final int[] FontFamilyFont = { 0x7f0100ea, 0x7f0100eb, 0x7f0100ec };
+        public static final int FontFamilyFont_fontStyle = 0;
+        public static final int FontFamilyFont_font = 1;
+        public static final int FontFamilyFont_fontWeight = 2;
         public static final int[] RecyclerView = { 0x010100c4, 0x010100f1, 0x7f010107, 0x7f010108, 0x7f010109, 0x7f01010a, 0x7f01010b, 0x7f01010c, 0x7f01010d, 0x7f01010e, 0x7f01010f };
-        public static final int RecyclerView_android_descendantFocusability = 1;
         public static final int RecyclerView_android_orientation = 0;
+        public static final int RecyclerView_android_descendantFocusability = 1;
+        public static final int RecyclerView_layoutManager = 2;
+        public static final int RecyclerView_spanCount = 3;
+        public static final int RecyclerView_reverseLayout = 4;
+        public static final int RecyclerView_stackFromEnd = 5;
         public static final int RecyclerView_fastScrollEnabled = 6;
-        public static final int RecyclerView_fastScrollHorizontalThumbDrawable = 9;
-        public static final int RecyclerView_fastScrollHorizontalTrackDrawable = 10;
         public static final int RecyclerView_fastScrollVerticalThumbDrawable = 7;
         public static final int RecyclerView_fastScrollVerticalTrackDrawable = 8;
-        public static final int RecyclerView_layoutManager = 2;
-        public static final int RecyclerView_reverseLayout = 4;
-        public static final int RecyclerView_spanCount = 3;
-        public static final int RecyclerView_stackFromEnd = 5;
+        public static final int RecyclerView_fastScrollHorizontalThumbDrawable = 9;
+        public static final int RecyclerView_fastScrollHorizontalTrackDrawable = 10;
     }
 }

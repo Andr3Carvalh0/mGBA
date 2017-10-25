@@ -1,6 +1,5 @@
 package io.mgba.Services;
 
-
 import android.content.Context;
 import android.content.Intent;
 
@@ -34,6 +33,7 @@ public class LibraryService implements ILibraryService {
         if(cache != null) {
             callback.apply(cache);
             return;
+
         }
 
         this.callback = callback;

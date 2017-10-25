@@ -13,7 +13,7 @@
         android:label="Tests for com.nononsenseapps.filepicker.test"
         android:targetPackage="com.nononsenseapps.filepicker.test" />
 
-    <application>
+    <application android:debuggable="true" >
         <uses-library android:name="android.test.runner" />
 
         <meta-data
