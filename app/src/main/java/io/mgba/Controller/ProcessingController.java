@@ -9,12 +9,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import io.mgba.Components.Views.Activities.MainActivity;
+import io.mgba.Constants;
+import io.mgba.Controller.Interfaces.IProcessingController;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.Services.ProcessingGameService;
 import io.mgba.mgba;
 
-public class ProcessingController {
+public class ProcessingController implements IProcessingController{
 
     private static final String TAG = "ProcController";
     private final static int MAX_THREADS = 4;
@@ -34,6 +35,7 @@ public class ProcessingController {
         this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(MAX_THREADS);
     }
 
+    @Override
     public void start() {
         for (int i = 0; i < games.size(); i++) {
             int tmp = i;
@@ -51,7 +53,7 @@ public class ProcessingController {
     private void announceResult(ArrayList<Game> list){
         Log.v(TAG, "Announcing results");
 
-        Intent intent = new Intent(ctx, MainActivity.LibraryReceiver.class);
+        Intent intent = new Intent(Constants.RECEIVE_GAME_LIST);
         intent.putParcelableArrayListExtra("games", list);
 
         ctx.sendBroadcast(intent);

@@ -4,13 +4,14 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
+import io.mgba.Controller.Interfaces.IPreferencesController;
 import io.mgba.Controller.PreferencesController;
 import io.mgba.Data.Remote.Interfaces.IRequest;
 import io.mgba.Data.Remote.RetrofitClient;
 import io.mgba.Services.ProcessingGameService;
 
 public class mgba extends Application {
-    private PreferencesController preferencesController;
+    private IPreferencesController preferencesController;
     private ProcessingGameService gameService;
     private IRequest webService;
 

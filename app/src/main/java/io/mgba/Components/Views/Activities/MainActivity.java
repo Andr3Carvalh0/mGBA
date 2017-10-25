@@ -1,9 +1,6 @@
 package io.mgba.Components.Views.Activities;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -18,7 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Components.Services.ProcessingService;
 import io.mgba.Components.Views.Adapters.TabViewPager;
-import io.mgba.Controller.GamesController;
+import io.mgba.Controller.Interfaces.ILibraryController;
+import io.mgba.Controller.LibraryController;
 import io.mgba.Controller.PreferencesController;
 import io.mgba.R;
 import io.mgba.mgba;
@@ -29,9 +27,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @BindView(R.id.pager) ViewPager mViewPager;
     @BindView(R.id.bottomsheet) BottomSheetLayout mSheetDialog;
     @BindView(R.id.tabLayout) TabLayout mTabLayout;
-    private GamesController gamesController;
+    private ILibraryController libraryController;
     private TabViewPager adapter;
-    private LibraryReceiver libraryReceiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +37,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_library);
         ButterKnife.bind(this);
 
-        libraryReceiver = new LibraryReceiver();
-        registerReceiver(libraryReceiver, new IntentFilter());
 
-        gamesController = new
-                GamesController((((mgba)getApplication()).getPreference(PreferencesController.GAMES_DIRECTORY, "")), getApplicationContext());
+        libraryController = new
+                LibraryController((((mgba)getApplication()).getPreference(PreferencesController.GAMES_DIRECTORY, "")), getApplicationContext());
 
         prepareToolbar();
         prepareViewPager();
@@ -53,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     private void prepareGames(){
         if(!((mgba)getApplication()).isServiceRunning(ProcessingService.class))
-            gamesController.getGames();
+            libraryController.prepareGames(null);
     }
 
     private void prepareToolbar() {
@@ -119,14 +115,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(libraryReceiver);
+        libraryController.stop();
     }
 
-    public class LibraryReceiver extends BroadcastReceiver {
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            System.out.println();
-        }
-    }
 }

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import io.mgba.Controller.Interfaces.IPreferencesController;
+
 /**
  * Controller responsible with the interaction of the SharedPreferences.
  * It handles the saving/loading of the preferences.
  */
-public class PreferencesController {
+public class PreferencesController implements IPreferencesController {
     public static final String GAMES_DIRECTORY = "game_dir";
     private final Context mContext;
     private SharedPreferences.Editor editor;
@@ -18,6 +20,7 @@ public class PreferencesController {
         this.mContext = context;
     }
 
+    @Override
     public void save(String key, String value) {
         SharedPreferences.Editor ed = getSharePreferencesEditor();
 
@@ -25,6 +28,7 @@ public class PreferencesController {
         ed.apply();
     }
 
+    @Override
     public String get(String key, String defaultValue){
         SharedPreferences prefs = getSharePreferences();
         return prefs.getString(key, defaultValue);

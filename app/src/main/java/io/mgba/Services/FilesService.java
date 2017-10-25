@@ -23,8 +23,8 @@ import io.mgba.Services.Interfaces.IFilesService;
  */
 public class FilesService implements IFilesService{
 
-    public static final LinkedList<String> GBC_FILES_SUPPORTED;
-    public static final LinkedList<String> GBA_FILES_SUPPORTED;
+    private static final LinkedList<String> GBC_FILES_SUPPORTED;
+    private static final LinkedList<String> GBA_FILES_SUPPORTED;
     private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     static {

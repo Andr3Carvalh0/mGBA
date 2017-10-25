@@ -3,6 +3,8 @@ package io.mgba.Components.Services;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+
+import io.mgba.Controller.Interfaces.IProcessingController;
 import io.mgba.Controller.ProcessingController;
 import io.mgba.mgba;
 
@@ -15,7 +17,7 @@ public class ProcessingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        ProcessingController controller = new ProcessingController(
+        IProcessingController controller = new ProcessingController(
                 (mgba) getApplication(),
                 intent.getParcelableArrayListExtra("games"),
                 this::stopSelf);
