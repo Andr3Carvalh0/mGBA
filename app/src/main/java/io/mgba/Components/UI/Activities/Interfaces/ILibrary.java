@@ -1,4 +1,4 @@
-package io.mgba.Components.Views.Activities.Interfaces;
+package io.mgba.Components.UI.Activities.Interfaces;
 
 import io.mgba.Data.DTOs.Game;
 

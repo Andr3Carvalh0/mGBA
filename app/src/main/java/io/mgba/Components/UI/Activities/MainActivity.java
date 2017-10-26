@@ -1,11 +1,10 @@
-package io.mgba.Components.Views.Activities;
+package io.mgba.Components.UI.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
@@ -15,8 +14,8 @@ import com.mikepenz.aboutlibraries.LibsBuilder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Components.Services.ProcessingService;
-import io.mgba.Components.Views.Activities.Interfaces.ILibrary;
-import io.mgba.Components.Views.Adapters.TabViewPager;
+import io.mgba.Components.UI.Activities.Interfaces.ILibrary;
+import io.mgba.Components.UI.Adapters.TabViewPager;
 import io.mgba.Controller.BottomSheetController;
 import io.mgba.Controller.Interfaces.IBottomSheetController;
 import io.mgba.Controller.Interfaces.ILibraryController;
@@ -137,11 +136,12 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public void showBottomSheet(Game game) {
-        mSheetDialog.showWithSheetView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.library_sheet_view, mSheetDialog, false));
+        prepareBottomSheetController();
+        mSheetDialog.showWithSheetView(bottomSheetController.getView(mSheetDialog, game));
     }
 
-    private synchronized void prepareBottomSheetController(){
+    private void prepareBottomSheetController(){
         if(bottomSheetController == null)
-            bottomSheetController = new BottomSheetController();
+            bottomSheetController = new BottomSheetController(getApplicationContext());
     }
 }

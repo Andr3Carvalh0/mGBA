@@ -1,4 +1,4 @@
-package io.mgba.Components.Views.Activities.Interfaces;
+package io.mgba.Components.UI.Activities.Interfaces;
 
 public interface ISettings {
     void requestStoragePermission();

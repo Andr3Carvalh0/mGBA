@@ -1,4 +1,4 @@
-package io.mgba.Components.Views.Adapters.RecyclerView;
+package io.mgba.Components.UI.Adapters.RecyclerView;
 
 
 import android.content.Context;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.mgba.Components.Views.Adapters.RecyclerView.Interfaces.BaseAdapter;
+import io.mgba.Components.UI.Adapters.RecyclerView.Interfaces.BaseAdapter;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
 import me.grantland.widget.AutofitHelper;

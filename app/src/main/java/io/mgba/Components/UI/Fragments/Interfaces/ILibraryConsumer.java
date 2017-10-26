@@ -1,8 +1,8 @@
-package io.mgba.Components.Views.Fragments.Interfaces;
+package io.mgba.Components.UI.Fragments.Interfaces;
 
 import java.util.List;
 
-import io.mgba.Components.Views.Activities.Interfaces.ILibrary;
+import io.mgba.Components.UI.Activities.Interfaces.ILibrary;
 import io.mgba.Data.DTOs.Game;
 
 public interface ILibraryConsumer {

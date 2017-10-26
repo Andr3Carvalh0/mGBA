@@ -1,4 +1,4 @@
-package io.mgba.Components.Views.Activities;
+package io.mgba.Components.UI.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;

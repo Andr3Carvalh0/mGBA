@@ -22,10 +22,15 @@
             <TextView
                 android:id="@+id/gameDescription"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignStart="@+id/space3"
                 android:layout_below="@+id/space3"
+                android:layout_marginBottom="@dimen/body_margin_extended"
+                android:layout_marginEnd="@dimen/body_margin"
+                android:ellipsize="end"
+                android:maxLines="4"
                 android:textAppearance="@android:style/TextAppearance.Holo.Small"
+                android:textColor="@color/white"
                 tools:text="Lisbon is a great city!" />
 
             <android.support.v4.widget.Space
@@ -40,10 +45,12 @@
                 android:id="@+id/gameTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/body_margin"
                 android:layout_marginStart="@dimen/body_margin"
                 android:layout_marginTop="@dimen/body_margin"
                 android:layout_toEndOf="@+id/cover"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                android:textColor="@color/white"
                 tools:text="Lisbon" />
 
             <ImageView
@@ -53,7 +60,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="@dimen/body_margin"
-                android:layout_marginTop="@dimen/body_margin"/>
+                android:layout_marginTop="@dimen/body_margin"
+                android:background="@color/about_libraries_card_dark" />
         </RelativeLayout>
 
         <android.support.v4.widget.Space
@@ -89,7 +97,9 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_play_arrow_white_24dp"
+        app:backgroundTint="@color/theme_default_primary"
         app:fabSize="normal"
-        app:layout_anchor="@id/bottomsheet_header" app:layout_anchorGravity="bottom|right|end" />
+        app:layout_anchor="@id/bottomsheet_header"
+        app:layout_anchorGravity="bottom|right|end" />
 
 </android.support.design.widget.CoordinatorLayout>

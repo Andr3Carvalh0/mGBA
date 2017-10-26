@@ -1,10 +1,10 @@
-package io.mgba.Components.Views.Fragments;
+package io.mgba.Components.UI.Fragments;
 
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
-import io.mgba.Components.Views.Activities.Interfaces.ISettings;
+import io.mgba.Components.UI.Activities.Interfaces.ISettings;
 import io.mgba.Controller.PreferencesController;
 import io.mgba.R;
 

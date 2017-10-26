@@ -1,4 +1,4 @@
-package io.mgba.Components.Views.Fragments.Interfaces;
+package io.mgba.Components.UI.Fragments.Interfaces;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,8 +16,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.mgba.Components.Views.Activities.Interfaces.ILibrary;
-import io.mgba.Components.Views.Adapters.RecyclerView.LibraryAdapter;
+import io.mgba.Components.UI.Activities.Interfaces.ILibrary;
+import io.mgba.Components.UI.Adapters.RecyclerView.LibraryAdapter;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
 import jp.wasabeef.recyclerview.animators.FadeInAnimator;

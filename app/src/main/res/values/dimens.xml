@@ -2,6 +2,7 @@
 <resources>
     <dimen name="toolbar_container">72dp</dimen>
     <dimen name="body_margin">12dp</dimen>
+    <dimen name="body_margin_extended">36dp</dimen>
     <dimen name="toolbar_body_margin_top">12dp</dimen>
     <dimen name="card_corner_radius">2dp</dimen>
     <dimen name="default_elevation">4dp</dimen>

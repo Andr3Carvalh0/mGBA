@@ -1,11 +1,11 @@
-package io.mgba.Components.Views.Activities;
+package io.mgba.Components.UI.Activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
-import io.mgba.Components.Views.Activities.Interfaces.ISettings;
-import io.mgba.Components.Views.Activities.Interfaces.PreferencesActivity;
-import io.mgba.Components.Views.Fragments.SettingsFragment;
+import io.mgba.Components.UI.Activities.Interfaces.ISettings;
+import io.mgba.Components.UI.Activities.Interfaces.PreferencesActivity;
+import io.mgba.Components.UI.Fragments.SettingsFragment;
 import io.mgba.R;
 import io.mgba.mgba;
 

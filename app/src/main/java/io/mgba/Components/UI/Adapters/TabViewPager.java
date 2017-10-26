@@ -1,14 +1,14 @@
-package io.mgba.Components.Views.Adapters;
+package io.mgba.Components.UI.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import io.mgba.Components.Views.Activities.Interfaces.ILibrary;
-import io.mgba.Components.Views.Fragments.Interfaces.ILibraryConsumer;
-import io.mgba.Components.Views.Fragments.Main.FavouritesFragment;
-import io.mgba.Components.Views.Fragments.Main.GameboyAdvanceFragment;
-import io.mgba.Components.Views.Fragments.Main.GameboyColorFragment;
+import io.mgba.Components.UI.Activities.Interfaces.ILibrary;
+import io.mgba.Components.UI.Fragments.Interfaces.ILibraryConsumer;
+import io.mgba.Components.UI.Fragments.Main.FavouritesFragment;
+import io.mgba.Components.UI.Fragments.Main.GameboyAdvanceFragment;
+import io.mgba.Components.UI.Fragments.Main.GameboyColorFragment;
 import io.mgba.Controller.Interfaces.LibraryLists;
 
 public class TabViewPager extends FragmentStatePagerAdapter{

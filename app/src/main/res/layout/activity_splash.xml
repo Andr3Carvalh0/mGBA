@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.mgba.Components.Views.Activities.SplashActivity">
+    tools:context="io.mgba.Components.UI.Activities.SplashActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package io.mgba.Components.Views.Adapters.RecyclerView.Interfaces;
+package io.mgba.Components.UI.Adapters.RecyclerView.Interfaces;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

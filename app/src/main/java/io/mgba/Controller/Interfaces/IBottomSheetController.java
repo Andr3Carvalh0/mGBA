@@ -1,8 +1,11 @@
 package io.mgba.Controller.Interfaces;
 
-/**
- * Created by André Carvalho on 26/10/2017.
- */
+import android.view.View;
+
+import com.flipboard.bottomsheet.BottomSheetLayout;
+
+import io.mgba.Data.DTOs.Game;
 
 public interface IBottomSheetController {
+    View getView(BottomSheetLayout sheet, Game game);
 }

@@ -1,11 +1,11 @@
-package io.mgba.Components.Views.Fragments.Main;
+package io.mgba.Components.UI.Fragments.Main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import io.mgba.Components.Views.Fragments.Interfaces.ParentGameFragment;
+import io.mgba.Components.UI.Fragments.Interfaces.ParentGameFragment;
 import io.mgba.R;
 
 public class FavouritesFragment extends ParentGameFragment {

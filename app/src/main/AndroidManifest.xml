@@ -13,13 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Components.Views.Activities.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".Components.UI.Activities.MainActivity"
+            android:theme="@style/AppTheme"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name="com.nononsenseapps.filepicker.Views.Activities.FilePickerActivity"
             android:label="@string/app_name"
@@ -37,7 +34,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".Components.Views.Activities.SettingsActivity"
+            android:name=".Components.UI.Activities.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/SettingsTheme" />
 
@@ -46,7 +43,7 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".Components.Views.Activities.SplashActivity">
+        <activity android:name=".Components.UI.Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -38,7 +38,8 @@ public class LibraryController implements ILibraryController{
 
     @Override
     public void stop(){
-        context.unregisterReceiver(libraryReceiver);
+        if(libraryReceiver != null)
+            context.unregisterReceiver(libraryReceiver);
     }
 
     private void startReceiver(){
