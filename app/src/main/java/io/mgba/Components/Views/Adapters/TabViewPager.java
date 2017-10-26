@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import io.mgba.Components.Views.Activities.Interfaces.ILibrary;
 import io.mgba.Components.Views.Fragments.Interfaces.ILibraryConsumer;
 import io.mgba.Components.Views.Fragments.Main.FavouritesFragment;
 import io.mgba.Components.Views.Fragments.Main.GameboyAdvanceFragment;
@@ -15,9 +16,16 @@ public class TabViewPager extends FragmentStatePagerAdapter{
     private final int mTabCount;
     private final ILibraryConsumer fragments[] = {new FavouritesFragment(), new GameboyAdvanceFragment(), new GameboyColorFragment()};
 
-    public TabViewPager(FragmentManager fm, int tabCount) {
+    public TabViewPager(FragmentManager fm, int tabCount, ILibrary callback) {
         super(fm);
         this.mTabCount = tabCount;
+        setCallback(callback);
+    }
+
+    private void setCallback(ILibrary callback){
+        for (int i = 0; i < fragments.length; i++){
+            fragments[i].setOnClickCallback(callback);
+        }
     }
 
     @Override
@@ -31,6 +39,12 @@ public class TabViewPager extends FragmentStatePagerAdapter{
     @Override
     public int getCount() {
         return mTabCount;
+    }
+
+    public void setLoading(){
+        fragments[0].setLoading();
+        fragments[1].setLoading();
+        fragments[2].setLoading();
     }
 
     public void consume(LibraryLists list) {

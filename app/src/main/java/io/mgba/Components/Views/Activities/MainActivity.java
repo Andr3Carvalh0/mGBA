@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
@@ -14,23 +15,29 @@ import com.mikepenz.aboutlibraries.LibsBuilder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Components.Services.ProcessingService;
+import io.mgba.Components.Views.Activities.Interfaces.ILibrary;
 import io.mgba.Components.Views.Adapters.TabViewPager;
+import io.mgba.Controller.BottomSheetController;
+import io.mgba.Controller.Interfaces.IBottomSheetController;
 import io.mgba.Controller.Interfaces.ILibraryController;
 import io.mgba.Controller.Interfaces.LibraryLists;
 import io.mgba.Controller.LibraryController;
 import io.mgba.Controller.PreferencesController;
+import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
 import io.mgba.mgba;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener {
+public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, ILibrary {
+
     private static final int DEFAULT_PANEL = 1;
+
     @BindView(R.id.floating_search_view) FloatingSearchView mToolbar;
     @BindView(R.id.pager) ViewPager mViewPager;
     @BindView(R.id.bottomsheet) BottomSheetLayout mSheetDialog;
     @BindView(R.id.tabLayout) TabLayout mTabLayout;
     private ILibraryController libraryController;
     private TabViewPager adapter;
-
+    private IBottomSheetController bottomSheetController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +56,10 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     }
 
     private void prepareGames(){
-        if(!((mgba)getApplication()).isServiceRunning(ProcessingService.class))
+        if(!((mgba)getApplication()).isServiceRunning(ProcessingService.class)) {
             libraryController.prepareGames(this::onDoneFetch);
+            adapter.setLoading();
+        }
     }
 
     private void prepareToolbar() {
@@ -63,15 +72,14 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.GBC)));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        adapter = new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount());
+        adapter = new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this);
 
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(DEFAULT_PANEL);
-        mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount());
+        mViewPager.setOffscreenPageLimit(mTabLayout.getTabCount() - 1);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(this);
-
     }
 
     @Override
@@ -127,4 +135,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         return null;
     }
 
+    @Override
+    public void showBottomSheet(Game game) {
+        mSheetDialog.showWithSheetView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.library_sheet_view, mSheetDialog, false));
+    }
+
+    private synchronized void prepareBottomSheetController(){
+        if(bottomSheetController == null)
+            bottomSheetController = new BottomSheetController();
+    }
 }

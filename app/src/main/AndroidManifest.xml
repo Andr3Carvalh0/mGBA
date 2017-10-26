@@ -45,6 +45,14 @@
             android:name=".Components.Services.ProcessingService"
             android:enabled="true"
             android:exported="false" />
+
+        <activity android:name=".Components.Views.Activities.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package io.mgba.Components.Views.Adapters.RecyclerView.Interfaces;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,13 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     protected final int layout;
     private final Function<View, RecyclerView.ViewHolder> generateViewHolder;
     protected List<T> items;
+    protected Context ctx;
 
-    public BaseAdapter(List<T> items, int layout, Function<View, RecyclerView.ViewHolder> generateViewHolder){
+    public BaseAdapter(List<T> items, int layout, Function<View, RecyclerView.ViewHolder> generateViewHolder, Context ctx){
         this.items = items;
         this.layout = layout;
         this.generateViewHolder = generateViewHolder;
+        this.ctx = ctx;
     }
 
     @Override

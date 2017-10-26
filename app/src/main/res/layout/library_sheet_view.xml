@@ -1,20 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/bottomsheet_header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottomsheet_header"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimary" >
+
+            <TextView
+                android:id="@+id/gameDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/space3"
+                android:layout_below="@+id/space3"
+                android:textAppearance="@android:style/TextAppearance.Holo.Small"
+                tools:text="Lisbon is a great city!" />
+
+            <android.support.v4.widget.Space
+                android:id="@+id/space3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_desc_space"
+                android:layout_alignParentEnd="true"
+                android:layout_alignStart="@+id/gameTitle"
+                android:layout_below="@+id/gameTitle" />
+
+            <TextView
+                android:id="@+id/gameTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/body_margin"
+                android:layout_marginTop="@dimen/body_margin"
+                android:layout_toEndOf="@+id/cover"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                tools:text="Lisbon" />
+
+            <ImageView
+                android:id="@+id/cover"
+                android:layout_width="@dimen/cover_size"
+                android:layout_height="@dimen/cover_size"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="@dimen/body_margin"
+                android:layout_marginTop="@dimen/body_margin"/>
+        </RelativeLayout>
 
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
@@ -47,9 +87,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/ic_play_arrow_white_24dp"
         app:fabSize="normal"
-        app:layout_anchor="@id/bottomsheet_header"
-        app:layout_anchorGravity="bottom|right|end" android:focusable="true" />
+        app:layout_anchor="@id/bottomsheet_header" app:layout_anchorGravity="bottom|right|end" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -9,6 +9,6 @@ public interface IRequest {
 
     public final static String BASE_URL = "https://andr3carvalh0.github.io/mGBA_Database/";
 
-    @GET("Games/{md5}.json")
-    Call<GameJSON> getGameInformation(@Path("md5") String md5);
+    @GET("Games_{lang}/{md5}.json")
+    Call<GameJSON> getGameInformation(@Path("md5") String md5, @Path("lang") String lang);
 }

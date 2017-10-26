@@ -43,7 +43,8 @@ public class ProcessingGameService {
 
     private boolean searchWeb(Game game){
         try {
-            final GameJSON json = mApplication.getWebService().getGameInformation(game.getMD5()).execute().body();
+            String lang = mApplication.getDeviceLanguage();
+            final GameJSON json = mApplication.getWebService().getGameInformation(game.getMD5(), lang).execute().body();
             copyInformation(game, json);
             return true;
         } catch (IOException e) {

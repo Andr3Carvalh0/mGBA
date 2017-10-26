@@ -1,6 +1,7 @@
 package io.mgba.Components.Views.Adapters.RecyclerView;
 
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.common.base.Function;
 import com.l4digital.fastscroll.FastScroller;
 
 import java.util.List;
@@ -22,25 +24,30 @@ import me.grantland.widget.AutofitHelper;
 
 public class LibraryAdapter extends BaseAdapter implements FastScroller.SectionIndexer {
     private Fragment view;
+    private Function<Game, Void> onClick;
 
-    public LibraryAdapter(List<? extends Game> list, Fragment view) {
-        super(list, R.layout.game, (v) -> new ViewHolder((View) v));
+    public LibraryAdapter(List<? extends Game> list, Fragment view, Context ctx, Function<Game, Void> onClick) {
+        super(list, R.layout.game, (v) -> new ViewHolder((View) v), ctx);
         this.view = view;
+        this.onClick = onClick;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ViewHolder)holder).gameTitle.setText(((Game)items.get(position)).getName());
+        final Game mItem = (Game)items.get(position);
 
-        if(((Game)items.get(position)).getCoverURL() != null && !((Game)items.get(position)).getCoverURL().equals("null"))
-            Glide.with(view)
-                 .load(((Game)items.get(position)).getCoverURL())
-                 .into(((ViewHolder)holder).gameCover);
+        ((ViewHolder) holder).gameTitle.setText(mItem.getName());
+        Glide.with(view).load(mItem.getCoverURL()).into(((ViewHolder) holder).gameCover);
+
+        //Click Event
+        ((ViewHolder) holder).gameTitle.setOnClickListener(v -> onClick.apply(mItem));
+        ((ViewHolder) holder).gameCover.setOnClickListener(v -> onClick.apply(mItem));
+        ((ViewHolder) holder).masterContainer.setOnClickListener(v -> onClick.apply(mItem));
     }
 
     public void updateContent(List<? extends Game> list){
         super.items = list;
-        notifyDataSetChanged();
+        notifyItemRangeInserted(0, items.size());
     }
 
     @Override

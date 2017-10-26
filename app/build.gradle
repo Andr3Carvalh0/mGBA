@@ -64,6 +64,7 @@ dependencies {
     compile 'me.grantland:autofittextview:0.2.1'
     compile 'com.google.android:flexbox:0.3.1'
     compile 'com.google.guava:guava:23.2-android'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.7'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'

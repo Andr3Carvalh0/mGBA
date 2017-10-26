@@ -56,4 +56,9 @@ public class mgba extends Application {
         }
         return false;
     }
+
+    public String getDeviceLanguage(){
+        //return Locale.getDefault().getISO3Language();
+        return "eng";
+    }
 }

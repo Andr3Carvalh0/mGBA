@@ -12,6 +12,7 @@ import io.mgba.Controller.Interfaces.IPreferencesController;
  */
 public class PreferencesController implements IPreferencesController {
     public static final String GAMES_DIRECTORY = "game_dir";
+    
     private final Context mContext;
     private SharedPreferences.Editor editor;
     private SharedPreferences shared;
