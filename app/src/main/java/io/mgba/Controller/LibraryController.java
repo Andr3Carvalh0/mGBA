@@ -4,17 +4,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.common.base.Function;
 
 import java.util.ArrayList;
 
-import io.mgba.Constants;
 import io.mgba.Controller.Interfaces.ILibraryController;
 import io.mgba.Controller.Interfaces.LibraryLists;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.Services.Interfaces.ILibraryService;
 import io.mgba.Services.LibraryService;
+import io.mgba.mgba;
 
 public class LibraryController implements ILibraryController{
 
@@ -39,13 +40,13 @@ public class LibraryController implements ILibraryController{
     @Override
     public void stop(){
         if(libraryReceiver != null)
-            context.unregisterReceiver(libraryReceiver);
+            LocalBroadcastManager.getInstance(context).unregisterReceiver(libraryReceiver);
     }
 
     private void startReceiver(){
         final IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Constants.RECEIVE_GAME_LIST);
-        context.registerReceiver(libraryReceiver, intentFilter);
+        intentFilter.addAction(mgba.RECEIVE_GAME_LIST);
+        LocalBroadcastManager.getInstance(context).registerReceiver(libraryReceiver, intentFilter);
     }
 
     public class LibraryReceiver extends BroadcastReceiver {

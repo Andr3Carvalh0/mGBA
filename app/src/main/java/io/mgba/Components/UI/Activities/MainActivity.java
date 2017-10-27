@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_library);
         ButterKnife.bind(this);
 
-
         libraryController = new
                 LibraryController((((mgba)getApplication()).getPreference(PreferencesController.GAMES_DIRECTORY, "")), getApplicationContext());
 

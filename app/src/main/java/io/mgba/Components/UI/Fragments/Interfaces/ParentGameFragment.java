@@ -20,7 +20,6 @@ import io.mgba.Components.UI.Activities.Interfaces.ILibrary;
 import io.mgba.Components.UI.Adapters.RecyclerView.LibraryAdapter;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
-import jp.wasabeef.recyclerview.animators.FadeInAnimator;
 
 public abstract class ParentGameFragment extends Fragment implements ILibraryConsumer{
 
@@ -59,7 +58,6 @@ public abstract class ParentGameFragment extends Fragment implements ILibraryCon
             layoutManager.setJustifyContent(JustifyContent.SPACE_BETWEEN);
 
             mRecyclerView.setLayoutManager(layoutManager);
-            mRecyclerView.setItemAnimator(new FadeInAnimator());
             mRecyclerView.setHasFixedSize(true);
             adapter = new LibraryAdapter(games, this, getContext(), this::onItemClick);
             mRecyclerView.setAdapter(adapter);

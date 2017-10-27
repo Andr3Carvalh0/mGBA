@@ -11,13 +11,19 @@ import io.mgba.Data.Remote.RetrofitClient;
 import io.mgba.Services.ProcessingGameService;
 
 public class mgba extends Application {
+    public final static String RECEIVE_GAME_LIST = "io.mgba.gamesreceiver";
+
     private IPreferencesController preferencesController;
     private ProcessingGameService gameService;
     private IRequest webService;
 
     public void savePreference(String key, String value) {
         preparePreferencesManager();
+        preferencesController.save(key, value);
+    }
 
+    public void savePreference(String key, boolean value) {
+        preparePreferencesManager();
         preferencesController.save(key, value);
     }
 
@@ -33,11 +39,10 @@ public class mgba extends Application {
         return preferencesController.get(key, defaultValue);
     }
 
-    public synchronized ProcessingGameService getGameService(){
-        if(gameService == null)
-            gameService = new ProcessingGameService( this);
+    public boolean getPreference(String key, boolean defaultValue) {
+        preparePreferencesManager();
 
-        return gameService;
+        return preferencesController.get(key, defaultValue);
     }
 
     public synchronized IRequest getWebService(){

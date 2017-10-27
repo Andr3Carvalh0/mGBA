@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.common.base.Function;
-import com.l4digital.fastscroll.FastScroller;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
 import me.grantland.widget.AutofitHelper;
 
-public class LibraryAdapter extends BaseAdapter implements FastScroller.SectionIndexer {
+public class LibraryAdapter extends BaseAdapter {
     private Fragment view;
     private Function<Game, Void> onClick;
 
@@ -48,11 +47,6 @@ public class LibraryAdapter extends BaseAdapter implements FastScroller.SectionI
     public void updateContent(List<? extends Game> list){
         super.items = list;
         notifyItemRangeInserted(0, items.size());
-    }
-
-    @Override
-    public String getSectionText(int position) {
-        return ((Game)items.get(position)).getName().substring(0, 1);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

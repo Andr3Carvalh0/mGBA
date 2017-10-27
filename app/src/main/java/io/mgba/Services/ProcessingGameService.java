@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import io.mgba.Data.DTOs.Game;
 import io.mgba.Data.DTOs.GameJSON;
@@ -68,4 +70,7 @@ public class ProcessingGameService {
         game.setCoverURL(json.getCover());
     }
 
+    public void sortList(ArrayList<Game> games) {
+        Collections.sort(games, (o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+    }
 }

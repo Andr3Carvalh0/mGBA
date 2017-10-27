@@ -12,7 +12,8 @@ import io.mgba.Controller.Interfaces.IPreferencesController;
  */
 public class PreferencesController implements IPreferencesController {
     public static final String GAMES_DIRECTORY = "game_dir";
-    
+    public static final String SETUP_DONE = "setup_done";
+
     private final Context mContext;
     private SharedPreferences.Editor editor;
     private SharedPreferences shared;
@@ -30,9 +31,23 @@ public class PreferencesController implements IPreferencesController {
     }
 
     @Override
+    public void save(String key, boolean value) {
+        SharedPreferences.Editor ed = getSharePreferencesEditor();
+
+        ed.putBoolean(key, value);
+        ed.apply();
+    }
+
+    @Override
     public String get(String key, String defaultValue){
         SharedPreferences prefs = getSharePreferences();
         return prefs.getString(key, defaultValue);
+    }
+
+    @Override
+    public boolean get(String key, boolean defaultValue) {
+        SharedPreferences prefs = getSharePreferences();
+        return prefs.getBoolean(key, defaultValue);
     }
 
     private SharedPreferences.Editor getSharePreferencesEditor() {

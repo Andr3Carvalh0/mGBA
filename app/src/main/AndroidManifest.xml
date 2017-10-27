@@ -38,12 +38,18 @@
             android:label="@string/title_activity_settings"
             android:theme="@style/SettingsTheme" />
 
+        <activity
+            android:name=".Components.UI.Activities.IntroActivity" />
+
         <service
             android:name=".Components.Services.ProcessingService"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".Components.UI.Activities.SplashActivity">
+        <activity
+            android:name=".Components.UI.Activities.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

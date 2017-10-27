@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 
 import io.mgba.Components.UI.Activities.Interfaces.ISettings;
 import io.mgba.Components.UI.Activities.Interfaces.PreferencesActivity;
-import io.mgba.Components.UI.Fragments.SettingsFragment;
+import io.mgba.Components.UI.Fragments.Settings.SettingsFragment;
 import io.mgba.R;
 import io.mgba.mgba;
 
@@ -24,8 +24,10 @@ public class SettingsActivity extends PreferencesActivity implements ISettings {
     }
 
     private void setupToolbar() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     private void setupFragment() {
@@ -37,9 +39,7 @@ public class SettingsActivity extends PreferencesActivity implements ISettings {
             fragment = new SettingsFragment();
         }
 
-        if (fragment != null) {
-            fm.beginTransaction().replace(R.id.settings_container, fragment, TAG).commit();
-        }
+        fm.beginTransaction().replace(R.id.settings_container, fragment, TAG).commit();
     }
 
     protected void processDirectory(String dir){
