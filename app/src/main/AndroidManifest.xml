@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.mgba">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Components.UI.Activities.MainActivity"
+            android:name=".Controllers.UI.Activities.MainActivity"
             android:theme="@style/AppTheme"/>
 
         <activity
@@ -34,20 +35,20 @@
             android:exported="false" />
 
         <activity
-            android:name=".Components.UI.Activities.SettingsActivity"
+            android:name=".Controllers.UI.Activities.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/SettingsTheme" />
 
         <activity
-            android:name=".Components.UI.Activities.IntroActivity" />
+            android:name=".Controllers.UI.Activities.IntroActivity" />
 
         <service
-            android:name=".Components.Services.ProcessingService"
+            android:name=".Controllers.Services.ProcessingService"
             android:enabled="true"
             android:exported="false" />
 
         <activity
-            android:name=".Components.UI.Activities.SplashActivity"
+            android:name=".Controllers.UI.Activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>

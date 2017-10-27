@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.io.File;
 
-import io.mgba.Services.FilesService;
+import io.mgba.Services.IO.FilesService;
 
 public class Game implements Parcelable {
 
@@ -48,7 +48,7 @@ public class Game implements Parcelable {
 
     public String getName() {
         if(name == null)
-            return file.getName();
+            setName(FilesService.getFileWithoutExtension(file));
 
         return name;
     }

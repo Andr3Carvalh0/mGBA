@@ -1,7 +1,10 @@
 package io.mgba.Services;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.common.base.Function;
 
@@ -10,26 +13,39 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import io.mgba.Components.Services.ProcessingService;
-import io.mgba.Controller.Interfaces.LibraryLists;
+import io.mgba.Controllers.Services.ProcessingService;
 import io.mgba.Data.DTOs.Game;
+import io.mgba.Data.Wrappers.LibraryLists;
+import io.mgba.Services.IO.FilesService;
 import io.mgba.Services.Interfaces.IFilesService;
 import io.mgba.Services.Interfaces.ILibraryService;
+import io.mgba.mgba;
 
-public class LibraryService implements ILibraryService {
+public class LibraryService implements ILibraryService{
+
     private final IFilesService filesService;
+    private final LibraryReceiver libraryReceiver;
     private final Context context;
     //Not a consumer case java 8 only api >= 24
     private Function<LibraryLists, Void> callback;
     private LibraryLists cache;
 
     public LibraryService(String directory, Context ctx) {
-        this.filesService = new FilesService(directory);
+        this.libraryReceiver = new LibraryReceiver();
         this.context = ctx;
+        this.filesService = new FilesService(directory);
+
+        startReceiver();
+    }
+
+    private void startProcessService(ArrayList<? extends Game> list){
+        Intent intent = new Intent(context, ProcessingService.class);
+        intent.putParcelableArrayListExtra("games", list);
+        context.startService(intent);
     }
 
     @Override
-    public void getGames(Function<LibraryLists, Void> callback){
+    public void prepareGames(Function<LibraryLists, Void> callback) {
         if(cache != null) {
             callback.apply(cache);
             return;
@@ -49,9 +65,20 @@ public class LibraryService implements ILibraryService {
     }
 
     @Override
-    public void finalize(ArrayList<Game> gameList){
+    public void stop(){
+        if(libraryReceiver != null)
+            LocalBroadcastManager.getInstance(context).unregisterReceiver(libraryReceiver);
+    }
+
+    private void deliverResult(ArrayList<Game> gameList){
         cache = filter(gameList);
         callback.apply(cache);
+    }
+
+    private void startReceiver(){
+        final IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(mgba.RECEIVE_GAME_LIST);
+        LocalBroadcastManager.getInstance(context).registerReceiver(libraryReceiver, intentFilter);
     }
 
     private LibraryLists filter(ArrayList<Game> list){
@@ -75,9 +102,12 @@ public class LibraryService implements ILibraryService {
         return cache;
     }
 
-    private void startProcessService(ArrayList<? extends Game> list){
-        Intent intent = new Intent(context, ProcessingService.class);
-        intent.putParcelableArrayListExtra("games", list);
-        context.startService(intent);
+    public class LibraryReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ArrayList<Game> games = intent.getParcelableArrayListExtra("games");
+            deliverResult(games);
+        }
     }
 }

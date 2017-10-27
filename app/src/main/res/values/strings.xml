@@ -18,4 +18,8 @@
     <string name="prefs_not_set_folder_summary">Not set.</string>
     <string name="pref_storage">Games folder</string>
     <string name="savestates_title">Savestates</string>
+    <string name="Welcome_Title">Welcome to mGBA!</string>
+    <string name="Welcome_Description">mGBA is a new generation of Game Boy Advance emulator.</string>
+    <string name="Library_Title">Library</string>
+    <string name="Library_Description">Keep your games organized by system!</string>
 </resources>
