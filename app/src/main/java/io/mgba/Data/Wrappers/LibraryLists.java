@@ -3,11 +3,12 @@ package io.mgba.Data.Wrappers;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import io.mgba.Data.DTOs.Game;
 
 public class LibraryLists implements Parcelable {
+
     public static final Parcelable.Creator<LibraryLists> CREATOR = new Parcelable.Creator<LibraryLists>() {
         @Override
         public LibraryLists createFromParcel(Parcel source) {
@@ -19,11 +20,11 @@ public class LibraryLists implements Parcelable {
             return new LibraryLists[size];
         }
     };
-    private final List<Game> favourites;
-    private final List<Game> gba;
-    private final List<Game> gbc;
+    private final ArrayList<Game> favourites;
+    private final ArrayList<Game> gba;
+    private final ArrayList<Game> gbc;
 
-    public LibraryLists(List<Game> favourites, List<Game> gba, List<Game> gbc) {
+    public LibraryLists(ArrayList<Game> favourites, ArrayList<Game> gba, ArrayList<Game> gbc) {
         this.favourites = favourites;
         this.gba = gba;
         this.gbc = gbc;
@@ -35,15 +36,15 @@ public class LibraryLists implements Parcelable {
         this.gbc = in.createTypedArrayList(Game.CREATOR);
     }
 
-    public List<Game> getFavourites() {
+    public ArrayList<Game> getFavourites() {
         return favourites;
     }
 
-    public List<Game> getGba() {
+    public ArrayList<Game> getGba() {
         return gba;
     }
 
-    public List<Game> getGbc() {
+    public ArrayList<Game> getGbc() {
         return gbc;
     }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mGBA</string>
+    <string name="app_name" translatable="false">mGBA</string>
     <string name="button_allow">Allow</string>
     <string name="button_deny">Deny</string>
     <string name="permission_storage_rationale">Storage permission is needed to select your game folder.</string>
@@ -22,4 +22,5 @@
     <string name="Welcome_Description">mGBA is a new generation of Game Boy Advance emulator.</string>
     <string name="Library_Title">Library</string>
     <string name="Library_Description">Keep your games organized by system!</string>
+    <string name="no_savestate_message">No savestates.</string>
 </resources>

@@ -17,5 +17,11 @@
     <dimen name="no_content_favourites_margin_top">170dp</dimen>
     <dimen name="cover_size">137dp</dimen>
     <dimen name="bottomsheet_header">172dp</dimen>
+    <dimen name="sheet_space">12dp</dimen>
+    <dimen name="sheet_space_double">24dp</dimen>
+    <dimen name="sheet_no_content_upper_margin">48dp</dimen>
+    <dimen name="sheet_no_content_bottom_margin">64dp</dimen>
+    <dimen name="sheet_no_content_image">96dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>

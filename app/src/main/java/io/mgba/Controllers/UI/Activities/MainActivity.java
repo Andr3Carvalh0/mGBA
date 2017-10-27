@@ -56,7 +56,6 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.GBC)));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-
         adapter = games == null
                 ? new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this)
                 : new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this, games);
@@ -121,10 +120,13 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
     public void showBottomSheet(Game game) {
         prepareBottomSheetController();
         mSheetDialog.showWithSheetView(bottomSheetController.getView(mSheetDialog, game));
+
     }
 
     private void prepareBottomSheetController(){
         if(bottomSheetController == null)
             bottomSheetController = new BottomSheetView(getApplicationContext());
     }
+
+
 }

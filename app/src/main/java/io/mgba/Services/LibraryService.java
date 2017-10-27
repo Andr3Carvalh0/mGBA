@@ -10,7 +10,6 @@ import com.google.common.base.Function;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import io.mgba.Controllers.Services.ProcessingService;
@@ -82,9 +81,9 @@ public class LibraryService implements ILibraryService{
     }
 
     private LibraryLists filter(ArrayList<Game> list){
-        LinkedList<Game> favs = new LinkedList<>();
-        LinkedList<Game> gba = new LinkedList<>();
-        LinkedList<Game> gbc = new LinkedList<>();
+        ArrayList<Game> favs = new ArrayList<>();
+        ArrayList<Game> gba = new ArrayList<>();
+        ArrayList<Game> gbc = new ArrayList<>();
 
         for (Game game : list) {
             if(game.isFavourite())

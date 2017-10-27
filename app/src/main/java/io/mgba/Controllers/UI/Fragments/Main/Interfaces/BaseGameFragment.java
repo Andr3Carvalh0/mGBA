@@ -12,17 +12,16 @@ import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Controllers.UI.Activities.Interfaces.ILibrary;
 import io.mgba.Controllers.UI.Adapters.RecyclerView.LibraryAdapter;
 import io.mgba.Data.DTOs.Game;
-import io.mgba.Data.Wrappers.LibraryLists;
 import io.mgba.R;
 
-public abstract class ParentGameFragment extends Fragment implements ILibraryConsumer{
+public abstract class BaseGameFragment extends Fragment implements ILibraryConsumer{
 
     @BindView(R.id.no_content_container)
     protected RelativeLayout mNoContentView;
@@ -35,7 +34,7 @@ public abstract class ParentGameFragment extends Fragment implements ILibraryCon
 
     protected View mView;
     private LibraryAdapter adapter;
-    private List<Game> games;
+    private ArrayList<Game> games;
     private ILibrary onClickCallback;
 
     @Override
@@ -46,15 +45,13 @@ public abstract class ParentGameFragment extends Fragment implements ILibraryCon
         Bundle args = getArguments();
 
         if(args != null){
-            consume(fetchGameList((LibraryLists) args.get("games")));
+            consume((ArrayList<Game>) args.get("games"));
         }
 
         return mView;
     }
 
-    protected abstract List<Game> fetchGameList(LibraryLists libraryLists);
-
-    protected void prepareRecyclerView(List<? extends Game> games) {
+    protected void prepareRecyclerView(ArrayList<? extends Game> games) {
         if(games.size() == 0)
             return;
 
@@ -80,7 +77,7 @@ public abstract class ParentGameFragment extends Fragment implements ILibraryCon
     }
 
     @Override
-    public void consume(List<Game> list){
+    public void consume(ArrayList<Game> list){
         setGameList(list);
         prepareRecyclerView(list);
 
@@ -103,7 +100,8 @@ public abstract class ParentGameFragment extends Fragment implements ILibraryCon
         return null;
     }
 
-    protected void setGameList(List<Game> list){
+    protected void setGameList(ArrayList<Game> list){
         this.games = list;
     }
+
 }

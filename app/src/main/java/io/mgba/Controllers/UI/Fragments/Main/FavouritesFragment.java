@@ -5,19 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
-import io.mgba.Controllers.UI.Fragments.Main.Interfaces.ParentGameFragment;
-import io.mgba.Data.DTOs.Game;
-import io.mgba.Data.Wrappers.LibraryLists;
+import io.mgba.Controllers.UI.Fragments.Main.Interfaces.BaseGameFragment;
 import io.mgba.R;
 
-public class FavouritesFragment extends ParentGameFragment {
-
-    @Override
-    protected List<Game> fetchGameList(LibraryLists libraryLists) {
-        return libraryLists.getFavourites();
-    }
+public class FavouritesFragment extends BaseGameFragment {
 
     protected View prepareView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         return inflater.inflate(R.layout.favourites_fragment, container, false);

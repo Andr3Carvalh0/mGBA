@@ -33,10 +33,15 @@ public class TabViewPager extends FragmentStatePagerAdapter{
 
     private void setGames(LibraryLists games) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable("games", games);
-
+        bundle.putParcelableArrayList("games", games.getFavourites());
         ((Fragment)fragments[0]).setArguments(bundle);
+
+        bundle = new Bundle();
+        bundle.putParcelableArrayList("games", games.getGba());
         ((Fragment)fragments[1]).setArguments(bundle);
+
+        bundle = new Bundle();
+        bundle.putParcelableArrayList("games", games.getGbc());
         ((Fragment)fragments[2]).setArguments(bundle);
     }
 

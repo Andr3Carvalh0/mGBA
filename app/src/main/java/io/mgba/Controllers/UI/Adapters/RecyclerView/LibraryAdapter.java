@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.common.base.Function;
 
 import java.util.List;
@@ -36,7 +37,10 @@ public class LibraryAdapter extends BaseAdapter {
         final Game mItem = (Game)items.get(position);
 
         ((ViewHolder) holder).gameTitle.setText(mItem.getName());
-        Glide.with(view).load(mItem.getCoverURL()).into(((ViewHolder) holder).gameCover);
+        Glide.with(view)
+             .load(mItem.getCoverURL())
+             .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error))
+             .into(((ViewHolder) holder).gameCover);
 
         //Click Event
         ((ViewHolder) holder).gameTitle.setOnClickListener(v -> onClick.apply(mItem));
