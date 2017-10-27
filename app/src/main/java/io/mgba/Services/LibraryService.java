@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.google.common.base.Function;
 
@@ -12,13 +13,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.mgba.Constants;
 import io.mgba.Controllers.Services.ProcessingService;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.Data.Wrappers.LibraryLists;
 import io.mgba.Services.IO.FilesService;
 import io.mgba.Services.Interfaces.IFilesService;
 import io.mgba.Services.Interfaces.ILibraryService;
-import io.mgba.mgba;
 
 public class LibraryService implements ILibraryService{
 
@@ -48,7 +49,6 @@ public class LibraryService implements ILibraryService{
         if(cache != null) {
             callback.apply(cache);
             return;
-
         }
 
         this.callback = callback;
@@ -58,6 +58,7 @@ public class LibraryService implements ILibraryService{
 
         for (File file: gameList) {
             res.add(new Game(file));
+            Log.v("Andre", file.getName());
         }
 
         startProcessService(res);
@@ -69,6 +70,11 @@ public class LibraryService implements ILibraryService{
             LocalBroadcastManager.getInstance(context).unregisterReceiver(libraryReceiver);
     }
 
+    @Override
+    public void updateFileServicePath(String path) {
+        filesService.setCurrentDirectory(path);
+    }
+
     private void deliverResult(ArrayList<Game> gameList){
         cache = filter(gameList);
         callback.apply(cache);
@@ -76,7 +82,7 @@ public class LibraryService implements ILibraryService{
 
     private void startReceiver(){
         final IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(mgba.RECEIVE_GAME_LIST);
+        intentFilter.addAction(Constants.RECEIVE_GAME_LIST);
         LocalBroadcastManager.getInstance(context).registerReceiver(libraryReceiver, intentFilter);
     }
 

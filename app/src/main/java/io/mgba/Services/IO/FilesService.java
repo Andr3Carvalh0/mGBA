@@ -101,8 +101,9 @@ public class FilesService implements IFilesService{
      * @return
      */
     public static String getFileWithoutExtension(File file){
-        return file.getName()
-                .substring(file.getName().lastIndexOf(".") - 1);
+        final String[] tmp = file.getPath().split("/");
+
+        return tmp[tmp.length - 1].substring(0, tmp[tmp.length - 1].lastIndexOf("."));
     }
 
     /**
@@ -183,5 +184,18 @@ public class FilesService implements IFilesService{
             return new LinkedList<>();
 
         return fetchGames();
+    }
+
+    @Override
+    public String getCurrentDirectory() {
+        if(gameDir == null)
+            return null;
+        return gameDir.getAbsolutePath();
+    }
+
+    @Override
+    public void setCurrentDirectory(String directory) {
+        if(!directory.equals(""))
+            this.gameDir = new File(directory);
     }
 }

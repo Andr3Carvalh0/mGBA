@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import io.mgba.Constants;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.Data.DTOs.GameJSON;
 import io.mgba.Services.IO.ContentProviderService;
@@ -41,6 +42,9 @@ public class ProcessingService implements IProcessingService{
 
     @Override
     public void start() {
+        if(games.size() == 0)
+            announceResult(games);
+
         for (int i = 0; i < games.size(); i++) {
             int tmp = i;
 
@@ -59,8 +63,8 @@ public class ProcessingService implements IProcessingService{
     private void announceResult(ArrayList<Game> list){
         Log.v(TAG, "Announcing results");
 
-        Intent intent = new Intent(mgba.RECEIVE_GAME_LIST);
-        intent.putParcelableArrayListExtra("games", list);
+        Intent intent = new Intent(Constants.RECEIVE_GAME_LIST);
+        intent.putParcelableArrayListExtra(Constants.GAMES_INTENT, list);
 
         LocalBroadcastManager.getInstance(mCtx).sendBroadcast(intent);
         mCtx.sendBroadcast(intent);
@@ -75,8 +79,11 @@ public class ProcessingService implements IProcessingService{
             if (searchDatabase(game))
                 return;
 
+            if(!mApplication.hasWifiConnection())
+                return;
+
             Log.v(TAG, "Game wasnt present in the DB.Fetching online");
-            if (mApplication.hasWifiConnection() && searchWeb(game))
+            if (searchWeb(game))
                storeInDatabase(game);
         }
     }

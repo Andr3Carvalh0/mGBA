@@ -14,7 +14,7 @@ import io.mgba.Services.LibraryService;
 import io.mgba.Services.System.PreferencesService;
 
 public class mgba extends Application {
-    public final static String RECEIVE_GAME_LIST = "io.mgba.gamesreceiver";
+
 
     private IPreferencesService preferencesController;
     private IRequest webService;
@@ -71,8 +71,9 @@ public class mgba extends Application {
 
     public boolean hasWifiConnection(){
         ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
         NetworkInfo current = connManager.getActiveNetworkInfo();
-        return current != null && current.getType() == ConnectivityManager.TYPE_WIFI;
+        return current != null && current.getType() == ConnectivityManager.TYPE_WIFI && current.isConnected();
     }
 
     public String getDeviceLanguage(){

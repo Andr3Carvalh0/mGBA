@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.mgba.Constants;
 import io.mgba.Controllers.UI.Activities.Interfaces.ILibrary;
 import io.mgba.Controllers.UI.Adapters.RecyclerView.LibraryAdapter;
 import io.mgba.Data.DTOs.Game;
@@ -45,7 +46,7 @@ public abstract class BaseGameFragment extends Fragment implements ILibraryConsu
         Bundle args = getArguments();
 
         if(args != null){
-            consume((ArrayList<Game>) args.get("games"));
+            consume((ArrayList<Game>) args.get(Constants.GAMES_INTENT));
         }
 
         return mView;

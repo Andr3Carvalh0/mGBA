@@ -28,8 +28,7 @@
                 android:layout_marginBottom="@dimen/body_margin_extended"
                 android:layout_marginEnd="@dimen/body_margin"
                 android:ellipsize="end"
-                android:maxLines="5"
-                android:textAppearance="@android:style/TextAppearance.Holo.Small"
+                android:maxLines="4"
                 android:textColor="@color/white"
                 tools:text="Lisbon is a great city!" />
 
@@ -49,10 +48,10 @@
                 android:layout_marginStart="@dimen/body_margin"
                 android:layout_marginTop="@dimen/body_margin"
                 android:layout_toEndOf="@+id/cover"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
                 android:textColor="@color/white"
-                autofit:minTextSize="16sp"
+                autofit:minTextSize="14sp"
                 tools:text="Lisbon" />
 
             <ImageView
@@ -63,7 +62,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="@dimen/body_margin"
                 android:layout_marginTop="@dimen/body_margin"
-                android:background="@color/about_libraries_card_dark" />
+                android:background="@color/about_libraries_card_dark"
+                app:srcCompat="@drawable/placeholder" />
         </RelativeLayout>
 
         <RelativeLayout

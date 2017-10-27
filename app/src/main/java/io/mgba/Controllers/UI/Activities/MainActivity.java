@@ -12,6 +12,7 @@ import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.mgba.Constants;
 import io.mgba.Controllers.UI.Activities.Interfaces.ILibrary;
 import io.mgba.Controllers.UI.Activities.Interfaces.LibraryActivity;
 import io.mgba.Controllers.UI.Adapters.TabViewPager;
@@ -36,7 +37,7 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final LibraryLists games = getIntent().getParcelableExtra("games");
+        final LibraryLists games = getIntent().getParcelableExtra(Constants.GAMES_INTENT);
 
         setContentView(R.layout.activity_library);
         ButterKnife.bind(this);

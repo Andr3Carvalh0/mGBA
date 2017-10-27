@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
 import io.mgba.Controllers.UI.Adapters.RecyclerView.Interfaces.BaseAdapter;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
-import me.grantland.widget.AutofitHelper;
 
 public class LibraryAdapter extends BaseAdapter {
     private Fragment view;
@@ -37,10 +36,11 @@ public class LibraryAdapter extends BaseAdapter {
         final Game mItem = (Game)items.get(position);
 
         ((ViewHolder) holder).gameTitle.setText(mItem.getName());
-        Glide.with(view)
-             .load(mItem.getCoverURL())
-             .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error))
-             .into(((ViewHolder) holder).gameCover);
+
+            Glide.with(view)
+                 .load(mItem.getCoverURL() == null ? R.drawable.placeholder : mItem.getCoverURL())
+                 .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error))
+                 .into(((ViewHolder) holder).gameCover);
 
         //Click Event
         ((ViewHolder) holder).gameTitle.setOnClickListener(v -> onClick.apply(mItem));
@@ -66,10 +66,7 @@ public class LibraryAdapter extends BaseAdapter {
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             ButterKnife.bind(this, itemView);
-            //Make the textview auto-"fit-able"
-            AutofitHelper.create(gameTitle);
         }
     }
 }

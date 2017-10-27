@@ -27,6 +27,7 @@ public class LibraryActivity extends AppCompatActivity {
 
     protected boolean prepareGames(Function<LibraryLists, Void> callback){
         if(!((mgba)getApplication()).isServiceRunning(ProcessingService.class)) {
+
             libraryController.prepareGames(callback);
             return true;
         }
@@ -39,8 +40,8 @@ public class LibraryActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         libraryController.stop();
     }
 }

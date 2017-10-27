@@ -3,7 +3,7 @@
     <color name="colorPrimary">#673ab7</color>
     <color name="colorPrimaryDark">#4a148c</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="white">#FFFFFF</color>
+    <color name="white">#ffffff</color>
     <color name="grey">#9e9e9e</color>
     <color name="card_title_background">#aa424242</color>
     <color name="grey_primary_color">#ff303030</color>

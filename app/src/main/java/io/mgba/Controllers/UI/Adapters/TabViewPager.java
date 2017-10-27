@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import io.mgba.Constants;
 import io.mgba.Controllers.UI.Activities.Interfaces.ILibrary;
 import io.mgba.Controllers.UI.Fragments.Main.FavouritesFragment;
 import io.mgba.Controllers.UI.Fragments.Main.GameboyAdvanceFragment;
@@ -33,15 +34,15 @@ public class TabViewPager extends FragmentStatePagerAdapter{
 
     private void setGames(LibraryLists games) {
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("games", games.getFavourites());
+        bundle.putParcelableArrayList(Constants.GAMES_INTENT, games.getFavourites());
         ((Fragment)fragments[0]).setArguments(bundle);
 
         bundle = new Bundle();
-        bundle.putParcelableArrayList("games", games.getGba());
+        bundle.putParcelableArrayList(Constants.GAMES_INTENT, games.getGba());
         ((Fragment)fragments[1]).setArguments(bundle);
 
         bundle = new Bundle();
-        bundle.putParcelableArrayList("games", games.getGbc());
+        bundle.putParcelableArrayList(Constants.GAMES_INTENT, games.getGbc());
         ((Fragment)fragments[2]).setArguments(bundle);
     }
 
