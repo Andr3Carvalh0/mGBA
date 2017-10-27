@@ -23,4 +23,8 @@
     <string name="Library_Title">Library</string>
     <string name="Library_Description">Keep your games organized by system!</string>
     <string name="no_savestate_message">No savestates.</string>
+    <string name="restart_title">Restart</string>
+    <string name="restart_description">To change the library folder mgba must restart.</string>
+    <string name="restart_positive">Restart now</string>
+    <string name="Cancel">Cancel</string>
 </resources>

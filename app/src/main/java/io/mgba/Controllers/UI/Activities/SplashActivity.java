@@ -17,7 +17,6 @@ public class SplashActivity extends LibraryActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
         if(getIntent().getExtras() != null){
             //Called when we do the setup and choose the game dir.
             //Without this, the FileService will point to the directory null
