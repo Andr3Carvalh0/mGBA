@@ -3,6 +3,7 @@ package io.mgba;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +28,7 @@ public class mgba extends Application {
     private IPreferencesService preferencesController;
     private IRequest webService;
     private ILibraryService libraryService;
+    private ProgressDialog waitingDialog;
 
     public void savePreference(String key, String value) {
         preparePreferencesManager();
@@ -115,6 +117,16 @@ public class mgba extends Application {
             ((Activity) getApplicationContext()).finish();
         }
         Runtime.getRuntime().exit(0); // Kill kill kill!
+    }
+
+    public void showProgressDialog(AppCompatActivity activity){
+        waitingDialog = ProgressDialog.show(activity, getString(R.string.Progress_Title), getString(R.string.Progress_desc), true, false);
+    }
+
+    public void stopProgressDialog(){
+        if(waitingDialog != null){
+            waitingDialog.dismiss();
+        }
     }
 
     public void showDialog(AppCompatActivity activity, String title, String desc, String positive_button, String negative_button,

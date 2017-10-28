@@ -17,10 +17,11 @@ public class SplashActivity extends LibraryActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+
         if(getIntent().getExtras() != null){
             //Called when we do the setup and choose the game dir.
             //Without this, the FileService will point to the directory null
-            final boolean reset = getIntent().getExtras().getBoolean(Constants.SHOULD_RESET);
+            final boolean reset = getIntent().getExtras().getBoolean(Constants.SHOULD_RESTART);
 
             if(reset)
                 super.libraryController.updateFileServicePath(((mgba)getApplication()).getPreference(PreferencesService.GAMES_DIRECTORY, ""));

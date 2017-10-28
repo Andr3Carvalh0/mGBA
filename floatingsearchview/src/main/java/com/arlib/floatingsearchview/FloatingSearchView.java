@@ -78,7 +78,6 @@ import com.bartoszlipinski.viewpropertyobjectanimator.ViewPropertyObjectAnimator
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -87,6 +86,10 @@ import java.util.List;
  */
 public class FloatingSearchView extends FrameLayout {
 
+    public final static int LEFT_ACTION_MODE_SHOW_HAMBURGER = 1;
+    public final static int LEFT_ACTION_MODE_SHOW_SEARCH = 2;
+    public final static int LEFT_ACTION_MODE_SHOW_HOME = 3;
+    public final static int LEFT_ACTION_MODE_NO_LEFT_ACTION = 4;
     private final static String TAG = FloatingSearchView.class.getSimpleName();
     //The CardView's top or bottom height used for its shadow
     private final static int CARD_VIEW_TOP_BOTTOM_SHADOW_HEIGHT = 3;
@@ -94,48 +97,31 @@ public class FloatingSearchView extends FrameLayout {
     private final static int CARD_VIEW_CORNERS_HEIGHT = 2;
     private final static int CARD_VIEW_CORNERS_AND_TOP_BOTTOM_SHADOW_HEIGHT =
             CARD_VIEW_TOP_BOTTOM_SHADOW_HEIGHT + CARD_VIEW_CORNERS_HEIGHT;
-
     private final static long CLEAR_BTN_FADE_ANIM_DURATION = 500;
     private final static int CLEAR_BTN_WIDTH_DP = 48;
-
     private final static int LEFT_MENU_WIDTH_AND_MARGIN_START_DP = 52;
-
     private final static float MENU_BUTTON_PROGRESS_ARROW = 1.0f;
     private final static float MENU_BUTTON_PROGRESS_HAMBURGER = 0.0f;
-
     private final static int BACKGROUND_DRAWABLE_ALPHA_SEARCH_FOCUSED = 150;
     private final static int BACKGROUND_DRAWABLE_ALPHA_SEARCH_NOT_FOCUSED = 0;
     private final static int BACKGROUND_FADE_ANIM_DURATION = 250;
-
     private final static int MENU_ICON_ANIM_DURATION = 250;
-
     private final static Interpolator SUGGEST_ITEM_ADD_ANIM_INTERPOLATOR = new LinearInterpolator();
-
-    public final static int LEFT_ACTION_MODE_SHOW_HAMBURGER = 1;
-    public final static int LEFT_ACTION_MODE_SHOW_SEARCH = 2;
-    public final static int LEFT_ACTION_MODE_SHOW_HOME = 3;
-    public final static int LEFT_ACTION_MODE_NO_LEFT_ACTION = 4;
     private final static int LEFT_ACTION_MODE_NOT_SET = -1;
-
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({LEFT_ACTION_MODE_SHOW_HAMBURGER, LEFT_ACTION_MODE_SHOW_SEARCH,
-            LEFT_ACTION_MODE_SHOW_HOME, LEFT_ACTION_MODE_NO_LEFT_ACTION, LEFT_ACTION_MODE_NOT_SET})
-    public @interface LeftActionMode {
-    }
-
     @LeftActionMode
     private final static int ATTRS_SEARCH_BAR_LEFT_ACTION_MODE_DEFAULT = LEFT_ACTION_MODE_NO_LEFT_ACTION;
     private final static boolean ATTRS_SHOW_MOVE_UP_SUGGESTION_DEFAULT = false;
     private final static boolean ATTRS_DISMISS_ON_OUTSIDE_TOUCH_DEFAULT = true;
     private final static boolean ATTRS_DISMISS_ON_KEYBOARD_DISMISS_DEFAULT = false;
     private final static boolean ATTRS_SEARCH_BAR_SHOW_SEARCH_KEY_DEFAULT = true;
-    private final static int ATTRS_QUERY_TEXT_SIZE_SP_DEFAULT = 18;
-    private final static int ATTRS_SUGGESTION_TEXT_SIZE_SP_DEFAULT = 18;
+    private final static int ATTRS_QUERY_TEXT_SIZE_SP_DEFAULT = 14;
+    private final static int ATTRS_SUGGESTION_TEXT_SIZE_SP_DEFAULT = 14;
     private final static boolean ATTRS_SHOW_DIM_BACKGROUND_DEFAULT = true;
     private final static int ATTRS_SUGGESTION_ANIM_DURATION_DEFAULT = 250;
     private final static int ATTRS_SEARCH_BAR_MARGIN_DEFAULT = 0;
     private final static boolean ATTRS_DISMISS_FOCUS_ON_ITEM_SELECTION_DEFAULT = false;
-
+    @LeftActionMode
+    int mLeftActionMode = LEFT_ACTION_MODE_NOT_SET;
     private Activity mHostActivity;
 
     private View mMainLayout;
@@ -166,8 +152,6 @@ public class FloatingSearchView extends FrameLayout {
     private DrawerArrowDrawable mMenuBtnDrawable;
     private Drawable mIconBackArrow;
     private Drawable mIconSearch;
-    @LeftActionMode
-    int mLeftActionMode = LEFT_ACTION_MODE_NOT_SET;
     private int mLeftActionIconColor;
     private String mSearchHint;
     private boolean mShowSearchKey;
@@ -184,10 +168,8 @@ public class FloatingSearchView extends FrameLayout {
     private boolean mSkipQueryFocusChangeEvent;
     private boolean mSkipTextChangeEvent;
     private View.OnClickListener mLeftMenuClickListener;
-
     private View mDivider;
     private int mDividerColor;
-
     private RelativeLayout mSuggestionsSection;
     private View mSuggestionListContainer;
     private RecyclerView mSuggestionsList;
@@ -202,156 +184,8 @@ public class FloatingSearchView extends FrameLayout {
     private OnSuggestionsListHeightChanged mOnSuggestionsListHeightChanged;
     private long mSuggestionSectionAnimDuration;
     private OnClearSearchActionListener mOnClearSearchActionListener;
-
-    //An interface for implementing a listener that will get notified when the suggestions
-    //section's height is set. This is to be used internally only.
-    private interface OnSuggestionSecHeightSetListener {
-        void onSuggestionSecHeightSet();
-    }
-
     private OnSuggestionSecHeightSetListener mSuggestionSecHeightListener;
-
-    /**
-     * Interface for implementing a listener to listen to
-     * changes in the suggestion list height that occur when the list is expands/shrinks
-     * following calls to {@link FloatingSearchView#swapSuggestions(List)}
-     */
-    public interface OnSuggestionsListHeightChanged {
-
-        void onSuggestionsListHeightChanged(float newHeight);
-    }
-
-    /**
-     * Interface for implementing a listener to listen
-     * to state changes in the query text.
-     */
-    public interface OnQueryChangeListener {
-
-        /**
-         * Called when the query has changed. It will
-         * be invoked when one or more characters in the
-         * query was changed.
-         *
-         * @param oldQuery the previous query
-         * @param newQuery the new query
-         */
-        void onSearchTextChanged(String oldQuery, String newQuery);
-    }
-
-    /**
-     * Interface for implementing a listener to listen
-     * to when the current search has completed.
-     */
-    public interface OnSearchListener {
-
-        /**
-         * Called when a suggestion was clicked indicating
-         * that the current search has completed.
-         *
-         * @param searchSuggestion
-         */
-        void onSuggestionClicked(SearchSuggestion searchSuggestion);
-
-        /**
-         * Called when the current search has completed
-         * as a result of pressing search key in the keyboard.
-         * <p/>
-         * Note: This will only get called if
-         * {@link FloatingSearchView#setShowSearchKey(boolean)}} is set to true.
-         *
-         * @param currentQuery the text that is currently set in the query TextView
-         */
-        void onSearchAction(String currentQuery);
-    }
-
-    /**
-     * Interface for implementing a callback to be
-     * invoked when the left menu (navigation menu) is
-     * clicked.
-     * <p/>
-     * Note: This is only relevant when leftActionMode is
-     * set to {@value #LEFT_ACTION_MODE_SHOW_HAMBURGER}
-     */
-    public interface OnLeftMenuClickListener {
-
-        /**
-         * Called when the menu button was
-         * clicked and the menu's state is now opened.
-         */
-        void onMenuOpened();
-
-        /**
-         * Called when the back button was
-         * clicked and the menu's state is now closed.
-         */
-        void onMenuClosed();
-    }
-
-    /**
-     * Interface for implementing a callback to be
-     * invoked when the home action button (the back arrow)
-     * is clicked.
-     * <p/>
-     * Note: This is only relevant when leftActionMode is
-     * set to {@value #LEFT_ACTION_MODE_SHOW_HOME}
-     */
-    public interface OnHomeActionClickListener {
-
-        /**
-         * Called when the home button was
-         * clicked.
-         */
-        void onHomeClicked();
-    }
-
-    /**
-     * Interface for implementing a listener to listen
-     * when an item in the action (the item can be presented as an action
-     * ,or as a menu item in the overflow menu) menu has been selected.
-     */
-    public interface OnMenuItemClickListener {
-
-        /**
-         * Called when a menu item in has been
-         * selected.
-         *
-         * @param item the selected menu item.
-         */
-        void onActionMenuItemSelected(MenuItem item);
-    }
-
-    /**
-     * Interface for implementing a listener to listen
-     * to for focus state changes.
-     */
-    public interface OnFocusChangeListener {
-
-        /**
-         * Called when the search bar has gained focus
-         * and listeners are now active.
-         */
-        void onFocus();
-
-        /**
-         * Called when the search bar has lost focus
-         * and listeners are no more active.
-         */
-        void onFocusCleared();
-    }
-
-    /**
-     * Interface for implementing a callback to be
-     * invoked when the clear search text action button
-     * (the x to the right of the text) is clicked.
-     */
-    public interface OnClearSearchActionListener {
-
-        /**
-         * Called when the clear search text button
-         * was clicked.
-         */
-        void onClearSearchClicked();
-    }
+    private DrawerLayout.DrawerListener mDrawerListener = new DrawerListener();
 
     public FloatingSearchView(Context context) {
         this(context, null);
@@ -1105,7 +939,6 @@ public class FloatingSearchView extends FrameLayout {
             mSearchInput.setImeOptions(EditorInfo.IME_ACTION_NONE);
         }
     }
-
 
     /**
      * Sets whether the search will lose focus when the softkeyboard
@@ -1904,8 +1737,192 @@ public class FloatingSearchView extends FrameLayout {
         }
     }
 
+    public void attachNavigationDrawerToMenuButton(@NonNull DrawerLayout drawerLayout) {
+        drawerLayout.addDrawerListener(mDrawerListener);
+        setOnLeftMenuClickListener(new NavDrawerLeftMenuClickListener(drawerLayout));
+    }
+
+    public void detachNavigationDrawerFromMenuButton(@NonNull DrawerLayout drawerLayout) {
+        drawerLayout.removeDrawerListener(mDrawerListener);
+        setOnLeftMenuClickListener(null);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        //remove any ongoing animations to prevent leaks
+        //todo investigate if correct
+        ViewCompat.animate(mSuggestionListContainer).cancel();
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({LEFT_ACTION_MODE_SHOW_HAMBURGER, LEFT_ACTION_MODE_SHOW_SEARCH,
+            LEFT_ACTION_MODE_SHOW_HOME, LEFT_ACTION_MODE_NO_LEFT_ACTION, LEFT_ACTION_MODE_NOT_SET})
+    public @interface LeftActionMode {
+    }
+
+    //An interface for implementing a listener that will get notified when the suggestions
+    //section's height is set. This is to be used internally only.
+    private interface OnSuggestionSecHeightSetListener {
+        void onSuggestionSecHeightSet();
+    }
+
+    /**
+     * Interface for implementing a listener to listen to
+     * changes in the suggestion list height that occur when the list is expands/shrinks
+     * following calls to {@link FloatingSearchView#swapSuggestions(List)}
+     */
+    public interface OnSuggestionsListHeightChanged {
+
+        void onSuggestionsListHeightChanged(float newHeight);
+    }
+
+    /**
+     * Interface for implementing a listener to listen
+     * to state changes in the query text.
+     */
+    public interface OnQueryChangeListener {
+
+        /**
+         * Called when the query has changed. It will
+         * be invoked when one or more characters in the
+         * query was changed.
+         *
+         * @param oldQuery the previous query
+         * @param newQuery the new query
+         */
+        void onSearchTextChanged(String oldQuery, String newQuery);
+    }
+
+    /**
+     * Interface for implementing a listener to listen
+     * to when the current search has completed.
+     */
+    public interface OnSearchListener {
+
+        /**
+         * Called when a suggestion was clicked indicating
+         * that the current search has completed.
+         *
+         * @param searchSuggestion
+         */
+        void onSuggestionClicked(SearchSuggestion searchSuggestion);
+
+        /**
+         * Called when the current search has completed
+         * as a result of pressing search key in the keyboard.
+         * <p/>
+         * Note: This will only get called if
+         * {@link FloatingSearchView#setShowSearchKey(boolean)}} is set to true.
+         *
+         * @param currentQuery the text that is currently set in the query TextView
+         */
+        void onSearchAction(String currentQuery);
+    }
+
+    /**
+     * Interface for implementing a callback to be
+     * invoked when the left menu (navigation menu) is
+     * clicked.
+     * <p/>
+     * Note: This is only relevant when leftActionMode is
+     * set to {@value #LEFT_ACTION_MODE_SHOW_HAMBURGER}
+     */
+    public interface OnLeftMenuClickListener {
+
+        /**
+         * Called when the menu button was
+         * clicked and the menu's state is now opened.
+         */
+        void onMenuOpened();
+
+        /**
+         * Called when the back button was
+         * clicked and the menu's state is now closed.
+         */
+        void onMenuClosed();
+    }
+
+    /**
+     * Interface for implementing a callback to be
+     * invoked when the home action button (the back arrow)
+     * is clicked.
+     * <p/>
+     * Note: This is only relevant when leftActionMode is
+     * set to {@value #LEFT_ACTION_MODE_SHOW_HOME}
+     */
+    public interface OnHomeActionClickListener {
+
+        /**
+         * Called when the home button was
+         * clicked.
+         */
+        void onHomeClicked();
+    }
+
+    /**
+     * Interface for implementing a listener to listen
+     * when an item in the action (the item can be presented as an action
+     * ,or as a menu item in the overflow menu) menu has been selected.
+     */
+    public interface OnMenuItemClickListener {
+
+        /**
+         * Called when a menu item in has been
+         * selected.
+         *
+         * @param item the selected menu item.
+         */
+        void onActionMenuItemSelected(MenuItem item);
+    }
+
+    /**
+     * Interface for implementing a listener to listen
+     * to for focus state changes.
+     */
+    public interface OnFocusChangeListener {
+
+        /**
+         * Called when the search bar has gained focus
+         * and listeners are now active.
+         */
+        void onFocus();
+
+        /**
+         * Called when the search bar has lost focus
+         * and listeners are no more active.
+         */
+        void onFocusCleared();
+    }
+
+    /**
+     * Interface for implementing a callback to be
+     * invoked when the clear search text action button
+     * (the x to the right of the text) is clicked.
+     */
+    public interface OnClearSearchActionListener {
+
+        /**
+         * Called when the clear search text button
+         * was clicked.
+         */
+        void onClearSearchClicked();
+    }
+
     static class SavedState extends BaseSavedState {
 
+        public static final Creator<SavedState> CREATOR
+                = new Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+        public int textSize;
         private List<? extends SearchSuggestion> suggestions = new ArrayList<>();
         private boolean isFocused;
         private String query;
@@ -1932,7 +1949,6 @@ public class FloatingSearchView extends FrameLayout {
         private long suggestionsSectionAnimSuration;
         private boolean dismissOnSoftKeyboardDismiss;
         private boolean dismissFocusOnSuggestionItemClick;
-        public int textSize;
 
         SavedState(Parcelable superState) {
             super(superState);
@@ -2000,38 +2016,6 @@ public class FloatingSearchView extends FrameLayout {
             out.writeInt(dismissOnSoftKeyboardDismiss ? 1 : 0);
             out.writeInt(dismissFocusOnSuggestionItemClick ? 1 : 0);
         }
-
-        public static final Creator<SavedState> CREATOR
-                = new Creator<SavedState>() {
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
-    }
-
-    private DrawerLayout.DrawerListener mDrawerListener = new DrawerListener();
-
-    public void attachNavigationDrawerToMenuButton(@NonNull DrawerLayout drawerLayout) {
-        drawerLayout.addDrawerListener(mDrawerListener);
-        setOnLeftMenuClickListener(new NavDrawerLeftMenuClickListener(drawerLayout));
-    }
-
-    public void detachNavigationDrawerFromMenuButton(@NonNull DrawerLayout drawerLayout) {
-        drawerLayout.removeDrawerListener(mDrawerListener);
-        setOnLeftMenuClickListener(null);
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-
-        //remove any ongoing animations to prevent leaks
-        //todo investigate if correct
-        ViewCompat.animate(mSuggestionListContainer).cancel();
     }
 
     private class DrawerListener implements DrawerLayout.DrawerListener {

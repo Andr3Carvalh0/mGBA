@@ -101,7 +101,7 @@ public class IntroActivity extends AppIntro2 {
         ((mgba)getApplication()).savePreference(PreferencesService.SETUP_DONE, true);
 
         Intent it = new Intent(getBaseContext(), SplashActivity.class);
-        it.putExtra(Constants.SHOULD_RESET, true);
+        it.putExtra(Constants.SHOULD_RESTART, true);
         startActivity(it);
         finish();
     }
