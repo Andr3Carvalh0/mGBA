@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 import com.google.common.base.Function;
 
@@ -28,7 +27,7 @@ public class LibraryService implements ILibraryService{
     private final Context context;
     //Not a consumer case java 8 only api >= 24
     private Function<LibraryLists, Void> callback;
-    private LibraryLists cache;
+    private LibraryLists cache = new LibraryLists(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
     public LibraryService(String directory, Context ctx) {
         this.libraryReceiver = new LibraryReceiver();
@@ -40,13 +39,13 @@ public class LibraryService implements ILibraryService{
 
     private void startProcessService(ArrayList<? extends Game> list){
         Intent intent = new Intent(context, ProcessingService.class);
-        intent.putParcelableArrayListExtra("games", list);
+        intent.putParcelableArrayListExtra(Constants.GAMES_INTENT, list);
         context.startService(intent);
     }
 
     @Override
     public void prepareGames(Function<LibraryLists, Void> callback) {
-        if(cache != null) {
+        if(!cache.isEmpty()) {
             callback.apply(cache);
             return;
         }
@@ -56,10 +55,8 @@ public class LibraryService implements ILibraryService{
 
         ArrayList<Game> res = new ArrayList<>();
 
-        for (File file: gameList) {
+        for (File file: gameList)
             res.add(new Game(file));
-            Log.v("Andre", file.getName());
-        }
 
         startProcessService(res);
     }
@@ -73,6 +70,11 @@ public class LibraryService implements ILibraryService{
     @Override
     public void updateFileServicePath(String path) {
         filesService.setCurrentDirectory(path);
+    }
+
+    @Override
+    public LibraryLists getCachedList() {
+        return cache;
     }
 
     private void deliverResult(ArrayList<Game> gameList){
@@ -111,7 +113,7 @@ public class LibraryService implements ILibraryService{
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            ArrayList<Game> games = intent.getParcelableArrayListExtra("games");
+            ArrayList<Game> games = intent.getParcelableArrayListExtra(Constants.GAMES_INTENT);
             deliverResult(games);
         }
     }

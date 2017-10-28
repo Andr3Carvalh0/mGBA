@@ -1,11 +1,11 @@
 [
     {
-        "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
-        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\drawable\\abc_ic_voice_search_api_material.xml"
-    },
-    {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
         "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\drawable\\abc_ic_voice_search_api_material.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\ic_audiotrack_black_24dp.xml",
@@ -44,12 +44,12 @@
         "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\drawable\\abc_spinner_textfield_background_material.xml"
     },
     {
-        "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_vector_test.xml",
-        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\drawable\\abc_vector_test.xml"
-    },
-    {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_tile_bg.xml",
         "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\0605663a6d400aeefd3f59e7dca9dab4\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_vector_test.xml",
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\drawable\\abc_vector_test.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\tooltip_frame_light.xml",

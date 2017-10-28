@@ -1,11 +1,11 @@
 [
     {
-        "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_menu_item_layout.xml",
-        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_action_menu_item_layout.xml"
-    },
-    {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\design_navigation_item_separator.xml",
         "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\0a8ae0de27b158b65e3770afe3bc356c\\res\\layout\\design_navigation_item_separator.xml"
+    },
+    {
+        "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\1960a83289718f239662eaddcddcdbf2\\res\\layout\\abc_action_menu_item_layout.xml"
     },
     {
         "merged": "C:\\Git\\mGBA\\filepicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_activity_chooser_view_list_item.xml",

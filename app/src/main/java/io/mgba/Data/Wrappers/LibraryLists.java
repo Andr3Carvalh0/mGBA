@@ -59,4 +59,8 @@ public class LibraryLists implements Parcelable {
         dest.writeTypedList(this.gba);
         dest.writeTypedList(this.gbc);
     }
+
+    public boolean isEmpty() {
+        return favourites.size() == 0 && gba.size() == 0 && gbc.size() == 0;
+    }
 }

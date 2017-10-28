@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import io.mgba.Controllers.UI.Activities.SplashActivity;
 import io.mgba.Data.Remote.Interfaces.IRequest;
@@ -21,6 +22,7 @@ import io.mgba.Services.LibraryService;
 import io.mgba.Services.System.PreferencesService;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class mgba extends Application {
 
@@ -29,6 +31,11 @@ public class mgba extends Application {
     private IRequest webService;
     private ILibraryService libraryService;
     private ProgressDialog waitingDialog;
+
+    public static void printLog(String tag, String message){
+        if(BuildConfig.DEBUG)
+            Log.v(tag, message);
+    }
 
     public void savePreference(String key, String value) {
         preparePreferencesManager();
@@ -98,7 +105,6 @@ public class mgba extends Application {
         return libraryService;
     }
 
-
     /**
      * Take from :
      * https://github.com/JakeWharton/ProcessPhoenix
@@ -138,5 +144,9 @@ public class mgba extends Application {
                 .setPositiveButton(positive_button, positive_click)
                 .setNegativeButton(negative_button, negative_click)
                 .show();
+    }
+
+    public boolean isInLandscape(){
+       return getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
     }
 }

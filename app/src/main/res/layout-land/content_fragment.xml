@@ -1,0 +1,38 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.lucasr.twowayview.widget.TwoWayView
+        android:id="@+id/content_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:twowayview_layoutManager="GridLayoutManager"
+        app:twowayview_numColumns="5" />
+
+    <RelativeLayout
+        android:id="@+id/no_content_container"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/no_content_image"
+            android:layout_width="@dimen/message_width"
+            android:layout_height="@dimen/message_width"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_videogame_asset_grey_500_48dp" />
+
+        <TextView
+            android:id="@+id/no_content_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/no_content_image"
+            android:layout_alignStart="@+id/no_content_image"
+            android:layout_below="@+id/no_content_image"
+            android:text="@string/no_games"
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+    </RelativeLayout>
+</FrameLayout>

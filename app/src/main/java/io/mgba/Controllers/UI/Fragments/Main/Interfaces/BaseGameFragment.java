@@ -2,15 +2,14 @@ package io.mgba.Controllers.UI.Fragments.Main.Interfaces;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
+import org.lucasr.twowayview.widget.TwoWayView;
 
 import java.util.ArrayList;
 
@@ -22,20 +21,26 @@ import io.mgba.Controllers.UI.Adapters.RecyclerView.LibraryAdapter;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
 
-public abstract class BaseGameFragment extends Fragment implements ILibraryConsumer{
+import static io.mgba.mgba.printLog;
 
+public abstract class BaseGameFragment extends Fragment implements ILibraryConsumer {
+
+    private static final String TAG = "BaseFragment";
     @BindView(R.id.no_content_container)
     protected RelativeLayout mNoContentView;
 
-    @BindView(R.id.content_container)
-    protected RelativeLayout mMainView;
-
     @BindView(R.id.content_recyclerView)
-    protected RecyclerView mRecyclerView;
+    protected TwoWayView mRecyclerView;
+
+    @BindView(R.id.no_content_image)
+    protected ImageView noContentImage;
+
+    @BindView(R.id.no_content_message)
+    protected TextView noContentMessage;
 
     protected View mView;
     private LibraryAdapter adapter;
-    private ArrayList<Game> games;
+    private ArrayList<Game> games = new ArrayList<>();
     private ILibrary onClickCallback;
 
     @Override
@@ -43,28 +48,30 @@ public abstract class BaseGameFragment extends Fragment implements ILibraryConsu
         mView = prepareView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, mView);
 
+        prepareDrawables();
+        showContent(false);
+
         Bundle args = getArguments();
 
-        if(args != null){
+        if (args != null) {
             consume((ArrayList<Game>) args.get(Constants.GAMES_INTENT));
         }
 
         return mView;
     }
 
+    protected void prepareDrawables() {
+        noContentImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_videogame_asset_grey_500_48dp));
+        noContentMessage.setText(R.string.no_games);
+    }
+
     protected void prepareRecyclerView(ArrayList<? extends Game> games) {
-        if(games.size() == 0)
+        if (games.size() == 0)
             return;
 
-        mNoContentView.setVisibility(View.GONE);
-        mMainView.setVisibility(View.VISIBLE);
+        showContent(true);
 
-        if(adapter == null) {
-            FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
-            layoutManager.setFlexWrap(FlexWrap.WRAP);
-            layoutManager.setJustifyContent(JustifyContent.SPACE_BETWEEN);
-
-            mRecyclerView.setLayoutManager(layoutManager);
+        if (adapter == null) {
             mRecyclerView.setHasFixedSize(true);
             adapter = new LibraryAdapter(games, this, getContext(), this::onItemClick);
             mRecyclerView.setAdapter(adapter);
@@ -73,35 +80,41 @@ public abstract class BaseGameFragment extends Fragment implements ILibraryConsu
         adapter.updateContent(games);
     }
 
+    protected void showContent(boolean val){
+        mNoContentView.setVisibility(val ? View.GONE : View.VISIBLE);
+        mRecyclerView.setVisibility(val ? View.VISIBLE : View.GONE);
+    }
+
     protected View prepareView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.games_fragment, container, false);
+        return inflater.inflate(R.layout.content_fragment, container, false);
     }
 
     @Override
-    public void consume(ArrayList<Game> list){
+    public void consume(ArrayList<Game> list) {
         setGameList(list);
         prepareRecyclerView(list);
 
     }
 
     @Override
-    public void setLoading(){
+    public void setLoading() {
 
     }
 
     @Override
-    public void setOnClickCallback(ILibrary callback){
+    public void setOnClickCallback(ILibrary callback) {
         onClickCallback = callback;
     }
 
-    private Void onItemClick(Game game){
-        if(onClickCallback != null)
+    private Void onItemClick(Game game) {
+        printLog(TAG, "onClickCalled!");
+        if (onClickCallback != null)
             onClickCallback.showBottomSheet(game);
 
         return null;
     }
 
-    protected void setGameList(ArrayList<Game> list){
+    protected void setGameList(ArrayList<Game> list) {
         this.games = list;
     }
 

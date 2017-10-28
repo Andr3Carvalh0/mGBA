@@ -18,6 +18,8 @@ import java.util.List;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.Services.Interfaces.IFilesService;
 
+import static io.mgba.mgba.printLog;
+
 /**
  * Handles the fetching/filtering of the supported files for the selected dir.
  */
@@ -26,6 +28,7 @@ public class FilesService implements IFilesService{
     public static final LinkedList<String> GBC_FILES_SUPPORTED;
     public static final LinkedList<String> GBA_FILES_SUPPORTED;
     private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    private static final String TAG = "FileService";
 
     static {
         GBC_FILES_SUPPORTED = new LinkedList<>();
@@ -38,8 +41,11 @@ public class FilesService implements IFilesService{
     private File gameDir;
 
     public FilesService(String directory) {
+        printLog(TAG, "CTOR: " + directory);
+
         if(!directory.equals(""))
             this.gameDir = new File(directory);
+
     }
 
     public static byte[] getFileMD5(final File file, Context ctx) {

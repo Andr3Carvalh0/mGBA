@@ -8,5 +8,6 @@ public interface ILibraryService {
     void prepareGames(Function<LibraryLists, Void> callback);
     void stop();
     void updateFileServicePath(String path);
+    LibraryLists getCachedList();
 
 }

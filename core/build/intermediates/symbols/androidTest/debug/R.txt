@@ -1,0 +1,4 @@
+int id twowayview_item_click_support 0x7f020000
+int id twowayview_item_selection_support 0x7f020001
+int[] styleable twowayview_TwoWayLayoutManager { 0x010100c4 }
+int styleable twowayview_TwoWayLayoutManager_android_orientation 0

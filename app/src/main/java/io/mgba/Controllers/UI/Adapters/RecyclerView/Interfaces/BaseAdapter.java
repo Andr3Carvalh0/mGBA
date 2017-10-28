@@ -16,11 +16,11 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     protected List<T> items;
     protected Context ctx;
 
-    public BaseAdapter(List<T> items, int layout, Function<View, RecyclerView.ViewHolder> generateViewHolder, Context ctx){
+    public BaseAdapter(List<T> items, int layout, Function<View, RecyclerView.ViewHolder> generateViewHolder, Context context){
         this.items = items;
         this.layout = layout;
         this.generateViewHolder = generateViewHolder;
-        this.ctx = ctx;
+        this.ctx = context;
     }
 
     @Override

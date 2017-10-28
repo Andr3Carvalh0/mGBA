@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
@@ -40,15 +41,14 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final LibraryLists games = getIntent().getParcelableExtra(Constants.GAMES_INTENT);
-
-
         setContentView(R.layout.activity_library);
+
         ButterKnife.bind(this);
+        LibraryLists games = libraryController.getCachedList();
+        Log.v("Andre", games.isEmpty() + "");
 
         prepareToolbar();
         prepareViewPager(games);
-
     }
 
     private void prepareToolbar() {
@@ -61,9 +61,7 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.GBC)));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        adapter = games == null
-                ? new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this)
-                : new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this, games);
+        adapter = new TabViewPager(getSupportFragmentManager(), mTabLayout.getTabCount(), this, games);
 
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(DEFAULT_PANEL);
@@ -119,6 +117,9 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
         prepareBottomSheetController();
         mSheetDialog.showWithSheetView(bottomSheetController.getView(mSheetDialog, game));
 
+        if(((mgba)getApplication()).isInLandscape()) {
+            mSheetDialog.expandSheet();
+        }
     }
 
     private void prepareBottomSheetController(){

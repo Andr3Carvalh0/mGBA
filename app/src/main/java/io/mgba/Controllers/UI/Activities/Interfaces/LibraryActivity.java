@@ -35,6 +35,10 @@ public class LibraryActivity extends AppCompatActivity {
         return false;
     }
 
+    protected LibraryLists getCachedList(){
+        return libraryController.getCachedList();
+    }
+
     protected boolean hasStoragePermission(){
         return permissionService.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }

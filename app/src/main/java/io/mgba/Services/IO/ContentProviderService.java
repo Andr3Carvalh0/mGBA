@@ -7,7 +7,11 @@ import io.mgba.Data.ContentProvider.game.GameCursor;
 import io.mgba.Data.ContentProvider.game.GameSelection;
 import io.mgba.Data.DTOs.Game;
 
+import static io.mgba.mgba.printLog;
+
 public class ContentProviderService {
+
+    private static final String TAG = "ContProvSer";
 
     public static boolean doesItemExist(Game game, Context mCtx){
         String md5 = game.getMD5();
@@ -32,14 +36,18 @@ public class ContentProviderService {
                 game.setFavourite(false);
             }
 
+            printLog(TAG, game.getName() + " exists");
             return true;
         }
 
+
+        printLog(TAG, game.getName() + " does exists");
         return false;
     }
 
     public static void push(Game game, Context mCtx){
         GameContentValues values = new GameContentValues();
+        printLog(TAG, game.getName() + " adding to db");
 
         values.putCover(game.getCoverURL());
         values.putDescription(game.getDescription());

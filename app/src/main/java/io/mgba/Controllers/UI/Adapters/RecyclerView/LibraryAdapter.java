@@ -22,8 +22,8 @@ import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
 
 public class LibraryAdapter extends BaseAdapter {
+    private final Function<Game, Void> onClick;
     private Fragment view;
-    private Function<Game, Void> onClick;
 
     public LibraryAdapter(List<? extends Game> list, Fragment view, Context ctx, Function<Game, Void> onClick) {
         super(list, R.layout.game, (v) -> new ViewHolder((View) v), ctx);
@@ -37,14 +37,13 @@ public class LibraryAdapter extends BaseAdapter {
 
         ((ViewHolder) holder).gameTitle.setText(mItem.getName());
 
-            Glide.with(view)
-                 .load(mItem.getCoverURL() == null ? R.drawable.placeholder : mItem.getCoverURL())
-                 .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error))
-                 .into(((ViewHolder) holder).gameCover);
+        Glide.with(view)
+             .load(mItem.getCoverURL() == null ? R.drawable.placeholder : mItem.getCoverURL())
+             .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error))
+             .into(((ViewHolder) holder).gameCover);
+
 
         //Click Event
-        ((ViewHolder) holder).gameTitle.setOnClickListener(v -> onClick.apply(mItem));
-        ((ViewHolder) holder).gameCover.setOnClickListener(v -> onClick.apply(mItem));
         ((ViewHolder) holder).masterContainer.setOnClickListener(v -> onClick.apply(mItem));
     }
 

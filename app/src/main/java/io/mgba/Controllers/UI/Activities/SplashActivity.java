@@ -17,7 +17,6 @@ public class SplashActivity extends LibraryActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
         if(getIntent().getExtras() != null){
             //Called when we do the setup and choose the game dir.
             //Without this, the FileService will point to the directory null
@@ -46,12 +45,11 @@ public class SplashActivity extends LibraryActivity{
     private Void onLoadGames(LibraryLists lists){
         Intent it = new Intent(this, MainActivity.class);
 
-        if(lists != null)
-            it.putExtra(Constants.GAMES_INTENT, lists);
-
+        //Dont put the lists object in the intent. To simplify the code we will always fetch the library to the library
+        //service. Since its a singleton, it will have the cached value of the library, that we fetch here.
+        //This behaviour saves us some ifs statements on the main activity on activity recreation, etc...
         startActivity(it);
         finish();
-
         return null;
     }
 }

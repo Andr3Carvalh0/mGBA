@@ -16,6 +16,7 @@
     <dimen name="no_content_margin_top">172dp</dimen>
     <dimen name="no_content_favourites_margin_top">170dp</dimen>
     <dimen name="cover_size">137dp</dimen>
+    <dimen name="single_DP">1dp</dimen>
     <dimen name="bottomsheet_header">172dp</dimen>
     <dimen name="sheet_space">12dp</dimen>
     <dimen name="sheet_space_double">24dp</dimen>
