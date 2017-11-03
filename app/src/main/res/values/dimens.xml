@@ -24,5 +24,6 @@
     <dimen name="sheet_no_content_bottom_margin">64dp</dimen>
     <dimen name="sheet_no_content_image">96dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="body_margin_small">6dp</dimen>
 
 </resources>

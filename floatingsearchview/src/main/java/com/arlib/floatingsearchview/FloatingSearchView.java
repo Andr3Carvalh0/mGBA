@@ -60,7 +60,6 @@ import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -318,8 +317,8 @@ public class FloatingSearchView extends FrameLayout {
                     ATTRS_SEARCH_BAR_MARGIN_DEFAULT);
             LayoutParams querySectionLP = (LayoutParams) mQuerySection.getLayoutParams();
             LayoutParams dividerLP = (LayoutParams) mDivider.getLayoutParams();
-            LinearLayout.LayoutParams suggestListSectionLP =
-                    (LinearLayout.LayoutParams) mSuggestionsSection.getLayoutParams();
+            RelativeLayout.LayoutParams suggestListSectionLP =
+                    (RelativeLayout.LayoutParams) mSuggestionsSection.getLayoutParams();
             int cardPadding = Util.dpToPx(CARD_VIEW_TOP_BOTTOM_SHADOW_HEIGHT);
             querySectionLP.setMargins(searchBarLeftMargin, searchBarTopMargin,
                     searchBarRightMargin, 0);

@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Git\\mGBA\\twoway-view\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-hr\\values-hr.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\0605663a6d400aeefd3f59e7dca9dab4\\res\\values-hr\\values-hr.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Git\\mGBA\\twoway-view\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-hr\\values-hr.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\0605663a6d400aeefd3f59e7dca9dab4\\res\\values-hr\\values-hr.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

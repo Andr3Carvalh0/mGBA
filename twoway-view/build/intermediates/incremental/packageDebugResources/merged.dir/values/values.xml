@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <declare-styleable name="twowayview_DividerItemDecoration"><attr name="android:divider" ns1:ignore="ResourceName"/><attr format="reference" name="twowayview_verticalDivider"/><attr format="reference" name="twowayview_horizontalDivider"/></declare-styleable>
+    <declare-styleable name="twowayview_GridLayoutManager"><attr format="integer" name="twowayview_numColumns"/><attr format="integer" name="twowayview_numRows"/></declare-styleable>
+    <declare-styleable name="twowayview_SpacingItemDecoration"><attr name="android:verticalSpacing" ns1:ignore="ResourceName"/><attr name="android:horizontalSpacing" ns1:ignore="ResourceName"/></declare-styleable>
+    <declare-styleable name="twowayview_SpannableGridViewChild"><attr format="integer" name="twowayview_colSpan"/><attr format="integer" name="twowayview_rowSpan"/></declare-styleable>
+    <declare-styleable name="twowayview_StaggeredGridViewChild"><attr format="integer" name="twowayview_span"/></declare-styleable>
+    <declare-styleable name="twowayview_TwoWayLayoutManager"><attr name="android:orientation" ns1:ignore="ResourceName"/></declare-styleable>
+    <declare-styleable name="twowayview_TwoWayView"><attr format="string" name="twowayview_layoutManager"/></declare-styleable>
+    <item name="twowayview_item_click_support" type="id"/>
+    <item name="twowayview_item_selection_support" type="id"/>
+</resources>

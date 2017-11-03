@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:twowayview_layoutManager="GridLayoutManager"
-        app:twowayview_numColumns="5" />
+        app:twowayview_numColumns="5"
+        app:twowayview_numRows="5" />
 
     <RelativeLayout
         android:id="@+id/no_content_container"
