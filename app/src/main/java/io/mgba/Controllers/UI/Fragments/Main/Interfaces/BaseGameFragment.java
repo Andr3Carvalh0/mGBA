@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.lucasr.twowayview.widget.TwoWayView;
+import org.lucasr.twowayview.layout.TwoWayView;
 
 import java.util.ArrayList;
 

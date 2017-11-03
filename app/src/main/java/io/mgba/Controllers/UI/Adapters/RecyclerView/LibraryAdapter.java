@@ -21,7 +21,7 @@ import io.mgba.Controllers.UI.Adapters.RecyclerView.Interfaces.BaseAdapter;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
 
-public class LibraryAdapter extends BaseAdapter {
+public class LibraryAdapter extends BaseAdapter{
     private final Function<Game, Void> onClick;
     private Fragment view;
 
@@ -35,13 +35,18 @@ public class LibraryAdapter extends BaseAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final Game mItem = (Game)items.get(position);
 
-        ((ViewHolder) holder).gameTitle.setText(mItem.getName());
+        if(mItem.getCoverURL() == null){
+            ((ViewHolder) holder).gameTitle.setText(mItem.getName());
 
-        Glide.with(view)
-             .load(mItem.getCoverURL() == null ? R.drawable.placeholder : mItem.getCoverURL())
-             .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error))
-             .into(((ViewHolder) holder).gameCover);
 
+        }else{
+            ((ViewHolder) holder).gameTitle.setVisibility(View.GONE);
+
+            Glide.with(view)
+                    .load(mItem.getCoverURL())
+                    .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error))
+                    .into(((ViewHolder) holder).gameCover);
+        }
 
         //Click Event
         ((ViewHolder) holder).masterContainer.setOnClickListener(v -> onClick.apply(mItem));

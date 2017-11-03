@@ -25,14 +25,11 @@ public class LibraryActivity extends AppCompatActivity {
         permissionService = new PermissionService(this);
     }
 
-    protected boolean prepareGames(Function<LibraryLists, Void> callback){
+    protected void prepareGames(Function<LibraryLists, Void> callback){
         if(!((mgba)getApplication()).isServiceRunning(ProcessingService.class)) {
-
             libraryController.prepareGames(callback);
-            return true;
         }
 
-        return false;
     }
 
     protected LibraryLists getCachedList(){
@@ -41,6 +38,13 @@ public class LibraryActivity extends AppCompatActivity {
 
     protected boolean hasStoragePermission(){
         return permissionService.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        libraryController.resume();
     }
 
     @Override

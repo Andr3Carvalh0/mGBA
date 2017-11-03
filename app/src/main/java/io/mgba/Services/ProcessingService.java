@@ -66,8 +66,7 @@ public class ProcessingService implements IProcessingService{
         Intent intent = new Intent(Constants.RECEIVE_GAME_LIST);
         intent.putParcelableArrayListExtra(Constants.GAMES_INTENT, list);
 
-        LocalBroadcastManager.getInstance(mCtx).sendBroadcast(intent);
-        mCtx.sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(mCtx.getApplicationContext()).sendBroadcast(intent);
 
         //Kill ourselfs
         onEnd.run();

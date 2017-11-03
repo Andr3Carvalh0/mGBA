@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:ns1="http://schemas.android.com/tools">
-    <declare-styleable name="twowayview_TwoWayLayoutManager"><attr name="android:orientation" ns1:ignore="ResourceName"/></declare-styleable>
-    <item name="twowayview_item_click_support" type="id"/>
-    <item name="twowayview_item_selection_support" type="id"/>
-</resources>

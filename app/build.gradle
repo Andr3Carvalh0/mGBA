@@ -69,6 +69,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
     implementation project(':filepicker')
     implementation project(':floatingsearchview')
-    implementation project(':core')
-    implementation project(':layouts')
+    implementation project(':twoway-view')
 }

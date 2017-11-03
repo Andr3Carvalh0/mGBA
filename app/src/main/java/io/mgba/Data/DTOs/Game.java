@@ -26,7 +26,7 @@ public class Game implements Parcelable {
     private String released;
     private String developer;
     private String genre;
-    private String coverURL;
+    private String coverURL = null;
     private String MD5;
     private boolean favourite;
 

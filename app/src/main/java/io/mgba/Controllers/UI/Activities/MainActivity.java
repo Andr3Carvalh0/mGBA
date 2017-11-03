@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,11 +24,12 @@ import io.mgba.Controllers.UI.Adapters.TabViewPager;
 import io.mgba.Controllers.UI.Views.BottomSheetView;
 import io.mgba.Controllers.UI.Views.Interfaces.IBottomSheetView;
 import io.mgba.Data.DTOs.Game;
+import io.mgba.Data.Search.GameSuggestion;
 import io.mgba.Data.Wrappers.LibraryLists;
 import io.mgba.R;
 import io.mgba.mgba;
 
-public class MainActivity extends LibraryActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, ILibrary {
+public class MainActivity extends LibraryActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, ILibrary {
 
     private static final int DEFAULT_PANEL = 1;
     private static final int SETTINGS_CODE = 738;
@@ -45,7 +49,7 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
 
         ButterKnife.bind(this);
         LibraryLists games = libraryController.getCachedList();
-        Log.v("Andre", games.isEmpty() + "");
+
 
         prepareToolbar();
         prepareViewPager(games);
@@ -53,6 +57,8 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
 
     private void prepareToolbar() {
         mToolbar.setOnMenuItemClickListener(this);
+        mToolbar.setOnSearchListener(this);
+        mToolbar.setOnQueryChangeListener(this);
     }
 
     private void prepareViewPager(LibraryLists games) {
@@ -108,9 +114,11 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
 
     @Override
     public void onSearchTextChanged(String oldQuery, String newQuery) {
-
+        List<SearchSuggestion> tnn = new LinkedList<>();
+        tnn.add(new GameSuggestion("a"));
+        tnn.add(new GameSuggestion("a"));        tnn.add(new GameSuggestion("a"));        tnn.add(new GameSuggestion("a"));
+        mToolbar.swapSuggestions(tnn);
     }
-
 
     @Override
     public void showBottomSheet(Game game) {
@@ -149,4 +157,13 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
         return null;
     }
 
+    @Override
+    public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
+
+    }
+
+    @Override
+    public void onSearchAction(String currentQuery) {
+
+    }
 }

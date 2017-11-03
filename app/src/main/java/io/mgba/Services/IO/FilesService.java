@@ -48,7 +48,7 @@ public class FilesService implements IFilesService{
 
     }
 
-    public static byte[] getFileMD5(final File file, Context ctx) {
+    private static byte[] getFileMD5(final File file, Context ctx) {
         if (file == null) return null;
         DigestInputStream dis = null;
         try {
@@ -98,7 +98,8 @@ public class FilesService implements IFilesService{
     public static String getFileExtension(File file){
         return file.getName()
                 .substring(file.getName().lastIndexOf("."))
-                .substring(1);//removes "."
+                .substring(1)
+                .toLowerCase();//removes "."
     }
 
     /**

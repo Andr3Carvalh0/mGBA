@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/master_container"
@@ -8,56 +7,28 @@
     android:layout_margin="@dimen/single_DP"
     android:background="?attr/selectableItemBackgroundBorderless">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
+    <ImageView
+        android:id="@+id/card_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:elevation="@dimen/cardview_default_elevation"
-        app:cardCornerRadius="0dp">
+        android:scaleType="fitXY"
+        autofit:srcCompat="@color/cardview_dark_background"
+        tools:background="#424242" />
 
-        <RelativeLayout
-            android:id="@+id/game_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true">
-
-            <ImageView
-                android:id="@+id/card_preview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:scaleType="fitXY"
-                tools:background="#424242" />
-
-            <RelativeLayout
-                android:id="@+id/card_title_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/game_title_height"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="bottom"
-                android:background="@color/card_title_background">
-
-                <me.grantland.widget.AutofitTextView
-                    android:id="@+id/card_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginStart="4dp"
-                    android:ellipsize="end"
-                    android:maxLines="3"
-                    android:text="Lisbon"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    autofit:minTextSize="14sp" />
-
-            </RelativeLayout>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/card_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="Lisbon"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        autofit:minTextSize="14sp" />
 </RelativeLayout>

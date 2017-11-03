@@ -2,7 +2,6 @@ package io.mgba.Controllers.UI.Views;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.graphics.Palette;
@@ -14,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.github.florent37.glidepalette.GlidePalette;
@@ -70,50 +68,51 @@ public class BottomSheetView implements IBottomSheetView {
         gameTitle.setText(game.getName());
         gameDescription.setText(game.getDescription());
 
-        RequestBuilder<Drawable> req = Glide.with(view)
-                .load(game.getCoverURL() == null ? R.drawable.placeholder : game.getCoverURL())
-                .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error));
+        if(game.getCoverURL() != null) {
 
-        if(game.getCoverURL() != null){
-            req = req.listener(GlidePalette.with(game.getCoverURL())
-                    .intoCallBack(palette -> {
-                        if (palette != null) {
-                            final Palette.Swatch lightVibrantSwatch = palette.getLightVibrantSwatch();
-                            final Palette.Swatch lightMutedSwatch = palette.getLightMutedSwatch();
+            Glide.with(view)
+                .load(game.getCoverURL())
+                .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error))
+                .listener(
+                        GlidePalette
+                        .with(game.getCoverURL())
+                        .intoCallBack(palette -> {
+                            if (palette != null) {
+                                final Palette.Swatch lightVibrantSwatch = palette.getLightVibrantSwatch();
+                                final Palette.Swatch lightMutedSwatch = palette.getLightMutedSwatch();
 
-                            final Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
-                            final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                                final Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
+                                final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
 
-                            if (darkMutedSwatch != null) {
-                                fab.setBackgroundTintList(ColorStateList.valueOf(darkMutedSwatch.getRgb()));
-                                savestateTitle.setTextColor(ColorStateList.valueOf(darkMutedSwatch.getRgb()));
+                                if (darkMutedSwatch != null) {
+                                    fab.setBackgroundTintList(ColorStateList.valueOf(darkMutedSwatch.getRgb()));
+                                    savestateTitle.setTextColor(ColorStateList.valueOf(darkMutedSwatch.getRgb()));
+                                }
+
+                                if (vibrantSwatch != null) {
+                                    fab.setBackgroundTintList(ColorStateList.valueOf(vibrantSwatch.getRgb()));
+                                    savestateTitle.setTextColor(ColorStateList.valueOf(vibrantSwatch.getRgb()));
+                                }
+
+                                if (lightVibrantSwatch != null) {
+                                    bottomsheetHeader.setBackgroundColor(lightVibrantSwatch.getRgb());
+                                    noSavestateMessage.setTextColor(ColorStateList.valueOf(lightVibrantSwatch.getRgb()));
+                                    noContentImage.setColorFilter(lightVibrantSwatch.getRgb(), android.graphics.PorterDuff.Mode.SRC_IN);
+
+                                }
+
+                                if (lightMutedSwatch != null) {
+                                    bottomsheetHeader.setBackgroundColor(lightMutedSwatch.getRgb());
+                                    noSavestateMessage.setTextColor(ColorStateList.valueOf(lightMutedSwatch.getRgb()));
+                                    noContentImage.setColorFilter(lightMutedSwatch.getRgb(), android.graphics.PorterDuff.Mode.SRC_IN);
+                                }
+
                             }
-
-                            if (vibrantSwatch != null) {
-                                fab.setBackgroundTintList(ColorStateList.valueOf(vibrantSwatch.getRgb()));
-                                savestateTitle.setTextColor(ColorStateList.valueOf(vibrantSwatch.getRgb()));
-                            }
-
-                            if (lightVibrantSwatch != null) {
-                                bottomsheetHeader.setBackgroundColor(lightVibrantSwatch.getRgb());
-                                noSavestateMessage.setTextColor(ColorStateList.valueOf(lightVibrantSwatch.getRgb()));
-                                noContentImage.setColorFilter(lightVibrantSwatch.getRgb(), android.graphics.PorterDuff.Mode.SRC_IN);
-
-                            }
-
-                            if (lightMutedSwatch != null) {
-                                bottomsheetHeader.setBackgroundColor(lightMutedSwatch.getRgb());
-                                noSavestateMessage.setTextColor(ColorStateList.valueOf(lightMutedSwatch.getRgb()));
-                                noContentImage.setColorFilter(lightMutedSwatch.getRgb(), android.graphics.PorterDuff.Mode.SRC_IN);
-                            }
-
-                        }
-                    })
-                    .use(GlidePalette.Profile.VIBRANT_LIGHT)
-                    .intoTextColor(gameDescription, GlidePalette.Swatch.BODY_TEXT_COLOR)
-                    .intoTextColor(gameTitle, GlidePalette.Swatch.TITLE_TEXT_COLOR));
-            }
-
-        req.into(cover);
+                        })
+                        .use(GlidePalette.Profile.VIBRANT_LIGHT)
+                        .intoTextColor(gameDescription, GlidePalette.Swatch.BODY_TEXT_COLOR)
+                        .intoTextColor(gameTitle, GlidePalette.Swatch.TITLE_TEXT_COLOR))
+                .into(cover);
+        }
     }
 }

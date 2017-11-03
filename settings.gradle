@@ -1,1 +1,1 @@
-include ':app', ':filepicker', ':floatingsearchview', ':core', ':layouts'
+include ':app', ':filepicker', ':floatingsearchview', ':twoway-view'

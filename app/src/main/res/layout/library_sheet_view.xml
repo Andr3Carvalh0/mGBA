@@ -62,8 +62,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="@dimen/body_margin"
                 android:layout_marginTop="@dimen/body_margin"
-                android:background="@color/about_libraries_card_dark"
-                app:srcCompat="@drawable/placeholder" />
+                android:background="@drawable/placeholder" />
         </RelativeLayout>
 
         <RelativeLayout

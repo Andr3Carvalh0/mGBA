@@ -53,6 +53,11 @@ public class LibraryService implements ILibraryService{
         this.callback = callback;
         final List<File> gameList = filesService.getGameList();
 
+        if(gameList.size() == 0){
+            callback.apply(cache);
+            return;
+        }
+
         ArrayList<Game> res = new ArrayList<>();
 
         for (File file: gameList)
@@ -65,6 +70,11 @@ public class LibraryService implements ILibraryService{
     public void stop(){
         if(libraryReceiver != null)
             LocalBroadcastManager.getInstance(context).unregisterReceiver(libraryReceiver);
+    }
+
+    @Override
+    public void resume() {
+        startReceiver();
     }
 
     @Override
@@ -85,7 +95,8 @@ public class LibraryService implements ILibraryService{
     private void startReceiver(){
         final IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.RECEIVE_GAME_LIST);
-        LocalBroadcastManager.getInstance(context).registerReceiver(libraryReceiver, intentFilter);
+
+        LocalBroadcastManager.getInstance(context.getApplicationContext()).registerReceiver(libraryReceiver, intentFilter);
     }
 
     private LibraryLists filter(ArrayList<Game> list){
