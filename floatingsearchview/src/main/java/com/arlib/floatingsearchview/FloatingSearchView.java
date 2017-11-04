@@ -1203,12 +1203,17 @@ public class FloatingSearchView extends FrameLayout {
         mSuggestionsList.setAlpha(0);
         mSuggestionsAdapter.swapData(newSearchSuggestions);
 
-        mDivider.setVisibility(!newSearchSuggestions.isEmpty() ? View.VISIBLE : View.GONE);
+
+        if(newSearchSuggestions != null)
+            mDivider.setVisibility(!newSearchSuggestions.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
     //returns true if the suggestion items occupy the full RecyclerView's height, false otherwise
     private boolean updateSuggestionsSectionHeight(List<? extends SearchSuggestion>
                                                            newSearchSuggestions, boolean withAnim) {
+
+        if(newSearchSuggestions == null)
+            return false;
 
         final int cardTopBottomShadowPadding = Util.dpToPx(CARD_VIEW_CORNERS_AND_TOP_BOTTOM_SHADOW_HEIGHT);
         final int cardRadiusSize = Util.dpToPx(CARD_VIEW_TOP_BOTTOM_SHADOW_HEIGHT);

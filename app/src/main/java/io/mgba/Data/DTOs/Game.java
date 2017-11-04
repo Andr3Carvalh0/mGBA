@@ -3,11 +3,13 @@ package io.mgba.Data.DTOs;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
+
 import java.io.File;
 
 import io.mgba.Services.IO.FilesService;
 
-public class Game implements Parcelable {
+public class Game implements Parcelable, SearchSuggestion {
 
     public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {
         @Override
@@ -138,5 +140,10 @@ public class Game implements Parcelable {
     public boolean isAdvanced() {
         return FilesService.GBA_FILES_SUPPORTED
                 .contains(FilesService.getFileExtension(getFile()));
+    }
+
+    @Override
+    public String getBody() {
+        return getName();
     }
 }

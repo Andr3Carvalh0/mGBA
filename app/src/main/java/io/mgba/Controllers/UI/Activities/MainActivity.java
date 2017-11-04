@@ -24,7 +24,6 @@ import io.mgba.Controllers.UI.Adapters.TabViewPager;
 import io.mgba.Controllers.UI.Views.BottomSheetView;
 import io.mgba.Controllers.UI.Views.Interfaces.IBottomSheetView;
 import io.mgba.Data.DTOs.Game;
-import io.mgba.Data.Search.GameSuggestion;
 import io.mgba.Data.Wrappers.LibraryLists;
 import io.mgba.R;
 import io.mgba.mgba;
@@ -113,14 +112,6 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
     }
 
     @Override
-    public void onSearchTextChanged(String oldQuery, String newQuery) {
-        List<SearchSuggestion> tnn = new LinkedList<>();
-        tnn.add(new GameSuggestion("a"));
-        tnn.add(new GameSuggestion("a"));        tnn.add(new GameSuggestion("a"));        tnn.add(new GameSuggestion("a"));
-        mToolbar.swapSuggestions(tnn);
-    }
-
-    @Override
     public void showBottomSheet(Game game) {
         prepareBottomSheetController();
         mSheetDialog.showWithSheetView(bottomSheetController.getView(mSheetDialog, game));
@@ -164,6 +155,30 @@ public class MainActivity extends LibraryActivity implements TabLayout.OnTabSele
 
     @Override
     public void onSearchAction(String currentQuery) {
+        //Not implemented
+    }
 
+    @Override
+    public void onSearchTextChanged(String oldQuery, String newQuery) {
+
+        if (!oldQuery.equals("") && newQuery.equals("")) {
+            mToolbar.clearSuggestions();
+        } else {
+            mToolbar.showProgress();
+
+            List<Game> suggestions = new LinkedList<>();
+
+            if (!(newQuery == null || newQuery.length() == 0)) {
+                for (Game game : libraryController.getCachedList().getLibrary()) {
+                    if (game.getName()
+                            .toLowerCase().contains(newQuery.toLowerCase())) {
+                        suggestions.add(game);
+                    }
+                }
+            }
+
+            mToolbar.swapSuggestions(suggestions);
+            mToolbar.hideProgress();
+        }
     }
 }

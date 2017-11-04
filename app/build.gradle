@@ -46,9 +46,7 @@ dependencies {
     compile('com.mikepenz:aboutlibraries:5.9.7@aar') { transitive = true }
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.jakewharton:butterknife:8.8.1'
-    compile('com.github.florent37:glidepalette:2.1.1', {
-        exclude group: 'com.android.support', 'module': 'palette-v7'
-    })
+    compile('com.github.florent37:glidepalette:2.1.1', { exclude group: 'com.android.support', 'module': 'palette-v7' })
     compile 'com.github.bumptech.glide:glide:4.2.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.android.support:support-v4:26.1.0'

@@ -8,8 +8,8 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import io.mgba.Constants;
@@ -25,10 +25,10 @@ public class ProcessingService implements IProcessingService{
     private final static int MAX_THREADS = 4;
 
     private final mgba mApplication;
-    private final AtomicInteger count;
-    private final ThreadPoolExecutor executor;
+    private final ExecutorService executor;
     private final Runnable onEnd;
     private final Context mCtx;
+    private final AtomicInteger count;
     private volatile ArrayList<Game> games;
 
     public ProcessingService(mgba app, ArrayList<Game> games, Runnable runnable) {
@@ -37,7 +37,7 @@ public class ProcessingService implements IProcessingService{
         this.games = games;
         this.onEnd = runnable;
         this.count = new AtomicInteger(games.size());
-        this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(MAX_THREADS);
+        this.executor = Executors.newFixedThreadPool(MAX_THREADS);
     }
 
     @Override
@@ -47,11 +47,10 @@ public class ProcessingService implements IProcessingService{
 
         for (int i = 0; i < games.size(); i++) {
             int tmp = i;
-
             executor.submit(() -> {
                 process(games.get(tmp));
 
-                if(count.decrementAndGet() == 0) {
+                if(count.decrementAndGet() <= 0){
                     sortList(games);
                     announceResult(games);
                 }
@@ -100,6 +99,10 @@ public class ProcessingService implements IProcessingService{
         try {
             String lang = mApplication.getDeviceLanguage();
             final GameJSON json = mApplication.getWebService().getGameInformation(game.getMD5(), lang).execute().body();
+
+            if(json == null)
+                return false;
+
             copyInformation(game, json);
             return true;
         } catch (IOException e) {

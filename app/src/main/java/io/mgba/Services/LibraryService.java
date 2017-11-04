@@ -115,9 +115,7 @@ public class LibraryService implements ILibraryService{
             }
         }
 
-        cache = new LibraryLists(favs, gba, gbc);
-
-        return cache;
+        return new LibraryLists(favs, gba, gbc);
     }
 
     public class LibraryReceiver extends BroadcastReceiver {
@@ -125,6 +123,7 @@ public class LibraryService implements ILibraryService{
         @Override
         public void onReceive(Context context, Intent intent) {
             ArrayList<Game> games = intent.getParcelableArrayListExtra(Constants.GAMES_INTENT);
+
             deliverResult(games);
         }
     }

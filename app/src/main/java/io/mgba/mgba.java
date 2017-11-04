@@ -26,7 +26,6 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class mgba extends Application {
 
-
     private IPreferencesService preferencesController;
     private IRequest webService;
     private ILibraryService libraryService;

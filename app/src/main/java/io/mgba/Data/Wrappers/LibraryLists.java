@@ -48,6 +48,14 @@ public class LibraryLists implements Parcelable {
         return gbc;
     }
 
+    public ArrayList<Game> getLibrary(){
+        ArrayList<Game> lib = new ArrayList<>();
+        lib.addAll(gba);
+        lib.addAll(gbc);
+
+        return lib;
+    }
+
     @Override
     public int describeContents() {
         return 0;
