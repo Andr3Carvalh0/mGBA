@@ -1,14 +1,12 @@
 package io.mgba.Services.Interfaces;
 
-import com.google.common.base.Function;
+import java.util.List;
 
-import io.mgba.Data.Wrappers.LibraryLists;
+import io.mgba.Data.DTOs.Game;
+import io.mgba.Data.Platform;
+import rx.Observable;
 
 public interface ILibraryService {
-    void prepareGames(Function<LibraryLists, Void> callback);
-    void stop();
-    void resume();
-    void updateFileServicePath(String path);
-    LibraryLists getCachedList();
-
+    Observable<List<Game>> prepareGames(Platform platform);
+    Observable<List<Game>> reloadGames(Platform platform);
 }

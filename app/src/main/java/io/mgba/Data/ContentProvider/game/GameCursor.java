@@ -1,8 +1,11 @@
 package io.mgba.Data.ContentProvider.game;
 
+// @formatter:off
+
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import io.mgba.Data.ContentProvider.base.AbstractCursor;
 
 /**
@@ -35,6 +38,19 @@ public class GameCursor extends AbstractCursor implements GameModel {
         String res = getStringOrNull(GameColumns.MD5);
         if (res == null)
             throw new NullPointerException("The value of 'md5' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
+     * The gamefile's path
+     * Cannot be {@code null}.
+     */
+    @NonNull
+    @Override
+    public String getPath() {
+        String res = getStringOrNull(GameColumns.PATH);
+        if (res == null)
+            throw new NullPointerException("The value of 'path' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
@@ -112,6 +128,17 @@ public class GameCursor extends AbstractCursor implements GameModel {
     @Override
     public Boolean getIsfavourite() {
         Boolean res = getBooleanOrNull(GameColumns.ISFAVOURITE);
+        return res;
+    }
+
+    /**
+     * The game's platform
+     * Can be {@code null}.
+     */
+    @Nullable
+    @Override
+    public Integer getPlatform() {
+        Integer res = getIntegerOrNull(GameColumns.PLATFORM);
         return res;
     }
 }

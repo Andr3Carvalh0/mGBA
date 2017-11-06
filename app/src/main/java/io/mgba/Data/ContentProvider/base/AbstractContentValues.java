@@ -1,8 +1,10 @@
 package io.mgba.Data.ContentProvider.base;
 
-import android.content.Context;
+// @formatter:off
+
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.net.Uri;
 
 @SuppressWarnings("unused")

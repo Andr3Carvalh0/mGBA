@@ -1,16 +1,20 @@
 package io.mgba.Data.ContentProvider.base;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+// @formatter:off
+
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.content.CursorLoader;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class AbstractSelection<T extends AbstractSelection<?>> {
+    public static final String DESC = " DESC";
     private static final String EQ = "=?";
     private static final String PAREN_OPEN = "(";
     private static final String PAREN_CLOSE = ")";
@@ -31,8 +35,6 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     private static final String STARTS = " LIKE ? || '%'";
     private static final String ENDS = " LIKE '%' || ?";
     private static final String COUNT = "COUNT(*)";
-    public static final String DESC = " DESC";
-
     private final StringBuilder mSelection = new StringBuilder();
     private final List<String> mSelectionArgs = new ArrayList<>(5);
 

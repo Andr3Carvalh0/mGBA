@@ -1,9 +1,12 @@
 package io.mgba.Data.ContentProvider.base;
 
+// @formatter:off
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.graphics.drawable.animated.BuildConfig;
 import android.util.Log;
-import io.mgba.BuildConfig;
+
 
 /**
  * Override this class to implement your custom database opening, creation or upgrade.

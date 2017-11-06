@@ -1,9 +1,12 @@
 package io.mgba.Data.ContentProvider.base;
 
-import java.util.Date;
-import java.util.HashMap;
+// @formatter:off
+
 import android.database.Cursor;
 import android.database.CursorWrapper;
+
+import java.util.Date;
+import java.util.HashMap;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class AbstractCursor extends CursorWrapper {

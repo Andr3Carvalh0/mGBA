@@ -1,6 +1,6 @@
 package io.mgba.Data.ContentProvider;
 
-import java.util.Arrays;
+// @formatter:off
 
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -9,21 +9,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import java.util.Arrays;
+
 import io.mgba.BuildConfig;
 import io.mgba.Data.ContentProvider.base.BaseContentProvider;
 import io.mgba.Data.ContentProvider.game.GameColumns;
 
 public class Provider extends BaseContentProvider {
-    private static final String TAG = Provider.class.getSimpleName();
-
-    private static final boolean DEBUG = BuildConfig.DEBUG;
-
-    private static final String TYPE_CURSOR_ITEM = "vnd.android.cursor.item/";
-    private static final String TYPE_CURSOR_DIR = "vnd.android.cursor.dir/";
-
     public static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
     public static final String CONTENT_URI_BASE = "content://" + AUTHORITY;
-
+    private static final String TAG = Provider.class.getSimpleName();
+    private static final boolean DEBUG = BuildConfig.DEBUG;
+    private static final String TYPE_CURSOR_ITEM = "vnd.android.cursor.item/";
+    private static final String TYPE_CURSOR_DIR = "vnd.android.cursor.dir/";
     private static final int URI_TYPE_GAME = 0;
     private static final int URI_TYPE_GAME_ID = 1;
 

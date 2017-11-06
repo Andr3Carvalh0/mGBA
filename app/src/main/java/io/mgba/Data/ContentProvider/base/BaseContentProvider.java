@@ -1,8 +1,7 @@
 package io.mgba.Data.ContentProvider.base;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashSet;
+// @formatter:off
+
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
@@ -16,28 +15,39 @@ import android.provider.BaseColumns;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashSet;
+
 @SuppressWarnings({"ConstantConditions", "unused"})
 public abstract class BaseContentProvider extends ContentProvider {
     public static final String QUERY_NOTIFY = "QUERY_NOTIFY";
     public static final String QUERY_GROUP_BY = "QUERY_GROUP_BY";
     public static final String QUERY_HAVING = "QUERY_HAVING";
     public static final String QUERY_LIMIT = "QUERY_LIMIT";
+    protected SQLiteOpenHelper mSqLiteOpenHelper;
 
-    public static class QueryParams {
-        public String table;
-        public String tablesWithJoins;
-        public String idColumn;
-        public String selection;
-        public String orderBy;
+    public static Uri notify(Uri uri, boolean notify) {
+        return uri.buildUpon().appendQueryParameter(QUERY_NOTIFY, String.valueOf(notify)).build();
     }
 
+    public static Uri groupBy(Uri uri, String groupBy) {
+        return uri.buildUpon().appendQueryParameter(QUERY_GROUP_BY, groupBy).build();
+    }
+
+    public static Uri having(Uri uri, String having) {
+        return uri.buildUpon().appendQueryParameter(QUERY_HAVING, having).build();
+    }
+
+    public static Uri limit(Uri uri, String limit) {
+        return uri.buildUpon().appendQueryParameter(QUERY_LIMIT, limit).build();
+    }
 
     protected abstract QueryParams getQueryParams(Uri uri, String selection, String[] projection);
+
     protected abstract boolean hasDebug();
 
     protected abstract SQLiteOpenHelper createSqLiteOpenHelper();
-
-    protected SQLiteOpenHelper mSqLiteOpenHelper;
 
     @Override
     public final boolean onCreate() {
@@ -60,7 +70,6 @@ public abstract class BaseContentProvider extends ContentProvider {
         mSqLiteOpenHelper = createSqLiteOpenHelper();
         return false;
     }
-
 
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
@@ -177,20 +186,11 @@ public abstract class BaseContentProvider extends ContentProvider {
         }
     }
 
-
-    public static Uri notify(Uri uri, boolean notify) {
-        return uri.buildUpon().appendQueryParameter(QUERY_NOTIFY, String.valueOf(notify)).build();
-    }
-
-    public static Uri groupBy(Uri uri, String groupBy) {
-        return uri.buildUpon().appendQueryParameter(QUERY_GROUP_BY, groupBy).build();
-    }
-
-    public static Uri having(Uri uri, String having) {
-        return uri.buildUpon().appendQueryParameter(QUERY_HAVING, having).build();
-    }
-
-    public static Uri limit(Uri uri, String limit) {
-        return uri.buildUpon().appendQueryParameter(QUERY_LIMIT, limit).build();
+    public static class QueryParams {
+        public String table;
+        public String tablesWithJoins;
+        public String idColumn;
+        public String selection;
+        public String orderBy;
     }
 }

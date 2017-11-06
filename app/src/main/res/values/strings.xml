@@ -29,4 +29,5 @@
     <string name="Cancel">Cancel</string>
     <string name="Progress_Title">Please wait...</string>
     <string name="Progress_desc">Loading your library.</string>
+    <string name="preparing_your_library">Importing your library...</string>
 </resources>

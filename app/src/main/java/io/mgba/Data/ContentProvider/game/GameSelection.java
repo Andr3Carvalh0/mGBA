@@ -1,10 +1,13 @@
 package io.mgba.Data.ContentProvider.game;
 
-import android.content.Context;
+// @formatter:off
+
 import android.content.ContentResolver;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.content.CursorLoader;
+
 import io.mgba.Data.ContentProvider.base.AbstractSelection;
 
 /**
@@ -128,6 +131,46 @@ public class GameSelection extends AbstractSelection<GameSelection> {
 
     public GameSelection orderByMd5() {
         orderBy(GameColumns.MD5, false);
+        return this;
+    }
+
+    public GameSelection path(String... value) {
+        addEquals(GameColumns.PATH, value);
+        return this;
+    }
+
+    public GameSelection pathNot(String... value) {
+        addNotEquals(GameColumns.PATH, value);
+        return this;
+    }
+
+    public GameSelection pathLike(String... value) {
+        addLike(GameColumns.PATH, value);
+        return this;
+    }
+
+    public GameSelection pathContains(String... value) {
+        addContains(GameColumns.PATH, value);
+        return this;
+    }
+
+    public GameSelection pathStartsWith(String... value) {
+        addStartsWith(GameColumns.PATH, value);
+        return this;
+    }
+
+    public GameSelection pathEndsWith(String... value) {
+        addEndsWith(GameColumns.PATH, value);
+        return this;
+    }
+
+    public GameSelection orderByPath(boolean desc) {
+        orderBy(GameColumns.PATH, desc);
+        return this;
+    }
+
+    public GameSelection orderByPath() {
+        orderBy(GameColumns.PATH, false);
         return this;
     }
 
@@ -383,6 +426,46 @@ public class GameSelection extends AbstractSelection<GameSelection> {
 
     public GameSelection orderByIsfavourite() {
         orderBy(GameColumns.ISFAVOURITE, false);
+        return this;
+    }
+
+    public GameSelection platform(Integer... value) {
+        addEquals(GameColumns.PLATFORM, value);
+        return this;
+    }
+
+    public GameSelection platformNot(Integer... value) {
+        addNotEquals(GameColumns.PLATFORM, value);
+        return this;
+    }
+
+    public GameSelection platformGt(int value) {
+        addGreaterThan(GameColumns.PLATFORM, value);
+        return this;
+    }
+
+    public GameSelection platformGtEq(int value) {
+        addGreaterThanOrEquals(GameColumns.PLATFORM, value);
+        return this;
+    }
+
+    public GameSelection platformLt(int value) {
+        addLessThan(GameColumns.PLATFORM, value);
+        return this;
+    }
+
+    public GameSelection platformLtEq(int value) {
+        addLessThanOrEquals(GameColumns.PLATFORM, value);
+        return this;
+    }
+
+    public GameSelection orderByPlatform(boolean desc) {
+        orderBy(GameColumns.PLATFORM, desc);
+        return this;
+    }
+
+    public GameSelection orderByPlatform() {
+        orderBy(GameColumns.PLATFORM, false);
         return this;
     }
 }

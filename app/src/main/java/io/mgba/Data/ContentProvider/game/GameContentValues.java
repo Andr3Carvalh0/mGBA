@@ -1,10 +1,13 @@
 package io.mgba.Data.ContentProvider.game;
 
-import android.content.Context;
+// @formatter:off
+
 import android.content.ContentResolver;
+import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import io.mgba.Data.ContentProvider.base.AbstractContentValues;
 
 /**
@@ -43,6 +46,16 @@ public class GameContentValues extends AbstractContentValues<GameContentValues> 
     public GameContentValues putMd5(@NonNull String value) {
         if (value == null) throw new IllegalArgumentException("md5 must not be null");
         mContentValues.put(GameColumns.MD5, value);
+        return this;
+    }
+
+
+    /**
+     * The gamefile's path
+     */
+    public GameContentValues putPath(@NonNull String value) {
+        if (value == null) throw new IllegalArgumentException("path must not be null");
+        mContentValues.put(GameColumns.PATH, value);
         return this;
     }
 
@@ -135,6 +148,19 @@ public class GameContentValues extends AbstractContentValues<GameContentValues> 
 
     public GameContentValues putIsfavouriteNull() {
         mContentValues.putNull(GameColumns.ISFAVOURITE);
+        return this;
+    }
+
+    /**
+     * The game's platform
+     */
+    public GameContentValues putPlatform(@Nullable Integer value) {
+        mContentValues.put(GameColumns.PLATFORM, value);
+        return this;
+    }
+
+    public GameContentValues putPlatformNull() {
+        mContentValues.putNull(GameColumns.PLATFORM);
         return this;
     }
 }

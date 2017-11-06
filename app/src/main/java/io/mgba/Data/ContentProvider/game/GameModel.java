@@ -1,7 +1,10 @@
 package io.mgba.Data.ContentProvider.game;
 
+// @formatter:off
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import io.mgba.Data.ContentProvider.base.BaseModel;
 
 /**
@@ -21,6 +24,13 @@ public interface GameModel extends BaseModel {
      */
     @NonNull
     String getMd5();
+
+    /**
+     * The gamefile's path
+     * Cannot be {@code null}.
+     */
+    @NonNull
+    String getPath();
 
     /**
      * The game name returned by the server
@@ -70,4 +80,11 @@ public interface GameModel extends BaseModel {
      */
     @Nullable
     Boolean getIsfavourite();
+
+    /**
+     * The game's platform
+     * Can be {@code null}.
+     */
+    @Nullable
+    Integer getPlatform();
 }
