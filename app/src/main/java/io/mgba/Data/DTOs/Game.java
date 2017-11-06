@@ -147,10 +147,29 @@ public class Game implements Parcelable, SearchSuggestion {
     }
 
     public void compare(GameCursor dbVersion){
+        if(name == null)
+            setName(dbVersion.getName());
 
+        if(description == null)
+            setDescription(dbVersion.getDescription());
 
+        if(released == null)
+            setReleased(dbVersion.getReleased());
 
+        if(developer == null)
+            setDeveloper(dbVersion.getDeveloper());
 
+        if(genre == null)
+            setGenre(dbVersion.getGenre());
+
+        if(coverURL == null)
+            setCoverURL(dbVersion.getCover());
+
+        if(MD5 == null)
+            setMD5(dbVersion.getMd5());
+
+        if(!isFavourite())
+            setFavourite(dbVersion.getIsfavourite());
     }
 
     @Override
