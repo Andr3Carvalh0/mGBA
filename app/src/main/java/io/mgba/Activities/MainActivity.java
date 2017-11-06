@@ -21,6 +21,9 @@ import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
 import io.mgba.Views.BottomSheetView;
 import io.mgba.Views.Interfaces.IBottomSheetView;
+import io.mgba.mgba;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, ILibrary {
 
@@ -32,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @BindView(R.id.bottomsheet) BottomSheetLayout mSheetDialog;
     @BindView(R.id.tabLayout) TabLayout mTabLayout;
 
-    private TabViewPager adapter;
     private IBottomSheetView bottomSheetController;
 
     @Override
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.GBC)));
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        adapter = new TabViewPager(getSupportFragmentManager());
+        TabViewPager adapter = new TabViewPager(getSupportFragmentManager());
 
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(DEFAULT_PANEL);
@@ -133,18 +135,14 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             mToolbar.clearSuggestions();
         } else {
             mToolbar.showProgress();
-
-            //List<Game> suggestions = new LinkedList<>();
-
-            //if (!(newQuery == null || newQuery.length() == 0)) {
-              //  for (Game game : libraryController.getCachedList().getLibrary()) {
-                //    if (game.getName().toLowerCase().contains(newQuery.toLowerCase()))
-                  //      suggestions.add(game);
-                // }
-           // }
-
-            // mToolbar.swapSuggestions(suggestions);
-            mToolbar.hideProgress();
+            mgba.libraryService
+                    .query(newQuery)
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(games -> {
+                        mToolbar.swapSuggestions(games);
+                        mToolbar.hideProgress();
+                    });
         }
     }
 }

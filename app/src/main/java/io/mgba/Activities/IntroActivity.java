@@ -97,7 +97,7 @@ public class IntroActivity extends AppIntro2 {
         ((mgba)getApplication()).showProgressDialog(this);
 
         mgba.libraryService
-                .reloadGames(null)
+                .reloadGames()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
                 .subscribe(games -> {

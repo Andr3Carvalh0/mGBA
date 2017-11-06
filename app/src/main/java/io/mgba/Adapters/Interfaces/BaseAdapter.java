@@ -8,12 +8,13 @@ import android.view.ViewGroup;
 
 import com.google.common.base.Function;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected final int layout;
     private final Function<View, RecyclerView.ViewHolder> generateViewHolder;
-    protected List<T> items;
+    protected List<T> items = new LinkedList<>();
     protected Context ctx;
 
     public BaseAdapter(int layout, Function<View, RecyclerView.ViewHolder> generateViewHolder, Context context){

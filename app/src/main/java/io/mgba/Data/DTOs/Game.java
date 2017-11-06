@@ -7,6 +7,7 @@ import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 
 import java.io.File;
 
+import io.mgba.Data.ContentProvider.game.GameCursor;
 import io.mgba.Data.Platform;
 import io.mgba.Services.IO.FilesService;
 
@@ -143,6 +144,13 @@ public class Game implements Parcelable, SearchSuggestion {
 
     public boolean isAdvanced() {
         return platform.getValue() == Platform.GBA.getValue();
+    }
+
+    public void compare(GameCursor dbVersion){
+
+
+
+
     }
 
     @Override

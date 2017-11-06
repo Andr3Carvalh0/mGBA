@@ -3,6 +3,7 @@ package io.mgba.Fragments.Main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import io.mgba.mgba;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class GameFragment extends Fragment{
+public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = "BaseFragment";
 
@@ -40,11 +41,11 @@ public class GameFragment extends Fragment{
 
     @BindView(R.id.no_content_message)
     protected TextView noContentMessage;
-
     protected View mView;
     protected Platform platform;
     protected GameAdapter adapter;
-
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,7 +78,7 @@ public class GameFragment extends Fragment{
         mRecyclerView.setAdapter(adapter);
     }
 
-    protected void showContent(boolean v){
+    protected void showContent(boolean v) {
         mNoContentView.setVisibility(v ? View.GONE : View.VISIBLE);
         mRecyclerView.setVisibility(v ? View.VISIBLE : View.GONE);
     }
@@ -86,7 +87,7 @@ public class GameFragment extends Fragment{
         return inflater.inflate(R.layout.content_fragment, container, false);
     }
 
-    protected void loadGames(){
+    protected void loadGames() {
         ILibraryService databaseHelper = mgba.libraryService;
 
         databaseHelper.prepareGames(platform)
@@ -98,7 +99,23 @@ public class GameFragment extends Fragment{
                 });
     }
 
-    private void onClick(Game game){
-        ((ILibrary)getActivity()).showBottomSheet(game);
+    private void onClick(Game game) {
+        ((ILibrary) getActivity()).showBottomSheet(game);
+    }
+
+    @Override
+    public void onRefresh() {
+        ILibraryService databaseHelper = mgba.libraryService;
+
+        databaseHelper.reloadGames()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(update -> {
+
+                    if(update)
+                        loadGames();
+
+                    mSwipeRefreshLayout.setRefreshing(false);
+                });
     }
 }

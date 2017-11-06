@@ -54,10 +54,21 @@ public class LibraryService implements ILibraryService{
     }
 
     @Override
-    public Observable<List<Game>> reloadGames(Platform platform) {
+    public Observable<Boolean> reloadGames() {
         return Observable.create(subscriber -> {
-            //drop previous tables on db
-            ContentProviderService.delete(mCtx);
+            boolean update = false;
+
+            //clean up possible removed files from content provider
+            Cursor cursor = ContentProviderService.getGamesForPlatform(mCtx);
+            List<Game> games = copyInformation(cursor);
+
+            for (Game game : games){
+                update = true;
+
+                if(!game.getFile().exists()){
+                    ContentProviderService.remove(game, mCtx);
+                }
+            }
 
             //read the files from the selected dir
             if(filesService == null)
@@ -65,10 +76,10 @@ public class LibraryService implements ILibraryService{
 
             final List<File> files = filesService.getGameList();
 
-            final List<Game> games = new LinkedList<>();
+            games = new LinkedList<>();
 
             if(files.size() == 0){
-                subscriber.onNext(new LinkedList<>());
+                subscriber.onNext(update);
                 subscriber.onCompleted();
                 return;
             }
@@ -78,13 +89,37 @@ public class LibraryService implements ILibraryService{
                 games.add(new Game(file.getAbsolutePath(), getPlatform(file)));
 
             for (Game game : games) {
+                update = true;
+
                 if (calculateMD5(game)){
                     searchWeb(game);
                     storeInDatabase(game);
                 }
             }
 
+            subscriber.onNext(update);
+            subscriber.onCompleted();
+        });
+    }
+
+    @Override
+    public Observable<List<Game>> query(String query) {
+        return Observable.create(subscriber -> {
+
+            if(query == null || query.length() == 0){
+                subscriber.onNext(new LinkedList<>());
+                subscriber.onCompleted();
+                return;
+            }
+
+            Cursor cursor = ContentProviderService.queryForGames(query, mCtx);
+
+            List<Game> games = copyInformation(cursor);
+
+            // Pass the result to the consumer.
             subscriber.onNext(games);
+
+            // Tell the consumer we're done; it will unsubscribe implicitly.
             subscriber.onCompleted();
         });
     }
