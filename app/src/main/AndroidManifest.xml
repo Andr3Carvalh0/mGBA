@@ -47,11 +47,6 @@
             android:theme="@style/SettingsTheme" />
         <activity android:name=".Activities.IntroActivity" />
 
-        <service
-            android:name=".Controllers.Services.ProcessingService"
-            android:enabled="true"
-            android:exported="false" />
-
         <activity
             android:name=".Activities.SplashActivity"
             android:screenOrientation="portrait"
@@ -62,7 +57,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.EmulationActivity"></activity>
+        <activity android:name=".Activities.EmulationActivity" />
+        <activity android:name=".Activities.SettingsCategoriesActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/SettingsTheme"/>
     </application>
 
 </manifest>

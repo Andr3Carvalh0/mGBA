@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         if (item.getItemId() == R.id.action_settings)
         {
-            Intent settings = new Intent(this, SettingsActivity.class);
+            Intent settings = new Intent(this, SettingsCategoriesActivity.class);
             startActivityForResult(settings, SETTINGS_CODE);
         }
     }

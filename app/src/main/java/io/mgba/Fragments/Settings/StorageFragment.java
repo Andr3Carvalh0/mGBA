@@ -8,12 +8,12 @@ import io.mgba.Activities.Interfaces.ISettings;
 import io.mgba.R;
 import io.mgba.Services.System.PreferencesService;
 
-public class SettingsFragment extends PreferenceFragmentCompat {
+public class StorageFragment extends PreferenceFragmentCompat {
 
     Preference gamesFolder;
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.app_preferences);
+        addPreferencesFromResource(R.xml.storage_settings);
 
         gamesFolder = findPreference("games_folder");
         final String gameDir = ((ISettings) getActivity()).requestPreferencesValue(PreferencesService.GAMES_DIRECTORY, getContext().getString(R.string.prefs_not_set_folder_summary));

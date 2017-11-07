@@ -6,4 +6,5 @@ public class Constants {
     public final static String GAMES_INTENT = "games";
     public final static String RECEIVE_GAME_LIST = "io.mgba.gamesreceiver";
     public static final String ARG_PLATFORM = "platform";
+    public static final String ARG_SETTINGS_ID = "settings_id_args";
 }

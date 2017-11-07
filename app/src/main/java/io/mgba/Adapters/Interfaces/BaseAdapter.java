@@ -15,20 +15,17 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     protected final int layout;
     private final Function<View, RecyclerView.ViewHolder> generateViewHolder;
     protected List<T> items = new LinkedList<>();
-    protected Context ctx;
+    protected Context mCtx;
 
     public BaseAdapter(int layout, Function<View, RecyclerView.ViewHolder> generateViewHolder, Context context){
-        this.layout = layout;
-        this.generateViewHolder = generateViewHolder;
-        this.ctx = context;
+        this(new LinkedList<>(), layout, generateViewHolder, context);
     }
-
 
     public BaseAdapter(List<T> items, int layout, Function<View, RecyclerView.ViewHolder> generateViewHolder, Context context){
         this.items = items;
         this.layout = layout;
         this.generateViewHolder = generateViewHolder;
-        this.ctx = context;
+        this.mCtx = context;
     }
 
     @Override
@@ -42,8 +39,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         return items.size();
     }
 
-    public void swap(List<T> games) {
-        items = games;
+    public void swap(List<T> items) {
+        this.items = items;
         notifyDataSetChanged();
     }
 }

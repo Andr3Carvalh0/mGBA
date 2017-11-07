@@ -30,4 +30,11 @@
     <string name="Progress_Title">Please wait...</string>
     <string name="Progress_desc">Loading your library.</string>
     <string name="preparing_your_library">Importing your library...</string>
+    <string name="settings">Settings</string>
+    <string name="settings_audio">Audio</string>
+    <string name="settings_video">Video</string>
+    <string name="settings_emulation">Emulation</string>
+    <string name="settings_bios">BIOS</string>
+    <string name="settings_paths">Folders</string>
+    <string name="settings_customization">Customizations</string>
 </resources>

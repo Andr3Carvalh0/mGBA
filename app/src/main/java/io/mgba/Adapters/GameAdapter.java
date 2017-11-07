@@ -19,27 +19,27 @@ import io.mgba.R;
 import io.mgba.mgba;
 import io.reactivex.functions.Consumer;
 
-public class GameAdapter extends BaseAdapter{
+public class GameAdapter extends BaseAdapter<Game>{
     private static final String TAG = "GameAdapter";
     private final Consumer<Game> onClick;
     private Fragment view;
 
     public GameAdapter(Fragment fragment, Context context, Consumer<Game> onClick) {
-        super(R.layout.game, (v) -> new ViewHolder((View) v), context);
+        super(R.layout.game, ViewHolder::new, context);
         this.view = fragment;
         this.onClick = onClick;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final Game mItem = (Game)items.get(position);
+        final Game mItem = items.get(position);
+
+        ((ViewHolder) holder).gameTitle.setVisibility(mItem.getCoverURL() == null ? View.VISIBLE : View.GONE);
+        ((ViewHolder) holder).gameCover.setVisibility(mItem.getCoverURL() != null ? View.VISIBLE : View.GONE);
 
         if(mItem.getCoverURL() == null){
             ((ViewHolder) holder).gameTitle.setText(mItem.getName());
-
         }else{
-            ((ViewHolder) holder).gameTitle.setVisibility(View.GONE);
-
             Glide.with(view)
                     .load(mItem.getCoverURL())
                     .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error))
@@ -56,7 +56,7 @@ public class GameAdapter extends BaseAdapter{
         });
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.card_preview)
         ImageView gameCover;
@@ -67,7 +67,7 @@ public class GameAdapter extends BaseAdapter{
         @BindView(R.id.master_container)
         RelativeLayout masterContainer;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
