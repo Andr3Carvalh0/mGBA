@@ -31,6 +31,7 @@ import java.lang.reflect.Constructor;
 public class TwoWayView extends RecyclerView {
     private static final String LOGTAG = "TwoWayView";
 
+
     private static final Class<?>[] sConstructorSignature = new Class[] {
             Context.class, AttributeSet.class};
 

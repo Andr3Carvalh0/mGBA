@@ -21,109 +21,71 @@
 
 package org.lucasr.twowayview.layout;
 
-import java.util.Arrays;
+import android.util.SparseArray;
+
+import static org.lucasr.twowayview.layout.BaseLayoutManager.ItemEntry;
 
 class ItemEntries {
-    private static final int MIN_SIZE = 10;
 
-    private BaseLayoutManager.ItemEntry[] mItemEntries;
-    private int mAdapterSize;
-    private boolean mRestoringItem;
+    private SparseArray<ItemEntry> mItemEntries = new SparseArray<ItemEntry>();
 
-    private int sizeForPosition(int position) {
-        int len = mItemEntries.length;
-        while (len <= position) {
-            len *= 2;
-        }
-
-        // We don't apply any constraints while restoring
-        // item entries.
-        if (!mRestoringItem && len > mAdapterSize) {
-            len = mAdapterSize;
-        }
-
-        return len;
+    public ItemEntry getItemEntry(int position) {
+        return mItemEntries.get(position);
     }
 
-    private void ensureSize(int position) {
-        if (mItemEntries == null) {
-            mItemEntries = new BaseLayoutManager.ItemEntry[Math.max(position, MIN_SIZE) + 1];
-            Arrays.fill(mItemEntries, null);
-        } else if (position >= mItemEntries.length) {
-            BaseLayoutManager.ItemEntry[] oldItemEntries = mItemEntries;
-            mItemEntries = new BaseLayoutManager.ItemEntry[sizeForPosition(position)];
-            System.arraycopy(oldItemEntries, 0, mItemEntries, 0, oldItemEntries.length);
-            Arrays.fill(mItemEntries, oldItemEntries.length, mItemEntries.length, null);
-        }
+    public void putItemEntry(int position, ItemEntry entry) {
+        mItemEntries.put(position,entry);
     }
 
-    public BaseLayoutManager.ItemEntry getItemEntry(int position) {
-        if (mItemEntries == null || position >= mItemEntries.length) {
-            return null;
-        }
-
-        return mItemEntries[position];
-    }
-
-    public void putItemEntry(int position, BaseLayoutManager.ItemEntry entry) {
-        ensureSize(position);
-        mItemEntries[position] = entry;
-    }
-
-    public void restoreItemEntry(int position, BaseLayoutManager.ItemEntry entry) {
-        mRestoringItem = true;
+    public void restoreItemEntry(int position, ItemEntry entry) {
         putItemEntry(position, entry);
-        mRestoringItem = false;
     }
 
     public int size() {
-        return (mItemEntries != null ? mItemEntries.length : 0);
-    }
-
-    public void setAdapterSize(int adapterSize) {
-        mAdapterSize = adapterSize;
+        return (mItemEntries.size() == 0 ? 0 : mItemEntries.keyAt(mItemEntries.size()-1));
     }
 
     public void invalidateItemLanesAfter(int position) {
-        if (mItemEntries == null || position >= mItemEntries.length) {
+        if (mItemEntries.size()==0 || position > mItemEntries.keyAt(mItemEntries.size()-1))
             return;
-        }
 
-        for (int i = position; i < mItemEntries.length; i++) {
-            final BaseLayoutManager.ItemEntry entry = mItemEntries[i];
-            if (entry != null) {
-                entry.invalidateLane();
-            }
+        for (int i = position; i < mItemEntries.size(); i++) {
+            final ItemEntry entry = mItemEntries.valueAt(i);
+            entry.invalidateLane();
         }
     }
 
     public void clear() {
-        if (mItemEntries != null) {
-            Arrays.fill(mItemEntries, null);
-        }
+        mItemEntries.clear();
     }
 
     void offsetForRemoval(int positionStart, int itemCount) {
-        if (mItemEntries == null || positionStart >= mItemEntries.length) {
-            return;
+
+        for(int n = 0; n < (mItemEntries.size() - positionStart - itemCount); n++) {
+
+            int actualPosition = positionStart+itemCount+n;
+            int movedPosition = positionStart+n;
+
+            ItemEntry temp = mItemEntries.get(actualPosition);
+            mItemEntries.remove(actualPosition);
+            mItemEntries.put(movedPosition, temp);
+
         }
 
-        ensureSize(positionStart + itemCount);
-
-        System.arraycopy(mItemEntries, positionStart + itemCount, mItemEntries, positionStart,
-                mItemEntries.length - positionStart - itemCount);
-        Arrays.fill(mItemEntries, mItemEntries.length - itemCount, mItemEntries.length, null);
     }
 
     void offsetForAddition(int positionStart, int itemCount) {
-        if (mItemEntries == null || positionStart >= mItemEntries.length) {
-            return;
+
+        for(int n = 0; n < itemCount; n++) {
+
+            int actualPosition = positionStart+n;
+            int movedPosition = positionStart+itemCount+n;
+
+            ItemEntry temp = mItemEntries.get(actualPosition);
+            mItemEntries.remove(actualPosition);
+            mItemEntries.put(movedPosition, temp);
+
         }
 
-        ensureSize(positionStart + itemCount);
-
-        System.arraycopy(mItemEntries, positionStart, mItemEntries, positionStart + itemCount,
-                mItemEntries.length - positionStart - itemCount);
-        Arrays.fill(mItemEntries, positionStart, positionStart + itemCount, null);
     }
 }

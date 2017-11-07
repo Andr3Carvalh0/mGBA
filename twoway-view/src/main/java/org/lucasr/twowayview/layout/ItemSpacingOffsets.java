@@ -85,9 +85,10 @@ class ItemSpacingOffsets {
             previousPosition--;
         }
 
-        final int previousLaneSpan = lm.getLaneSpanForPosition(previousPosition);
-        if (previousLane == 0) {
-            return (lane == previousLane + previousLaneSpan);
+        if(previousPosition>=0) {
+            final int previousLaneSpan = lm.getLaneSpanForPosition(previousPosition);
+            if (previousLane == 0)
+                return (lane == previousLane + previousLaneSpan);
         }
 
         return false;

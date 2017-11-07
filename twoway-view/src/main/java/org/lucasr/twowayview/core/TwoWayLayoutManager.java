@@ -47,6 +47,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     private int mPendingScrollOffset = 0;
     private int mLayoutStart;
     private int mLayoutEnd;
+    private int mScreenOrientation;
 
     public TwoWayLayoutManager(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -55,6 +56,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         final TypedArray a =
                 context.obtainStyledAttributes(attrs, R.styleable.twowayview_TwoWayLayoutManager, defStyle, 0);
 
+        this.mScreenOrientation = context.getResources().getConfiguration().orientation;
         final int indexCount = a.getIndexCount();
         for (int i = 0; i < indexCount; i++) {
             final int attr = a.getIndex(i);
@@ -77,35 +79,41 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     private static View findNextScrapView(List<ViewHolder> scrapList, Direction direction,
                                           int position) {
         final int scrapCount = scrapList.size();
-
         ViewHolder closest = null;
         int closestDistance = Integer.MAX_VALUE;
 
         for (int i = 0; i < scrapCount; i++) {
-            final ViewHolder holder = scrapList.get(i);
 
+            final ViewHolder holder = scrapList.get(i);
             final int distance = holder.getPosition() - position;
+
             if ((distance < 0 && direction == Direction.END) ||
-                    (distance > 0 && direction == Direction.START)) {
-                continue;
-            }
+                    (distance > 0 && direction == Direction.START))
+                    continue;
 
             final int absDistance = Math.abs(distance);
+
             if (absDistance < closestDistance) {
                 closest = holder;
                 closestDistance = absDistance;
 
-                if (distance == 0) {
+                if (distance == 0)
                     break;
-                }
             }
         }
 
-        if (closest != null) {
+        if (closest != null)
             return closest.itemView;
-        }
 
         return null;
+    }
+
+    public int getmScreenOrientation() {
+        return mScreenOrientation;
+    }
+
+    public void setmScreenOrientation(int mScreenOrientation) {
+        this.mScreenOrientation = mScreenOrientation;
     }
 
     private int getTotalSpace() {
@@ -133,7 +141,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     }
 
     protected int getChildEnd(View child) {
-        return (mIsVertical ?  getDecoratedBottom(child) : getDecoratedRight(child));
+        return (mIsVertical ? getDecoratedBottom(child) : getDecoratedRight(child));
     }
 
     protected Adapter getAdapter() {
@@ -244,7 +252,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
 
         final int absDelta = Math.abs(delta);
         if (canAddMoreViews(Direction.START, start - absDelta) ||
-            canAddMoreViews(Direction.END, end + absDelta)) {
+                canAddMoreViews(Direction.END, end + absDelta)) {
             fillGap(direction, recycler, state);
         }
 
@@ -945,12 +953,12 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     protected abstract void layoutChild(View child, Direction direction);
 
     protected abstract boolean canAddMoreViews(Direction direction, int limit);
-    public static enum Orientation {
+    public enum Orientation {
         HORIZONTAL,
         VERTICAL
     }
 
-    public static enum Direction {
+    public enum Direction {
         START,
         END
     }

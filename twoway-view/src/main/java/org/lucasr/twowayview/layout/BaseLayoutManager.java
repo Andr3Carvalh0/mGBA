@@ -43,6 +43,8 @@ public abstract class BaseLayoutManager extends TwoWayLayoutManager {
     private Lanes mLanesToRestore;
     private ItemEntries mItemEntries;
     private ItemEntries mItemEntriesToRestore;
+    private int screenOrientation;
+
     public BaseLayoutManager(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -117,6 +119,8 @@ public abstract class BaseLayoutManager extends TwoWayLayoutManager {
         if (mItemEntries != null) {
             mItemEntries.clear();
         }
+        invalidateItemLanesAfter(0);
+        ensureLayoutState();
     }
 
     void invalidateItemLanesAfter(int position) {
@@ -253,9 +257,6 @@ public abstract class BaseLayoutManager extends TwoWayLayoutManager {
 
         final int itemCount = state.getItemCount();
 
-        if (mItemEntries != null) {
-            mItemEntries.setAdapterSize(itemCount);
-        }
 
         final int anchorItemPosition = getAnchorItemPosition(state);
 
@@ -320,6 +321,7 @@ public abstract class BaseLayoutManager extends TwoWayLayoutManager {
             state.lanes[i] = laneRect;
         }
 
+        state.screenOrientation = getScreenOrientation();
         state.orientation = getOrientation();
         state.laneSize = (mLanes != null ? mLanes.getLaneSize() : 0);
         state.itemEntries = mItemEntries;
@@ -331,9 +333,14 @@ public abstract class BaseLayoutManager extends TwoWayLayoutManager {
     public void onRestoreInstanceState(Parcelable state) {
         final LanedSavedState ss = (LanedSavedState) state;
 
-        if (ss.lanes != null && ss.laneSize > 0) {
+        if (ss.lanes != null && ss.laneSize > 0 && ss.screenOrientation == getScreenOrientation()) {
             mLanesToRestore = new Lanes(this, ss.orientation, ss.lanes, ss.laneSize);
             mItemEntriesToRestore = ss.itemEntries;
+        }else {
+            if(mItemEntries!=null) {
+                mItemEntries.clear();
+            }
+            invalidateItemLanesAfter(0);
         }
 
         super.onRestoreInstanceState(ss.getSuperState());
@@ -482,6 +489,15 @@ public abstract class BaseLayoutManager extends TwoWayLayoutManager {
             return new PointF(0, direction);
         }
     }
+
+    public int getScreenOrientation() {
+        return screenOrientation;
+    }
+
+    public void setScreenOrientation(int orientation) {
+        super.setmScreenOrientation(orientation);
+    }
+
     private enum UpdateOp {
         ADD,
         REMOVE,
@@ -505,6 +521,8 @@ public abstract class BaseLayoutManager extends TwoWayLayoutManager {
         public int startLane;
         public int anchorLane;
         private int[] spanMargins;
+
+
 
         public ItemEntry(int startLane, int anchorLane) {
             this.startLane = startLane;
@@ -587,6 +605,7 @@ public abstract class BaseLayoutManager extends TwoWayLayoutManager {
                 return new LanedSavedState[size];
             }
         };
+        private int screenOrientation;
         private Orientation orientation;
         private Rect[] lanes;
         private int laneSize;
@@ -598,7 +617,7 @@ public abstract class BaseLayoutManager extends TwoWayLayoutManager {
 
         private LanedSavedState(Parcel in) {
             super(in);
-
+            screenOrientation = in.readInt();
             orientation = Orientation.values()[in.readInt()];
             laneSize = in.readInt();
 
@@ -625,7 +644,7 @@ public abstract class BaseLayoutManager extends TwoWayLayoutManager {
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
-
+            out.writeInt(screenOrientation);
             out.writeInt(orientation.ordinal());
             out.writeInt(laneSize);
 
