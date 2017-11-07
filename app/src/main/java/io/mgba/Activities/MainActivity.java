@@ -22,8 +22,8 @@ import io.mgba.R;
 import io.mgba.Views.BottomSheetView;
 import io.mgba.Views.Interfaces.IBottomSheetView;
 import io.mgba.mgba;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, ILibrary {
 

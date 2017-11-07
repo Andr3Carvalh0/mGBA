@@ -23,8 +23,8 @@ import io.mgba.Data.Platform;
 import io.mgba.R;
 import io.mgba.Services.Interfaces.ILibraryService;
 import io.mgba.mgba;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 

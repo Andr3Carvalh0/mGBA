@@ -19,7 +19,7 @@ import io.mgba.Services.Interfaces.IFilesService;
 import io.mgba.Services.Interfaces.ILibraryService;
 import io.mgba.Services.System.PreferencesService;
 import io.mgba.mgba;
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class LibraryService implements ILibraryService{
     private static final String TAG = "ProcService";
@@ -36,7 +36,7 @@ public class LibraryService implements ILibraryService{
 
             if(platform == null){
                 subscriber.onNext(new LinkedList<>());
-                subscriber.onCompleted();
+                subscriber.onComplete();
                 return;
             }
 
@@ -48,7 +48,7 @@ public class LibraryService implements ILibraryService{
             subscriber.onNext(games);
 
             // Tell the consumer we're done; it will unsubscribe implicitly.
-            subscriber.onCompleted();
+            subscriber.onComplete();
         });
 
     }
@@ -80,7 +80,7 @@ public class LibraryService implements ILibraryService{
 
             if(files.size() == 0){
                 subscriber.onNext(update);
-                subscriber.onCompleted();
+                subscriber.onComplete();
                 return;
             }
 
@@ -98,7 +98,7 @@ public class LibraryService implements ILibraryService{
             }
 
             subscriber.onNext(update);
-            subscriber.onCompleted();
+            subscriber.onComplete();
         });
     }
 
@@ -108,7 +108,7 @@ public class LibraryService implements ILibraryService{
 
             if(query == null || query.length() == 0){
                 subscriber.onNext(new LinkedList<>());
-                subscriber.onCompleted();
+                subscriber.onComplete();
                 return;
             }
 
@@ -120,7 +120,7 @@ public class LibraryService implements ILibraryService{
             subscriber.onNext(games);
 
             // Tell the consumer we're done; it will unsubscribe implicitly.
-            subscriber.onCompleted();
+            subscriber.onComplete();
         });
     }
 

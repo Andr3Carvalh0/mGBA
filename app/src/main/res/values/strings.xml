@@ -9,7 +9,7 @@
     <string name="settings_title">Settings</string>
     <string name="about_title">About</string>
     <string name="toolbar_title_tip">Search games...</string>
-    <string name="About_description">todo</string>
+    <string name="About_description">mGBA is Copyright © 2013 – 2017 Jeffrey Pfau.\nmGBA for Android developed by André Carvalho.\nIt is distributed under the Mozilla Public License version 2.0. A copy of the license is available in the distributed LICENSE file.</string>
     <string name="Favorites">Favourites</string>
     <string name="GBA">Gameboy Advance</string>
     <string name="GBC">Gameboy Color</string>

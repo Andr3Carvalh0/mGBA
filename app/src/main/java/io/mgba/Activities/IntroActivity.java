@@ -21,14 +21,14 @@ import io.mgba.Services.Interfaces.IPermissionService;
 import io.mgba.Services.System.PermissionService;
 import io.mgba.Services.System.PreferencesService;
 import io.mgba.mgba;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 @RuntimePermissions
 public class IntroActivity extends AppIntro2 {
@@ -100,6 +100,7 @@ public class IntroActivity extends AppIntro2 {
                 .reloadGames()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
+
                 .subscribe(games -> {
                     ((mgba)getApplication()).stopProgressDialog();
                     onEnd();

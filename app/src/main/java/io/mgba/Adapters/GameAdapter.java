@@ -16,13 +16,15 @@ import butterknife.ButterKnife;
 import io.mgba.Adapters.Interfaces.BaseAdapter;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
-import rx.functions.Action1;
+import io.mgba.mgba;
+import io.reactivex.functions.Consumer;
 
 public class GameAdapter extends BaseAdapter{
-    private final Action1<Game> onClick;
+    private static final String TAG = "GameAdapter";
+    private final Consumer<Game> onClick;
     private Fragment view;
 
-    public GameAdapter(Fragment fragment, Context context, Action1<Game> onClick) {
+    public GameAdapter(Fragment fragment, Context context, Consumer<Game> onClick) {
         super(R.layout.game, (v) -> new ViewHolder((View) v), context);
         this.view = fragment;
         this.onClick = onClick;
@@ -45,7 +47,13 @@ public class GameAdapter extends BaseAdapter{
         }
 
         //Click Event
-        ((ViewHolder) holder).masterContainer.setOnClickListener(v -> onClick.call(mItem));
+        ((ViewHolder) holder).masterContainer.setOnClickListener(v -> {
+            try {
+                onClick.accept(mItem);
+            } catch (Exception e) {
+                mgba.printLog(TAG, "Cannot execute consumer callable");
+            }
+        });
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import io.mgba.Data.DTOs.Game;
 import io.mgba.Data.Platform;
-import rx.Observable;
+import io.reactivex.Observable;
 
 public interface ILibraryService {
     Observable<List<Game>> prepareGames(Platform platform);
