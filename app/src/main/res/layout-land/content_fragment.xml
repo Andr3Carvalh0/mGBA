@@ -12,8 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:twowayview_layoutManager="SpannableGridLayoutManager"
-            app:twowayview_numColumns="3"
-            app:twowayview_numRows="3"/>
+            app:twowayview_numColumns="5"
+            app:twowayview_numRows="5"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
