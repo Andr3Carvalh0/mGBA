@@ -43,9 +43,9 @@ public class SettingsCategoriesAdapter extends BaseAdapter<SettingsCategory> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.icon)
+        @BindView(R.id.setting_icon)
         ImageView icon;
-        @BindView(R.id.textView2)
+        @BindView(R.id.setting_title)
         TextView title;
         @BindView(R.id.container)
         RelativeLayout container;

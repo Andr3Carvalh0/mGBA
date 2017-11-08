@@ -4,7 +4,7 @@
             "outputFile": "C:\\Git\\mGBA\\twoway-view\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v21\\values-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\0605663a6d400aeefd3f59e7dca9dab4\\res\\values-v21\\values-v21.xml",
+                    "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\ea0a36b7fdf94391e615f0fc3f274582\\res\\values-v21\\values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -20,7 +20,7 @@
             "outputFile": "C:\\Git\\mGBA\\twoway-view\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-v21\\values-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\0605663a6d400aeefd3f59e7dca9dab4\\res\\values-v21\\values-v21.xml",
+                    "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\ea0a36b7fdf94391e615f0fc3f274582\\res\\values-v21\\values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",

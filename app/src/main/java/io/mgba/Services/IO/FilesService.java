@@ -2,6 +2,7 @@ package io.mgba.Services.IO;
 
 import android.content.Context;
 
+import com.annimon.stream.Stream;
 import com.google.common.base.Predicate;
 
 import java.io.File;
@@ -121,33 +122,21 @@ public class FilesService implements IFilesService{
      * @return files that contain gba, gb, gbc extension and arent folders
      */
     private List<File> filter(File[] files){
-        List<File> result = new LinkedList<>();
-
-        for (File file : files) {
-            if(!file.isDirectory() && (GBA_FILES_SUPPORTED.contains(getFileExtension(file)) || GBC_FILES_SUPPORTED.contains(getFileExtension(file))))
-                result.add(file);
-        }
-
-        return result;
+        return filter(files, f -> !f.isDirectory() &&
+                        (GBA_FILES_SUPPORTED.contains(getFileExtension(f)) ||
+                        GBC_FILES_SUPPORTED.contains(getFileExtension(f))));
     }
 
     /**
      * Return a list thats has been filtered based on the @predicate
-     * @param listToFilter the list to filter
+     * @param list the list to filter
      * @param predicate the predicate to evaluate every element of the list
      * @return a list that was filtered
      */
-    private List<File> filter(File[] listToFilter, Predicate<File> predicate){
-        LinkedList<File> toReturn = new LinkedList<>();
-
-        for (File file : listToFilter) {
-
-            if(predicate.apply(file)){
-                toReturn.add(file);
-            }
-        }
-
-        return toReturn;
+    private List<File> filter(File[] list, Predicate<File> predicate){
+        return Stream.of(list)
+                .filter(predicate::apply)
+                .toList();
     }
 
     /**

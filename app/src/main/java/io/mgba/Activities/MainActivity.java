@@ -25,7 +25,7 @@ import io.mgba.mgba;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, ILibrary {
+public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, ILibrary, FloatingSearchView.OnFocusChangeListener {
 
     private static final int DEFAULT_PANEL = 1;
     private static final int SETTINGS_CODE = 738;
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         mToolbar.setOnMenuItemClickListener(this);
         mToolbar.setOnSearchListener(this);
         mToolbar.setOnQueryChangeListener(this);
+        mToolbar.setOnFocusChangeListener(this);
     }
 
     private void prepareViewPager() {
@@ -144,5 +145,15 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                         mToolbar.hideProgress();
                     });
         }
+    }
+
+    @Override
+    public void onFocus() {
+        onSearchTextChanged("", mToolbar.getQuery());
+    }
+
+    @Override
+    public void onFocusCleared() {
+
     }
 }

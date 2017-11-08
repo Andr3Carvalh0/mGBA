@@ -63,10 +63,9 @@ dependencies {
     compile 'me.grantland:autofittextview:0.2.1'
     compile 'com.google.guava:guava:23.2-android'
     compile 'com.github.apl-devs:appintro:v4.2.2'
-    //To remove in the future for our impl. --
+    compile 'com.annimon:stream:1.1.9'
     compile 'com.android.support:preference-v7:26.1.0'
     compile 'com.android.support:preference-v14:26.1.0'
-    //----
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'

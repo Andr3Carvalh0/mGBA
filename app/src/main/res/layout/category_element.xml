@@ -7,40 +7,36 @@
     android:layout_height="56dp">
 
     <ImageView
-        android:id="@+id/icon"
-        android:layout_width="24dp"
+        android:id="@+id/setting_icon"
+        android:layout_width="52dp"
         android:layout_height="24dp"
-        android:layout_above="@+id/view3"
+        android:layout_above="@+id/separator"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/textView2"
+        android:layout_marginEnd="-52dp"
+        android:layout_toStartOf="@+id/setting_title"
         android:scaleType="center"
         android:tint="@color/about_libraries_primary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_palette_black_24dp" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="331dp"
-        android:layout_height="24dp"
+        android:id="@+id/setting_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon_settings_size"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:paddingStart="4dp"
+        android:layout_marginStart="@dimen/margin_start_separator_settings"
         android:paddingTop="2dp"
         android:text="Porto"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="16sp" />
 
     <View
-        android:id="@+id/view3"
+        android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginEnd="4dp"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="@dimen/margin_start_separator_settings"
         android:background="#cecece" />
 </RelativeLayout>

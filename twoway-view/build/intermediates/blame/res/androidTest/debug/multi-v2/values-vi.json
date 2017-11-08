@@ -4,7 +4,7 @@
             "outputFile": "C:\\Git\\mGBA\\twoway-view\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-vi\\values-vi.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\0605663a6d400aeefd3f59e7dca9dab4\\res\\values-vi\\values-vi.xml",
+                    "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\ea0a36b7fdf94391e615f0fc3f274582\\res\\values-vi\\values-vi.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -19,7 +19,7 @@
             "outputFile": "C:\\Git\\mGBA\\twoway-view\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-vi\\values-vi.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\0605663a6d400aeefd3f59e7dca9dab4\\res\\values-vi\\values-vi.xml",
+                    "source": "C:\\Users\\André Carvalho\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\ea0a36b7fdf94391e615f0fc3f274582\\res\\values-vi\\values-vi.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

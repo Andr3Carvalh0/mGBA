@@ -25,5 +25,7 @@
     <dimen name="sheet_no_content_image">96dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="body_margin_small">6dp</dimen>
+    <dimen name="margin_start_separator_settings">52dp</dimen>
+    <dimen name="icon_settings_size">24dp</dimen>
 
 </resources>

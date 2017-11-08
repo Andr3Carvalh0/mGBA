@@ -33,7 +33,6 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class IntroActivity extends AppIntro2 {
 
-
     private List<AppIntroFragment> slides = new LinkedList<>();
     private IPermissionService permissionService;
 
@@ -54,9 +53,8 @@ public class IntroActivity extends AppIntro2 {
                 R.mipmap.ic_launcher,
                 getResources().getColor(R.color.colorPrimary)));
 
-        for (AppIntroFragment frag : slides) {
+        for (AppIntroFragment frag : slides)
             addSlide(frag);
-        }
 
         setProgressButtonEnabled(true);
         setFadeAnimation();
@@ -100,7 +98,6 @@ public class IntroActivity extends AppIntro2 {
                 .reloadGames()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
-
                 .subscribe(games -> {
                     ((mgba)getApplication()).stopProgressDialog();
                     onEnd();

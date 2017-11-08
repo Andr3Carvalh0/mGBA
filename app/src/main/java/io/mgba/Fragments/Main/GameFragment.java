@@ -73,6 +73,12 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     protected void prepareRecyclerView() {
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.pink_accent_color),
+                                                 getResources().getColor(R.color.colorPrimary),
+                                                 getResources().getColor(R.color.green_accent_color),
+                                                 getResources().getColor(R.color.yellow_accent_color),
+                                                 getResources().getColor(R.color.cyan_accent_color));
         mRecyclerView.setHasFixedSize(true);
         adapter = new GameAdapter(this, getContext(), this::onClick);
         mRecyclerView.setAdapter(adapter);
@@ -107,14 +113,11 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onRefresh() {
         ILibraryService databaseHelper = mgba.libraryService;
 
-        databaseHelper.reloadGames()
+        databaseHelper.reloadGames(platform)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(update -> {
-
-                    if(update)
-                        loadGames();
-
+                .subscribe(games -> {
+                    adapter.swap(games);
                     mSwipeRefreshLayout.setRefreshing(false);
                 });
     }

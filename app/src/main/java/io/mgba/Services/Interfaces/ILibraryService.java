@@ -8,6 +8,6 @@ import io.reactivex.Observable;
 
 public interface ILibraryService {
     Observable<List<Game>> prepareGames(Platform platform);
-    Observable<Boolean> reloadGames();
+    Observable<List<Game>> reloadGames(Platform... platform);
     Observable<List<Game>> query(String query);
 }

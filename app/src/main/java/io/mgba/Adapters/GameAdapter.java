@@ -8,14 +8,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.Interfaces.BaseAdapter;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.R;
+import io.mgba.Utils.GlideUtils;
 import io.mgba.mgba;
 import io.reactivex.functions.Consumer;
 
@@ -40,10 +38,9 @@ public class GameAdapter extends BaseAdapter<Game>{
         if(mItem.getCoverURL() == null){
             ((ViewHolder) holder).gameTitle.setText(mItem.getName());
         }else{
-            Glide.with(view)
-                    .load(mItem.getCoverURL())
-                    .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error))
-                    .into(((ViewHolder) holder).gameCover);
+            GlideUtils.init(view.getContext(), mItem.getCoverURL())
+                      .setPlaceholders(R.drawable.placeholder, R.drawable.error)
+                      .build(((ViewHolder) holder).gameCover);
         }
 
         //Click Event

@@ -26,14 +26,14 @@ public class Game implements Parcelable, SearchSuggestion {
     };
     private final File file;
     private final Platform platform;
-    private String name;
-    private String description;
-    private String released;
-    private String developer;
-    private String genre;
+    private String name = null;
+    private String description = null;
+    private String released = null;
+    private String developer = null;
+    private String genre = null;
     private String coverURL = null;
-    private String MD5;
-    private boolean favourite;
+    private String MD5 = null;
+    private boolean favourite = false;
 
     public Game(String path, String name, String description, String released, String developer, String genre, String coverURL, String MD5, boolean favourite, Platform platform) {
         this.file = new File(path);
@@ -146,6 +146,53 @@ public class Game implements Parcelable, SearchSuggestion {
         return platform.getValue() == Platform.GBA.getValue();
     }
 
+    @Override
+    public String getBody() {
+        return getName();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeSerializable(this.file);
+        dest.writeString(this.name);
+        dest.writeString(this.description);
+        dest.writeString(this.released);
+        dest.writeString(this.developer);
+        dest.writeString(this.genre);
+        dest.writeString(this.coverURL);
+        dest.writeString(this.MD5);
+        dest.writeByte(this.favourite ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.platform == null ? -1 : this.platform.ordinal());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Game)) return false;
+
+        Game game = (Game) o;
+
+        if (!getFile().equals(game.getFile())) return false;
+        return getPlatform() == game.getPlatform();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getFile().hashCode();
+        result = 31 * result + getPlatform().hashCode();
+        return result;
+    }
+
+    public boolean needsUpdate() {
+        return coverURL == null;
+    }
+
+    //Probably not correct to put it on the DTO...
     public void compare(GameCursor dbVersion){
         if(name == null)
             setName(dbVersion.getName());
@@ -170,29 +217,5 @@ public class Game implements Parcelable, SearchSuggestion {
 
         if(!isFavourite())
             setFavourite(dbVersion.getIsfavourite());
-    }
-
-    @Override
-    public String getBody() {
-        return getName();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeSerializable(this.file);
-        dest.writeString(this.name);
-        dest.writeString(this.description);
-        dest.writeString(this.released);
-        dest.writeString(this.developer);
-        dest.writeString(this.genre);
-        dest.writeString(this.coverURL);
-        dest.writeString(this.MD5);
-        dest.writeByte(this.favourite ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.platform == null ? -1 : this.platform.ordinal());
     }
 }

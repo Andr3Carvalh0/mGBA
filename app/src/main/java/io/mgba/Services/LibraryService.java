@@ -4,8 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.annimon.stream.Stream;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,52 +58,52 @@ public class LibraryService implements ILibraryService{
     }
 
     @Override
-    public Observable<Boolean> reloadGames() {
+    public Observable<List<Game>> reloadGames(Platform... platform) {
         return Observable.create(subscriber -> {
-            boolean update = false;
-
             //clean up possible removed files from content provider
             Cursor cursor = ContentProviderService.getGamesForPlatform(mCtx);
             List<Game> games = copyInformation(cursor);
 
-            for (Game game : games){
-                update = true;
-
-                if(!game.getFile().exists()){
-                    ContentProviderService.remove(game, mCtx);
-                }
-            }
+            Stream.of(games)
+                  .filter(g -> !g.getFile().exists())
+                  .forEach(g -> {
+                      games.remove(g);
+                      ContentProviderService.remove(g, mCtx);}
+                  );
 
             //read the files from the selected dir
             if(filesService == null)
                 filesService = new FilesService(mgba.getPreference(PreferencesService.GAMES_DIRECTORY, ""));
 
-            final List<File> files = filesService.getGameList();
+            final List<Game> updatedList = Stream.of(filesService.getGameList())
+                    .map(f -> new Game(f.getAbsolutePath(), getPlatform(f)))
+                    .filter(f -> games.size() == 0 || Stream.of(games)
+                            .anyMatch(g -> g.getFile().equals(f.getFile()) && g.needsUpdate()))
+                    .map(g -> {
+                        Stream.of(games).filter(g1 -> g1.equals(g)).forEach(games::remove);
 
-            games = new LinkedList<>();
+                        if (calculateMD5(g)) {
+                            searchWeb(g);
+                            storeInDatabase(g);
+                        }
 
-            if(files.size() == 0){
-                subscriber.onNext(update);
-                subscriber.onComplete();
-                return;
-            }
+                        return g;
+                    }).toList();
 
-            //Start fetching game information online
-            for (File file : files)
-                games.add(new Game(file.getAbsolutePath(), getPlatform(file)));
+            games.addAll(updatedList);
 
-            for (Game game : games) {
-                update = true;
+            Collections.sort(games, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 
-                if (calculateMD5(game)){
-                    searchWeb(game);
-                    storeInDatabase(game);
-                }
-            }
-
-            subscriber.onNext(update);
+            subscriber.onNext(filter(Arrays.asList(platform), games));
             subscriber.onComplete();
         });
+    }
+
+
+    private List<Game> filter(List<Platform> platform, List<Game> games){
+        return Stream.of(games)
+                     .filter(g -> platform.contains(g.getPlatform()))
+                     .toList();
     }
 
     @Override

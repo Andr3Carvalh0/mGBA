@@ -16,6 +16,7 @@ import io.mgba.Services.System.PreferencesService;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
+//todo: Start following mvvm pattern.
 public class mgba extends Application {
 
     public static IPreferencesService preferencesController;
