@@ -22,10 +22,10 @@ import io.mgba.Fragments.Settings.EmulationFragment;
 import io.mgba.Fragments.Settings.StorageFragment;
 import io.mgba.Fragments.Settings.UIFragment;
 import io.mgba.Fragments.Settings.VideoFragment;
+import io.mgba.Model.Interfaces.IPermissionManager;
+import io.mgba.Model.System.PermissionManager;
+import io.mgba.Model.System.PreferencesManager;
 import io.mgba.R;
-import io.mgba.Services.Interfaces.IPermissionService;
-import io.mgba.Services.System.PermissionService;
-import io.mgba.Services.System.PreferencesService;
 import io.mgba.mgba;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnShowRationale;
@@ -37,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity implements ISettings {
     private static final String TAG = "Storage_Fragment";
 
     private static HashMap<String, Function<String, PreferenceFragmentCompat>> router;
-    private IPermissionService permissionService;
+    private IPermissionManager permissionService;
     private String id;
 
     @Override
@@ -57,7 +57,7 @@ public class SettingsActivity extends AppCompatActivity implements ISettings {
                     ? getIntent().getExtras().getString(Constants.ARG_SETTINGS_ID)
                     : savedInstanceState.getString(Constants.ARG_SETTINGS_ID);
 
-        permissionService = new PermissionService(this);
+        permissionService = new PermissionManager(this);
         setupFragment();
         setupToolbar();
     }
@@ -100,7 +100,7 @@ public class SettingsActivity extends AppCompatActivity implements ISettings {
 
     @Override
     public String requestPreferencesValue(String key, String defaultValue) {
-        return mgba.getPreference(key, defaultValue);
+        return ((mgba)getApplication()).getPreference(key, defaultValue);
     }
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -119,14 +119,14 @@ public class SettingsActivity extends AppCompatActivity implements ISettings {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == PermissionService.DIR_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == PermissionManager.DIR_CODE && resultCode == Activity.RESULT_OK) {
             String dir = FilePickerUtils.getSelectedDir(intent);
             processDirectory(dir);
         }
     }
 
     private void processDirectory(String dir){
-        mgba.savePreference(PreferencesService.GAMES_DIRECTORY, dir);
+        ((mgba)getApplication()).savePreference(PreferencesManager.GAMES_DIRECTORY, dir);
         FragmentManager fm = getSupportFragmentManager();
         StorageFragment fragment = (StorageFragment) fm.findFragmentByTag(TAG + id);
         fragment.changeGamesFolderSummary(dir);

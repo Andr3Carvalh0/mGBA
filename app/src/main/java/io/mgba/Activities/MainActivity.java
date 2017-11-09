@@ -15,9 +15,10 @@ import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.mgba.Activities.Interfaces.ILibrary;
 import io.mgba.Adapters.TabViewPager;
 import io.mgba.Data.DTOs.Game;
+import io.mgba.Model.Interfaces.ILibrary;
+import io.mgba.Model.Library;
 import io.mgba.R;
 import io.mgba.Views.BottomSheetView;
 import io.mgba.Views.Interfaces.IBottomSheetView;
@@ -25,7 +26,7 @@ import io.mgba.mgba;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, ILibrary, FloatingSearchView.OnFocusChangeListener {
+public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, io.mgba.Activities.Interfaces.ILibrary, FloatingSearchView.OnFocusChangeListener {
 
     private static final int DEFAULT_PANEL = 1;
     private static final int SETTINGS_CODE = 738;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @BindView(R.id.bottomsheet) BottomSheetLayout mSheetDialog;
     @BindView(R.id.tabLayout) TabLayout mTabLayout;
 
+    private ILibrary libraryService;
+
     private IBottomSheetView bottomSheetController;
 
     @Override
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_library);
 
         ButterKnife.bind(this);
+
+        libraryService = new Library((mgba)getApplication());
 
         prepareToolbar();
         prepareViewPager();
@@ -113,6 +118,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     }
 
     @Override
+    public ILibrary getLibraryService() {
+        return libraryService;
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == SETTINGS_CODE && resultCode == Activity.RESULT_OK) {
 
@@ -136,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             mToolbar.clearSuggestions();
         } else {
             mToolbar.showProgress();
-            mgba.libraryService
+            libraryService
                     .query(newQuery)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())

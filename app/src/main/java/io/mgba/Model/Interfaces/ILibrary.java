@@ -1,4 +1,4 @@
-package io.mgba.Services.Interfaces;
+package io.mgba.Model.Interfaces;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import io.mgba.Data.DTOs.Game;
 import io.mgba.Data.Platform;
 import io.reactivex.Observable;
 
-public interface ILibraryService {
+public interface ILibrary {
     Observable<List<Game>> prepareGames(Platform platform);
     Observable<List<Game>> reloadGames(Platform... platform);
     Observable<List<Game>> query(String query);

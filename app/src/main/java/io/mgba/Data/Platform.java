@@ -1,15 +1,20 @@
 package io.mgba.Data;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum Platform {
-    GBA(0),
-    GBC(1),
+    GBA(0, "gba"),
+    GBC(1, "gb", "gbc"),
     FAVS(2);
 
     private final int value;
+    private final List<String> extensions;
 
-    Platform(int value)
+    Platform(int value, String... extension)
     {
         this.value = value;
+        this.extensions = Arrays.asList(extension);
     }
 
     public static Platform forValue(Integer platform) {
@@ -25,5 +30,9 @@ public enum Platform {
 
     public int getValue() {
         return value;
+    }
+
+    public List<String> getExtensions(){
+        return extensions;
     }
 }

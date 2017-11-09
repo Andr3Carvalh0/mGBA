@@ -9,7 +9,7 @@ import java.io.File;
 
 import io.mgba.Data.ContentProvider.game.GameCursor;
 import io.mgba.Data.Platform;
-import io.mgba.Services.IO.FilesService;
+import io.mgba.Model.IO.FilesManager;
 
 public class Game implements Parcelable, SearchSuggestion {
 
@@ -69,7 +69,7 @@ public class Game implements Parcelable, SearchSuggestion {
 
     public String getName() {
         if(name == null)
-            setName(FilesService.getFileWithoutExtension(file));
+            setName(FilesManager.getFileWithoutExtension(file));
 
         return name;
     }

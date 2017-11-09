@@ -5,8 +5,8 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
 import io.mgba.Activities.Interfaces.ISettings;
+import io.mgba.Model.System.PreferencesManager;
 import io.mgba.R;
-import io.mgba.Services.System.PreferencesService;
 
 public class StorageFragment extends PreferenceFragmentCompat {
 
@@ -16,7 +16,7 @@ public class StorageFragment extends PreferenceFragmentCompat {
         addPreferencesFromResource(R.xml.storage_settings);
 
         gamesFolder = findPreference("games_folder");
-        final String gameDir = ((ISettings) getActivity()).requestPreferencesValue(PreferencesService.GAMES_DIRECTORY, getContext().getString(R.string.prefs_not_set_folder_summary));
+        final String gameDir = ((ISettings) getActivity()).requestPreferencesValue(PreferencesManager.GAMES_DIRECTORY, getContext().getString(R.string.prefs_not_set_folder_summary));
 
         gamesFolder.setSummary(gameDir);
         gamesFolder.setOnPreferenceClickListener(preference -> {

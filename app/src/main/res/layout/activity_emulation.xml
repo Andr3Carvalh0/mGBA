@@ -4,29 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".Activities.EmulationActivity">
 
 
-    <!-- This is what everything is rendered to during emulation -->
+    <include
+        layout="@layout/gamepad"/>
+
     <SurfaceView
         android:id="@+id/surface_emulation"
-        android:layout_width="385dp"
-        android:layout_height="377dp"
-        android:layout_marginBottom="188dp"
+        android:layout_width="0dp"
+        android:layout_height="278dp"
         android:focusable="false"
         android:focusableInTouchMode="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:layout_marginTop="376dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </android.support.constraint.ConstraintLayout>

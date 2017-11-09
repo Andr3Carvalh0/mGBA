@@ -16,10 +16,11 @@ import com.nononsenseapps.filepicker.Controllers.FilePickerUtils;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.mgba.Model.Interfaces.IPermissionManager;
+import io.mgba.Model.Library;
+import io.mgba.Model.System.PermissionManager;
+import io.mgba.Model.System.PreferencesManager;
 import io.mgba.R;
-import io.mgba.Services.Interfaces.IPermissionService;
-import io.mgba.Services.System.PermissionService;
-import io.mgba.Services.System.PreferencesService;
 import io.mgba.mgba;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -34,12 +35,12 @@ import permissions.dispatcher.RuntimePermissions;
 public class IntroActivity extends AppIntro2 {
 
     private List<AppIntroFragment> slides = new LinkedList<>();
-    private IPermissionService permissionService;
+    private IPermissionManager permissionService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        permissionService = new PermissionService(this);
+        permissionService = new PermissionManager(this);
 
         //Welcome-screen
         slides.add(AppIntro2Fragment.newInstance(getResources().getString(R.string.Welcome_Title),
@@ -84,17 +85,17 @@ public class IntroActivity extends AppIntro2 {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == PermissionService.DIR_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == PermissionManager.DIR_CODE && resultCode == Activity.RESULT_OK) {
             String dir = FilePickerUtils.getSelectedDir(intent);
             onEnd(dir);
         }
     }
 
     private void onEnd(String dir){
-        mgba.savePreference(PreferencesService.GAMES_DIRECTORY, dir);
+        ((mgba)getApplication()).savePreference(PreferencesManager.GAMES_DIRECTORY, dir);
         ((mgba)getApplication()).showProgressDialog(this);
 
-        mgba.libraryService
+        new Library((mgba)getApplication())
                 .reloadGames()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
@@ -106,7 +107,7 @@ public class IntroActivity extends AppIntro2 {
 
 
     private void onEnd(){
-        mgba.savePreference(PreferencesService.SETUP_DONE, true);
+        ((mgba)getApplication()).savePreference(PreferencesManager.SETUP_DONE, true);
 
         Intent it = new Intent(getBaseContext(), MainActivity.class);
         startActivity(it);

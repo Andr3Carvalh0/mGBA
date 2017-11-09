@@ -15,14 +15,12 @@ import org.lucasr.twowayview.layout.TwoWayView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.mgba.Activities.Interfaces.ILibrary;
 import io.mgba.Adapters.GameAdapter;
 import io.mgba.Constants;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.Data.Platform;
+import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.R;
-import io.mgba.Services.Interfaces.ILibraryService;
-import io.mgba.mgba;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -94,7 +92,7 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     protected void loadGames() {
-        ILibraryService databaseHelper = mgba.libraryService;
+        ILibrary databaseHelper = ((io.mgba.Activities.Interfaces.ILibrary)getActivity()).getLibraryService();
 
         databaseHelper.prepareGames(platform)
                 .subscribeOn(Schedulers.io())
@@ -106,12 +104,12 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void onClick(Game game) {
-        ((ILibrary) getActivity()).showBottomSheet(game);
+        ((io.mgba.Activities.Interfaces.ILibrary) getActivity()).showBottomSheet(game);
     }
 
     @Override
     public void onRefresh() {
-        ILibraryService databaseHelper = mgba.libraryService;
+        ILibrary databaseHelper = ((io.mgba.Activities.Interfaces.ILibrary)getActivity()).getLibraryService();
 
         databaseHelper.reloadGames(platform)
                 .subscribeOn(Schedulers.computation())

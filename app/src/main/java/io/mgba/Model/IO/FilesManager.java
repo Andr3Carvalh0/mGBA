@@ -1,4 +1,4 @@
-package io.mgba.Services.IO;
+package io.mgba.Model.IO;
 
 import android.content.Context;
 
@@ -17,14 +17,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import io.mgba.Data.DTOs.Game;
-import io.mgba.Services.Interfaces.IFilesService;
+import io.mgba.Model.Interfaces.IFilesManager;
 
 import static io.mgba.mgba.printLog;
 
 /**
  * Handles the fetching/filtering of the supported files for the selected dir.
  */
-public class FilesService implements IFilesService{
+public class FilesManager implements IFilesManager {
 
     public static final LinkedList<String> GBC_FILES_SUPPORTED;
     public static final LinkedList<String> GBA_FILES_SUPPORTED;
@@ -41,7 +41,7 @@ public class FilesService implements IFilesService{
 
     private File gameDir;
 
-    public FilesService(String directory) {
+    public FilesManager(String directory) {
         printLog(TAG, "CTOR: " + directory);
 
         if(!directory.equals(""))

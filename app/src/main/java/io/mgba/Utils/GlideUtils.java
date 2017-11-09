@@ -1,9 +1,9 @@
 package io.mgba.Utils;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,29 +18,24 @@ import com.github.florent37.glidepalette.GlidePalette;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GlideUtils {
+public class GlideUtils<T> {
 
     private final String url;
-    private Context holder;
-    private View view;
+    private T holder;
     private int placeholder = -1;
     private int onError = -1;
     private List<ColorView> views = new LinkedList<>();
-    private GlideUtils(Context holder, String url) {
+    private GlideUtils(T holder, String url) {
         this.url = url;
         this.holder = holder;
     }
-    private GlideUtils(View holder, String url) {
-        this.url = url;
-        this.view = holder;
-    }
-
-    public static GlideUtils init(Context holder, String url){
-        return new GlideUtils(holder, url);
-    }
 
     public static GlideUtils init(View holder, String url){
-        return new GlideUtils(holder, url);
+        return new GlideUtils<>(holder, url);
+    }
+
+    public static GlideUtils init(Fragment holder, String url){
+        return new GlideUtils<>(holder, url);
     }
 
     public GlideUtils setPlaceholders(int placeholder, int onError){
@@ -70,8 +65,11 @@ public class GlideUtils {
         return this;
     }
 
-    public GlideUtils colorView(Colors swatch, TextView view, boolean title){
-        views.add(new SpecialColorWrapper(swatch, view, title));
+    public GlideUtils colorView(Colors swatch, boolean title, TextView... view){
+        Stream.of(view)
+                .map(v -> new SpecialColorWrapper(swatch, v, title))
+                .forEach(c -> views.add(c));
+
         return this;
     }
 
@@ -85,9 +83,10 @@ public class GlideUtils {
     }
 
     private RequestBuilder prepare(){
-        if(holder == null)
-            return Glide.with(view).load(url);
-        return Glide.with(holder).load(url);
+        if(holder instanceof Fragment)
+            return Glide.with((Fragment) holder).load(url);
+
+        return Glide.with((View)holder).load(url);
     }
 
     private void processPlaceholders(RequestBuilder rm){

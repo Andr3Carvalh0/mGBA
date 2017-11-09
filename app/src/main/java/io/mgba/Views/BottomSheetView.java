@@ -70,8 +70,8 @@ public class BottomSheetView implements IBottomSheetView {
                       .setPlaceholders(R.drawable.placeholder, R.drawable.error)
                       .colorView(Colors.VIBRANT, Colors.DARK_MUTED, fab, savestateTitle)
                       .colorView(Colors.LIGHT_MUTED, Colors.LIGHT_VIBRANT, bottomsheetHeader, noSavestateMessage, noContentImage)
-                      .colorView(Colors.LIGHT_VIBRANT, gameTitle, true)
-                      .colorView(Colors.LIGHT_VIBRANT, gameDescription, false)
+                      .colorView(Colors.LIGHT_VIBRANT, true, gameTitle)
+                      .colorView(Colors.LIGHT_VIBRANT, false, gameDescription)
                       .build(cover);
         }
     }

@@ -1,4 +1,4 @@
-package io.mgba.Services.IO;
+package io.mgba.Model.IO;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,7 +12,7 @@ import io.mgba.Data.Platform;
 
 import static io.mgba.mgba.printLog;
 
-public class ContentProviderService {
+public class ContentProvider {
 
     private static final String TAG = "ContProvSer";
 

@@ -1,16 +1,16 @@
-package io.mgba.Services.System;
+package io.mgba.Model.System;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import io.mgba.Services.Interfaces.IPreferencesService;
+import io.mgba.Model.Interfaces.IPreferencesManager;
 
 /**
  * Controller responsible with the interaction of the SharedPreferences.
  * It handles the saving/loading of the preferences.
  */
-public class PreferencesService implements IPreferencesService {
+public class PreferencesManager implements IPreferencesManager {
     public static final String GAMES_DIRECTORY = "game_dir";
     public static final String SETUP_DONE = "setup_done";
 
@@ -18,7 +18,7 @@ public class PreferencesService implements IPreferencesService {
     private SharedPreferences.Editor editor;
     private SharedPreferences shared;
 
-    public PreferencesService(Context context) {
+    public PreferencesManager(Context context) {
         this.mContext = context;
     }
 

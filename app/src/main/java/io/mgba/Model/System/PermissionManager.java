@@ -1,4 +1,4 @@
-package io.mgba.Services.System;
+package io.mgba.Model.System;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,15 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.nononsenseapps.filepicker.Views.Activities.FilePickerActivity;
 
+import io.mgba.Model.Interfaces.IPermissionManager;
 import io.mgba.R;
-import io.mgba.Services.Interfaces.IPermissionService;
 import permissions.dispatcher.PermissionRequest;
 
-public class PermissionService implements IPermissionService{
+public class PermissionManager implements IPermissionManager {
     public static final int DIR_CODE = 347;
     private final AppCompatActivity activity;
 
-    public PermissionService(AppCompatActivity activity) {
+    public PermissionManager(AppCompatActivity activity) {
         this.activity = activity;
     }
 

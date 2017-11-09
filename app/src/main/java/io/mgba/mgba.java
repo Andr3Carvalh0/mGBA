@@ -2,26 +2,32 @@ package io.mgba;
 
 import android.app.Application;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+
 import io.mgba.Data.Remote.Interfaces.IRequest;
 import io.mgba.Data.Remote.RetrofitClient;
-import io.mgba.Services.Interfaces.ILibraryService;
-import io.mgba.Services.Interfaces.IPreferencesService;
-import io.mgba.Services.LibraryService;
-import io.mgba.Services.System.PreferencesService;
+import io.mgba.Model.Interfaces.IPreferencesManager;
+import io.mgba.Model.System.PreferencesManager;
 
-import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-
-//todo: Start following mvvm pattern.
 public class mgba extends Application {
 
-    public static IPreferencesService preferencesController;
-    public static ILibraryService libraryService;
-    private static IRequest webService;
+    private final static List<String> SUPPORTED_LANGUAGES = new LinkedList<>();
+
+    static {
+        SUPPORTED_LANGUAGES.add("eng");
+    }
+
+    public IPreferencesManager preferencesController;
     private ProgressDialog waitingDialog;
 
     public static void printLog(String tag, String message){
@@ -29,39 +35,49 @@ public class mgba extends Application {
             Log.v(tag, message);
     }
 
-    public static void savePreference(String key, String value) {
+    public synchronized void savePreference(String key, String value) {
+        preparePreferencesController();
         preferencesController.save(key, value);
     }
 
-    public static void savePreference(String key, boolean value) {
+    public synchronized void savePreference(String key, boolean value) {
+        preparePreferencesController();
         preferencesController.save(key, value);
     }
 
-    public static String getPreference(String key, String defaultValue) {
+    public String getPreference(String key, String defaultValue) {
+        preparePreferencesController();
         return preferencesController.get(key, defaultValue);
     }
 
-    public static boolean getPreference(String key, boolean defaultValue) {
+    public boolean getPreference(String key, boolean defaultValue) {
+        preparePreferencesController();
         return preferencesController.get(key, defaultValue);
     }
 
-    public static synchronized IRequest getWebService(){
-        if(webService == null)
-            webService =  RetrofitClient.getClient(IRequest.BASE_URL).create(IRequest.class);
+    private synchronized void preparePreferencesController(){
+        if(preferencesController == null)
+            preferencesController = new PreferencesManager(this);
+    }
 
-        return webService;
+    public synchronized IRequest getWebService(){
+        return RetrofitClient.getClient(IRequest.BASE_URL).create(IRequest.class);
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        preferencesController = new PreferencesService(this);
-        libraryService = new LibraryService( this);
+        preferencesController = new PreferencesManager(this);
     }
 
     public String getDeviceLanguage(){
-        //return Locale.getDefault().getISO3Language();
-        return "eng";
+        final String iso = Locale.getDefault().getISO3Language();
+
+        if(SUPPORTED_LANGUAGES.contains(iso))
+            return iso;
+
+        //If its not valid return the first language supported
+        return SUPPORTED_LANGUAGES.get(0);
     }
 
     public void showProgressDialog(AppCompatActivity activity){
@@ -74,8 +90,10 @@ public class mgba extends Application {
         }
     }
 
-    public void showDialog(AppCompatActivity activity, String title, String desc, String positive_button, String negative_button,
-                           DialogInterface.OnClickListener positive_click, DialogInterface.OnClickListener negative_click){
+    public void showDialog(AppCompatActivity activity, String title, String desc, String positive_button,
+                           String negative_button, DialogInterface.OnClickListener positive_click,
+                           DialogInterface.OnClickListener negative_click){
+
         new AlertDialog.Builder(activity)
                 .setTitle(title)
                 .setMessage(desc)
@@ -85,7 +103,10 @@ public class mgba extends Application {
                 .show();
     }
 
-    public boolean isInLandscape(){
-       return getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
+    public boolean isConnectedToWeb(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
 }

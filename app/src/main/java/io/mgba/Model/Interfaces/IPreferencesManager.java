@@ -1,6 +1,6 @@
-package io.mgba.Services.Interfaces;
+package io.mgba.Model.Interfaces;
 
-public interface IPreferencesService {
+public interface IPreferencesManager {
     void save(String key, String value);
     void save(String key, boolean value);
     String get(String key, String defaultValue);

@@ -1,6 +1,5 @@
-package io.mgba.Services;
+package io.mgba.Model;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
@@ -17,21 +16,21 @@ import io.mgba.Data.ContentProvider.game.GameCursor;
 import io.mgba.Data.DTOs.Game;
 import io.mgba.Data.DTOs.GameJSON;
 import io.mgba.Data.Platform;
-import io.mgba.Services.IO.ContentProviderService;
-import io.mgba.Services.IO.FilesService;
-import io.mgba.Services.Interfaces.IFilesService;
-import io.mgba.Services.Interfaces.ILibraryService;
-import io.mgba.Services.System.PreferencesService;
+import io.mgba.Model.IO.ContentProvider;
+import io.mgba.Model.IO.FilesManager;
+import io.mgba.Model.Interfaces.IFilesManager;
+import io.mgba.Model.Interfaces.ILibrary;
+import io.mgba.Model.System.PreferencesManager;
 import io.mgba.mgba;
 import io.reactivex.Observable;
 
-public class LibraryService implements ILibraryService{
+public class Library implements ILibrary {
     private static final String TAG = "ProcService";
-    private final Context mCtx;
-    private IFilesService filesService;
+    private final mgba mApp;
+    private IFilesManager filesService;
 
-    public LibraryService(Context ctx) {
-        this.mCtx = ctx;
+    public Library(mgba application) {
+        this.mApp = application;
     }
 
     @Override
@@ -44,7 +43,7 @@ public class LibraryService implements ILibraryService{
                 return;
             }
 
-            Cursor cursor = ContentProviderService.getGamesForPlatform(platform, mCtx);
+            Cursor cursor = ContentProvider.getGamesForPlatform(platform, mApp);
 
             List<Game> games = copyInformation(cursor);
 
@@ -61,19 +60,19 @@ public class LibraryService implements ILibraryService{
     public Observable<List<Game>> reloadGames(Platform... platform) {
         return Observable.create(subscriber -> {
             //clean up possible removed files from content provider
-            Cursor cursor = ContentProviderService.getGamesForPlatform(mCtx);
+            Cursor cursor = ContentProvider.getGamesForPlatform(mApp);
             List<Game> games = copyInformation(cursor);
 
             Stream.of(games)
                   .filter(g -> !g.getFile().exists())
                   .forEach(g -> {
                       games.remove(g);
-                      ContentProviderService.remove(g, mCtx);}
+                      ContentProvider.remove(g, mApp);}
                   );
 
             //read the files from the selected dir
             if(filesService == null)
-                filesService = new FilesService(mgba.getPreference(PreferencesService.GAMES_DIRECTORY, ""));
+                filesService = new FilesManager(mApp.getPreference(PreferencesManager.GAMES_DIRECTORY, ""));
 
             final List<Game> updatedList = Stream.of(filesService.getGameList())
                     .map(f -> new Game(f.getAbsolutePath(), getPlatform(f)))
@@ -83,7 +82,8 @@ public class LibraryService implements ILibraryService{
                         Stream.of(games).filter(g1 -> g1.equals(g)).forEach(games::remove);
 
                         if (calculateMD5(g)) {
-                            searchWeb(g);
+                            if(mApp.isConnectedToWeb())
+                                searchWeb(g);
                             storeInDatabase(g);
                         }
 
@@ -116,7 +116,7 @@ public class LibraryService implements ILibraryService{
                 return;
             }
 
-            Cursor cursor = ContentProviderService.queryForGames(query, mCtx);
+            Cursor cursor = ContentProvider.queryForGames(query, mApp);
 
             List<Game> games = copyInformation(cursor);
 
@@ -129,8 +129,8 @@ public class LibraryService implements ILibraryService{
     }
 
     private Platform getPlatform(File file) {
-        final String fileExtension = FilesService.getFileExtension(file);
-        if(fileExtension.equals("gba"))
+        final String fileExtension = FilesManager.getFileExtension(file);
+        if(Platform.GBA.getExtensions().contains(fileExtension))
             return Platform.GBA;
 
         return Platform.GBC;
@@ -138,13 +138,15 @@ public class LibraryService implements ILibraryService{
 
     private void storeInDatabase(Game game){
         Log.v(TAG, "Storing recent acquired info on db!");
-        ContentProviderService.push(game, mCtx);
+        ContentProvider.push(game, mApp);
     }
 
     private boolean searchWeb(Game game){
         try {
-            //String lang = mgba.getDeviceLanguage();
-            final GameJSON json = mgba.getWebService().getGameInformation(game.getMD5(), "eng").execute().body();
+            final GameJSON json = mApp.getWebService()
+                                      .getGameInformation(game.getMD5(), mApp.getDeviceLanguage())
+                                      .execute()
+                                      .body();
 
             if(json == null)
                 return false;
@@ -157,7 +159,7 @@ public class LibraryService implements ILibraryService{
     }
 
     private boolean calculateMD5(Game game) {
-        String md5 = FilesService.getFileMD5ToString(game.getFile(), mCtx);
+        String md5 = FilesManager.getFileMD5ToString(game.getFile(), mApp);
         game.setMD5(md5);
 
         return md5 != null;

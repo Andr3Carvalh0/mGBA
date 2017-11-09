@@ -38,7 +38,7 @@ public class GameAdapter extends BaseAdapter<Game>{
         if(mItem.getCoverURL() == null){
             ((ViewHolder) holder).gameTitle.setText(mItem.getName());
         }else{
-            GlideUtils.init(view.getContext(), mItem.getCoverURL())
+            GlideUtils.init(view, mItem.getCoverURL())
                       .setPlaceholders(R.drawable.placeholder, R.drawable.error)
                       .build(((ViewHolder) holder).gameCover);
         }
