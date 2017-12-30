@@ -1,25 +1,23 @@
 apply plugin: 'com.android.library'
 
-repositories {
-    mavenCentral()
-    maven {
-        url 'https://maven.google.com/'
-        name 'Google'
+android {
+    compileSdkVersion project.ext.maxSDK
+    buildToolsVersion project.ext.BuildVersion
+    resourcePrefix 'twowayview_'
+
+    defaultConfig {
+        minSdkVersion project.ext.minSDK
+        targetSdkVersion project.ext.maxSDK
     }
 }
 
 dependencies {
-    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile "com.android.support:recyclerview-v7:" + project.ext.LibVersion
 }
 
-android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
-    resourcePrefix 'twowayview_'
-
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 26
-    }
+task createJar(type: Copy) {
+    from('build/intermediates/bundles/debug/')
+    into('libs/jars/')
+    include('classes.jar')
+    rename('classes.jar', 'twoway.jar')
 }
-

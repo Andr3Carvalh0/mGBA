@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion project.ext.maxSDK
+    buildToolsVersion project.ext.BuildVersion
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 26
+        minSdkVersion project.ext.minSDK
+        targetSdkVersion project.ext.maxSDK
         versionCode 13
         versionName "2.1.1"
         //consumerProguardFiles 'consumer-proguard-rules.txt'
@@ -22,10 +22,10 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support:cardview-v7:26.1.0'
+    compile "com.android.support:appcompat-v7:" + project.ext.LibVersion
+    compile "com.android.support:recyclerview-v7:" + project.ext.LibVersion
+    compile "com.android.support:design:" + project.ext.LibVersion
+    compile "com.android.support:cardview-v7:" + project.ext.LibVersion
     compile 'com.bartoszlipinski:viewpropertyobjectanimator:1.2.0'
 }
 

@@ -1,16 +1,16 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion project.ext.maxSDK
+    buildToolsVersion project.ext.BuildVersion
 
     lintOptions {
         abortOnError false
     }
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 26
+        minSdkVersion project.ext.minSDK
+        targetSdkVersion project.ext.maxSDK
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -26,11 +26,11 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:support-v4:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile "com.android.support:appcompat-v7:" + project.ext.LibVersion
+    compile "com.android.support:support-v4:" + project.ext.LibVersion
+    compile "com.android.support:recyclerview-v7:" + project.ext.LibVersion
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:26.1.0'
+    compile "com.android.support:design:" + project.ext.LibVersion
     compile 'org.apache.commons:commons-lang3:3.4'
 }
 

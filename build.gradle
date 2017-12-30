@@ -4,20 +4,25 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0-alpha02'
+        classpath 'com.android.tools.build:gradle:3.1.0-alpha06'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
-        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+        maven { url "https://maven.google.com" }
         maven { url 'https://jitpack.io' }
         google()
     }
+
+    project.ext {
+        BuildVersion="27.0.3"
+        LibVersion="27.0.2"
+        minSDK=21
+        maxSDK=27
+    }
 }
-
-
 
 task clean(type: Delete) {
     delete rootProject.buildDir
