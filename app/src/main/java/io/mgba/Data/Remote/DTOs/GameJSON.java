@@ -1,4 +1,4 @@
-package io.mgba.Data.DTOs;
+package io.mgba.Data.Remote.DTOs;
 
 public class GameJSON {
     private String name;

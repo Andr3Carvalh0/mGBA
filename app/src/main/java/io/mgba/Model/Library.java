@@ -1,6 +1,5 @@
 package io.mgba.Model;
 
-import android.database.Cursor;
 import android.util.Log;
 
 import com.annimon.stream.Stream;
@@ -12,12 +11,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import io.mgba.Data.ContentProvider.game.GameCursor;
-import io.mgba.Data.DTOs.Game;
-import io.mgba.Data.DTOs.GameJSON;
+import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
-import io.mgba.Model.IO.ContentProvider;
+import io.mgba.Data.Remote.DTOs.GameJSON;
 import io.mgba.Model.IO.FilesManager;
+import io.mgba.Model.IO.LocalDB;
 import io.mgba.Model.Interfaces.IFilesManager;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.Model.System.PreferencesManager;
@@ -27,10 +25,12 @@ import io.reactivex.Observable;
 public class Library implements ILibrary {
     private static final String TAG = "ProcService";
     private final mgba mApp;
+    private final LocalDB mDatabase;
     private IFilesManager filesService;
 
     public Library(mgba application) {
         this.mApp = application;
+        this.mDatabase = mApp.getLocalDatabase();
     }
 
     @Override
@@ -43,9 +43,7 @@ public class Library implements ILibrary {
                 return;
             }
 
-            Cursor cursor = ContentProvider.getGamesForPlatform(platform, mApp);
-
-            List<Game> games = copyInformation(cursor);
+            List<Game> games = mDatabase.getGamesForPlatform(platform);
 
             // Pass the result to the consumer.
             subscriber.onNext(games);
@@ -60,14 +58,13 @@ public class Library implements ILibrary {
     public Observable<List<Game>> reloadGames(Platform... platform) {
         return Observable.create(subscriber -> {
             //clean up possible removed files from content provider
-            Cursor cursor = ContentProvider.getGamesForPlatform(mApp);
-            List<Game> games = copyInformation(cursor);
+            List<Game> games = mDatabase.getGames();
 
             Stream.of(games)
                   .filter(g -> !g.getFile().exists())
                   .forEach(g -> {
                       games.remove(g);
-                      ContentProvider.remove(g, mApp);}
+                      mDatabase.delete(g);}
                   );
 
             //read the files from the selected dir
@@ -116,9 +113,7 @@ public class Library implements ILibrary {
                 return;
             }
 
-            Cursor cursor = ContentProvider.queryForGames(query, mApp);
-
-            List<Game> games = copyInformation(cursor);
+            List<Game> games = mDatabase.queryForGames(query);
 
             // Pass the result to the consumer.
             subscriber.onNext(games);
@@ -138,7 +133,7 @@ public class Library implements ILibrary {
 
     private void storeInDatabase(Game game){
         Log.v(TAG, "Storing recent acquired info on db!");
-        ContentProvider.push(game, mApp);
+        mDatabase.insert(game);
     }
 
     private boolean searchWeb(Game game){
@@ -172,22 +167,5 @@ public class Library implements ILibrary {
         game.setGenre(json.getGenre());
         game.setReleased(json.getReleased());
         game.setCoverURL(json.getCover());
-    }
-
-    private List<Game> copyInformation(Cursor cursor){
-        GameCursor gCursor = new GameCursor(cursor);
-
-        List<Game> games = new LinkedList<>();
-
-        while(gCursor.moveToNext()){
-            Game game = new Game(gCursor.getPath(), gCursor.getName(), gCursor.getDescription(),
-                                 gCursor.getReleased(), gCursor.getDeveloper(), gCursor.getGenre(),
-                                 gCursor.getCover(), gCursor.getMd5(), gCursor.getIsfavourite(),
-                                 Platform.forValue(gCursor.getPlatform()));
-
-            games.add(game);
-        }
-
-        return games;
     }
 }

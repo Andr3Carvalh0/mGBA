@@ -16,7 +16,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import io.mgba.Data.DTOs.Game;
+import io.mgba.Data.Database.Game;
 import io.mgba.Model.Interfaces.IFilesManager;
 
 import static io.mgba.mgba.printLog;

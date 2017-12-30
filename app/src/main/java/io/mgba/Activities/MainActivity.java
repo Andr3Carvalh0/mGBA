@@ -16,7 +16,7 @@ import com.mikepenz.aboutlibraries.LibsBuilder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.TabViewPager;
-import io.mgba.Data.DTOs.Game;
+import io.mgba.Data.Database.Game;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.Model.Library;
 import io.mgba.R;

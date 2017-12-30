@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.GameAdapter;
 import io.mgba.Constants;
-import io.mgba.Data.DTOs.Game;
+import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.R;

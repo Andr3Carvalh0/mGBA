@@ -11,7 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.Interfaces.BaseAdapter;
-import io.mgba.Data.DTOs.Game;
+import io.mgba.Data.Database.Game;
 import io.mgba.R;
 import io.mgba.Utils.GlideUtils;
 import io.mgba.mgba;

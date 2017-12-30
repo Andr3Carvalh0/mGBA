@@ -1,5 +1,9 @@
-package io.mgba.Data.DTOs;
+package io.mgba.Data.Database;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -7,10 +11,10 @@ import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 
 import java.io.File;
 
-import io.mgba.Data.ContentProvider.game.GameCursor;
 import io.mgba.Data.Platform;
 import io.mgba.Model.IO.FilesManager;
 
+@Entity(tableName = "Games")
 public class Game implements Parcelable, SearchSuggestion {
 
     public static final Creator<Game> CREATOR = new Creator<Game>() {
@@ -24,17 +28,39 @@ public class Game implements Parcelable, SearchSuggestion {
             return new Game[size];
         }
     };
+
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     private final File file;
+
+    @ColumnInfo()
     private final Platform platform;
+
+    @ColumnInfo()
     private String name = null;
+
+    @ColumnInfo()
     private String description = null;
+
+    @ColumnInfo()
     private String released = null;
+
+    @ColumnInfo()
     private String developer = null;
+
+    @ColumnInfo()
     private String genre = null;
+
+    @ColumnInfo()
     private String coverURL = null;
+
+    @ColumnInfo()
     private String MD5 = null;
+
+    @ColumnInfo()
     private boolean favourite = false;
 
+    @Ignore
     public Game(String path, String name, String description, String released, String developer, String genre, String coverURL, String MD5, boolean favourite, Platform platform) {
         this.file = new File(path);
         this.name = name;
@@ -48,11 +74,13 @@ public class Game implements Parcelable, SearchSuggestion {
         this.platform = platform;
     }
 
+    @Ignore
     public Game(String path, Platform platform) {
         this.file = new File(path);
         this.platform = platform;
     }
 
+    @Ignore
     protected Game(Parcel in) {
         this.file = (File) in.readSerializable();
         this.name = in.readString();
@@ -177,8 +205,7 @@ public class Game implements Parcelable, SearchSuggestion {
 
         Game game = (Game) o;
 
-        if (!getFile().equals(game.getFile())) return false;
-        return getPlatform() == game.getPlatform();
+        return getFile().equals(game.getFile()) && getPlatform() == game.getPlatform();
     }
 
     @Override
@@ -193,7 +220,7 @@ public class Game implements Parcelable, SearchSuggestion {
     }
 
     //Probably not correct to put it on the DTO...
-    public void compare(GameCursor dbVersion){
+    public void compare(Game dbVersion){
         if(name == null)
             setName(dbVersion.getName());
 
@@ -210,12 +237,12 @@ public class Game implements Parcelable, SearchSuggestion {
             setGenre(dbVersion.getGenre());
 
         if(coverURL == null)
-            setCoverURL(dbVersion.getCover());
+            setCoverURL(dbVersion.getCoverURL());
 
         if(MD5 == null)
-            setMD5(dbVersion.getMd5());
+            setMD5(dbVersion.getMD5());
 
         if(!isFavourite())
-            setFavourite(dbVersion.getIsfavourite());
+            setFavourite(dbVersion.isFavourite());
     }
 }

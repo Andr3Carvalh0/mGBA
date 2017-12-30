@@ -2,7 +2,7 @@ package io.mgba.Model.Interfaces;
 
 import java.util.List;
 
-import io.mgba.Data.DTOs.Game;
+import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
 import io.reactivex.Observable;
 

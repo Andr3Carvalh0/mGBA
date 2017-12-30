@@ -16,6 +16,7 @@ import java.util.Locale;
 
 import io.mgba.Data.Remote.Interfaces.IRequest;
 import io.mgba.Data.Remote.RetrofitClient;
+import io.mgba.Model.IO.LocalDB;
 import io.mgba.Model.Interfaces.IPreferencesManager;
 import io.mgba.Model.System.PreferencesManager;
 
@@ -109,4 +110,7 @@ public class mgba extends Application {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    public LocalDB getLocalDatabase() {
+        return new LocalDB(this);
+    }
 }
