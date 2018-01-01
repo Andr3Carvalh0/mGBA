@@ -28,7 +28,8 @@ public class mgba extends Application {
         SUPPORTED_LANGUAGES.add("eng");
     }
 
-    public IPreferencesManager preferencesController;
+    private IPreferencesManager preferencesController;
+    private IRequest webController;
     private ProgressDialog waitingDialog;
 
     public static void printLog(String tag, String message){
@@ -36,12 +37,12 @@ public class mgba extends Application {
             Log.v(tag, message);
     }
 
-    public synchronized void savePreference(String key, String value) {
+    public void savePreference(String key, String value) {
         preparePreferencesController();
         preferencesController.save(key, value);
     }
 
-    public synchronized void savePreference(String key, boolean value) {
+    public void savePreference(String key, boolean value) {
         preparePreferencesController();
         preferencesController.save(key, value);
     }
@@ -62,7 +63,9 @@ public class mgba extends Application {
     }
 
     public synchronized IRequest getWebService(){
-        return RetrofitClient.getClient(IRequest.BASE_URL).create(IRequest.class);
+        if(webController == null)
+            webController = RetrofitClient.getClient(IRequest.BASE_URL).create(IRequest.class);
+        return webController;
     }
 
     @Override

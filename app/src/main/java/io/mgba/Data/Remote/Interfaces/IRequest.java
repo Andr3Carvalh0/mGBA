@@ -7,7 +7,7 @@ import retrofit2.http.Path;
 
 public interface IRequest {
 
-    String BASE_URL = "https://andr3carvalh0.github.io/mGBA_Database/";
+    String BASE_URL = "https://andr3carvalh0.github.io/Databases/mGBA";
 
     @GET("Games_{lang}/{md5}.json")
     Call<GameJSON> getGameInformation(@Path("md5") String md5, @Path("lang") String lang);
