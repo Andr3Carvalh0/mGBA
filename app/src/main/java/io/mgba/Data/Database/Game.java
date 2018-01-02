@@ -6,6 +6,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 
@@ -31,10 +32,13 @@ public class Game implements Parcelable, SearchSuggestion {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    private final File file;
-
+    @NonNull
+    private File file;
     @ColumnInfo()
-    private final Platform platform;
+    private Platform platform;
+
+    public Game() {
+    }
 
     @ColumnInfo()
     private String name = null;
@@ -126,6 +130,7 @@ public class Game implements Parcelable, SearchSuggestion {
         return developer;
     }
 
+
     public void setDeveloper(String developer) {
         this.developer = developer;
     }
@@ -146,6 +151,10 @@ public class Game implements Parcelable, SearchSuggestion {
         this.coverURL = coverURL;
     }
 
+    public void setFile(File file){
+        this.file = file;
+    }
+
     public File getFile() {
         return file;
     }
@@ -164,6 +173,10 @@ public class Game implements Parcelable, SearchSuggestion {
 
     public void setFavourite(boolean favourite) {
         this.favourite = favourite;
+    }
+
+    public void setPlatform(Platform platform){
+        this.platform = platform;
     }
 
     public Platform getPlatform() {

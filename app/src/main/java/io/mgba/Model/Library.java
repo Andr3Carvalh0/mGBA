@@ -30,7 +30,7 @@ public class Library implements ILibrary {
 
     public Library(mgba application) {
         this.mApp = application;
-        this.mDatabase = mApp.getLocalDatabase();
+        this.mDatabase = new LocalDB(application);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package io.mgba.Model.IO;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import java.util.List;
@@ -16,7 +15,7 @@ public class LocalDB {
     private Database db;
 
     public LocalDB(Context context) {
-        db = Room.databaseBuilder(context, Database.class, context.getPackageName()).build();
+        db = Database.getInstance(context);
     }
 
     public List<Game> getGamesForPlatform(final Platform platform){
