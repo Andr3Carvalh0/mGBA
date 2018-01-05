@@ -22,8 +22,9 @@ public class GameAdapter extends BaseAdapter<Game>{
     private final Consumer<Game> onClick;
     private Fragment view;
 
-    public GameAdapter(Fragment fragment, Context context, Consumer<Game> onClick) {
-        super(R.layout.game, ViewHolder::new, context);
+    public GameAdapter(Fragment fragment, Context context, Consumer<Game> onClick, RecyclerView recyclerView) {
+        super(R.layout.game, ViewHolder::new, context, recyclerView);
+
         this.view = fragment;
         this.onClick = onClick;
     }
@@ -44,13 +45,18 @@ public class GameAdapter extends BaseAdapter<Game>{
         }
 
         //Click Event
-        ((ViewHolder) holder).masterContainer.setOnClickListener(v -> {
-            try {
-                onClick.accept(mItem);
-            } catch (Exception e) {
-                mgba.printLog(TAG, "Cannot execute consumer callable");
-            }
-        });
+        ((ViewHolder) holder).masterContainer.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        final Game mItem = items.get(getPositionBasedOnView(v));
+
+        try {
+            onClick.accept(mItem);
+        } catch (Exception e) {
+            mgba.printLog(TAG, "Cannot execute consumer callable");
+        }
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

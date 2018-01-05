@@ -21,8 +21,8 @@ public class SettingsCategoriesAdapter extends BaseAdapter<SettingsCategory> {
     private static final String TAG = "SettingsAdapter";
     private final Consumer<SettingsCategory> onClick;
 
-    public SettingsCategoriesAdapter(List<SettingsCategory> settings, Context context, Consumer<SettingsCategory> onClick) {
-        super(settings, R.layout.category_element, ViewHolder::new, context);
+    public SettingsCategoriesAdapter(List<SettingsCategory> settings, Context context, Consumer<SettingsCategory> onClick, RecyclerView recyclerView) {
+        super(settings, R.layout.category_element, ViewHolder::new, recyclerView, context);
         this.onClick = onClick;
     }
 
@@ -33,13 +33,18 @@ public class SettingsCategoriesAdapter extends BaseAdapter<SettingsCategory> {
         ((ViewHolder) holder).icon.setImageDrawable(mCtx.getDrawable(item.getResource()));
         ((ViewHolder) holder).title.setText(item.getTitle());
 
-        ((ViewHolder) holder).container.setOnClickListener(v -> {
-            try {
-                onClick.accept(item);
-            } catch (Exception e) {
-                mgba.printLog(TAG, "Cannot execute consumer callable");
-            }
-        });
+        ((ViewHolder) holder).container.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        final SettingsCategory mItem = items.get(getPositionBasedOnView(v));
+
+        try {
+            onClick.accept(mItem);
+        } catch (Exception e) {
+            mgba.printLog(TAG, "Cannot execute consumer callable");
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

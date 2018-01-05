@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import io.mgba.Constants;
 import io.mgba.Data.Platform;
-import io.mgba.Fragments.Main.FavouritesFragment;
-import io.mgba.Fragments.Main.GameFragment;
+import io.mgba.UI.Fragments.Main.FavouritesFragment;
+import io.mgba.UI.Fragments.Main.GameFragment;
 
 import static io.mgba.mgba.printLog;
 

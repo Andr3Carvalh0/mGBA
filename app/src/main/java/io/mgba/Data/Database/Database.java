@@ -12,7 +12,7 @@ import io.mgba.Data.Database.DAOs.GameDAO;
 @android.arch.persistence.room.Database(entities = {Game.class}, version = 4)
 @TypeConverters(GameConverter.class)
 public abstract class Database extends RoomDatabase {
-    public static Database instance;
+    private static Database instance;
 
     public abstract GameDAO gameDao();
 

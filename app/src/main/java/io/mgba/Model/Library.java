@@ -20,7 +20,7 @@ import io.mgba.Model.Interfaces.IFilesManager;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.Model.System.PreferencesManager;
 import io.mgba.mgba;
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public class Library implements ILibrary {
     private static final String TAG = "ProcService";
@@ -34,29 +34,23 @@ public class Library implements ILibrary {
     }
 
     @Override
-    public Observable<List<Game>> prepareGames(Platform platform) {
-        return Observable.create(subscriber -> {
+    public Single<List<Game>> prepareGames(Platform platform) {
+        return Single.create(subscriber -> {
 
             if(platform == null){
-                subscriber.onNext(new LinkedList<>());
-                subscriber.onComplete();
+                subscriber.onSuccess(new LinkedList<>());
                 return;
             }
 
             List<Game> games = mDatabase.getGamesForPlatform(platform);
 
-            // Pass the result to the consumer.
-            subscriber.onNext(games);
-
-            // Tell the consumer we're done; it will unsubscribe implicitly.
-            subscriber.onComplete();
+            subscriber.onSuccess(games);
         });
-
     }
 
     @Override
-    public Observable<List<Game>> reloadGames(Platform... platform) {
-        return Observable.create(subscriber -> {
+    public Single<List<Game>> reloadGames(Platform... platform) {
+        return Single.create(subscriber -> {
             //clean up possible removed files from content provider
             List<Game> games = mDatabase.getGames();
 
@@ -91,8 +85,7 @@ public class Library implements ILibrary {
 
             Collections.sort(games, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 
-            subscriber.onNext(filter(Arrays.asList(platform), games));
-            subscriber.onComplete();
+            subscriber.onSuccess(filter(Arrays.asList(platform), games));
         });
     }
 
@@ -104,22 +97,17 @@ public class Library implements ILibrary {
     }
 
     @Override
-    public Observable<List<Game>> query(String query) {
-        return Observable.create(subscriber -> {
+    public Single<List<Game>> query(String query) {
+        return Single.create(subscriber -> {
 
             if(query == null || query.length() == 0){
-                subscriber.onNext(new LinkedList<>());
-                subscriber.onComplete();
+                subscriber.onSuccess(new LinkedList<>());
                 return;
             }
 
             List<Game> games = mDatabase.queryForGames(query);
 
-            // Pass the result to the consumer.
-            subscriber.onNext(games);
-
-            // Tell the consumer we're done; it will unsubscribe implicitly.
-            subscriber.onComplete();
+            subscriber.onSuccess(games);
         });
     }
 

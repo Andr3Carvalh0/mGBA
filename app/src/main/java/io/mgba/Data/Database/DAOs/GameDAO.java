@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 
 import java.util.List;
@@ -15,15 +16,19 @@ import io.mgba.Data.Database.Game;
 public interface GameDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Transaction
     void insert(Game... games);
 
     @Update
+    @Transaction
     void update(Game... games);
 
     @Delete
+    @Transaction
     void delete(Game... games);
 
     @Query("DELETE FROM Games")
+    @Transaction
     void deleteAll();
 
     @Query("SELECT * FROM Games")

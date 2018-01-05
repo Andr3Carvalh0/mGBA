@@ -18,7 +18,7 @@ allprojects {
 
     project.ext {
         BuildVersion="27.0.3"
-        LibVersion="27.0.2"
+        AppCompatVersion="27.0.2"
         minSDK=21
         maxSDK=27
     }

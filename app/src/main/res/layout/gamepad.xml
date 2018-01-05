@@ -92,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/a_button" />
 
-    <io.mgba.Overlays.DpadController
+    <io.mgba.UI.Overlays.DpadController
         android:id="@+id/dpad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

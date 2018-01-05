@@ -22,10 +22,10 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:" + project.ext.LibVersion
-    compile "com.android.support:recyclerview-v7:" + project.ext.LibVersion
-    compile "com.android.support:design:" + project.ext.LibVersion
-    compile "com.android.support:cardview-v7:" + project.ext.LibVersion
+    compile "com.android.support:appcompat-v7:" + project.ext.AppCompatVersion
+    compile "com.android.support:recyclerview-v7:" + project.ext.AppCompatVersion
+    compile "com.android.support:design:" + project.ext.AppCompatVersion
+    compile "com.android.support:cardview-v7:" + project.ext.AppCompatVersion
     compile 'com.bartoszlipinski:viewpropertyobjectanimator:1.2.0'
 }
 

@@ -26,11 +26,11 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:" + project.ext.LibVersion
-    compile "com.android.support:support-v4:" + project.ext.LibVersion
-    compile "com.android.support:recyclerview-v7:" + project.ext.LibVersion
+    compile "com.android.support:appcompat-v7:" + project.ext.AppCompatVersion
+    compile "com.android.support:support-v4:" + project.ext.AppCompatVersion
+    compile "com.android.support:recyclerview-v7:" + project.ext.AppCompatVersion
     testCompile 'junit:junit:4.12'
-    compile "com.android.support:design:" + project.ext.LibVersion
+    compile "com.android.support:design:" + project.ext.AppCompatVersion
     compile 'org.apache.commons:commons-lang3:3.4'
 }
 
