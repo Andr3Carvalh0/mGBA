@@ -18,7 +18,7 @@ import io.mgba.mgba;
 import io.reactivex.functions.Consumer;
 
 public class SettingsCategoriesAdapter extends BaseAdapter<SettingsCategory> {
-    private static final String TAG = "SettingsAdapter";
+    private static final String TAG = "mgba:SettingsAdapter";
     private final Consumer<SettingsCategory> onClick;
 
     public SettingsCategoriesAdapter(List<SettingsCategory> settings, Context context, Consumer<SettingsCategory> onClick, RecyclerView recyclerView) {

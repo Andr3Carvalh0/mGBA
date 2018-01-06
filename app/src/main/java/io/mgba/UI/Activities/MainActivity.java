@@ -77,4 +77,10 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        controller.onDestroy();
+    }
+
 }

@@ -1,6 +1,7 @@
 package io.mgba.Controller.Interfaces;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
@@ -24,4 +25,6 @@ public interface IMainController  {
     void onDestroy();
 
     ILibrary getILibrary();
+
+    void onSaveInstanceState(Bundle outState);
 }

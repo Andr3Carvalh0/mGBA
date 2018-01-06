@@ -54,6 +54,7 @@ public class GamesController implements IGamesController {
                                     .subscribe(n -> {
                                         adapter.swap(games);
                                         showContent.accept(games.size() > 0);
+
                                     })
                             )
                 ));

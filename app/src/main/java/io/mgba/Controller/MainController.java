@@ -2,6 +2,7 @@ package io.mgba.Controller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -17,7 +18,6 @@ import io.mgba.Adapters.TabViewPager;
 import io.mgba.Controller.Interfaces.IMainController;
 import io.mgba.Data.Database.Game;
 import io.mgba.Model.Interfaces.ILibrary;
-import io.mgba.Model.Library;
 import io.mgba.R;
 import io.mgba.UI.Activities.SettingsCategoriesActivity;
 import io.mgba.UI.Views.BottomSheetView;
@@ -31,7 +31,6 @@ public class MainController implements IMainController, FloatingSearchView.OnMen
     private static final int DEFAULT_PANEL = 1;
     private static final int SETTINGS_CODE = 738;
 
-    private final ILibrary libraryService;
     private final AppCompatActivity context;
     private IBottomSheetView bottomSheetController;
     private FloatingSearchView mToolbar;
@@ -39,7 +38,6 @@ public class MainController implements IMainController, FloatingSearchView.OnMen
 
     public MainController(@NonNull AppCompatActivity context) {
         this.context = context;
-        this.libraryService = new Library((mgba)context.getApplication());
     }
 
     @Override
@@ -115,9 +113,13 @@ public class MainController implements IMainController, FloatingSearchView.OnMen
 
     @Override
     public ILibrary getILibrary() {
-        return libraryService;
+        return ((mgba)context.getApplication()).getLibrary();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+    }
 
     @Override
     public void onSearchTextChanged(String oldQuery, String newQuery) {
@@ -126,7 +128,7 @@ public class MainController implements IMainController, FloatingSearchView.OnMen
             mToolbar.clearSuggestions();
         } else {
             mToolbar.showProgress();
-            disposable = libraryService
+            disposable = getILibrary()
                     .query(newQuery)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())

@@ -16,4 +16,8 @@ public interface IIntroController {
     void showFilePicker();
 
     void showRationaleForStorage(PermissionRequest request);
+
+    void onResume();
+
+    void onPause();
 }

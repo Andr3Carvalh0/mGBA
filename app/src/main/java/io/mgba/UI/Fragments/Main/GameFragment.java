@@ -96,4 +96,10 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onRefresh() {
         controller.onRefresh(getILibrary(), mSwipeRefreshLayout);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        controller.onDestroy();
+    }
 }

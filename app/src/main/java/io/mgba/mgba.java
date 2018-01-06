@@ -16,7 +16,9 @@ import java.util.Locale;
 
 import io.mgba.Data.Remote.Interfaces.IRequest;
 import io.mgba.Data.Remote.RetrofitClient;
+import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.Model.Interfaces.IPreferencesManager;
+import io.mgba.Model.Library;
 import io.mgba.Model.System.PreferencesManager;
 
 public class mgba extends Application {
@@ -28,6 +30,7 @@ public class mgba extends Application {
     }
 
     private IPreferencesManager preferencesController;
+    private ILibrary library;
     private IRequest webController;
     private ProgressDialog waitingDialog;
 
@@ -71,6 +74,7 @@ public class mgba extends Application {
     public void onCreate() {
         super.onCreate();
         preferencesController = new PreferencesManager(this);
+        library = new Library(this);
     }
 
     public String getDeviceLanguage(){
@@ -104,6 +108,10 @@ public class mgba extends Application {
                 .setPositiveButton(positive_button, positive_click)
                 .setNegativeButton(negative_button, negative_click)
                 .show();
+    }
+
+    public ILibrary getLibrary() {
+        return library;
     }
 
     public boolean isConnectedToWeb(){

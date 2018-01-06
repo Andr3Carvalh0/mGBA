@@ -5,7 +5,6 @@ import android.util.Log;
 import com.annimon.stream.Stream;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -126,6 +125,7 @@ public class Library implements ILibrary {
 
     private boolean searchWeb(Game game){
         try {
+            Thread.sleep(5000);
             final GameJSON json = mApp.getWebService()
                                       .getGameInformation(game.getMD5(), mApp.getDeviceLanguage())
                                       .execute()
@@ -136,7 +136,7 @@ public class Library implements ILibrary {
 
             copyInformation(game, json);
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
     }

@@ -1,10 +1,20 @@
-* [MEDIUM] Start handling device state (rotations, change language, etc...) - PARTIAL DONE
+* [MEDIUM] Start handling device state (rotations, change language, etc...)
   (Eg: for now if we rotate the device on the library activity we will fetch the data again for the db, this could be optimized)
+
+        Activity | State
+          Intro     Done
+          Main      toImplement(Partial)
+          Settings  toImplement
+          Emulation toImplement
+
 * [MEDIUM] Dispose objects that we dont need.
-* [LOW] Add option to customize game controllers
-* [MEDIUM] Define the relationship between games and cheats.
+* [LOW] Add option to customize game controllers.
 * [LOW] Move splashActivity logic to a controller.
-* [HIGH] Import mgba binary and start implementing emulator view.
 * [LOW] Start working on the landscape layout.
-* [HIGH] Fix main view not changing views when we click on the tablayout.
 * [LOW] Reload games when switching directories.
+* [MEDIUM] Add so file so we can start using the emulator.
+* [LOW] Fix IntroController. It receives a Activity object on CTOR.
+        In case of the need to recreate the Activity, there could happen a NullPointException when we came from the worker thread
+        For now the only change of it happen is if the user does the following:
+            enter app -> init setup -> exits -> changes devices language -> enters app
+        For now I'm going to assume that will be a low probably of that happening.

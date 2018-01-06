@@ -62,4 +62,16 @@ public class IntroActivity extends AppIntro2 {
         super.onDonePressed(currentFragment);
         IntroActivityPermissionsDispatcher.showFilePickerWithPermissionCheck(this);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        controller.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        controller.onResume();
+    }
 }

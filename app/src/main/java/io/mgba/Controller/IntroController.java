@@ -16,7 +16,6 @@ import java.util.List;
 
 import io.mgba.Controller.Interfaces.IIntroController;
 import io.mgba.Model.Interfaces.IPermissionManager;
-import io.mgba.Model.Library;
 import io.mgba.Model.System.PermissionManager;
 import io.mgba.Model.System.PreferencesManager;
 import io.mgba.R;
@@ -26,7 +25,13 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import permissions.dispatcher.PermissionRequest;
 
+//S
 public class IntroController implements IIntroController {
+
+    private final static String TAG = "mgba:IntroCtr";
+    private boolean isVisible = true;
+    private boolean isDone = false;
+
     private final IPermissionManager permissionService;
     private AppCompatActivity context;
     private Disposable disposable;
@@ -66,6 +71,7 @@ public class IntroController implements IIntroController {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == PermissionManager.DIR_CODE && resultCode == Activity.RESULT_OK) {
+            mgba.printLog(TAG, "received result from activity");
             String dir = FilePickerUtils.getSelectedDir(intent);
             onEnd(dir);
         }
@@ -86,29 +92,54 @@ public class IntroController implements IIntroController {
         permissionService.showRationaleForStorage(request);
     }
 
+    @Override
+    public void onResume() {
+        isVisible = true;
+
+        if (isDone){
+            mgba.printLog(TAG, "Finishing setup coming from the background");
+            onEnd();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        isVisible = false;
+    }
+
+    // Since this Single object runs outside the UI Thread, we will leave it be.
+    // In case of a onPause event, we will not terminate it. It will do want it need and when finished,
+    // set the flag isDone.
+    // In the eventual case that the app isnt killed, when the user comes back, the onResume will be triggered,
+    // And we will continue to the MainActivity
+    // If thats not the case, and the app ends up dead, there will be no problem(*) and the app will start the main activity
+    // * There could also happen that the app gets kill in between the processing...
+    //  In that case the flag setup_done will stay false and on the next launch the setup will show up again.
     private void onEnd(String dir){
         ((mgba)context.getApplication()).savePreference(PreferencesManager.GAMES_DIRECTORY, dir);
         ((mgba)context.getApplication()).showProgressDialog(context);
 
-        disposable = new Library((mgba)context.getApplication())
-                .reloadGames()
-                //.observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.computation())
-                .subscribe(games -> {
-                    ((mgba)context.getApplication()).stopProgressDialog();
-                    onEnd();
-                });
+        disposable = ((mgba)context.getApplication()).getLibrary()
+                                    .reloadGames()
+                                    .subscribeOn(Schedulers.computation())
+                                    .subscribe(games -> {
+                                        isDone = true;
+                                        onEnd();
+                                    });
     }
 
-
     private void onEnd(){
-        ((mgba)context.getApplication()).savePreference(PreferencesManager.SETUP_DONE, true);
+        ((mgba) context.getApplication()).savePreference(PreferencesManager.SETUP_DONE, true);
+        ((mgba) context.getApplication()).stopProgressDialog();
 
         //House cleaning
-        disposable.dispose();
+        if(disposable != null && !disposable.isDisposed())
+            disposable.dispose();
 
-        Intent it = new Intent(context.getBaseContext(), MainActivity.class);
-        context.startActivity(it);
-        context.finish();
+        if(isVisible) {
+            Intent it = new Intent(context.getBaseContext(), MainActivity.class);
+            context.startActivity(it);
+            context.finish();
+        }
     }
 }

@@ -13,7 +13,7 @@ import io.mgba.UI.Fragments.Main.GameFragment;
 import static io.mgba.mgba.printLog;
 
 public class TabViewPager extends FragmentPagerAdapter {
-    private final static String TAG = "TabPager";
+    private final static String TAG = "mgba:TabPager";
 
     private final Platform[] platforms = {Platform.FAVS, Platform.GBA, Platform.GBC};
 

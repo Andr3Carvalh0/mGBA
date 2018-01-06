@@ -18,7 +18,7 @@ import io.mgba.mgba;
 import io.reactivex.functions.Consumer;
 
 public class GameAdapter extends BaseAdapter<Game>{
-    private static final String TAG = "GameAdapter";
+    private static final String TAG = "mgba:GameAdapter";
     private final Consumer<Game> onClick;
     private Fragment view;
 
