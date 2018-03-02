@@ -15,8 +15,8 @@ import org.lucasr.twowayview.layout.TwoWayView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.mgba.Controller.GamesController;
-import io.mgba.Controller.Interfaces.IGamesController;
+import io.mgba.Presenter.GamesController;
+import io.mgba.Presenter.Interfaces.IGamesController;
 import io.mgba.Data.Database.Game;
 import io.mgba.R;
 

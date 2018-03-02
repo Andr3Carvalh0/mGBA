@@ -1,4 +1,4 @@
-package io.mgba.Controller;
+package io.mgba.Presenter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import com.nononsenseapps.filepicker.Controllers.FilePickerUtils;
 import java.util.LinkedList;
 import java.util.List;
 
-import io.mgba.Controller.Interfaces.IIntroController;
+import io.mgba.Presenter.Interfaces.IIntroController;
 import io.mgba.Model.Interfaces.IPermissionManager;
 import io.mgba.Model.System.PermissionManager;
 import io.mgba.Model.System.PreferencesManager;
@@ -22,7 +22,6 @@ import io.mgba.R;
 import io.mgba.UI.Activities.MainActivity;
 import io.mgba.mgba;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import permissions.dispatcher.PermissionRequest;
 

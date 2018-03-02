@@ -14,12 +14,12 @@ public class PreferencesManager implements IPreferencesManager {
     public static final String GAMES_DIRECTORY = "game_dir";
     public static final String SETUP_DONE = "setup_done";
 
-    private final Context mContext;
+    private final Context context;
     private SharedPreferences.Editor editor;
-    private SharedPreferences shared;
+    private SharedPreferences sharedPreferences;
 
     public PreferencesManager(Context context) {
-        this.mContext = context;
+        this.context = context;
     }
 
     @Override
@@ -53,17 +53,17 @@ public class PreferencesManager implements IPreferencesManager {
     private SharedPreferences.Editor getSharePreferencesEditor() {
         if(editor == null){
             SharedPreferences sh = getSharePreferences();
-            editor = shared.edit();
+            editor = sharedPreferences.edit();
         }
 
         return editor;
     }
 
     private SharedPreferences getSharePreferences() {
-        if(shared == null){
-            shared = PreferenceManager.getDefaultSharedPreferences(mContext);
+        if(sharedPreferences == null){
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         }
 
-        return shared;
+        return sharedPreferences;
     }
 }

@@ -1,23 +1,19 @@
-package io.mgba.Controller;
+package io.mgba.Presenter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import org.lucasr.twowayview.layout.TwoWayView;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import io.mgba.Adapters.GameAdapter;
 import io.mgba.Constants;
-import io.mgba.Controller.Interfaces.IGamesController;
+import io.mgba.Presenter.Interfaces.IGamesController;
 import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
 import io.mgba.R;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 

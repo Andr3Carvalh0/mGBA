@@ -1,4 +1,4 @@
-package io.mgba.Controller;
+package io.mgba.Presenter;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import io.mgba.Adapters.SettingsCategoriesAdapter;
 import io.mgba.Constants;
-import io.mgba.Controller.Interfaces.ICategoriesController;
+import io.mgba.Presenter.Interfaces.ICategoriesController;
 import io.mgba.Data.Settings.SettingsCategory;
 import io.mgba.R;
 import io.mgba.UI.Activities.SettingsActivity;

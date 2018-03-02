@@ -9,8 +9,8 @@ import android.support.v4.app.Fragment;
 
 import com.github.paolorotolo.appintro.AppIntro2;
 
-import io.mgba.Controller.Interfaces.IIntroController;
-import io.mgba.Controller.IntroController;
+import io.mgba.Presenter.Interfaces.IIntroController;
+import io.mgba.Presenter.IntroController;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;

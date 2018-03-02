@@ -13,6 +13,7 @@ import java.util.List;
 import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
 import io.mgba.Data.Remote.DTOs.GameJSON;
+import io.mgba.Model.IO.Decoder;
 import io.mgba.Model.IO.FilesManager;
 import io.mgba.Model.IO.LocalDB;
 import io.mgba.Model.Interfaces.IFilesManager;
@@ -23,13 +24,13 @@ import io.reactivex.Single;
 
 public class Library implements ILibrary {
     private static final String TAG = "ProcService";
-    private final mgba mApp;
-    private final LocalDB mDatabase;
+    private final mgba application;
+    private final LocalDB database;
     private IFilesManager filesService;
 
     public Library(mgba application) {
-        this.mApp = application;
-        this.mDatabase = new LocalDB(application);
+        this.application = application;
+        this.database = new LocalDB(application);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class Library implements ILibrary {
                 return;
             }
 
-            List<Game> games = mDatabase.getGamesForPlatform(platform);
+            List<Game> games = database.getGamesForPlatform(platform);
 
             subscriber.onSuccess(games);
         });
@@ -51,18 +52,18 @@ public class Library implements ILibrary {
     public Single<List<Game>> reloadGames(Platform... platform) {
         return Single.create(subscriber -> {
             //clean up possible removed files from content provider
-            List<Game> games = mDatabase.getGames();
+            List<Game> games = database.getGames();
 
             Stream.of(games)
                   .filter(g -> !g.getFile().exists())
                   .forEach(g -> {
                       games.remove(g);
-                      mDatabase.delete(g);}
+                      database.delete(g);}
                   );
 
             //read the files from the selected dir
             if(filesService == null)
-                filesService = new FilesManager(mApp.getPreference(PreferencesManager.GAMES_DIRECTORY, ""));
+                filesService = new FilesManager(application.getPreference(PreferencesManager.GAMES_DIRECTORY, ""));
 
             final List<Game> updatedList = Stream.of(filesService.getGameList())
                     .map(f -> new Game(f.getAbsolutePath(), getPlatform(f)))
@@ -72,7 +73,7 @@ public class Library implements ILibrary {
                         Stream.of(games).filter(g1 -> g1.equals(g)).forEach(games::remove);
 
                         if (calculateMD5(g)) {
-                            if(mApp.isConnectedToWeb())
+                            if(application.isConnectedToWeb())
                                 searchWeb(g);
                             storeInDatabase(g);
                         }
@@ -104,7 +105,7 @@ public class Library implements ILibrary {
                 return;
             }
 
-            List<Game> games = mDatabase.queryForGames(query);
+            List<Game> games = database.queryForGames(query);
 
             subscriber.onSuccess(games);
         });
@@ -120,14 +121,14 @@ public class Library implements ILibrary {
 
     private void storeInDatabase(Game game){
         Log.v(TAG, "Storing recent acquired info on db!");
-        mDatabase.insert(game);
+        database.insert(game);
     }
 
     private boolean searchWeb(Game game){
         try {
             Thread.sleep(5000);
-            final GameJSON json = mApp.getWebService()
-                                      .getGameInformation(game.getMD5(), mApp.getDeviceLanguage())
+            final GameJSON json = application.getWebService()
+                                      .getGameInformation(game.getMD5(), application.getDeviceLanguage())
                                       .execute()
                                       .body();
 
@@ -142,7 +143,7 @@ public class Library implements ILibrary {
     }
 
     private boolean calculateMD5(Game game) {
-        String md5 = FilesManager.getFileMD5ToString(game.getFile(), mApp);
+        String md5 = Decoder.getFileMD5ToString(game.getFile());
         game.setMD5(md5);
 
         return md5 != null;

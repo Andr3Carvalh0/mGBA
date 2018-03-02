@@ -1,4 +1,4 @@
-package io.mgba.Controller.Interfaces;
+package io.mgba.Presenter.Interfaces;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,6 @@ public interface ISettingsController {
 
     void onSaveInstance(Bundle outState);
 
-    void setupToolbar();
-
     void setupFragment();
 
     void onActivityResult(int requestCode, int resultCode, Intent intent);
@@ -21,4 +19,6 @@ public interface ISettingsController {
     void showRationaleForStorage(PermissionRequest request);
 
     String requestPreferencesValue(String key, String defaultValue);
+
+    String getTitle();
 }

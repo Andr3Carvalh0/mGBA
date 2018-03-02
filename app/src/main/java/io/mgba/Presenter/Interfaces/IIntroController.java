@@ -1,4 +1,4 @@
-package io.mgba.Controller.Interfaces;
+package io.mgba.Presenter.Interfaces;
 
 import android.content.Intent;
 

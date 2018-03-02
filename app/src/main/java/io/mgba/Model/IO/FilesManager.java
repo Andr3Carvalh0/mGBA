@@ -26,9 +26,8 @@ import static io.mgba.mgba.printLog;
  */
 public class FilesManager implements IFilesManager {
 
-    public static final LinkedList<String> GBC_FILES_SUPPORTED;
-    public static final LinkedList<String> GBA_FILES_SUPPORTED;
-    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    private static final LinkedList<String> GBC_FILES_SUPPORTED;
+    private static final LinkedList<String> GBA_FILES_SUPPORTED;
     private static final String TAG = "FileService";
 
     static {
@@ -46,48 +45,6 @@ public class FilesManager implements IFilesManager {
 
         if(!directory.equals(""))
             this.gameDir = new File(directory);
-
-    }
-
-    private static byte[] getFileMD5(final File file, Context ctx) {
-        if (file == null) return null;
-        DigestInputStream dis = null;
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            dis = new DigestInputStream(fis, md);
-            byte[] buffer = new byte[1024 * 256];
-            while (true) {
-                if (!(dis.read(buffer) > 0)) break;
-            }
-            md = dis.getMessageDigest();
-            return md.digest();
-        } catch (NoSuchAlgorithmException | IOException e) {
-
-            if (dis != null) {
-                try {
-                    dis.close();
-                } catch (IOException e1) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
-    }
-
-    public static String getFileMD5ToString(final File file, Context ctx) {
-        byte[] bytes = getFileMD5(file, ctx);
-
-        if (bytes == null) return null;
-        int len = bytes.length;
-        if (len <= 0) return null;
-        char[] ret = new char[len << 1];
-        for (int i = 0, j = 0; i < len; i++) {
-            ret[j++] = hexDigits[bytes[i] >>> 4 & 0x0f];
-            ret[j++] = hexDigits[bytes[i] & 0x0f];
-        }
-
-        return new String(ret);
     }
 
     /**
@@ -100,7 +57,7 @@ public class FilesManager implements IFilesManager {
         return file.getName()
                 .substring(file.getName().lastIndexOf("."))
                 .substring(1)
-                .toLowerCase();//removes "."
+                .toLowerCase();
     }
 
     /**

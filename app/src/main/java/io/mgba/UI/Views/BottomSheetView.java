@@ -22,7 +22,7 @@ import io.mgba.Utils.GlideUtils.Colors;
 
 public class BottomSheetView implements IBottomSheetView {
 
-    private final Context ctx;
+    private final Context context;
     @BindView(R.id.gameDescription)
     TextView gameDescription;
     @BindView(R.id.gameTitle)
@@ -30,9 +30,9 @@ public class BottomSheetView implements IBottomSheetView {
     @BindView(R.id.cover)
     ImageView cover;
     @BindView(R.id.bottomsheet_header)
-    RelativeLayout bottomsheetHeader;
+    RelativeLayout bottomSheetHeader;
     @BindView(R.id.savestate_recyclerview)
-    RecyclerView bottomsheetRecyclerview;
+    RecyclerView bottomSheetRecyclerview;
     @BindView(R.id.fab)
     FloatingActionButton fab;
     @BindView(R.id.sheet_container)
@@ -48,13 +48,13 @@ public class BottomSheetView implements IBottomSheetView {
     private View view;
 
     public BottomSheetView(Context ctx) {
-        this.ctx = ctx;
+        this.context = ctx;
     }
 
     @Override
     public View getView(BottomSheetLayout sheet, Game game) {
 
-        view = LayoutInflater.from(ctx).inflate(R.layout.library_sheet_view, sheet, false);
+        view = LayoutInflater.from(context).inflate(R.layout.library_sheet_view, sheet, false);
         ButterKnife.bind(this, view);
         prepareView(game);
 
@@ -69,7 +69,7 @@ public class BottomSheetView implements IBottomSheetView {
             GlideUtils.init(view, game.getCoverURL())
                       .setPlaceholders(R.drawable.placeholder, R.drawable.error)
                       .colorView(Colors.VIBRANT, Colors.DARK_MUTED, fab, savestateTitle)
-                      .colorView(Colors.LIGHT_MUTED, Colors.LIGHT_VIBRANT, bottomsheetHeader, noSavestateMessage, noContentImage)
+                      .colorView(Colors.LIGHT_MUTED, Colors.LIGHT_VIBRANT, bottomSheetHeader, noSavestateMessage, noContentImage)
                       .colorView(Colors.LIGHT_VIBRANT, true, gameTitle)
                       .colorView(Colors.LIGHT_VIBRANT, false, gameDescription)
                       .build(cover);

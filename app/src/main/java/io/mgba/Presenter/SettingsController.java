@@ -1,4 +1,4 @@
-package io.mgba.Controller;
+package io.mgba.Presenter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import com.nononsenseapps.filepicker.Controllers.FilePickerUtils;
 import java.util.HashMap;
 
 import io.mgba.Constants;
-import io.mgba.Controller.Interfaces.ISettingsController;
+import io.mgba.Presenter.Interfaces.ISettingsController;
 import io.mgba.Model.Interfaces.IPermissionManager;
 import io.mgba.Model.System.PermissionManager;
 import io.mgba.Model.System.PreferencesManager;
@@ -61,15 +61,6 @@ public class SettingsController implements ISettingsController {
     }
 
     @Override
-    public void setupToolbar() {
-        if(context.getSupportActionBar() != null){
-            context.getSupportActionBar().setTitle(id);
-            context.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            context.getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-    }
-
-    @Override
     public void setupFragment() {
         FragmentManager fm = context.getSupportFragmentManager();
 
@@ -102,6 +93,11 @@ public class SettingsController implements ISettingsController {
     @Override
     public String requestPreferencesValue(String key, String defaultValue) {
         return ((mgba)context.getApplication()).getPreference(key, defaultValue);
+    }
+
+    @Override
+    public String getTitle() {
+        return id;
     }
 
     private void processDirectory(String dir){

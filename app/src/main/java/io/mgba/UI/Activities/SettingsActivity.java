@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import io.mgba.Controller.Interfaces.ISettingsController;
-import io.mgba.Controller.SettingsController;
+import io.mgba.Presenter.Interfaces.ISettingsController;
+import io.mgba.Presenter.SettingsController;
 import io.mgba.R;
 import io.mgba.UI.Activities.Interfaces.ISettings;
 import permissions.dispatcher.NeedsPermission;
@@ -40,7 +40,11 @@ public class SettingsActivity extends AppCompatActivity implements ISettings {
     }
 
     private void setupToolbar() {
-        controller.setupToolbar();
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setTitle(controller.getTitle());
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     private void setupFragment() {

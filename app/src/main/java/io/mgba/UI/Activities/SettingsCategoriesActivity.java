@@ -6,14 +6,14 @@ import android.support.v7.widget.RecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.mgba.Controller.CategoriesController;
-import io.mgba.Controller.Interfaces.ICategoriesController;
+import io.mgba.Presenter.CategoriesController;
+import io.mgba.Presenter.Interfaces.ICategoriesController;
 import io.mgba.R;
 
 public class SettingsCategoriesActivity extends AppCompatActivity {
 
     @BindView(R.id.recyclerview)
-    RecyclerView recyclerview;
+    RecyclerView recyclerView;
 
     private ICategoriesController controller;
 
@@ -30,7 +30,7 @@ public class SettingsCategoriesActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        controller.setupRecyclerView(recyclerview);
+        controller.setupRecyclerView(recyclerView);
     }
 
     private void setupToolbar() {
