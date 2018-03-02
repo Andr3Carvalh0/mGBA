@@ -24,7 +24,7 @@ import io.mgba.UI.Views.BottomSheetView;
 import io.mgba.UI.Views.Interfaces.IBottomSheetView;
 import io.mgba.mgba;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainController implements IMainController, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, FloatingSearchView.OnFocusChangeListener{
@@ -34,7 +34,7 @@ public class MainController implements IMainController, FloatingSearchView.OnMen
     private final AppCompatActivity context;
     private IBottomSheetView bottomSheetController;
     private FloatingSearchView mToolbar;
-    private Disposable disposable;
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     public MainController(@NonNull AppCompatActivity context) {
         this.context = context;
@@ -47,7 +47,6 @@ public class MainController implements IMainController, FloatingSearchView.OnMen
         mToolbar.setOnSearchListener(this);
         mToolbar.setOnQueryChangeListener(this);
         mToolbar.setOnFocusChangeListener(this);
-
     }
 
     @Override
@@ -128,14 +127,14 @@ public class MainController implements IMainController, FloatingSearchView.OnMen
             mToolbar.clearSuggestions();
         } else {
             mToolbar.showProgress();
-            disposable = getILibrary()
+            disposable.add(getILibrary()
                     .query(newQuery)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(games -> {
                         mToolbar.swapSuggestions(games);
                         mToolbar.hideProgress();
-                    });
+                    }));
         }
     }
 

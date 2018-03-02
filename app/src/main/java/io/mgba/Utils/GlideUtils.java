@@ -25,6 +25,7 @@ public class GlideUtils<T> {
     private int placeholder = -1;
     private int onError = -1;
     private List<ColorView> views = new LinkedList<>();
+
     private GlideUtils(T holder, String url) {
         this.url = url;
         this.holder = holder;

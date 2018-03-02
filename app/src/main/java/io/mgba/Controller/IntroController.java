@@ -21,6 +21,7 @@ import io.mgba.Model.System.PreferencesManager;
 import io.mgba.R;
 import io.mgba.UI.Activities.MainActivity;
 import io.mgba.mgba;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import permissions.dispatcher.PermissionRequest;
@@ -34,7 +35,7 @@ public class IntroController implements IIntroController {
 
     private final IPermissionManager permissionService;
     private AppCompatActivity context;
-    private Disposable disposable;
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     public IntroController(@NonNull AppCompatActivity context) {
         this.permissionService = new PermissionManager(context);
@@ -119,13 +120,13 @@ public class IntroController implements IIntroController {
         ((mgba)context.getApplication()).savePreference(PreferencesManager.GAMES_DIRECTORY, dir);
         ((mgba)context.getApplication()).showProgressDialog(context);
 
-        disposable = ((mgba)context.getApplication()).getLibrary()
+        disposable.add(((mgba)context.getApplication()).getLibrary()
                                     .reloadGames()
                                     .subscribeOn(Schedulers.computation())
                                     .subscribe(games -> {
                                         isDone = true;
                                         onEnd();
-                                    });
+                                    }));
     }
 
     private void onEnd(){

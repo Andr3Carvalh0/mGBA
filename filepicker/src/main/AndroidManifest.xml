@@ -4,8 +4,4 @@
   ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
   -->
 
-<manifest package="com.nononsenseapps.filepicker">
-
-    <application/>
-
-</manifest>
+<manifest package="com.nononsenseapps.filepicker"/>

@@ -16,13 +16,14 @@ import io.mgba.Data.Platform;
 import io.mgba.R;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class GamesController implements IGamesController {
     private final Fragment context;
-    private List<Disposable> disposable = new LinkedList<>();
+    private CompositeDisposable disposable = new CompositeDisposable();
     private Platform platform;
     private GameAdapter adapter;
 
@@ -33,10 +34,7 @@ public class GamesController implements IGamesController {
 
     @Override
     public void onDestroy() {
-        for (Disposable d : disposable) {
-            if(d != null)
-                d.dispose();
-        }
+        disposable.dispose();
     }
 
     @Override
