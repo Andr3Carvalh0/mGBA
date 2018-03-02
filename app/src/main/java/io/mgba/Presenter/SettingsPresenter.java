@@ -13,7 +13,7 @@ import com.nononsenseapps.filepicker.Controllers.FilePickerUtils;
 import java.util.HashMap;
 
 import io.mgba.Constants;
-import io.mgba.Presenter.Interfaces.ISettingsController;
+import io.mgba.Presenter.Interfaces.ISettingsPresenter;
 import io.mgba.Model.Interfaces.IPermissionManager;
 import io.mgba.Model.System.PermissionManager;
 import io.mgba.Model.System.PreferencesManager;
@@ -27,7 +27,7 @@ import io.mgba.UI.Fragments.Settings.VideoFragment;
 import io.mgba.mgba;
 import permissions.dispatcher.PermissionRequest;
 
-public class SettingsController implements ISettingsController {
+public class SettingsPresenter implements ISettingsPresenter {
     private static final String TAG = "Settings_Controller";
     private final AppCompatActivity context;
     private final HashMap<String, Function<String, PreferenceFragmentCompat>> router;
@@ -35,7 +35,7 @@ public class SettingsController implements ISettingsController {
 
     private String id;
 
-    public SettingsController(AppCompatActivity context) {
+    public SettingsPresenter(AppCompatActivity context) {
         this.context = context;
         this.permissionService = new PermissionManager(context);
 

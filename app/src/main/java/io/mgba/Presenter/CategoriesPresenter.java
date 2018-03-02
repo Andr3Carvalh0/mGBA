@@ -10,16 +10,16 @@ import java.util.List;
 
 import io.mgba.Adapters.SettingsCategoriesAdapter;
 import io.mgba.Constants;
-import io.mgba.Presenter.Interfaces.ICategoriesController;
+import io.mgba.Presenter.Interfaces.ICategoriesPresenter;
 import io.mgba.Data.Settings.SettingsCategory;
 import io.mgba.R;
 import io.mgba.UI.Activities.SettingsActivity;
 
-public class CategoriesController implements ICategoriesController {
+public class CategoriesPresenter implements ICategoriesPresenter {
     private final List<SettingsCategory> settings;
     private final AppCompatActivity context;
 
-    public CategoriesController(AppCompatActivity context) {
+    public CategoriesPresenter(AppCompatActivity context) {
         this.context = context;
 
         this.settings = new LinkedList<>();

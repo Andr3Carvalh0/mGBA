@@ -14,13 +14,13 @@ import com.flipboard.bottomsheet.BottomSheetLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.TabViewPager;
-import io.mgba.Presenter.Interfaces.IMainController;
-import io.mgba.Presenter.MainController;
+import io.mgba.Presenter.Interfaces.IMainPresenter;
+import io.mgba.Presenter.MainPresenter;
 import io.mgba.Data.Database.Game;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.R;
 
-import static io.mgba.Presenter.MainController.DEFAULT_PANEL;
+import static io.mgba.Presenter.MainPresenter.DEFAULT_PANEL;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, io.mgba.UI.Activities.Interfaces.ILibrary,  FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener{
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @BindView(R.id.bottomsheet) BottomSheetLayout sheetDialog;
     @BindView(R.id.tabLayout) TabLayout tabLayout;
 
-    private IMainController controller;
+    private IMainPresenter controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_library);
 
         ButterKnife.bind(this);
-        controller = new MainController(this);
+        controller = new MainPresenter(this);
 
         prepareToolbar();
         prepareViewPager();

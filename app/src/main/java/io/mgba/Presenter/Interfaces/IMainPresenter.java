@@ -12,7 +12,7 @@ import com.flipboard.bottomsheet.BottomSheetLayout;
 import io.mgba.Data.Database.Game;
 import io.mgba.Model.Interfaces.ILibrary;
 
-public interface IMainController  {
+public interface IMainPresenter {
 
     void onActivityResult(int requestCode, int resultCode, Intent intent);
 

@@ -9,7 +9,7 @@ import io.mgba.Data.Platform;
 import io.mgba.UI.Activities.Interfaces.ILibrary;
 import io.reactivex.functions.Consumer;
 
-public interface IGamesController {
+public interface IGamesPresenter {
 
     void onDestroy();
 

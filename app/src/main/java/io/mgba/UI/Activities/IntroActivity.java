@@ -9,8 +9,11 @@ import android.support.v4.app.Fragment;
 
 import com.github.paolorotolo.appintro.AppIntro2;
 
-import io.mgba.Presenter.Interfaces.IIntroController;
-import io.mgba.Presenter.IntroController;
+import javax.inject.Inject;
+
+import io.mgba.Presenter.Interfaces.IIntroPresenter;
+import io.mgba.Presenter.IntroPresenter;
+import io.mgba.mgba;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -22,13 +25,13 @@ import permissions.dispatcher.RuntimePermissions;
 //Note: This activity is locked to the portrait mode
 public class IntroActivity extends AppIntro2 {
 
-    private IIntroController controller;
+    private IIntroPresenter controller;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        controller = new IntroController(this);
+        controller = new IntroPresenter(this);
         controller.setupView(this);
     }
 

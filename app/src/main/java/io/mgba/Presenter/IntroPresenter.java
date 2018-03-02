@@ -14,7 +14,10 @@ import com.nononsenseapps.filepicker.Controllers.FilePickerUtils;
 import java.util.LinkedList;
 import java.util.List;
 
-import io.mgba.Presenter.Interfaces.IIntroController;
+import javax.inject.Inject;
+
+import io.mgba.Model.Interfaces.ILibrary;
+import io.mgba.Presenter.Interfaces.IIntroPresenter;
 import io.mgba.Model.Interfaces.IPermissionManager;
 import io.mgba.Model.System.PermissionManager;
 import io.mgba.Model.System.PreferencesManager;
@@ -26,19 +29,23 @@ import io.reactivex.schedulers.Schedulers;
 import permissions.dispatcher.PermissionRequest;
 
 //S
-public class IntroController implements IIntroController {
+public class IntroPresenter implements IIntroPresenter {
 
     private final static String TAG = "mgba:IntroCtr";
     private boolean isVisible = true;
     private boolean isDone = false;
 
+    @Inject
+    ILibrary library;
+
     private final IPermissionManager permissionService;
     private AppCompatActivity context;
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    public IntroController(@NonNull AppCompatActivity context) {
+    public IntroPresenter(@NonNull AppCompatActivity context) {
         this.permissionService = new PermissionManager(context);
         this.context = context;
+        ((mgba)context.getApplication()).inject(this);
     }
 
     private Stream<AppIntroFragment> getIntroFragments(){
@@ -119,13 +126,12 @@ public class IntroController implements IIntroController {
         ((mgba)context.getApplication()).savePreference(PreferencesManager.GAMES_DIRECTORY, dir);
         ((mgba)context.getApplication()).showProgressDialog(context);
 
-        disposable.add(((mgba)context.getApplication()).getLibrary()
-                                    .reloadGames()
-                                    .subscribeOn(Schedulers.computation())
-                                    .subscribe(games -> {
-                                        isDone = true;
-                                        onEnd();
-                                    }));
+        disposable.add(library.reloadGames()
+                            .subscribeOn(Schedulers.computation())
+                            .subscribe(games -> {
+                                isDone = true;
+                                onEnd();
+                            }));
     }
 
     private void onEnd(){

@@ -9,17 +9,19 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-
+import io.mgba.DI.Components.DaggerModelComponent;
+import io.mgba.DI.Components.ModelComponent;
+import io.mgba.DI.Modules.ModelModule;
 import io.mgba.Data.Remote.Interfaces.IRequest;
 import io.mgba.Data.Remote.RetrofitClient;
-import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.Model.Interfaces.IPreferencesManager;
 import io.mgba.Model.Library;
 import io.mgba.Model.System.PreferencesManager;
+import io.mgba.Presenter.IntroPresenter;
+import io.mgba.Presenter.MainPresenter;
 
 public class mgba extends Application {
 
@@ -29,10 +31,18 @@ public class mgba extends Application {
         SUPPORTED_LANGUAGES.add("eng");
     }
 
+    private ModelComponent modelComponent;
+
     private IPreferencesManager preferencesController;
-    private ILibrary library;
+
     private IRequest webController;
     private ProgressDialog waitingDialog;
+
+    private ModelComponent initModelComponent_Dagger(mgba application){
+            return DaggerModelComponent.builder()
+                    .modelModule(new ModelModule(application, application.getPreference(PreferencesManager.GAMES_DIRECTORY, "")))
+                    .build();
+    }
 
     public static void printLog(String tag, String message){
         if(BuildConfig.DEBUG)
@@ -73,8 +83,7 @@ public class mgba extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        preferencesController = new PreferencesManager(this);
-        library = new Library(this);
+        modelComponent = initModelComponent_Dagger(this);
     }
 
     public String getDeviceLanguage(){
@@ -110,13 +119,21 @@ public class mgba extends Application {
                 .show();
     }
 
-    public ILibrary getLibrary() {
-        return library;
-    }
-
     public boolean isConnectedToWeb(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void inject(IntroPresenter target) {
+        modelComponent.inject(target);
+    }
+
+    public void inject(MainPresenter target) {
+        modelComponent.inject(target);
+    }
+
+    public void inject(Library library) {
+        modelComponent.inject(library);
     }
 }

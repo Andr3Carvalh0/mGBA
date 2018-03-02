@@ -9,7 +9,10 @@ import android.view.MenuItem;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.mikepenz.aboutlibraries.LibsBuilder;
-import io.mgba.Presenter.Interfaces.IMainController;
+
+import javax.inject.Inject;
+
+import io.mgba.Presenter.Interfaces.IMainPresenter;
 import io.mgba.Data.Database.Game;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.R;
@@ -21,16 +24,20 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainController implements IMainController{
+public class MainPresenter implements IMainPresenter {
     public static final int DEFAULT_PANEL = 1;
     private static final int SETTINGS_CODE = 738;
+
+    @Inject
+    ILibrary library;
 
     private final AppCompatActivity context;
     private IBottomSheetView bottomSheetController;
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    public MainController(@NonNull AppCompatActivity context) {
+    public MainPresenter(@NonNull AppCompatActivity context) {
         this.context = context;
+        ((mgba)context.getApplication()).inject(this);
     }
 
     @Override
@@ -74,7 +81,7 @@ public class MainController implements IMainController{
 
     @Override
     public ILibrary getILibrary() {
-        return ((mgba)context.getApplication()).getLibrary();
+        return library;
     }
 
     @Override

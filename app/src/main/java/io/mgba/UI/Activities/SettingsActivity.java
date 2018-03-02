@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import io.mgba.Presenter.Interfaces.ISettingsController;
-import io.mgba.Presenter.SettingsController;
+import io.mgba.Presenter.Interfaces.ISettingsPresenter;
+import io.mgba.Presenter.SettingsPresenter;
 import io.mgba.R;
 import io.mgba.UI.Activities.Interfaces.ISettings;
 import permissions.dispatcher.NeedsPermission;
@@ -19,14 +19,14 @@ import permissions.dispatcher.RuntimePermissions;
 public class SettingsActivity extends AppCompatActivity implements ISettings {
 
     private static final String TAG = "Storage_Fragment";
-    private ISettingsController controller;
+    private ISettingsPresenter controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        controller = new SettingsController(this);
+        controller = new SettingsPresenter(this);
 
         controller.init(savedInstanceState);
         setupFragment();

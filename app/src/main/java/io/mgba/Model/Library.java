@@ -1,14 +1,14 @@
 package io.mgba.Model;
 
 import android.util.Log;
-
 import com.annimon.stream.Stream;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
@@ -16,6 +16,7 @@ import io.mgba.Data.Remote.DTOs.GameJSON;
 import io.mgba.Model.IO.Decoder;
 import io.mgba.Model.IO.FilesManager;
 import io.mgba.Model.IO.LocalDB;
+import io.mgba.Model.Interfaces.IDatabase;
 import io.mgba.Model.Interfaces.IFilesManager;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.Model.System.PreferencesManager;
@@ -25,12 +26,12 @@ import io.reactivex.Single;
 public class Library implements ILibrary {
     private static final String TAG = "ProcService";
     private final mgba application;
-    private final LocalDB database;
-    private IFilesManager filesService;
+    @Inject IDatabase database;
+    @Inject IFilesManager filesService;
 
     public Library(mgba application) {
         this.application = application;
-        this.database = new LocalDB(application);
+        application.inject(this);
     }
 
     @Override
@@ -61,10 +62,6 @@ public class Library implements ILibrary {
                       database.delete(g);}
                   );
 
-            //read the files from the selected dir
-            if(filesService == null)
-                filesService = new FilesManager(application.getPreference(PreferencesManager.GAMES_DIRECTORY, ""));
-
             final List<Game> updatedList = Stream.of(filesService.getGameList())
                     .map(f -> new Game(f.getAbsolutePath(), getPlatform(f)))
                     .filter(f -> games.size() == 0 || Stream.of(games)
@@ -88,7 +85,6 @@ public class Library implements ILibrary {
             subscriber.onSuccess(filter(Arrays.asList(platform), games));
         });
     }
-
 
     private List<Game> filter(List<Platform> platform, List<Game> games){
         return Stream.of(games)
@@ -126,7 +122,6 @@ public class Library implements ILibrary {
 
     private boolean searchWeb(Game game){
         try {
-            Thread.sleep(5000);
             final GameJSON json = application.getWebService()
                                       .getGameInformation(game.getMD5(), application.getDeviceLanguage())
                                       .execute()

@@ -7,7 +7,7 @@ import org.lucasr.twowayview.layout.TwoWayView;
 
 import io.mgba.Adapters.GameAdapter;
 import io.mgba.Constants;
-import io.mgba.Presenter.Interfaces.IGamesController;
+import io.mgba.Presenter.Interfaces.IGamesPresenter;
 import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
 import io.mgba.R;
@@ -17,13 +17,13 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class GamesController implements IGamesController {
+public class GamesPresenter implements IGamesPresenter {
     private final Fragment context;
     private CompositeDisposable disposable = new CompositeDisposable();
     private Platform platform;
     private GameAdapter adapter;
 
-    public GamesController(Fragment context) {
+    public GamesPresenter(Fragment context) {
         this.context = context;
         this.platform = (Platform) context.getArguments().getSerializable(Constants.ARG_PLATFORM);
     }

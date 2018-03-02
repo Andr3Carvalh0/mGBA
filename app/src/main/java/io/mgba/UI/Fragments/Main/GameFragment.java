@@ -15,8 +15,8 @@ import org.lucasr.twowayview.layout.TwoWayView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.mgba.Presenter.GamesController;
-import io.mgba.Presenter.Interfaces.IGamesController;
+import io.mgba.Presenter.GamesPresenter;
+import io.mgba.Presenter.Interfaces.IGamesPresenter;
 import io.mgba.Data.Database.Game;
 import io.mgba.R;
 
@@ -39,13 +39,13 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    protected IGamesController controller;
+    protected IGamesPresenter controller;
     protected View mView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controller = new GamesController(this);
+        controller = new GamesPresenter(this);
     }
 
     @Override

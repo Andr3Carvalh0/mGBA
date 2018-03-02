@@ -1,21 +1,12 @@
 package io.mgba.Model.IO;
 
-import android.content.Context;
-
 import com.annimon.stream.Stream;
 import com.google.common.base.Predicate;
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.security.DigestInputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-
 import io.mgba.Data.Database.Game;
 import io.mgba.Model.Interfaces.IFilesManager;
 
