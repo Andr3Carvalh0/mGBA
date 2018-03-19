@@ -14,6 +14,7 @@ import io.mgba.Presenter.Interfaces.ICategoriesPresenter;
 import io.mgba.Data.Settings.SettingsCategory;
 import io.mgba.R;
 import io.mgba.UI.Activities.SettingsActivity;
+import io.reactivex.functions.Consumer;
 
 public class CategoriesPresenter implements ICategoriesPresenter {
     private final List<SettingsCategory> settings;
@@ -31,22 +32,18 @@ public class CategoriesPresenter implements ICategoriesPresenter {
         settings.add(new SettingsCategory(context.getResources().getString(R.string.settings_customization), R.drawable.ic_palette_black_24dp));
     }
 
+
     @Override
-    public void setupToolbar() {
-        if (context.getSupportActionBar() != null){
-            context.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            context.getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+    public List<SettingsCategory> getSettings() {
+        return settings;
     }
 
     @Override
-    public void setupRecyclerView(RecyclerView recyclerview) {
-        recyclerview.setHasFixedSize(true);
-        recyclerview.setLayoutManager(new LinearLayoutManager(context));
-        recyclerview.setAdapter(new SettingsCategoriesAdapter(settings, context, (s) -> {
+    public Consumer<SettingsCategory> getOnClick() {
+        return s -> {
             Intent it = new Intent(context.getApplicationContext(), SettingsActivity.class);
             it.putExtra(Constants.ARG_SETTINGS_ID, s.getTitle());
             context.startActivity(it);
-        }, recyclerview));
+        };
     }
 }

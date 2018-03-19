@@ -1,9 +1,11 @@
 package io.mgba.Presenter.Interfaces;
 
-import android.support.v7.widget.RecyclerView;
+import java.util.List;
+import io.mgba.Data.Settings.SettingsCategory;
+import io.reactivex.functions.Consumer;
 
 public interface ICategoriesPresenter {
-    void setupToolbar();
 
-    void setupRecyclerView(RecyclerView recyclerview);
+    List<SettingsCategory> getSettings();
+    Consumer<SettingsCategory> getOnClick();
 }

@@ -15,11 +15,9 @@ public interface IGamesPresenter {
 
     Platform getPlatform();
 
-    void loadGames(ILibrary databaseHelper, Consumer<Boolean> showContent);
+    void loadGames(ILibrary databaseHelper);
+    void onRefresh(ILibrary iLibrary);
 
-    void showOnClick(Game game, ILibrary iLibrary);
+    Consumer<Game> getOnClick();
 
-    void onRefresh(ILibrary iLibrary, SwipeRefreshLayout mSwipeRefreshLayout);
-
-    void prepareRecyclerView(SwipeRefreshLayout mSwipeRefreshLayout, TwoWayView mRecyclerView, SwipeRefreshLayout.OnRefreshListener onRefreshListener,  Consumer<Game> onClick);
 }

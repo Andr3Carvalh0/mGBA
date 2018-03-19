@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.flipboard.bottomsheet.BottomSheetLayout;
-import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,10 +19,13 @@ import io.mgba.Presenter.MainPresenter;
 import io.mgba.Data.Database.Game;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.R;
+import io.mgba.UI.Activities.Interfaces.IMainView;
+import io.mgba.UI.Views.GameInformationView;
+import io.mgba.UI.Views.Interfaces.IGameInformationView;
 
 import static io.mgba.Presenter.MainPresenter.DEFAULT_PANEL;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, io.mgba.UI.Activities.Interfaces.ILibrary,  FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener{
+public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, io.mgba.UI.Activities.Interfaces.ILibrary,  FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, IMainView{
 
     @BindView(R.id.floating_search_view) FloatingSearchView toolbar;
     @BindView(R.id.pager) ViewPager viewPager;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @BindView(R.id.tabLayout) TabLayout tabLayout;
 
     private IMainPresenter controller;
+    private IGameInformationView sheetController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_library);
 
         ButterKnife.bind(this);
-        controller = new MainPresenter(this);
+        controller = new MainPresenter(this, this);
 
         prepareToolbar();
         prepareViewPager();
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public void showBottomSheet(Game game) {
-        controller.showBottomSheet(game, sheetDialog);
+        controller.showBottomSheet(game);
     }
 
     @Override
@@ -119,5 +122,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     public void onActionMenuItemSelected(MenuItem item) {
         controller.onMenuItemSelected(item);
+    }
+
+    @Override
+    public void showGameInformation(Game game) {
+        if(sheetController == null)
+            sheetController = new GameInformationView(getApplicationContext());
+
+        sheetDialog.showWithSheetView(sheetController.getView(sheetDialog, game));
     }
 }

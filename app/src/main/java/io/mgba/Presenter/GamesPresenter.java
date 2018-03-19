@@ -11,6 +11,7 @@ import io.mgba.Presenter.Interfaces.IGamesPresenter;
 import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
 import io.mgba.R;
+import io.mgba.UI.Fragments.Interfaces.IGamesFragment;
 import io.mgba.mgba;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,13 +20,12 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class GamesPresenter implements IGamesPresenter {
-    private final Fragment context;
+    private final IGamesFragment<Game> view;
     private CompositeDisposable disposable = new CompositeDisposable();
     private Platform platform;
-    private GameAdapter adapter;
 
-    public GamesPresenter(Fragment context) {
-        this.context = context;
+    public GamesPresenter(Fragment context, IGamesFragment<Game> view) {
+        this.view = view;
         this.platform = (Platform) context.getArguments().getSerializable(Constants.ARG_PLATFORM);
     }
 
@@ -40,16 +40,15 @@ public class GamesPresenter implements IGamesPresenter {
     }
 
     @Override
-    public void loadGames(io.mgba.UI.Activities.Interfaces.ILibrary databaseHelper, Consumer<Boolean> showContent) {
+    public void loadGames(io.mgba.UI.Activities.Interfaces.ILibrary databaseHelper) {
         disposable.add(databaseHelper.getLibraryService().prepareGames(platform)
                 .subscribeOn(Schedulers.io())
                 .subscribe(games -> disposable.add(
                                     updateView()
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(n -> {
-                                        adapter.swap(games);
-                                        showContent.accept(games.size() > 0);
-
+                                        view.swapContent(games);
+                                        view.showContent(games.size() > 0);
                                     })
                             )
                 ));
@@ -63,35 +62,22 @@ public class GamesPresenter implements IGamesPresenter {
     }
 
     @Override
-    public void showOnClick(Game game, io.mgba.UI.Activities.Interfaces.ILibrary iLibrary) {
-        iLibrary.showBottomSheet(game);
-    }
-
-    @Override
-    public void onRefresh(io.mgba.UI.Activities.Interfaces.ILibrary iLibrary, SwipeRefreshLayout mSwipeRefreshLayout) {
+    public void onRefresh(io.mgba.UI.Activities.Interfaces.ILibrary iLibrary) {
         disposable.add(iLibrary.getLibraryService().reloadGames(platform)
                 .subscribeOn(Schedulers.computation())
                 .subscribe(games -> disposable.add(
                                     updateView()
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(n -> {
-                                        adapter.swap(games);
-                                        mSwipeRefreshLayout.setRefreshing(false);
+                                        view.swapContent(games);
+                                        view.stopRefreshing();
                                     })
                         )
                 ));
     }
 
     @Override
-    public void prepareRecyclerView(SwipeRefreshLayout mSwipeRefreshLayout, TwoWayView mRecyclerView, SwipeRefreshLayout.OnRefreshListener onRefreshListener, Consumer<Game> onClick) {
-        mSwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
-        mSwipeRefreshLayout.setColorSchemeColors(context.getResources().getColor(R.color.pink_accent_color),
-                context.getResources().getColor(R.color.colorPrimary),
-                context.getResources().getColor(R.color.green_accent_color),
-                context.getResources().getColor(R.color.yellow_accent_color),
-                context.getResources().getColor(R.color.cyan_accent_color));
-        mRecyclerView.setHasFixedSize(true);
-        adapter = new GameAdapter(context, context.getContext(), onClick, mRecyclerView);
-        mRecyclerView.setAdapter(adapter);
+    public Consumer<Game> getOnClick() {
+        return view::handleItemClick;
     }
 }

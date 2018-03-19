@@ -16,7 +16,7 @@ public interface IMainPresenter {
 
     void onActivityResult(int requestCode, int resultCode, Intent intent);
 
-    void showBottomSheet(Game game, BottomSheetLayout mSheetDialog);
+    void showBottomSheet(Game game);
 
     void onDestroy();
 

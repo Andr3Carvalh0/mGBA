@@ -2,10 +2,12 @@ package io.mgba.UI.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.mgba.Adapters.SettingsCategoriesAdapter;
 import io.mgba.Presenter.CategoriesPresenter;
 import io.mgba.Presenter.Interfaces.ICategoriesPresenter;
 import io.mgba.R;
@@ -30,11 +32,19 @@ public class SettingsCategoriesActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        controller.setupRecyclerView(recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new SettingsCategoriesAdapter(controller.getSettings(),
+                                                              getApplicationContext(),
+                                                              controller.getOnClick(),
+                                                              recyclerView));
     }
 
     private void setupToolbar() {
-        controller.setupToolbar();
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     @Override

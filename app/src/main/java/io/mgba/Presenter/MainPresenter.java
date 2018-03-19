@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import com.arlib.floatingsearchview.FloatingSearchView;
-import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import javax.inject.Inject;
@@ -16,9 +15,8 @@ import io.mgba.Presenter.Interfaces.IMainPresenter;
 import io.mgba.Data.Database.Game;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.R;
+import io.mgba.UI.Activities.Interfaces.IMainView;
 import io.mgba.UI.Activities.SettingsCategoriesActivity;
-import io.mgba.UI.Views.BottomSheetView;
-import io.mgba.UI.Views.Interfaces.IBottomSheetView;
 import io.mgba.mgba;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -27,16 +25,17 @@ import io.reactivex.schedulers.Schedulers;
 public class MainPresenter implements IMainPresenter {
     public static final int DEFAULT_PANEL = 1;
     private static final int SETTINGS_CODE = 738;
+    private final IMainView mainView;
 
     @Inject
     ILibrary library;
 
     private final AppCompatActivity context;
-    private IBottomSheetView bottomSheetController;
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    public MainPresenter(@NonNull AppCompatActivity context) {
+    public MainPresenter(@NonNull AppCompatActivity context, @NonNull IMainView mainView) {
         this.context = context;
+        this.mainView = mainView;
         ((mgba)context.getApplication()).inject(this);
     }
 
@@ -67,11 +66,8 @@ public class MainPresenter implements IMainPresenter {
     }
 
     @Override
-    public void showBottomSheet(Game game, BottomSheetLayout mSheetDialog) {
-        if(bottomSheetController == null)
-            bottomSheetController = new BottomSheetView(context.getApplicationContext());
-
-        mSheetDialog.showWithSheetView(bottomSheetController.getView(mSheetDialog, game));
+    public void showBottomSheet(Game game) {
+        mainView.showGameInformation(game);
     }
 
     @Override
