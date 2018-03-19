@@ -32,9 +32,16 @@ public class Library implements ILibrary {
         application.inject(this);
     }
 
+    public Library(mgba application, IDatabase database, IFilesManager filesService) {
+        this.application = application;
+        this.database = database;
+        this.filesService = filesService;
+    }
+
+
     @Override
     public Single<List<Game>> prepareGames(Platform platform) {
-        return Single.create(subscriber -> {
+        Single<List<Game>> ret =  Single.create(subscriber -> {
 
             if(platform == null){
                 subscriber.onSuccess(new LinkedList<>());
@@ -45,11 +52,13 @@ public class Library implements ILibrary {
 
             subscriber.onSuccess(games);
         });
+
+        return ret.doOnError(mgba::report);
     }
 
     @Override
     public Single<List<Game>> query(String query) {
-        return Single.create(subscriber -> {
+        Single<List<Game>> ret = Single.create(subscriber -> {
 
             if(query == null || query.length() == 0){
                 subscriber.onSuccess(new LinkedList<>());
@@ -60,11 +69,13 @@ public class Library implements ILibrary {
 
             subscriber.onSuccess(games);
         });
+
+        return ret.doOnError(mgba::report);
     }
 
     @Override
     public Single<List<Game>> reloadGames(Platform... platform) {
-        return Single.create(subscriber -> {
+        Single<List<Game>> ret = Single.create(subscriber -> {
             //clean up possible removed files from content provider
             List<Game> games = database.getGames();
 
@@ -75,9 +86,11 @@ public class Library implements ILibrary {
             games.addAll(updatedList);
 
             Collections.sort(games, (o1, o2) -> o1.getName().compareTo(o2.getName()));
-
             subscriber.onSuccess(filter(Arrays.asList(platform), games));
         });
+
+        return ret.doOnError(mgba::report);
+
     }
 
     @Override
@@ -98,8 +111,9 @@ public class Library implements ILibrary {
     private List<Game> processNewGames(List<Game> games){
         return Stream.of(filesService.getGameList())
                 .map(f -> new Game(f.getAbsolutePath(), getPlatform(f)))
-                .filter(f -> games.size() == 0 ||
-                        Stream.of(games).anyMatch(g -> g.getFile().equals(f.getFile()) && g.needsUpdate()))
+                .filter(f -> games.size() == 0
+                             || Stream.of(games).anyMatch(g -> g.getFile().equals(f.getFile())
+                             && g.needsUpdate()))
                 .map(g -> {
                     Stream.of(games).filter(g1 -> g1.equals(g)).forEach(games::remove);
 

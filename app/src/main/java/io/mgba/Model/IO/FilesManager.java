@@ -45,7 +45,12 @@ public class FilesManager implements IFilesManager {
      * @return the file's extension
      */
     public static String getFileExtension(File file){
-        return file.getName()
+        String name = file.getName();
+
+        if(!name.contains("."))
+            return name.substring(name.length() - 3);
+
+        return  name
                 .substring(file.getName().lastIndexOf("."))
                 .substring(1)
                 .toLowerCase();

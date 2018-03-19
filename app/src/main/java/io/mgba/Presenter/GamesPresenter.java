@@ -11,6 +11,7 @@ import io.mgba.Presenter.Interfaces.IGamesPresenter;
 import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
 import io.mgba.R;
+import io.mgba.mgba;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -57,7 +58,8 @@ public class GamesPresenter implements IGamesPresenter {
     // A do nothing kinda of method just so I can update UI.
     // On a rx thread that need to be non UI.
     private Single<Boolean> updateView(){
-        return Single.create(s -> s.onSuccess(true));
+        Single<Boolean> ret = Single.create(s -> s.onSuccess(true));
+        return ret.doOnError(mgba::report);
     }
 
     @Override

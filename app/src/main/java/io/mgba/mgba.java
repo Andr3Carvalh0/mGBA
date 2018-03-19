@@ -44,11 +44,6 @@ public class mgba extends Application {
                     .build();
     }
 
-    public static void printLog(String tag, String message){
-        if(BuildConfig.DEBUG)
-            Log.v(tag, message);
-    }
-
     public void savePreference(String key, String value) {
         preparePreferencesController();
         preferencesController.save(key, value);
@@ -136,4 +131,21 @@ public class mgba extends Application {
     public void inject(Library library) {
         modelComponent.inject(library);
     }
+
+    public static void report(Throwable error) {
+        if(BuildConfig.DEBUG) {
+
+            Log.e(" --- An error occurred:", error.getMessage());
+            Log.e(" --- StackTrace:", error.getStackTrace().toString());
+
+        }
+
+    }
+
+    public static void printLog(String tag, String message){
+        if(BuildConfig.DEBUG)
+            Log.v(tag, message);
+    }
+
+
 }
