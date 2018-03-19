@@ -163,6 +163,8 @@ fabric.properties
 
 ### Java ###
 # Compiled class file
+./filepicker/build
+./filepicker/build/*
 
 # Log file
 
@@ -176,6 +178,10 @@ fabric.properties
 *.zip
 *.tar.gz
 *.rar
+
+# UI Templates
+.mgba_template/*
+.mgba_template
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 

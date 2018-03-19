@@ -8,6 +8,8 @@ import io.reactivex.Single;
 
 public interface ILibrary {
     Single<List<Game>> prepareGames(Platform platform);
-    Single<List<Game>> reloadGames(Platform... platform);
     Single<List<Game>> query(String query);
+
+    Single<List<Game>> reloadGames(Platform... platform);
+    Single<List<Game>> reloadGames(String path, Platform... platform);
 }

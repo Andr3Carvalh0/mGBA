@@ -1,7 +1,5 @@
 package io.mgba.Model.IO;
 
-import android.content.Context;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -41,7 +39,11 @@ public class Decoder {
 
     public static String getFileMD5ToString(final File file) {
         byte[] bytes = Decoder.getFileMD5(file);
+        return calculateMD5(bytes);
+    }
 
+
+    public static String calculateMD5(final byte[] bytes) {
         if (bytes == null) return null;
         int len = bytes.length;
         if (len <= 0) return null;
@@ -53,4 +55,5 @@ public class Decoder {
 
         return new String(ret);
     }
+
 }

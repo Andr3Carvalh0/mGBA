@@ -19,6 +19,10 @@ public class LocalDB implements IDatabase{
         db = Database.getInstance(context);
     }
 
+    public LocalDB(Database database) {
+        db = database;
+    }
+
     @Override
     public List<Game> getGamesForPlatform(final Platform platform){
         return db.gameDao().getGamesForPlatform(platform.ordinal());

@@ -126,7 +126,7 @@ public class IntroPresenter implements IIntroPresenter {
         ((mgba)context.getApplication()).savePreference(PreferencesManager.GAMES_DIRECTORY, dir);
         ((mgba)context.getApplication()).showProgressDialog(context);
 
-        disposable.add(library.reloadGames()
+        disposable.add(library.reloadGames(dir)
                             .subscribeOn(Schedulers.computation())
                             .subscribe(games -> {
                                 isDone = true;

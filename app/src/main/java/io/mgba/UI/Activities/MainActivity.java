@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.flipboard.bottomsheet.BottomSheetLayout;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -117,6 +118,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public void onActionMenuItemSelected(MenuItem item) {
-
+        controller.onMenuItemSelected(item);
     }
 }
