@@ -1,20 +1,5 @@
-* [MEDIUM] Start handling device state (rotations, change language, etc...)
-  (Eg: for now if we rotate the device on the library activity we will fetch the data again for the db, this could be optimized)
-
-        Activity | State
-          Intro     Done
-          Main      toImplement(Partial)
-          Settings  toImplement
-          Emulation toImplement
-
 * [MEDIUM] Dispose objects that we dont need.
 * [LOW] Add option to customize game controllers.
-* [LOW] Move splashActivity logic to a controller.
 * [LOW] Start working on the landscape layout.
 * [LOW] Reload games when switching directories.
-* [MEDIUM] Add so file so we can start using the emulator.
-* [LOW] Fix IntroController. It receives a Activity object on CTOR.
-        In case of the need to recreate the Activity, there could happen a NullPointException when we came from the worker thread
-        For now the only change of it happen is if the user does the following:
-            enter app -> init setup -> exits -> changes devices language -> enters app
-        For now I'm going to assume that will be a low probably of that happening.
+* [MEDIUM] Add .so file so we can start using the emulator.

@@ -37,7 +37,7 @@
         </activity>
 
         <activity
-            android:name=".UI.Activities.SettingsActivity"
+            android:name=".UI.Activities.SettingsPanelActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/SettingsTheme" />
         <activity android:name=".UI.Activities.IntroActivity" />
@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".UI.Activities.EmulationActivity" />
-        <activity android:name=".UI.Activities.SettingsCategoriesActivity"
+        <activity android:name=".UI.Activities.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/SettingsTheme"/>
     </application>

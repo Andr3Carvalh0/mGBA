@@ -6,5 +6,9 @@ public class Constants {
     public final static String GAMES_INTENT = "games";
     public final static String RECEIVE_GAME_LIST = "io.mgba.gamesreceiver";
     public static final String ARG_PLATFORM = "platform";
+    public static final String ARG_SHEET_CONTENT = "sheet_content";
+    public static final String ARG_SHEET_IS_SHOWING = "sheet_is_showing";
+    public static final String MAIN_TOOLBAR_STATE = "main_toolbar_state";
+    public static final String MAIN_VIEWPAGE_STATE = "main_viewpage_state";
     public static final String ARG_SETTINGS_ID = "settings_id_args";
 }

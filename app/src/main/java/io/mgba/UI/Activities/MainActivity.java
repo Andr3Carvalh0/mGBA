@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
@@ -14,6 +15,7 @@ import com.flipboard.bottomsheet.BottomSheetLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.TabViewPager;
+import io.mgba.Constants;
 import io.mgba.Presenter.Interfaces.IMainPresenter;
 import io.mgba.Presenter.MainPresenter;
 import io.mgba.Data.Database.Game;
@@ -23,6 +25,7 @@ import io.mgba.UI.Activities.Interfaces.IMainView;
 import io.mgba.UI.Views.GameInformationView;
 import io.mgba.UI.Views.Interfaces.IGameInformationView;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static io.mgba.Presenter.MainPresenter.DEFAULT_PANEL;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, io.mgba.UI.Activities.Interfaces.ILibrary,  FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, IMainView{
@@ -45,6 +48,15 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         prepareToolbar();
         prepareViewPager();
+
+        if(savedInstanceState != null){
+            toolbar.onRestoreInstanceState(savedInstanceState.getParcelable(Constants.MAIN_TOOLBAR_STATE));
+            viewPager.onRestoreInstanceState(savedInstanceState.getParcelable(Constants.MAIN_VIEWPAGE_STATE));
+
+            if(savedInstanceState.getBoolean(Constants.ARG_SHEET_IS_SHOWING, false))
+                showGameInformation(savedInstanceState);
+
+        }
     }
 
     private void prepareToolbar() {
@@ -126,9 +138,44 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public void showGameInformation(Game game) {
+        initializeSheetController();
+        showSheetWithView(sheetController.prepareView(sheetDialog, game));
+    }
+
+    private void showGameInformation(Bundle bundle) {
+        initializeSheetController();
+        showSheetWithView(sheetController.prepareView(sheetDialog, bundle));
+    }
+
+    private void showSheetWithView(View view) {
+        if(view != null){
+            sheetDialog.showWithSheetView(view);
+
+            if(getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE)
+                sheetDialog.expandSheet();
+        }
+    }
+
+    private void initializeSheetController(){
         if(sheetController == null)
             sheetController = new GameInformationView(getApplicationContext());
 
-        sheetDialog.showWithSheetView(sheetController.getView(sheetDialog, game));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(Constants.MAIN_TOOLBAR_STATE, toolbar.onSaveInstanceState());
+        outState.putParcelable(Constants.MAIN_VIEWPAGE_STATE, viewPager.onSaveInstanceState());
+
+        if(sheetController != null && sheetDialog.getState().equals(BottomSheetLayout.State.PEEKED)
+                || sheetDialog.getState().equals(BottomSheetLayout.State.EXPANDED)) {
+
+            outState.putBoolean(Constants.ARG_SHEET_IS_SHOWING, true);
+            sheetController.onSaveInstanceState(outState);
+        }
+
+
+
     }
 }

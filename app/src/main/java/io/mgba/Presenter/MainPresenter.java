@@ -2,7 +2,6 @@ package io.mgba.Presenter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -16,7 +15,7 @@ import io.mgba.Data.Database.Game;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.R;
 import io.mgba.UI.Activities.Interfaces.IMainView;
-import io.mgba.UI.Activities.SettingsCategoriesActivity;
+import io.mgba.UI.Activities.SettingsActivity;
 import io.mgba.mgba;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -60,7 +59,7 @@ public class MainPresenter implements IMainPresenter {
 
         if (item.getItemId() == R.id.action_settings)
         {
-            Intent settings = new Intent(context, SettingsCategoriesActivity.class);
+            Intent settings = new Intent(context, SettingsActivity.class);
             context.startActivityForResult(settings, SETTINGS_CODE);
         }
     }
@@ -81,11 +80,6 @@ public class MainPresenter implements IMainPresenter {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-
-    }
-
-    @Override
     public void onSearchTextChanged(String oldQuery, String newQuery, FloatingSearchView mToolbar) {
         if (!oldQuery.equals("") && newQuery.equals("")) {
             mToolbar.clearSuggestions();
@@ -98,6 +92,7 @@ public class MainPresenter implements IMainPresenter {
                     .subscribe(games -> {
                         mToolbar.swapSuggestions(games);
                         mToolbar.hideProgress();
+                        onDestroy();
                     }));
         }
     }

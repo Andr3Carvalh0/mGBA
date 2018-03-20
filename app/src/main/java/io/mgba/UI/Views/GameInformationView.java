@@ -1,6 +1,7 @@
 package io.mgba.UI.Views;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.flipboard.bottomsheet.BottomSheetLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.mgba.Constants;
 import io.mgba.Data.Database.Game;
 import io.mgba.R;
 import io.mgba.UI.Views.Interfaces.IGameInformationView;
@@ -47,26 +49,41 @@ public class GameInformationView implements IGameInformationView {
     RelativeLayout noSavestatesContainer;
     private View view;
 
+    private Game currentShowing;
+
     public GameInformationView(Context ctx) {
         this.context = ctx;
     }
 
     @Override
-    public View getView(BottomSheetLayout sheet, Game game) {
+    public View prepareView(BottomSheetLayout container, Game game) {
+        currentShowing = game;
 
-        view = LayoutInflater.from(context).inflate(R.layout.library_sheet_view, sheet, false);
+        view = LayoutInflater.from(context).inflate(R.layout.library_sheet_view, container, false);
         ButterKnife.bind(this, view);
-        prepareView(game);
+        prepareView();
 
         return view;
     }
 
-    private void prepareView(Game game) {
-        gameTitle.setText(game.getName());
-        gameDescription.setText(game.getDescription());
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(Constants.ARG_SHEET_CONTENT, currentShowing);
+    }
 
-        if(game.getCoverURL() != null) {
-            GlideUtils.init(view, game.getCoverURL())
+    @Override
+    public View prepareView(BottomSheetLayout container, Bundle inState) {
+        Game game = (Game) inState.getParcelable(Constants.ARG_SHEET_CONTENT);
+
+        return prepareView(container, game);
+    }
+
+    private void prepareView() {
+        gameTitle.setText(currentShowing.getName());
+        gameDescription.setText(currentShowing.getDescription());
+
+        if(currentShowing.getCoverURL() != null) {
+            GlideUtils.init(view, currentShowing.getCoverURL())
                       .setPlaceholders(R.drawable.placeholder, R.drawable.error)
                       .colorView(Colors.VIBRANT, Colors.DARK_MUTED, fab, savestateTitle)
                       .colorView(Colors.LIGHT_MUTED, Colors.LIGHT_VIBRANT, bottomSheetHeader, noSavestateMessage, noContentImage)

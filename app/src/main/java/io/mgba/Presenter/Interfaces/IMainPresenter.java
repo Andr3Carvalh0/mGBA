@@ -15,16 +15,10 @@ import io.mgba.Model.Interfaces.ILibrary;
 public interface IMainPresenter {
 
     void onActivityResult(int requestCode, int resultCode, Intent intent);
-
     void showBottomSheet(Game game);
-
     void onDestroy();
-
     ILibrary getILibrary();
-
     void onMenuItemSelected(MenuItem item);
-
     void onSearchTextChanged(String oldQuery, String newQuery, FloatingSearchView mToolbar);
 
-    void onSaveInstanceState(Bundle outState);
 }
