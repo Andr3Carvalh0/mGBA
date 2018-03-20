@@ -164,10 +164,8 @@ fabric.properties
 ### Java ###
 # Compiled class file
 filepicker/build
-filepicker/build/*
 
 twoway-view/build
-twoway-view/build/*
 
 # Log file
 
