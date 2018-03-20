@@ -12,23 +12,23 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.Interfaces.BaseAdapter;
-import io.mgba.Data.Settings.SettingsCategory;
+import io.mgba.Data.Settings.Settings;
 import io.mgba.R;
 import io.mgba.mgba;
 import io.reactivex.functions.Consumer;
 
-public class SettingsCategoriesAdapter extends BaseAdapter<SettingsCategory> {
+public class SettingsAdapter extends BaseAdapter<Settings> {
     private static final String TAG = "mgba:SettingsAdapter";
-    private final Consumer<SettingsCategory> onClick;
+    private final Consumer<Settings> onClick;
 
-    public SettingsCategoriesAdapter(List<SettingsCategory> settings, Context context, Consumer<SettingsCategory> onClick, RecyclerView recyclerView) {
+    public SettingsAdapter(List<Settings> settings, Context context, Consumer<Settings> onClick, RecyclerView recyclerView) {
         super(settings, R.layout.category_element, ViewHolder::new, recyclerView, context);
         this.onClick = onClick;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        SettingsCategory item = items.get(position);
+        Settings item = items.get(position);
 
         ((ViewHolder) holder).icon.setImageDrawable(mCtx.getDrawable(item.getResource()));
         ((ViewHolder) holder).title.setText(item.getTitle());
@@ -38,7 +38,7 @@ public class SettingsCategoriesAdapter extends BaseAdapter<SettingsCategory> {
 
     @Override
     public void onClick(View v) {
-        final SettingsCategory mItem = items.get(getPositionBasedOnView(v));
+        final Settings mItem = items.get(getPositionBasedOnView(v));
 
         try {
             onClick.accept(mItem);

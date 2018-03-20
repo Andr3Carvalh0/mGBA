@@ -26,9 +26,7 @@
             android:id="@+id/no_content_image"
             android:layout_width="@dimen/message_width"
             android:layout_height="@dimen/message_width"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/no_content_margin_top"
+            android:layout_centerInParent="true"
             android:src="@drawable/ic_videogame_asset_grey_500_48dp" />
 
         <TextView

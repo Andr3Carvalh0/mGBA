@@ -24,7 +24,7 @@ public class SettingsPanelActivity extends AppCompatActivity implements ISetting
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_settings_panel);
 
         controller = new SettingsPanelPresenter(this);
 

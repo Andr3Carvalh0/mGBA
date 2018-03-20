@@ -1,10 +1,10 @@
 package io.mgba.Data.Settings;
 
-public class SettingsCategory {
+public class Settings {
     private final String title;
     private final int resource;
 
-    public SettingsCategory(String title, int resource) {
+    public Settings(String title, int resource) {
         this.title = title;
         this.resource = resource;
     }

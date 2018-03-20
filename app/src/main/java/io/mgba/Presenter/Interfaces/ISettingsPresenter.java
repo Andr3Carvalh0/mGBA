@@ -1,11 +1,11 @@
 package io.mgba.Presenter.Interfaces;
 
 import java.util.List;
-import io.mgba.Data.Settings.SettingsCategory;
+import io.mgba.Data.Settings.Settings;
 import io.reactivex.functions.Consumer;
 
 public interface ISettingsPresenter {
 
-    List<SettingsCategory> getSettings();
-    Consumer<SettingsCategory> getOnClick();
+    List<Settings> getSettings();
+    Consumer<Settings> getOnClick();
 }

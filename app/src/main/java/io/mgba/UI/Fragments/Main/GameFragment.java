@@ -1,6 +1,7 @@
 package io.mgba.UI.Fragments.Main;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,6 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.GameAdapter;
+import io.mgba.Constants;
 import io.mgba.Presenter.GamesPresenter;
 import io.mgba.Presenter.Interfaces.IGamesPresenter;
 import io.mgba.Data.Database.Game;
@@ -29,15 +31,15 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private static final String TAG = "BaseFragment";
 
     @BindView(R.id.no_content_container)
-    protected RelativeLayout mNoContentView;
+    protected RelativeLayout noContentView;
     @BindView(R.id.content_recyclerView)
-    protected TwoWayView mRecyclerView;
+    protected TwoWayView recyclerView;
     @BindView(R.id.no_content_image)
     protected ImageView noContentImage;
     @BindView(R.id.no_content_message)
     protected TextView noContentMessage;
     @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private GameAdapter adapter;
     protected IGamesPresenter controller;
@@ -57,6 +59,10 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         prepareDrawables();
         prepareRecyclerView();
 
+        if(savedInstanceState != null)
+            recyclerView.getLayoutManager()
+                        .onRestoreInstanceState(savedInstanceState.getParcelable(Constants.MAIN_RECYCLER_CONTENT));
+
         showContent(false);
         loadGames();
 
@@ -64,15 +70,15 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     protected void prepareRecyclerView() {
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.pink_accent_color),
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.pink_accent_color),
                                                  getResources().getColor(R.color.colorPrimary),
                                                  getResources().getColor(R.color.green_accent_color),
                                                  getResources().getColor(R.color.yellow_accent_color),
                                                  getResources().getColor(R.color.cyan_accent_color));
-        mRecyclerView.setHasFixedSize(true);
-        adapter = new GameAdapter(this, getContext(), controller.getOnClick(), mRecyclerView);
-        mRecyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+        adapter = new GameAdapter(this, getContext(), controller.getOnClick(), recyclerView);
+        recyclerView.setAdapter(adapter);
 
     }
 
@@ -83,8 +89,8 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void showContent(boolean state) {
-        mNoContentView.setVisibility(state ? View.GONE : View.VISIBLE);
-        mRecyclerView.setVisibility(state ? View.VISIBLE : View.GONE);
+        noContentView.setVisibility(state ? View.GONE : View.VISIBLE);
+        recyclerView.setVisibility(state ? View.VISIBLE : View.GONE);
     }
 
     protected View prepareView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -117,12 +123,19 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void stopRefreshing() {
-        mSwipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
 
     @Override
     public void handleItemClick(Game game) {
         getILibrary().showBottomSheet(game);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(Constants.MAIN_RECYCLER_CONTENT, recyclerView.getLayoutManager().onSaveInstanceState());
+
     }
 }

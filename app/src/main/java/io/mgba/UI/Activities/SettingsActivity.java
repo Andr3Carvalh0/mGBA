@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.mgba.Adapters.SettingsCategoriesAdapter;
+import io.mgba.Adapters.SettingsAdapter;
 import io.mgba.Presenter.SettingsPresenter;
 import io.mgba.Presenter.Interfaces.ISettingsPresenter;
 import io.mgba.R;
@@ -22,7 +22,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_categories);
+        setContentView(R.layout.activity_settings);
 
         ButterKnife.bind(this);
         controller = new SettingsPresenter(this);
@@ -34,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void setupRecyclerView() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new SettingsCategoriesAdapter(controller.getSettings(),
+        recyclerView.setAdapter(new SettingsAdapter(controller.getSettings(),
                                                               getApplicationContext(),
                                                               controller.getOnClick(),
                                                               recyclerView));
