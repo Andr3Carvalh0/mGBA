@@ -11,6 +11,7 @@ import android.view.View;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.flipboard.bottomsheet.BottomSheetLayout;
+import com.flipboard.bottomsheet.ViewTransformer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,7 @@ import io.mgba.Data.Database.Game;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.R;
 import io.mgba.UI.Activities.Interfaces.IMainView;
+import io.mgba.UI.Views.CustomBottomSheetLayout;
 import io.mgba.UI.Views.GameInformationView;
 import io.mgba.UI.Views.Interfaces.IGameInformationView;
 
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @BindView(R.id.floating_search_view) FloatingSearchView toolbar;
     @BindView(R.id.pager) ViewPager viewPager;
-    @BindView(R.id.bottomsheet) BottomSheetLayout sheetDialog;
+    @BindView(R.id.bottomsheet) CustomBottomSheetLayout sheetDialog;
     @BindView(R.id.tabLayout) TabLayout tabLayout;
 
     private IMainPresenter controller;
@@ -150,9 +152,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private void showSheetWithView(View view) {
         if(view != null){
             sheetDialog.showWithSheetView(view);
-
-            if(getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE)
-                sheetDialog.expandSheet();
         }
     }
 

@@ -1,4 +1,4 @@
-<com.flipboard.bottomsheet.BottomSheetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.mgba.UI.Views.CustomBottomSheetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomsheet"
@@ -51,4 +51,4 @@
             app:tabIndicatorColor="@android:color/white" />
 
     </RelativeLayout>
-</com.flipboard.bottomsheet.BottomSheetLayout>
+</io.mgba.UI.Views.CustomBottomSheetLayout>

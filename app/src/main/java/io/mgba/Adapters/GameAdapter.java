@@ -11,20 +11,20 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.Interfaces.BaseAdapter;
+import io.mgba.Adapters.Interfaces.SingleViewHolderAdapter;
 import io.mgba.Data.Database.Game;
 import io.mgba.R;
 import io.mgba.Utils.GlideUtils;
 import io.mgba.mgba;
 import io.reactivex.functions.Consumer;
 
-public class GameAdapter extends BaseAdapter<Game>{
+public class GameAdapter extends SingleViewHolderAdapter<Game> {
     private static final String TAG = "mgba:GameAdapter";
     private final Consumer<Game> onClick;
     private Fragment view;
 
     public GameAdapter(Fragment fragment, Context context, Consumer<Game> onClick, RecyclerView recyclerView) {
-        super(R.layout.game, ViewHolder::new, context, recyclerView);
-
+        super(context, recyclerView, R.layout.game, ViewHolder::new);
         this.view = fragment;
         this.onClick = onClick;
     }

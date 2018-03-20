@@ -1,4 +1,4 @@
-package io.mgba.Adapters;
+package io.mgba.Adapters.Settings;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,17 +12,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.Interfaces.BaseAdapter;
+import io.mgba.Adapters.Interfaces.SingleViewHolderAdapter;
 import io.mgba.Data.Settings.Settings;
 import io.mgba.R;
 import io.mgba.mgba;
 import io.reactivex.functions.Consumer;
 
-public class SettingsAdapter extends BaseAdapter<Settings> {
+public class SettingsAdapter extends SingleViewHolderAdapter<Settings> {
     private static final String TAG = "mgba:SettingsAdapter";
     private final Consumer<Settings> onClick;
 
     public SettingsAdapter(List<Settings> settings, Context context, Consumer<Settings> onClick, RecyclerView recyclerView) {
-        super(settings, R.layout.category_element, ViewHolder::new, recyclerView, context);
+        super(settings, recyclerView, context, R.layout.category_element, ViewHolder::new);
         this.onClick = onClick;
     }
 

@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.mgba.Adapters.SettingsAdapter;
+import io.mgba.Adapters.Settings.SettingsAdapter;
 import io.mgba.Presenter.SettingsPresenter;
 import io.mgba.Presenter.Interfaces.ISettingsPresenter;
 import io.mgba.R;
