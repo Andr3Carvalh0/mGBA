@@ -1,6 +1,5 @@
 package io.mgba.Model;
 
-import android.util.Log;
 import com.annimon.stream.Stream;
 import java.io.File;
 import java.util.Arrays;
@@ -23,8 +22,6 @@ import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
 
 public class Library implements ILibrary {
-    private static final String TAG = "ProcService";
-
     @Inject IDatabase database;
     @Inject IFilesManager filesService;
     @Inject IDeviceManager deviceManager;
@@ -145,7 +142,6 @@ public class Library implements ILibrary {
     }
 
     private void storeInDatabase(Game game){
-        Log.v(TAG, "Storing recent acquired info on db!");
         database.insert(game);
     }
 
