@@ -6,13 +6,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 
 import com.github.paolorotolo.appintro.AppIntro2;
+import com.github.paolorotolo.appintro.AppIntroFragment;
 
-import javax.inject.Inject;
+import java.util.List;
 
+import io.mgba.Model.System.PermissionManager;
 import io.mgba.Presenter.Interfaces.IIntroPresenter;
 import io.mgba.Presenter.IntroPresenter;
+import io.mgba.UI.Activities.Interfaces.IIntroView;
+import io.mgba.Utils.IDependencyInjector;
+import io.mgba.Utils.IResourcesManager;
 import io.mgba.mgba;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -22,8 +28,7 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-//Note: This activity is locked to the portrait mode
-public class IntroActivity extends AppIntro2 {
+public class IntroActivity extends AppIntro2 implements IIntroView{
 
     private IIntroPresenter controller;
 
@@ -31,8 +36,9 @@ public class IntroActivity extends AppIntro2 {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        controller = new IntroPresenter(this);
-        controller.setupView(this);
+        controller = new IntroPresenter((IResourcesManager) getApplication(),
+                                        new PermissionManager(this),
+                                        (IDependencyInjector) getApplication(), this);
     }
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -76,5 +82,37 @@ public class IntroActivity extends AppIntro2 {
     protected void onResume() {
         super.onResume();
         controller.onResume();
+    }
+
+    @Override
+    public void addSlides(List<AppIntroFragment> slides) {
+        for (AppIntroFragment frag : slides)
+            this.addSlide(frag);
+
+        this.setProgressButtonEnabled(true);
+        this.setFadeAnimation();
+        this.showSkipButton(false);
+    }
+
+    @Override
+    public void savePreference(String key, String value) {
+        ((mgba)getApplication()).savePreference(key, value);
+    }
+
+    @Override
+    public void savePreference(String key, boolean value) {
+        ((mgba)getApplication()).savePreference(key, value);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        ((mgba)getApplication()).showProgressDialog(this);
+    }
+
+    @Override
+    public void startActivity(Class<? extends AppCompatActivity> activity) {
+        Intent it = new Intent(this, activity);
+        startActivity(it);
+        finish();
     }
 }

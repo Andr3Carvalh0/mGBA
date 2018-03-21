@@ -6,7 +6,6 @@ import android.os.Bundle;
 import permissions.dispatcher.PermissionRequest;
 
 public interface ISettingsPanelPresenter {
-    void init(Bundle savedInstanceState);
 
     void onSaveInstance(Bundle outState);
 

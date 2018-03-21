@@ -19,6 +19,6 @@ public interface IMainPresenter {
     void onDestroy();
     ILibrary getILibrary();
     void onMenuItemSelected(MenuItem item);
-    void onSearchTextChanged(String oldQuery, String newQuery, FloatingSearchView mToolbar);
+    void onSearchTextChanged(String oldQuery, String newQuery);
 
 }

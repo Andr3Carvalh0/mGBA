@@ -1,78 +1,72 @@
 package io.mgba.Presenter;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-
 import com.annimon.stream.Stream;
-import com.github.paolorotolo.appintro.AppIntro2;
 import com.github.paolorotolo.appintro.AppIntro2Fragment;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.nononsenseapps.filepicker.Controllers.FilePickerUtils;
-
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.Presenter.Interfaces.IIntroPresenter;
 import io.mgba.Model.Interfaces.IPermissionManager;
 import io.mgba.Model.System.PermissionManager;
 import io.mgba.Model.System.PreferencesManager;
 import io.mgba.R;
+import io.mgba.UI.Activities.Interfaces.IIntroView;
 import io.mgba.UI.Activities.MainActivity;
+import io.mgba.Utils.IDependencyInjector;
+import io.mgba.Utils.IResourcesManager;
 import io.mgba.mgba;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import permissions.dispatcher.PermissionRequest;
 
-//S
+
 public class IntroPresenter implements IIntroPresenter {
 
     private final static String TAG = "mgba:IntroCtr";
+    @Inject ILibrary library;
+    private final IIntroView view;
+    private final IPermissionManager permissionService;
+    private final IResourcesManager resourceManager;
+    private CompositeDisposable disposable = new CompositeDisposable();
     private boolean isVisible = true;
     private boolean isDone = false;
 
-    @Inject
-    ILibrary library;
+    public IntroPresenter(@NonNull IResourcesManager resourcesManager, @NonNull IPermissionManager permissionManager,
+                          @NonNull IDependencyInjector dependencyInjector, @NonNull IIntroView view) {
+        this.permissionService = permissionManager;
+        this.resourceManager = resourcesManager;
+        this.view = view;
+        dependencyInjector.inject(this);
 
-    private final IPermissionManager permissionService;
-    private AppCompatActivity context;
-    private CompositeDisposable disposable = new CompositeDisposable();
-
-    public IntroPresenter(@NonNull AppCompatActivity context) {
-        this.permissionService = new PermissionManager(context);
-        this.context = context;
-        ((mgba)context.getApplication()).inject(this);
+        view.addSlides(getIntroFragments().toList());
     }
 
     private Stream<AppIntroFragment> getIntroFragments(){
         List<AppIntroFragment> slides = new LinkedList<>();
 
         //Welcome-screen
-        slides.add(AppIntro2Fragment.newInstance(context.getResources().getString(R.string.Welcome_Title),
-                context.getResources().getString(R.string.Welcome_Description),
+        slides.add(AppIntro2Fragment.newInstance(
+                resourceManager.getString(R.string.Welcome_Title),
+                resourceManager.getString(R.string.Welcome_Description),
                 R.mipmap.ic_launcher,
-                context.getResources().getColor(R.color.colorPrimary)));
+                resourceManager.getColor(R.color.colorPrimary)));
 
         //Feature-Library
-        slides.add(AppIntro2Fragment.newInstance(context.getResources().getString(R.string.Library_Title),
-                context.getResources().getString(R.string.Library_Description),
+        slides.add(AppIntro2Fragment.newInstance(
+                resourceManager.getString(R.string.Library_Title),
+                resourceManager.getString(R.string.Library_Description),
                 R.mipmap.ic_launcher,
-                context.getResources().getColor(R.color.colorPrimary)));
+                resourceManager.getColor(R.color.colorPrimary)));
 
         return Stream.of(slides);
-    }
-
-    @Override
-    public void setupView(AppIntro2 introActivity) {
-        getIntroFragments().forEach(introActivity::addSlide);
-
-        introActivity.setProgressButtonEnabled(true);
-        introActivity.setFadeAnimation();
-        introActivity.showSkipButton(false);
     }
 
     @Override
@@ -123,11 +117,12 @@ public class IntroPresenter implements IIntroPresenter {
     // * There could also happen that the app gets kill in between the processing...
     //  In that case the flag setup_done will stay false and on the next launch the setup will show up again.
     private void onEnd(String dir){
-        ((mgba)context.getApplication()).savePreference(PreferencesManager.GAMES_DIRECTORY, dir);
-        ((mgba)context.getApplication()).showProgressDialog(context);
+        view.savePreference(PreferencesManager.GAMES_DIRECTORY, dir);
+        view.showProgressDialog();
 
         disposable.add(library.reloadGames(dir)
                             .subscribeOn(Schedulers.computation())
+                            .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(games -> {
                                 isDone = true;
                                 onEnd();
@@ -135,17 +130,14 @@ public class IntroPresenter implements IIntroPresenter {
     }
 
     private void onEnd(){
-        ((mgba) context.getApplication()).savePreference(PreferencesManager.SETUP_DONE, true);
-        ((mgba) context.getApplication()).stopProgressDialog();
+        view.savePreference(PreferencesManager.SETUP_DONE, true);
+        view.showProgressDialog();
 
         //House cleaning
         if(disposable != null && !disposable.isDisposed())
             disposable.dispose();
 
-        if(isVisible) {
-            Intent it = new Intent(context.getBaseContext(), MainActivity.class);
-            context.startActivity(it);
-            context.finish();
-        }
+        if(isVisible)
+            view.startActivity(MainActivity.class);
     }
 }

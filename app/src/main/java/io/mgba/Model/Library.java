@@ -7,9 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
 import io.mgba.Data.Remote.DTOs.GameJSON;
@@ -18,24 +16,27 @@ import io.mgba.Model.IO.FilesManager;
 import io.mgba.Model.Interfaces.IDatabase;
 import io.mgba.Model.Interfaces.IFilesManager;
 import io.mgba.Model.Interfaces.ILibrary;
+import io.mgba.Utils.IDependencyInjector;
+import io.mgba.Utils.IDeviceManager;
 import io.mgba.mgba;
 import io.reactivex.Single;
+import io.reactivex.annotations.NonNull;
 
 public class Library implements ILibrary {
     private static final String TAG = "ProcService";
-    private final mgba application;
+
     @Inject IDatabase database;
     @Inject IFilesManager filesService;
+    @Inject IDeviceManager deviceManager;
 
-    public Library(mgba application) {
-        this.application = application;
-        application.inject(this);
+    public Library(@NonNull IDependencyInjector dependencyInjector) {
+        dependencyInjector.inject(this);
     }
 
-    public Library(mgba application, IDatabase database, IFilesManager filesService) {
-        this.application = application;
+    public Library(IDatabase database, IFilesManager filesService, IDeviceManager deviceManager) {
         this.database = database;
         this.filesService = filesService;
+        this.deviceManager = deviceManager;
     }
 
 
@@ -118,7 +119,7 @@ public class Library implements ILibrary {
                     Stream.of(games).filter(g1 -> g1.equals(g)).forEach(games::remove);
 
                     if (calculateMD5(g)) {
-                        if(application.isConnectedToWeb())
+                        if(deviceManager.isConnectedToWeb())
                             searchWeb(g);
                         storeInDatabase(g);
                     }
@@ -148,20 +149,17 @@ public class Library implements ILibrary {
         database.insert(game);
     }
 
-    private boolean searchWeb(Game game){
+    private void searchWeb(Game game){
         try {
-            final GameJSON json = application.getWebService()
-                                      .getGameInformation(game.getMD5(), application.getDeviceLanguage())
+            final GameJSON json = deviceManager.getWebService()
+                                      .getGameInformation(game.getMD5(), deviceManager.getDeviceLanguage())
                                       .execute()
                                       .body();
 
-            if(json == null)
-                return false;
-
-            copyInformation(game, json);
-            return true;
+            if(json != null)
+                copyInformation(game, json);
         } catch (Exception e) {
-            return false;
+            mgba.report(e);
         }
     }
 

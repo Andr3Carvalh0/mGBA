@@ -12,6 +12,9 @@ import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.ViewTransformer;
+import com.mikepenz.aboutlibraries.LibsBuilder;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +29,8 @@ import io.mgba.UI.Activities.Interfaces.IMainView;
 import io.mgba.UI.Views.CustomBottomSheetLayout;
 import io.mgba.UI.Views.GameInformationView;
 import io.mgba.UI.Views.Interfaces.IGameInformationView;
+import io.mgba.Utils.IDependencyInjector;
+import io.mgba.Utils.IResourcesManager;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static io.mgba.Presenter.MainPresenter.DEFAULT_PANEL;
@@ -46,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_library);
 
         ButterKnife.bind(this);
-        controller = new MainPresenter(this, this);
+        controller = new MainPresenter(this, (IDependencyInjector) getApplication(), (IResourcesManager) getApplication());
 
         prepareToolbar();
         prepareViewPager();
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public void onSearchTextChanged(String oldQuery, String newQuery) {
-        controller.onSearchTextChanged(oldQuery, newQuery, toolbar);
+        controller.onSearchTextChanged(oldQuery, newQuery);
     }
 
     @Override
@@ -142,6 +147,33 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     public void showGameInformation(Game game) {
         initializeSheetController();
         showSheetWithView(sheetController.prepareView(sheetDialog, game));
+    }
+
+    @Override
+    public void clearSuggestions() {
+        toolbar.clearSuggestions();
+    }
+
+    @Override
+    public void showSuggestions(List<? extends SearchSuggestion> list) {
+        toolbar.swapSuggestions(list);
+        toolbar.hideProgress();
+    }
+
+    @Override
+    public void startAboutPanel(LibsBuilder aboutPanel) {
+        aboutPanel.start(this);
+    }
+
+    @Override
+    public void startActivityForResult(Class<? extends AppCompatActivity> activity, int code) {
+        Intent it = new Intent(this, activity);
+        startActivityForResult(it, code);
+    }
+
+    @Override
+    public void showProgress() {
+        toolbar.showProgress();
     }
 
     private void showGameInformation(Bundle bundle) {

@@ -27,6 +27,5 @@
     <dimen name="body_margin_small">6dp</dimen>
     <dimen name="margin_start_separator_settings">52dp</dimen>
     <dimen name="icon_settings_size">24dp</dimen>
-    <fraction name="controller_alpha">0.4</fraction>
 
 </resources>

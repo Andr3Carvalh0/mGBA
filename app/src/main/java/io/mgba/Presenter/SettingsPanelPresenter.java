@@ -3,56 +3,47 @@ package io.mgba.Presenter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceFragmentCompat;
-
 import com.google.common.base.Function;
 import com.nononsenseapps.filepicker.Controllers.FilePickerUtils;
-
 import java.util.HashMap;
-
 import io.mgba.Constants;
 import io.mgba.Presenter.Interfaces.ISettingsPanelPresenter;
 import io.mgba.Model.Interfaces.IPermissionManager;
 import io.mgba.Model.System.PermissionManager;
-import io.mgba.Model.System.PreferencesManager;
 import io.mgba.R;
+import io.mgba.UI.Activities.Interfaces.ISettingsPanelView;
 import io.mgba.UI.Fragments.Settings.AudioFragment;
 import io.mgba.UI.Fragments.Settings.BiosFragment;
 import io.mgba.UI.Fragments.Settings.EmulationFragment;
 import io.mgba.UI.Fragments.Settings.StorageFragment;
 import io.mgba.UI.Fragments.Settings.UIFragment;
 import io.mgba.UI.Fragments.Settings.VideoFragment;
-import io.mgba.mgba;
+import io.mgba.Utils.IResourcesManager;
+import io.reactivex.annotations.NonNull;
 import permissions.dispatcher.PermissionRequest;
 
 public class SettingsPanelPresenter implements ISettingsPanelPresenter {
     private static final String TAG = "Settings_Controller";
-    private final AppCompatActivity context;
+
     private final HashMap<String, Function<String, PreferenceFragmentCompat>> router;
     private final IPermissionManager permissionService;
-
+    private final ISettingsPanelView view;
     private String id;
 
-    public SettingsPanelPresenter(AppCompatActivity context) {
-        this.context = context;
-        this.permissionService = new PermissionManager(context);
+    public SettingsPanelPresenter(@NonNull IPermissionManager permissionManager, @NonNull ISettingsPanelView view,
+                                  @NonNull String id, @NonNull IResourcesManager resourcesManager) {
+        this.permissionService = permissionManager;
+        this.view = view;
+        this.id = id;
 
         this.router = new HashMap<>();
-        router.put(context.getString(R.string.settings_audio), (s) -> new AudioFragment());
-        router.put(context.getString(R.string.settings_video), (s) -> new VideoFragment());
-        router.put(context.getString(R.string.settings_emulation), (s) -> new EmulationFragment());
-        router.put(context.getString(R.string.settings_bios), (s) -> new BiosFragment());
-        router.put(context.getString(R.string.settings_paths), (s) -> new StorageFragment());
-        router.put(context.getString(R.string.settings_customization), (s) -> new UIFragment());
-    }
-
-    @Override
-    public void init(Bundle savedInstanceState) {
-        id = savedInstanceState == null
-                ? context.getIntent().getExtras().getString(Constants.ARG_SETTINGS_ID)
-                : savedInstanceState.getString(Constants.ARG_SETTINGS_ID);
+        router.put(resourcesManager.getString(R.string.settings_audio), (s) -> new AudioFragment());
+        router.put(resourcesManager.getString(R.string.settings_video), (s) -> new VideoFragment());
+        router.put(resourcesManager.getString(R.string.settings_emulation), (s) -> new EmulationFragment());
+        router.put(resourcesManager.getString(R.string.settings_bios), (s) -> new BiosFragment());
+        router.put(resourcesManager.getString(R.string.settings_paths), (s) -> new StorageFragment());
+        router.put(resourcesManager.getString(R.string.settings_customization), (s) -> new UIFragment());
     }
 
     @Override
@@ -62,14 +53,13 @@ public class SettingsPanelPresenter implements ISettingsPanelPresenter {
 
     @Override
     public void setupFragment() {
-        FragmentManager fm = context.getSupportFragmentManager();
-
-        PreferenceFragmentCompat fragment = (PreferenceFragmentCompat) fm.findFragmentByTag(TAG + id);
+        PreferenceFragmentCompat fragment = view.findFragment(TAG + id);
 
         if (fragment == null)
             fragment = router.get(id).apply(id);
 
-        fm.beginTransaction().replace(R.id.settings_container, fragment, TAG + id).commit();
+        view.switchFragment(fragment, TAG + id);
+
     }
 
     @Override
@@ -92,7 +82,7 @@ public class SettingsPanelPresenter implements ISettingsPanelPresenter {
 
     @Override
     public String requestPreferencesValue(String key, String defaultValue) {
-        return ((mgba)context.getApplication()).getPreference(key, defaultValue);
+        return view.getPreference(key, defaultValue);
     }
 
     @Override
@@ -101,9 +91,7 @@ public class SettingsPanelPresenter implements ISettingsPanelPresenter {
     }
 
     private void processDirectory(String dir){
-        ((mgba)context.getApplication()).savePreference(PreferencesManager.GAMES_DIRECTORY, dir);
-        FragmentManager fm = context.getSupportFragmentManager();
-        StorageFragment fragment = (StorageFragment) fm.findFragmentByTag(TAG + id);
+        StorageFragment fragment = (StorageFragment) view.findFragment(TAG + id);
         fragment.changeGamesFolderSummary(dir);
     }
 }

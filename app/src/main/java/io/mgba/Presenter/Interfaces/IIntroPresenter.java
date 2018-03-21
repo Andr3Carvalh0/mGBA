@@ -7,7 +7,6 @@ import com.github.paolorotolo.appintro.AppIntro2;
 import permissions.dispatcher.PermissionRequest;
 
 public interface IIntroPresenter {
-    void setupView(AppIntro2 introActivity);
 
     void onActivityResult(int requestCode, int resultCode, Intent intent);
 

@@ -14,12 +14,14 @@ import android.widget.TextView;
 
 import org.lucasr.twowayview.layout.TwoWayView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.GameAdapter;
 import io.mgba.Constants;
+import io.mgba.Data.Platform;
 import io.mgba.Presenter.GamesPresenter;
 import io.mgba.Presenter.Interfaces.IGamesPresenter;
 import io.mgba.Data.Database.Game;
@@ -48,13 +50,16 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controller = new GamesPresenter(this, this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = prepareView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, mView);
+
+        final Platform platform = (Platform) getArguments().getSerializable(Constants.ARG_PLATFORM);
+        controller = new GamesPresenter(platform, this);
+
 
         prepareDrawables();
         prepareRecyclerView();

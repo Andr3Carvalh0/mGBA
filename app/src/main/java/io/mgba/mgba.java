@@ -22,8 +22,11 @@ import io.mgba.Model.Library;
 import io.mgba.Model.System.PreferencesManager;
 import io.mgba.Presenter.IntroPresenter;
 import io.mgba.Presenter.MainPresenter;
+import io.mgba.Utils.IDependencyInjector;
+import io.mgba.Utils.IDeviceManager;
+import io.mgba.Utils.IResourcesManager;
 
-public class mgba extends Application {
+public class mgba extends Application implements IResourcesManager, IDependencyInjector, IDeviceManager {
 
     private final static List<String> SUPPORTED_LANGUAGES = new LinkedList<>();
 
@@ -40,7 +43,7 @@ public class mgba extends Application {
 
     private ModelComponent initModelComponent_Dagger(mgba application){
             return DaggerModelComponent.builder()
-                    .modelModule(new ModelModule(application, application.getPreference(PreferencesManager.GAMES_DIRECTORY, "")))
+                    .modelModule(new ModelModule(application, application.getPreference(PreferencesManager.GAMES_DIRECTORY, ""), this))
                     .build();
     }
 
@@ -69,6 +72,7 @@ public class mgba extends Application {
             preferencesController = new PreferencesManager(this);
     }
 
+    @Override
     public synchronized IRequest getWebService(){
         if(webController == null)
             webController = RetrofitClient.getClient(IRequest.BASE_URL).create(IRequest.class);
@@ -81,6 +85,7 @@ public class mgba extends Application {
         modelComponent = initModelComponent_Dagger(this);
     }
 
+    @Override
     public String getDeviceLanguage(){
         final String iso = Locale.getDefault().getISO3Language();
 
@@ -114,20 +119,24 @@ public class mgba extends Application {
                 .show();
     }
 
+    @Override
     public boolean isConnectedToWeb(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    @Override
     public void inject(IntroPresenter target) {
         modelComponent.inject(target);
     }
 
+    @Override
     public void inject(MainPresenter target) {
         modelComponent.inject(target);
     }
 
+    @Override
     public void inject(Library library) {
         modelComponent.inject(library);
     }
