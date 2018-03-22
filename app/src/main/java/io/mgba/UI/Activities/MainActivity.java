@@ -93,6 +93,16 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     }
 
     @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
     public void showBottomSheet(Game game) {
         controller.showBottomSheet(game);
     }
@@ -108,16 +118,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     }
 
     @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
-    }
-
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         controller.onDestroy();
@@ -126,16 +126,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     public void onSearchTextChanged(String oldQuery, String newQuery) {
         controller.onSearchTextChanged(oldQuery, newQuery);
-    }
-
-    @Override
-    public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
-
-    }
-
-    @Override
-    public void onSearchAction(String currentQuery) {
-
     }
 
     @Override
@@ -207,6 +197,16 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         }
 
 
+
+    }
+
+    @Override
+    public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
+
+    }
+
+    @Override
+    public void onSearchAction(String currentQuery) {
 
     }
 }

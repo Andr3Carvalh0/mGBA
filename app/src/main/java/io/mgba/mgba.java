@@ -138,6 +138,4 @@ public class mgba extends Application implements IResourcesManager, IDependencyI
         if(BuildConfig.DEBUG)
             Log.v(tag, message);
     }
-
-
 }

@@ -42,7 +42,6 @@ public class Library implements ILibrary {
         this.webManager = () -> webManager;
     }
 
-
     @Override
     public Single<List<Game>> prepareGames(Platform platform) {
         Single<List<Game>> ret =  Single.create(subscriber -> {
@@ -127,7 +126,6 @@ public class Library implements ILibrary {
                     return game;
                 }).toList();
     }
-
 
     private List<Game> filter(List<Platform> platform, List<Game> games){
         return Stream.of(games)
