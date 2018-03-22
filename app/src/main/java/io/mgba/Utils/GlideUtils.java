@@ -8,13 +8,11 @@ import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.annimon.stream.Stream;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.florent37.glidepalette.GlidePalette;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -170,7 +168,7 @@ public class GlideUtils<T> {
         private final Colors profile;
         private boolean title;
 
-        public SpecialColorWrapper(Colors profile, View view, boolean title) {
+        SpecialColorWrapper(Colors profile, View view, boolean title) {
             super(view);
             this.profile = profile;
             this.title = title;
@@ -189,7 +187,7 @@ public class GlideUtils<T> {
         private final Colors primarySwatch;
         private final Colors secondarySwatch;
 
-        public ColorWrapper(View view, Colors primarySwatch, Colors secondarySwatch) {
+        ColorWrapper(View view, Colors primarySwatch, Colors secondarySwatch) {
             super(view);
             this.primarySwatch = primarySwatch;
             this.secondarySwatch = secondarySwatch;

@@ -36,5 +36,5 @@
     <string name="settings_emulation">Emulation</string>
     <string name="settings_bios">BIOS</string>
     <string name="settings_paths">Folders</string>
-    <string name="settings_customization">Customizations</string>
+    <string name="settings_customization">Themes</string>
 </resources>

@@ -15,8 +15,6 @@ import java.util.Locale;
 import io.mgba.DI.Components.DaggerModelComponent;
 import io.mgba.DI.Components.ModelComponent;
 import io.mgba.DI.Modules.ModelModule;
-import io.mgba.Data.Remote.Interfaces.IRequest;
-import io.mgba.Data.Remote.RetrofitClient;
 import io.mgba.Model.Interfaces.IPreferencesManager;
 import io.mgba.Model.Library;
 import io.mgba.Model.System.PreferencesManager;
@@ -35,11 +33,7 @@ public class mgba extends Application implements IResourcesManager, IDependencyI
     }
 
     private ModelComponent modelComponent;
-
     private IPreferencesManager preferencesController;
-
-    private IRequest webController;
-    private ProgressDialog waitingDialog;
 
     private ModelComponent initModelComponent_Dagger(mgba application){
             return DaggerModelComponent.builder()
@@ -73,13 +67,6 @@ public class mgba extends Application implements IResourcesManager, IDependencyI
     }
 
     @Override
-    public synchronized IRequest getWebService(){
-        if(webController == null)
-            webController = RetrofitClient.getClient(IRequest.BASE_URL).create(IRequest.class);
-        return webController;
-    }
-
-    @Override
     public void onCreate() {
         super.onCreate();
         modelComponent = initModelComponent_Dagger(this);
@@ -97,13 +84,7 @@ public class mgba extends Application implements IResourcesManager, IDependencyI
     }
 
     public void showProgressDialog(AppCompatActivity activity){
-        waitingDialog = ProgressDialog.show(activity, getString(R.string.Progress_Title), getString(R.string.Progress_desc), true, false);
-    }
-
-    public void stopProgressDialog(){
-        if(waitingDialog != null){
-            waitingDialog.dismiss();
-        }
+        ProgressDialog.show(activity, getString(R.string.Progress_Title), getString(R.string.Progress_desc), true, false);
     }
 
     public void showDialog(AppCompatActivity activity, String title, String desc, String positive_button,
@@ -122,6 +103,10 @@ public class mgba extends Application implements IResourcesManager, IDependencyI
     @Override
     public boolean isConnectedToWeb(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if(connectivityManager == null)
+            return false;
+
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -143,9 +128,7 @@ public class mgba extends Application implements IResourcesManager, IDependencyI
 
     public static void report(Throwable error) {
         if(BuildConfig.DEBUG) {
-
             Log.e(" --- An error occurred:", error.getMessage());
-            Log.e(" --- StackTrace:", error.getStackTrace().toString());
 
         }
 

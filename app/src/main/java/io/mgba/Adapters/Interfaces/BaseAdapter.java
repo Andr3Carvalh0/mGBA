@@ -2,12 +2,8 @@ package io.mgba.Adapters.Interfaces;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.common.base.Function;
-
 import java.util.LinkedList;
 import java.util.List;
 

@@ -7,9 +7,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
+
+import dagger.Lazy;
 import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
 import io.mgba.Data.Remote.DTOs.GameJSON;
+import io.mgba.Data.Remote.Interfaces.IRequest;
 import io.mgba.Model.IO.Decoder;
 import io.mgba.Model.IO.FilesManager;
 import io.mgba.Model.Interfaces.IDatabase;
@@ -25,15 +28,18 @@ public class Library implements ILibrary {
     @Inject IDatabase database;
     @Inject IFilesManager filesService;
     @Inject IDeviceManager deviceManager;
+    @Inject Lazy<IRequest> webManager;
 
     public Library(@NonNull IDependencyInjector dependencyInjector) {
         dependencyInjector.inject(this);
     }
 
-    public Library(IDatabase database, IFilesManager filesService, IDeviceManager deviceManager) {
+    public Library(@NonNull IDatabase database, @NonNull IFilesManager filesService,
+                   @NonNull IDeviceManager deviceManager, IRequest webManager) {
         this.database = database;
         this.filesService = filesService;
         this.deviceManager = deviceManager;
+        this.webManager = () -> webManager;
     }
 
 
@@ -74,9 +80,7 @@ public class Library implements ILibrary {
     @Override
     public Single<List<Game>> reloadGames(Platform... platform) {
         Single<List<Game>> ret = Single.create(subscriber -> {
-            //clean up possible removed files from content provider
             List<Game> games = database.getGames();
-
             removeGamesFromDatabase(games);
 
             final List<Game> updatedList = processNewGames(games);
@@ -108,22 +112,20 @@ public class Library implements ILibrary {
 
     private List<Game> processNewGames(List<Game> games){
         return Stream.of(filesService.getGameList())
-                .map(f -> new Game(f.getAbsolutePath(), getPlatform(f)))
-                .filter(f -> games.size() == 0
-                             || Stream.of(games).anyMatch(g -> g.getFile().equals(f.getFile())
-                             && g.needsUpdate()))
-                .map(g -> {
-                    Stream.of(games).filter(g1 -> g1.equals(g)).forEach(games::remove);
+                .map(file -> new Game(file.getAbsolutePath(), getPlatform(file)))
+                .filter(file -> games.size() == 0 || Stream.of(games)
+                                                           .anyMatch(game -> game.getFile().equals(file.getFile()) && game.needsUpdate()))
+                .map(game -> {
+                    Stream.of(games).filter(otherGame -> otherGame.equals(game)).forEach(games::remove);
 
-                    if (calculateMD5(g)) {
+                    if (calculateMD5(game)) {
                         if(deviceManager.isConnectedToWeb())
-                            searchWeb(g);
-                        storeInDatabase(g);
+                            searchWeb(game);
+                        storeInDatabase(game);
                     }
 
-                    return g;
+                    return game;
                 }).toList();
-
     }
 
 
@@ -147,7 +149,8 @@ public class Library implements ILibrary {
 
     private void searchWeb(Game game){
         try {
-            final GameJSON json = deviceManager.getWebService()
+            final GameJSON json = webManager
+                                      .get()
                                       .getGameInformation(game.getMD5(), deviceManager.getDeviceLanguage())
                                       .execute()
                                       .body();

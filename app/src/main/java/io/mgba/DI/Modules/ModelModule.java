@@ -4,6 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.mgba.Data.Remote.Interfaces.IRequest;
+import io.mgba.Data.Remote.RetrofitClient;
 import io.mgba.Model.IO.FilesManager;
 import io.mgba.Model.IO.LocalDB;
 import io.mgba.Model.Interfaces.IDatabase;
@@ -46,6 +48,12 @@ public class ModelModule {
     @Provides
     public IDeviceManager provideDeviceManager(){
         return manager;
+    }
+
+    @Provides
+    public IRequest provideRetrofitClient(){
+        final RetrofitClient retrofitClient = new RetrofitClient();
+        return retrofitClient.getClient(IRequest.BASE_URL).create(IRequest.class);
     }
 
 }
