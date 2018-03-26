@@ -1,0 +1,9 @@
+---------------------------- JAVA -------------------------------
+* [REALLY-LOW] Add option to customize game controllers.
+* [LOW] Reload games when switching directories.
+
+---------------------------- NATIVE -----------------------------
+* [MEDIUM] FIX: mgba/src/util/vfs/vfs-fd.c, line 172
+
+---------------------------- DATABASE ---------------------------
+* [LOW] Fix "pokemon accents".
