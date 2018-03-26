@@ -44,7 +44,9 @@ android {
                           "-DDISABLE_FRONTENDS=1",
                           "-DHAVE_STRTOF_L=1",
                           "-DUSE_LIBZIP=0",
-                          "-DUSE_ZLIB=0"
+                          "-DUSE_ZLIB=0",
+                          "-DUSE_LZMA=0",
+                          "-DBUILD_GLES2=1"
             }
         }
     }
