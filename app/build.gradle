@@ -29,10 +29,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            jniDebuggable true
+        }
     }
     externalNativeBuild {
         cmake {
-            path "CMakeLists.txt"
+            path "../mgba/CMakeLists.txt"
         }
     }
 }
