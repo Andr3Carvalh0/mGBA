@@ -16,13 +16,45 @@ public class Cheat {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @PrimaryKey
     @ColumnInfo(name = "idFK")
     @NonNull
     private File id_FK;
 
     @ColumnInfo(name = "cheatName")
     private String value;
+
+    @ColumnInfo(name = "codeType")
+    private int type;
+
+    @ColumnInfo(name = "codeState")
+    private boolean state;
+
+    @ColumnInfo(name = "codeName")
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
 
     public int getId() {
         return id;

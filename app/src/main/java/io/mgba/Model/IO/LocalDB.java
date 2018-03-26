@@ -2,8 +2,10 @@ package io.mgba.Model.IO;
 
 import android.content.Context;
 
+import java.io.File;
 import java.util.List;
 
+import io.mgba.Data.Database.Cheat;
 import io.mgba.Data.Database.Database;
 import io.mgba.Data.Database.Game;
 import io.mgba.Data.Platform;
@@ -58,7 +60,25 @@ public class LocalDB implements IDatabase{
 
     @Override
     public List<Game> getGames() {
-        printLog(TAG, "Getting All Games");
+        printLog(TAG, "Getting all games");
         return db.gameDao().getGames();
+    }
+
+    @Override
+    public List<Cheat> getGamesCheats(Game key) {
+        printLog(TAG, "Getting all cheats for " + key.getName());
+        return db.cheatDAO().getGamesCheats(key.getFile());
+    }
+
+    @Override
+    public void deleteCheat(Cheat cheat) {
+        printLog(TAG, "Deleting cheat: " + cheat.getName());
+        db.cheatDAO().deleteCheat(cheat.getId());
+    }
+
+    @Override
+    public void insertCheat(Cheat cheat) {
+        printLog(TAG, "Inserting cheat: " + cheat.getName());
+        db.cheatDAO().insertCheat(cheat);
     }
 }

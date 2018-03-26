@@ -68,7 +68,7 @@ dependencies {
     implementation "com.android.support:preference-v14:" + project.ext.AppCompatVersion
 
     //Tests
-    testCompile 'org.mockito:mockito-core:2.15.0'
+    testImplementation 'org.mockito:mockito-core:2.15.0'
     androidTestImplementation 'org.mockito:mockito-android:2.6.3'
     testImplementation "android.arch.persistence.room:testing:1.0.0"
     testImplementation 'junit:junit:4.12'

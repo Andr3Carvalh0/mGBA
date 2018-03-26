@@ -37,9 +37,6 @@ public class Game implements Parcelable, SearchSuggestion {
     @ColumnInfo()
     private Platform platform;
 
-    public Game() {
-    }
-
     @ColumnInfo()
     private String name = null;
 
@@ -63,6 +60,9 @@ public class Game implements Parcelable, SearchSuggestion {
 
     @ColumnInfo()
     private boolean favourite = false;
+
+
+    public Game() { }
 
     @Ignore
     public Game(String path, String name, String description, String released, String developer, String genre, String coverURL, String MD5, boolean favourite, Platform platform) {
@@ -129,7 +129,6 @@ public class Game implements Parcelable, SearchSuggestion {
     public String getDeveloper() {
         return developer;
     }
-
 
     public void setDeveloper(String developer) {
         this.developer = developer;
