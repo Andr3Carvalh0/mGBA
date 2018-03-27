@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_library);
 
         ButterKnife.bind(this);
-        controller = new MainPresenter(this, (IDependencyInjector) getApplication(), (IResourcesManager) getApplication());
+        controller = new MainPresenter(this, (IDependencyInjector) getApplication());
 
         prepareToolbar();
         prepareViewPager();

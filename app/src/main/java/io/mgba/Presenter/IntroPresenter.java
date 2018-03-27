@@ -34,15 +34,14 @@ public class IntroPresenter implements IIntroPresenter {
     @Inject ILibrary library;
     private final IIntroView view;
     private final IPermissionManager permissionService;
-    private final IResourcesManager resourceManager;
+    @Inject IResourcesManager resourceManager;
     private CompositeDisposable disposable = new CompositeDisposable();
     private boolean isVisible = true;
     private boolean isDone = false;
 
-    public IntroPresenter(@NonNull IResourcesManager resourcesManager, @NonNull IPermissionManager permissionManager,
-                          @NonNull IDependencyInjector dependencyInjector, @NonNull IIntroView view) {
+    public IntroPresenter(@NonNull IPermissionManager permissionManager, @NonNull IDependencyInjector dependencyInjector,
+                          @NonNull IIntroView view) {
         this.permissionService = permissionManager;
-        this.resourceManager = resourcesManager;
         this.view = view;
         dependencyInjector.inject(this);
 

@@ -37,7 +37,7 @@ public class mgba extends Application implements IResourcesManager, IDependencyI
 
     private ModelComponent initModelComponent_Dagger(mgba application){
             return DaggerModelComponent.builder()
-                    .modelModule(new ModelModule(application, application.getPreference(PreferencesManager.GAMES_DIRECTORY, ""), this))
+                    .modelModule(new ModelModule(application, application.getPreference(PreferencesManager.GAMES_DIRECTORY, "")))
                     .build();
     }
 

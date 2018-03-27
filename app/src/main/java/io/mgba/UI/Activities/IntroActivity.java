@@ -36,8 +36,7 @@ public class IntroActivity extends AppIntro2 implements IIntroView{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        controller = new IntroPresenter((IResourcesManager) getApplication(),
-                                        new PermissionManager(this),
+        controller = new IntroPresenter(new PermissionManager(this),
                                         (IDependencyInjector) getApplication(), this);
     }
 

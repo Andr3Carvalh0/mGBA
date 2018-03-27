@@ -13,18 +13,17 @@ import io.mgba.Model.Interfaces.IFilesManager;
 import io.mgba.Model.Interfaces.ILibrary;
 import io.mgba.Model.Library;
 import io.mgba.Utils.IDeviceManager;
+import io.mgba.Utils.IResourcesManager;
 import io.mgba.mgba;
 
 @Module
 public class ModelModule {
-    private final IDeviceManager manager;
     private mgba application;
     private String path;
 
-    public ModelModule(mgba application, String path, IDeviceManager manager) {
+    public ModelModule(mgba application, String path) {
         this.application = application;
         this.path = path;
-        this.manager = manager;
     }
 
     @Provides
@@ -47,8 +46,14 @@ public class ModelModule {
 
     @Provides
     public IDeviceManager provideDeviceManager(){
-        return manager;
+        return application;
     }
+
+    @Provides
+    public IResourcesManager provideResourceManager(){
+        return application;
+    }
+
 
     @Provides
     public IRequest provideRetrofitClient(){

@@ -25,11 +25,10 @@ public class MainPresenter implements IMainPresenter {
     @Inject ILibrary library;
     private CompositeDisposable disposable = new CompositeDisposable();
     private final IMainView view;
-    private final IResourcesManager resourcesManager;
+    @Inject IResourcesManager resourcesManager;
 
-    public MainPresenter(@NonNull IMainView mainView, @NonNull IDependencyInjector dependencyInjector, @NonNull IResourcesManager resourcesManager) {
+    public MainPresenter(@NonNull IMainView mainView, @NonNull IDependencyInjector dependencyInjector) {
         this.view = mainView;
-        this.resourcesManager = resourcesManager;
         dependencyInjector.inject(this);
     }
 
