@@ -6,7 +6,10 @@
     android:id="@+id/sheet_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/AppTheme">
+    android:theme="@style/AppTheme"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,14 +26,14 @@
                 android:id="@+id/gameDescription"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignStart="@+id/space_title_desc"
                 android:layout_below="@+id/space_title_desc"
-                android:layout_marginBottom="@dimen/body_margin_extended"
+                android:layout_alignStart="@+id/space_title_desc"
                 android:layout_marginEnd="@dimen/body_margin"
+                android:layout_marginBottom="@dimen/body_margin_extended"
                 android:ellipsize="end"
                 android:maxLines="4"
                 android:textColor="@color/white"
-                tools:text="Lisbon is a great city!" />
+                tools:text="Lisbon is a great city if you arent from Portugal!" />
 
             <android.support.v4.widget.Space
                 android:id="@+id/space_title_desc"

@@ -1,9 +1,11 @@
 package io.mgba.Utils;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +29,10 @@ public class GlideUtils<T> {
     private GlideUtils(T holder, String url) {
         this.url = url;
         this.holder = holder;
+    }
+
+    public static GlideUtils init(AppCompatActivity holder, String url){
+        return new GlideUtils<>(holder, url);
     }
 
     public static GlideUtils init(View holder, String url){
@@ -85,6 +91,9 @@ public class GlideUtils<T> {
         if(holder instanceof Fragment)
             return Glide.with((Fragment) holder).load(url);
 
+        if(holder instanceof AppCompatActivity)
+            return Glide.with((Activity) holder).load(url);
+
         return Glide.with((View)holder).load(url);
     }
 
@@ -105,7 +114,7 @@ public class GlideUtils<T> {
 
         requestColor
                 .intoCallBack(palette -> {
-                    if (palette != null) {
+                    if (palette != null && views != null) {
                         Stream.of(views)
                                 .forEach(v -> v.colorView(palette, requestColor));
                     }

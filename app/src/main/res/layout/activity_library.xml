@@ -1,54 +1,49 @@
-<io.mgba.UI.Views.CustomBottomSheetLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bottomsheet"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".UI.Activities.MainActivity">
 
-    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <View
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_container"
+        android:background="@color/colorPrimary"
+        android:elevation="@dimen/default_elevation" />
+
+    <com.arlib.floatingsearchview.FloatingSearchView
+        android:id="@+id/floating_search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".UI.Activities.MainActivity">
+        android:elevation="6dp"
+        app:floatingSearch_close_search_on_keyboard_dismiss="true"
+        app:floatingSearch_leftActionMode="showSearch"
+        app:floatingSearch_menu="@menu/library_menu"
+        app:floatingSearch_searchBarMarginLeft="@dimen/body_margin"
+        app:floatingSearch_searchBarMarginRight="@dimen/body_margin"
+        app:floatingSearch_searchBarMarginTop="@dimen/body_margin_small"
+        app:floatingSearch_searchHint="@string/toolbar_title_tip"
+        app:floatingSearch_showSearchKey="false"
+        app:floatingSearch_suggestionsListAnimDuration="200" />
 
-        <View
-            android:id="@+id/toolbar_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_container"
-            android:background="@color/colorPrimary"
-            android:elevation="@dimen/default_elevation" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tabLayout" />
 
-        <com.arlib.floatingsearchview.FloatingSearchView
-            android:id="@+id/floating_search_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="6dp"
-            app:floatingSearch_close_search_on_keyboard_dismiss="true"
-            app:floatingSearch_leftActionMode="showSearch"
-            app:floatingSearch_menu="@menu/library_menu"
-            app:floatingSearch_searchBarMarginLeft="@dimen/body_margin"
-            app:floatingSearch_searchBarMarginRight="@dimen/body_margin"
-            app:floatingSearch_searchBarMarginTop="@dimen/body_margin_small"
-            app:floatingSearch_searchHint="@string/toolbar_title_tip"
-            app:floatingSearch_showSearchKey="false"
-            app:floatingSearch_suggestionsListAnimDuration="200" />
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar_container"
+        android:background="@color/colorPrimary"
+        android:elevation="@dimen/default_elevation"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:tabIndicatorColor="@android:color/white" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/tabLayout" />
+</RelativeLayout>
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/toolbar_container"
-            android:background="@color/colorPrimary"
-            android:elevation="@dimen/default_elevation"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:tabIndicatorColor="@android:color/white" />
-
-    </RelativeLayout>
-</io.mgba.UI.Views.CustomBottomSheetLayout>

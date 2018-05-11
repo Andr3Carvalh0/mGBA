@@ -58,10 +58,6 @@ public class MainPresenter implements IMainPresenter {
         }
     }
 
-    @Override
-    public void showBottomSheet(Game game) {
-        view.showGameInformation(game);
-    }
 
     @Override
     public void onDestroy() {
@@ -83,10 +79,7 @@ public class MainPresenter implements IMainPresenter {
                     .query(newQuery)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(games -> {
-                        view.showSuggestions(games);
-                        onDestroy();
-                    }));
+                    .subscribe(view::showSuggestions));
         }
     }
 }

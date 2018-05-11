@@ -112,8 +112,7 @@ public class Library implements ILibrary {
     private List<Game> processNewGames(List<Game> games){
         return Stream.of(filesService.getGameList())
                 .map(file -> new Game(file.getAbsolutePath(), getPlatform(file)))
-                .filter(file -> games.size() == 0 || Stream.of(games)
-                                                           .anyMatch(game -> game.getFile().equals(file.getFile()) && game.needsUpdate()))
+                .filter(file -> games.size() == 0 || Stream.of(games).anyMatch(game -> !game.getFile().equals(file.getFile())))
                 .map(game -> {
                     Stream.of(games).filter(otherGame -> otherGame.equals(game)).forEach(games::remove);
 
@@ -147,8 +146,7 @@ public class Library implements ILibrary {
 
     private void searchWeb(Game game){
         try {
-            final GameJSON json = webManager
-                                      .get()
+            final GameJSON json = webManager.get()
                                       .getGameInformation(game.getMD5(), deviceManager.getDeviceLanguage())
                                       .execute()
                                       .body();

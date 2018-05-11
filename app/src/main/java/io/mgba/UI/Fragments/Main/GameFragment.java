@@ -11,12 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import org.lucasr.twowayview.layout.TwoWayView;
-
-import java.io.Serializable;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.GameAdapter;
@@ -27,21 +23,17 @@ import io.mgba.Presenter.Interfaces.IGamesPresenter;
 import io.mgba.Data.Database.Game;
 import io.mgba.R;
 import io.mgba.UI.Fragments.Interfaces.IGamesFragment;
+import io.mgba.UI.Views.GameInformationView;
 
 public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, IGamesFragment<Game> {
 
     private static final String TAG = "BaseFragment";
 
-    @BindView(R.id.no_content_container)
-    protected RelativeLayout noContentView;
-    @BindView(R.id.content_recyclerView)
-    protected TwoWayView recyclerView;
-    @BindView(R.id.no_content_image)
-    protected ImageView noContentImage;
-    @BindView(R.id.no_content_message)
-    protected TextView noContentMessage;
-    @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.no_content_container) protected RelativeLayout noContentView;
+    @BindView(R.id.content_recyclerView) protected TwoWayView recyclerView;
+    @BindView(R.id.no_content_image) protected ImageView noContentImage;
+    @BindView(R.id.no_content_message) protected TextView noContentMessage;
+    @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
 
     private GameAdapter adapter;
     protected IGamesPresenter controller;
@@ -123,6 +115,7 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void swapContent(List<Game> items) {
+        showContent(items.size() > 0);
         adapter.swap(items);
     }
 
@@ -134,7 +127,8 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void handleItemClick(Game game) {
-        getILibrary().showBottomSheet(game);
+        GameInformationView sheet = GameInformationView.newInstance(game);
+        sheet.show(getFragmentManager(), TAG + "_SHEET");
     }
 
     @Override

@@ -7,7 +7,6 @@ import java.util.List;
 import io.mgba.Data.Database.Game;
 
 public interface IMainView {
-    void showGameInformation(Game game);
     void clearSuggestions();
     void showSuggestions(List<? extends SearchSuggestion> list);
     void startAboutPanel(LibsBuilder aboutPanel);
