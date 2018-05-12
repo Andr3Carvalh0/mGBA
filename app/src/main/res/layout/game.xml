@@ -1,5 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/master_container"
     android:layout_width="@dimen/cover_size"
     android:layout_height="@dimen/cover_size"
@@ -20,12 +21,13 @@
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
         android:ellipsize="end"
         android:maxLines="3"
         android:text="Lisbon"
         android:textAlignment="center"
         android:textColor="@color/white"
-        autofit:minTextSize="14sp" />
-</RelativeLayout>
+        autofit:layout_constraintBottom_toBottomOf="parent"
+        autofit:layout_constraintTop_toTopOf="@+id/card_preview"
+        autofit:minTextSize="14sp"
+        tools:layout_editor_absoluteX="8dp" />
+</android.support.constraint.ConstraintLayout>

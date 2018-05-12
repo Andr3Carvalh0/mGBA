@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,20 +30,25 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/tabLayout" />
+        android:layout_height="0dp"
+        android:layout_below="@+id/tabLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        tools:layout_editor_absoluteX="0dp" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar_container"
+        android:layout_alignParentStart="true"
         android:background="@color/colorPrimary"
         android:elevation="@dimen/default_elevation"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:tabIndicatorColor="@android:color/white" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_container"
+        app:tabIndicatorColor="@android:color/white"
+        tools:layout_editor_absoluteX="16dp" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
 

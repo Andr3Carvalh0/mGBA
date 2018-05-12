@@ -3,6 +3,7 @@ package io.mgba.UI.Fragments.Main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private static final String TAG = "BaseFragment";
 
-    @BindView(R.id.no_content_container) protected RelativeLayout noContentView;
+    @BindView(R.id.no_content_container) protected ConstraintLayout noContentView;
     @BindView(R.id.content_recyclerView) protected TwoWayView recyclerView;
     @BindView(R.id.no_content_image) protected ImageView noContentImage;
     @BindView(R.id.no_content_message) protected TextView noContentMessage;

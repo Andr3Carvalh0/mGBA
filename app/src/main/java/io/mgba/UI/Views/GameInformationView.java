@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -36,7 +37,7 @@ public class GameInformationView extends BottomSheetDialogFragment implements Vi
     }
 
     @BindView(R.id.sheet_container) CoordinatorLayout main;
-    @BindView(R.id.bottomsheet_header) RelativeLayout header;
+    @BindView(R.id.bottomsheet_header) ConstraintLayout header;
     @BindView(R.id.gameTitle) TextView title;
     @BindView(R.id.gameDescription) TextView description;
     @BindView(R.id.cover) ImageView cover;
@@ -45,7 +46,7 @@ public class GameInformationView extends BottomSheetDialogFragment implements Vi
     @BindView(R.id.savestate_recyclerview) RecyclerView recyclerView;
     @BindView(R.id.no_content_image) ImageView noContentImage;
     @BindView(R.id.no_savestate_message) TextView noSavesMessage;
-    @BindView(R.id.no_savestates_container) RelativeLayout noSavesContainer;
+    @BindView(R.id.no_savestates_container) ConstraintLayout noSavesContainer;
 
     private Game game;
 

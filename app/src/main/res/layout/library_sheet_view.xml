@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/bottomsheet_header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottomsheet_header"
@@ -24,36 +24,33 @@
 
             <TextView
                 android:id="@+id/gameDescription"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/space_title_desc"
-                android:layout_alignStart="@+id/space_title_desc"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="@dimen/body_margin"
+                android:layout_marginTop="@dimen/body_margin"
                 android:layout_marginEnd="@dimen/body_margin"
-                android:layout_marginBottom="@dimen/body_margin_extended"
                 android:ellipsize="end"
                 android:maxLines="4"
                 android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cover"
+                app:layout_constraintTop_toBottomOf="@+id/gameTitle"
                 tools:text="Lisbon is a great city if you arent from Portugal!" />
-
-            <android.support.v4.widget.Space
-                android:id="@+id/space_title_desc"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_desc_space"
-                android:layout_alignParentEnd="true"
-                android:layout_alignStart="@+id/gameTitle"
-                android:layout_below="@+id/gameTitle" />
 
             <me.grantland.widget.AutofitTextView
                 android:id="@+id/gameTitle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/body_margin"
                 android:layout_marginStart="@dimen/body_margin"
                 android:layout_marginTop="@dimen/body_margin"
+                android:layout_marginEnd="@dimen/body_margin"
                 android:layout_toEndOf="@+id/cover"
                 android:maxLines="2"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
                 android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cover"
+                app:layout_constraintTop_toTopOf="parent"
                 autofit:minTextSize="14sp"
                 tools:text="Lisbon" />
 
@@ -63,12 +60,14 @@
                 android:layout_height="@dimen/cover_size"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="@dimen/body_margin"
-                android:layout_marginTop="@dimen/body_margin"
-                android:background="@drawable/placeholder" />
-        </RelativeLayout>
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/placeholder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -80,9 +79,14 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/savestate_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@+id/savestate_title"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/savestate_title" />
+                android:layout_marginTop="@dimen/body_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/savestate_title" />
 
             <TextView
                 android:id="@+id/savestate_title"
@@ -90,41 +94,57 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/sheet_space"
-                android:layout_marginTop="@dimen/sheet_space"
+                android:layout_marginTop="@dimen/body_margin"
                 android:text="@string/savestates_title"
                 android:textAppearance="@android:style/TextAppearance.Material.Headline"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <RelativeLayout
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/no_savestates_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/savestate_title">
+                android:layout_height="0dp"
+                android:layout_below="@+id/savestate_title"
+                android:layout_marginTop="@dimen/body_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/savestate_title">
 
                 <ImageView
                     android:id="@+id/no_content_image"
                     android:layout_width="@dimen/sheet_no_content_image"
                     android:layout_height="@dimen/sheet_no_content_image"
-                    android:layout_marginTop="@dimen/sheet_no_content_upper_margin"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/ic_save_grey_500_48dp" />
+                    android:src="@drawable/ic_save_grey_500_48dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.19999999" />
 
                 <TextView
                     android:id="@+id/no_savestate_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/no_content_image"
+                    android:layout_alignParentStart="true"
                     android:maxLines="1"
                     android:text="@string/no_savestate_message"
                     android:textAlignment="center"
-                    android:textAppearance="@android:style/TextAppearance.Material.Medium" />
-            </RelativeLayout>
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/no_content_image" />
+            </android.support.constraint.ConstraintLayout>
 
-        </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton

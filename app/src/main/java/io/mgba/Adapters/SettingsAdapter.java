@@ -1,6 +1,7 @@
 package io.mgba.Adapters;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -44,7 +45,7 @@ public class SettingsAdapter extends SingleViewHolderAdapter<Settings> {
         try {
             onClick.accept(mItem);
         } catch (Exception e) {
-            mgba.printLog(TAG, "Cannot execute consumer callable");
+            mgba.printLog(TAG, "Cannot execute onClick consumer");
         }
     }
 
@@ -54,7 +55,7 @@ public class SettingsAdapter extends SingleViewHolderAdapter<Settings> {
         @BindView(R.id.setting_title)
         TextView title;
         @BindView(R.id.container)
-        RelativeLayout container;
+        ConstraintLayout container;
 
         public ViewHolder(View view) {
             super(view);

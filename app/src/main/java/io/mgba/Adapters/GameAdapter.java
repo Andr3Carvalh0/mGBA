@@ -1,6 +1,7 @@
 package io.mgba.Adapters;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -68,7 +69,7 @@ public class GameAdapter extends SingleViewHolderAdapter<Game> {
         TextView gameTitle;
 
         @BindView(R.id.master_container)
-        RelativeLayout masterContainer;
+        ConstraintLayout masterContainer;
 
         ViewHolder(View itemView) {
             super(itemView);
