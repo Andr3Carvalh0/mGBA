@@ -12,4 +12,10 @@ public class Constants {
     public static final String MAIN_VIEWPAGE_STATE = "main_viewpage_state";
     public static final String MAIN_RECYCLER_CONTENT = "main_rv_content";
     public static final String ARG_SETTINGS_ID = "settings_id_args";
+    public static final int PLATFORM_GBC = 0;
+    public static final String PLATFORM_GBA_EXT = "gba";
+    public static final int PLATFORM_GBA = 1;
+    public static final int PLATFORM_FAVS = 2;
+
+
 }

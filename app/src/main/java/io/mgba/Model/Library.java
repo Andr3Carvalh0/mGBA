@@ -2,15 +2,13 @@ package io.mgba.Model;
 
 import com.annimon.stream.Stream;
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
-
 import dagger.Lazy;
+import io.mgba.Constants;
 import io.mgba.Data.Database.Game;
-import io.mgba.Data.Platform;
 import io.mgba.Data.Remote.DTOs.GameJSON;
 import io.mgba.Data.Remote.Interfaces.IRequest;
 import io.mgba.Model.IO.Decoder;
@@ -43,17 +41,20 @@ public class Library implements ILibrary {
     }
 
     @Override
-    public Single<List<Game>> prepareGames(Platform platform) {
+    public Single<List<Game>> prepareGames(int platform) {
         Single<List<Game>> ret =  Single.create(subscriber -> {
 
-            if(platform == null){
+            if(platform == Constants.PLATFORM_GBC
+                    || platform == Constants.PLATFORM_GBA
+                    || platform == Constants.PLATFORM_FAVS){
+
+                List<Game> games = database.getGamesForPlatform(platform);
+
+                subscriber.onSuccess(games);
+
+            }else{
                 subscriber.onSuccess(new LinkedList<>());
-                return;
             }
-
-            List<Game> games = database.getGamesForPlatform(platform);
-
-            subscriber.onSuccess(games);
         });
 
         return ret.doOnError(mgba::report);
@@ -77,7 +78,7 @@ public class Library implements ILibrary {
     }
 
     @Override
-    public Single<List<Game>> reloadGames(Platform... platform) {
+    public Single<List<Game>> reloadGames(int... platform) {
         Single<List<Game>> ret = Single.create(subscriber -> {
             List<Game> games = database.getGames();
             removeGamesFromDatabase(games);
@@ -87,7 +88,7 @@ public class Library implements ILibrary {
             games.addAll(updatedList);
 
             Collections.sort(games, (o1, o2) -> o1.getName().compareTo(o2.getName()));
-            subscriber.onSuccess(filter(Arrays.asList(platform), games));
+            subscriber.onSuccess(filter(platform, games));
         });
 
         return ret.doOnError(mgba::report);
@@ -95,7 +96,7 @@ public class Library implements ILibrary {
     }
 
     @Override
-    public Single<List<Game>> reloadGames(String path, Platform... platform) {
+    public Single<List<Game>> reloadGames(String path, int... platform) {
         filesService.setCurrentDirectory(path);
         return reloadGames(platform);
     }
@@ -126,18 +127,26 @@ public class Library implements ILibrary {
                 }).toList();
     }
 
-    private List<Game> filter(List<Platform> platform, List<Game> games){
+    private List<Game> filter(int[] platform, List<Game> games){
         return Stream.of(games)
-                     .filter(g -> platform.contains(g.getPlatform()))
+                     .filter(g -> {
+                         for (int i = 0; i < platform.length; i++) {
+                             if(platform[i] == g.getPlatform())
+                                 return true;
+                         }
+
+                        return false;
+                     })
                      .toList();
     }
 
-    private Platform getPlatform(File file) {
+    private int getPlatform(File file) {
         final String fileExtension = FilesManager.getFileExtension(file);
-        if(Platform.GBA.getExtensions().contains(fileExtension))
-            return Platform.GBA;
 
-        return Platform.GBC;
+        if(Constants.PLATFORM_GBA_EXT.contains(fileExtension))
+            return Constants.PLATFORM_GBA;
+
+        return Constants.PLATFORM_GBC;
     }
 
     private void storeInDatabase(Game game){

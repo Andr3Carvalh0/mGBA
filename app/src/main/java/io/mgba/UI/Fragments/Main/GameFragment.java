@@ -18,7 +18,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.mgba.Adapters.GameAdapter;
 import io.mgba.Constants;
-import io.mgba.Data.Platform;
 import io.mgba.Presenter.GamesPresenter;
 import io.mgba.Presenter.Interfaces.IGamesPresenter;
 import io.mgba.Data.Database.Game;
@@ -50,7 +49,7 @@ public class GameFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         mView = prepareView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, mView);
 
-        final Platform platform = (Platform) getArguments().getSerializable(Constants.ARG_PLATFORM);
+        final int platform = getArguments().getInt(Constants.ARG_PLATFORM);
         controller = new GamesPresenter(platform, this);
 
 

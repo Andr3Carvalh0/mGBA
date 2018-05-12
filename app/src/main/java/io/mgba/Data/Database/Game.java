@@ -7,12 +7,10 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
-
 import java.io.File;
-
-import io.mgba.Data.Platform;
+import java.util.Objects;
+import io.mgba.Constants;
 import io.mgba.Model.IO.FilesManager;
 
 @Entity(tableName = "Games")
@@ -35,7 +33,7 @@ public class Game implements Parcelable, SearchSuggestion {
     @NonNull
     private File file;
     @ColumnInfo()
-    private Platform platform;
+    private int platform;
 
     @ColumnInfo()
     private String name = null;
@@ -65,7 +63,7 @@ public class Game implements Parcelable, SearchSuggestion {
     public Game() { }
 
     @Ignore
-    public Game(String path, String name, String description, String released, String developer, String genre, String coverURL, String MD5, boolean favourite, Platform platform) {
+    public Game(String path, String name, String description, String released, String developer, String genre, String coverURL, String MD5, boolean favourite, int platform) {
         this.file = new File(path);
         this.name = name;
         this.description = description;
@@ -79,7 +77,7 @@ public class Game implements Parcelable, SearchSuggestion {
     }
 
     @Ignore
-    public Game(String path, Platform platform) {
+    public Game(String path, int platform) {
         this.file = new File(path);
         this.platform = platform;
     }
@@ -95,8 +93,7 @@ public class Game implements Parcelable, SearchSuggestion {
         this.coverURL = in.readString();
         this.MD5 = in.readString();
         this.favourite = in.readByte() != 0;
-        int tmpPlatform = in.readInt();
-        this.platform = tmpPlatform == -1 ? null : Platform.values()[tmpPlatform];
+        this.platform = in.readInt();
     }
 
     public String getName() {
@@ -174,16 +171,16 @@ public class Game implements Parcelable, SearchSuggestion {
         this.favourite = favourite;
     }
 
-    public void setPlatform(Platform platform){
+    public void setPlatform(int platform){
         this.platform = platform;
     }
 
-    public Platform getPlatform() {
+    public int getPlatform() {
         return platform;
     }
 
     public boolean isAdvanced() {
-        return platform.getValue() == Platform.GBA.getValue();
+        return platform == Constants.PLATFORM_GBA;
     }
 
     @Override
@@ -207,7 +204,7 @@ public class Game implements Parcelable, SearchSuggestion {
         dest.writeString(this.coverURL);
         dest.writeString(this.MD5);
         dest.writeByte(this.favourite ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.platform == null ? -1 : this.platform.ordinal());
+        dest.writeInt(this.platform);
     }
 
     @Override
@@ -222,9 +219,7 @@ public class Game implements Parcelable, SearchSuggestion {
 
     @Override
     public int hashCode() {
-        int result = getFile().hashCode();
-        result = 31 * result + getPlatform().hashCode();
-        return result;
+        return Objects.hash(file, platform, name, description, released, developer, genre, coverURL, MD5, favourite);
     }
 
     public boolean needsUpdate() {

@@ -1,14 +1,10 @@
 package io.mgba.Model.IO;
 
 import android.content.Context;
-
-import java.io.File;
 import java.util.List;
-
 import io.mgba.Data.Database.Cheat;
 import io.mgba.Data.Database.Database;
 import io.mgba.Data.Database.Game;
-import io.mgba.Data.Platform;
 import io.mgba.Model.Interfaces.IDatabase;
 
 import static io.mgba.mgba.printLog;
@@ -26,8 +22,8 @@ public class LocalDB implements IDatabase{
     }
 
     @Override
-    public List<Game> getGamesForPlatform(final Platform platform){
-        return db.gameDao().getGamesForPlatform(platform.ordinal());
+    public List<Game> getGamesForPlatform(final int platform){
+        return db.gameDao().getGamesForPlatform(platform);
     }
 
     @Override

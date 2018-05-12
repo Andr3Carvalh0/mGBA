@@ -3,7 +3,6 @@ package io.mgba.Presenter;
 
 import io.mgba.Presenter.Interfaces.IGamesPresenter;
 import io.mgba.Data.Database.Game;
-import io.mgba.Data.Platform;
 import io.mgba.UI.Fragments.Interfaces.IGamesFragment;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -13,9 +12,9 @@ import io.reactivex.schedulers.Schedulers;
 public class GamesPresenter implements IGamesPresenter {
     private final IGamesFragment<Game> view;
     private CompositeDisposable disposable = new CompositeDisposable();
-    private Platform platform;
+    private int platform;
 
-    public GamesPresenter(Platform platform, IGamesFragment<Game> view) {
+    public GamesPresenter(int platform, IGamesFragment<Game> view) {
         this.view = view;
         this.platform = platform;
     }
@@ -26,7 +25,7 @@ public class GamesPresenter implements IGamesPresenter {
     }
 
     @Override
-    public Platform getPlatform() {
+    public int getPlatform() {
         return platform;
     }
 
