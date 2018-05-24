@@ -27,5 +27,7 @@
     <dimen name="body_margin_small">6dp</dimen>
     <dimen name="margin_start_separator_settings">52dp</dimen>
     <dimen name="icon_settings_size">24dp</dimen>
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
+    <dimen name="bottom_sheet_top_padding">16dp</dimen>
 
 </resources>

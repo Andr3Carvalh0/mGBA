@@ -2,7 +2,10 @@ package io.mgba.Utils;
 
 import android.app.Activity;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -70,9 +73,17 @@ public class GlideUtils<T> {
         return this;
     }
 
+    public GlideUtils colorViewWithCustomBackground(Colors primarySwatch, Colors secundarySwatch, View... view){
+        Stream.of(view)
+                .map(v -> new CustomBackgroundColorWrapper(v, primarySwatch, secundarySwatch))
+                .forEach(c -> views.add(c));
+
+        return this;
+    }
+
     public GlideUtils colorView(Colors swatch, boolean title, TextView... view){
         Stream.of(view)
-                .map(v -> new SpecialColorWrapper(swatch, v, title))
+                .map(v -> new TextColorWrapper(swatch, v, title))
                 .forEach(c -> views.add(c));
 
         return this;
@@ -173,11 +184,11 @@ public class GlideUtils<T> {
         }
     }
 
-    private class SpecialColorWrapper extends ColorView{
+    private class TextColorWrapper extends ColorView{
         private final Colors profile;
         private boolean title;
 
-        SpecialColorWrapper(Colors profile, View view, boolean title) {
+        TextColorWrapper(Colors profile, View view, boolean title) {
             super(view);
             this.profile = profile;
             this.title = title;
@@ -190,6 +201,52 @@ public class GlideUtils<T> {
                                                           : GlidePalette.Swatch.BODY_TEXT_COLOR);
         }
     }
+
+    private class CustomBackgroundColorWrapper extends ColorView{
+
+        private final Colors primarySwatch;
+        private final Colors secondarySwatch;
+
+        CustomBackgroundColorWrapper(View view, Colors primarySwatch, Colors secondarySwatch) {
+            super(view);
+            this.primarySwatch = primarySwatch;
+            this.secondarySwatch = secondarySwatch;
+        }
+
+        Colors getPrimarySwatch() {
+            return primarySwatch;
+        }
+
+        Colors getSecondarySwatch() {
+            return secondarySwatch;
+        }
+
+        void colorView(Palette palette, GlidePalette<Drawable> requestColor) {
+            Palette.Swatch swatch = getPalette(getPrimarySwatch(), palette);
+
+            if(swatch == null)
+                swatch = getPalette(getSecondarySwatch(), palette);
+
+            if(swatch == null)
+                return;
+
+            final Drawable background = view.getBackground();
+
+            if (background instanceof ShapeDrawable) {
+                ShapeDrawable shapeDrawable = (ShapeDrawable) background;
+                shapeDrawable.getPaint().setColor(swatch.getRgb());
+
+            } else if (background instanceof GradientDrawable) {
+                GradientDrawable gradientDrawable = (GradientDrawable) background;
+                gradientDrawable.setColor(swatch.getRgb());
+
+            } else if (background instanceof ColorDrawable) {
+                ColorDrawable colorDrawable = (ColorDrawable) background;
+                colorDrawable.setColor(swatch.getRgb());
+            }
+        }
+    }
+
 
     private class ColorWrapper extends ColorView{
 

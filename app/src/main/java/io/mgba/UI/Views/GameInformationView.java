@@ -1,6 +1,11 @@
 package io.mgba.UI.Views;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,12 +13,12 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,12 +55,16 @@ public class GameInformationView extends BottomSheetDialogFragment implements Vi
 
     private Game game;
 
+    @Override
+    public int getTheme() {
+        return R.style.BottomSheetDialogTheme;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.library_sheet_view, container, false);
         ButterKnife.bind(this, view);
-
         final Bundle arguments = getArguments();
 
         if(arguments != null)
@@ -76,14 +85,26 @@ public class GameInformationView extends BottomSheetDialogFragment implements Vi
         title.setText(game.getName());
         description.setText(game.getDescription());
 
+
+
         if(cover != null && game.getCoverURL() != null) {
             GlideUtils.init(this, game.getCoverURL())
                       .setPlaceholders(R.drawable.placeholder, R.drawable.error)
                       .colorView(Colors.VIBRANT, Colors.DARK_MUTED, playButton, savesHeader)
-                      .colorView(Colors.LIGHT_MUTED, Colors.LIGHT_VIBRANT, header, noSavesMessage, noContentImage)
+                      .colorView(Colors.LIGHT_MUTED, Colors.LIGHT_VIBRANT, noSavesMessage, noContentImage)
+                      .colorViewWithCustomBackground(Colors.LIGHT_MUTED, Colors.LIGHT_VIBRANT, header)
                       .colorView(Colors.LIGHT_VIBRANT, true, title)
                       .colorView(Colors.LIGHT_VIBRANT, false, description)
                       .build(cover);
+        }else{
+            //set header color back to normal
+            final Drawable background = header.getBackground();
+
+            if (background instanceof GradientDrawable) {
+                GradientDrawable gradientDrawable = (GradientDrawable) background;
+                gradientDrawable.setColor(getResources().getColor(R.color.colorPrimary));
+
+            }
         }
     }
 
