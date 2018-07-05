@@ -56,4 +56,9 @@ public interface FileHandler {
     String getFileExtension(File file);
 
     String transformPath(String absolutePath);
+
+    File getSDCard();
+
+    boolean deviceHasSDCard();
+    File getInternalStorage();
 }

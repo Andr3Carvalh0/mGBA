@@ -1,12 +1,15 @@
 package com.nononsenseapps.filepicker.Controllers;
 
 import android.content.Context;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import com.nononsenseapps.filepicker.Controllers.Interfaces.FileHandler;
 import com.nononsenseapps.filepicker.R;
 import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.util.HashMap;
+
+import static android.os.Environment.getExternalStorageState;
 
 public class FilePickerController implements FileHandler {
 
@@ -99,6 +102,10 @@ public class FilePickerController implements FileHandler {
         return tmp;
     }
 
+    @Override
+    public File getInternalStorage() {
+        return initialDirectory;
+    }
 
     /**
      * Compare two files to determine their relative sort order. This follows the usual
@@ -141,5 +148,15 @@ public class FilePickerController implements FileHandler {
     @Override
     public String transformPath(String absolutePath) {
         return absolutePath;
+    }
+
+    @Override
+    public File getSDCard() {
+        return new File(Environment.getExternalStorageDirectory().getPath() + "/");
+    }
+
+    @Override
+    public boolean deviceHasSDCard() {
+        return getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED) && Environment.isExternalStorageRemovable();
     }
 }

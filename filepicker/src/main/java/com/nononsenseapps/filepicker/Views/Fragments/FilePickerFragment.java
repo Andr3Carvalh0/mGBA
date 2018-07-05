@@ -41,16 +41,21 @@ import com.nononsenseapps.filepicker.R;
 import com.nononsenseapps.filepicker.Views.Fragments.Interfaces.FragmentContract;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+
+import static android.support.v4.app.ActivityCompat.invalidateOptionsMenu;
+
 
 public class FilePickerFragment extends Fragment implements LoaderManager.LoaderCallbacks<SortedList<File>>, NewItemFragment.OnNewFolderListener, AdapterCallback, FragmentContract{
 
     // Where to display on open.
     public static final String KEY_START_PATH = "KEY_START_PATH";
-    // Used for saving state.
+    // Used for saving state of current path.
     public static final String KEY_CURRENT_PATH = "KEY_CURRENT_PATH";
+    // Used for saving if current dir is sdcard or internal.
+    public static final String KEY_CURRENT = "KEY_CURRENT";
 
     private static List<String> IMAGES_FORMAT;
     private static List<String> AUDIO_FORMAT;
@@ -63,9 +68,11 @@ public class FilePickerFragment extends Fragment implements LoaderManager.Loader
 
         IMAGES_FORMAT.add("jpg");
         IMAGES_FORMAT.add("png");
+        IMAGES_FORMAT.add("tiff");
 
         AUDIO_FORMAT.add("wav");
         AUDIO_FORMAT.add("mp3");
+        AUDIO_FORMAT.add("m4a");
 
         MOVIE_FORMAT.add("mov");
         MOVIE_FORMAT.add("mp4");
@@ -78,6 +85,7 @@ public class FilePickerFragment extends Fragment implements LoaderManager.Loader
     private static final int OTHER = 5;
 
     private String startPath;
+    private boolean onInternalStorage = true;
     private FileHandler mController = null;
     private File mCurrentPath = null;
     private OnFilePickedListener mListener;
@@ -129,21 +137,18 @@ public class FilePickerFragment extends Fragment implements LoaderManager.Loader
         final View view = inflateRootView(inflater, container);
 
         Toolbar toolbar = view.findViewById(R.id.nnf_picker_toolbar);
-        if (toolbar != null) {
+
+        if (toolbar != null)
             setupToolbar(toolbar);
-        }
 
         mController = new FilePickerController(getActivity().getApplicationContext(), new File(startPath));
 
 
         relativeLayout = view.findViewById(R.id.relativeLayout);
         fab = view.findViewById(R.id.floatingActionButton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mListener != null)
-                    mListener.onFilePicked(mController.transformPath(mCurrentPath.getAbsolutePath()));
-            }
+        fab.setOnClickListener(view1 -> {
+            if(mListener != null)
+                mListener.onFilePicked(mController.transformPath(mCurrentPath.getAbsolutePath()));
         });
 
         recyclerView = view.findViewById(android.R.id.list);
@@ -186,6 +191,7 @@ public class FilePickerFragment extends Fragment implements LoaderManager.Loader
         // Only if we have no state
         if (mCurrentPath == null) {
             if (savedInstanceState != null) {
+                onInternalStorage = savedInstanceState.getBoolean(KEY_CURRENT);
 
                 String path = savedInstanceState.getString(KEY_CURRENT_PATH);
                 if (path != null) {
@@ -219,6 +225,7 @@ public class FilePickerFragment extends Fragment implements LoaderManager.Loader
     public void onSaveInstanceState(Bundle b) {
         super.onSaveInstanceState(b);
         b.putString(KEY_CURRENT_PATH, mCurrentPath.toString());
+        b.putBoolean(KEY_CURRENT, onInternalStorage);
     }
 
     @Override
@@ -380,6 +387,21 @@ public class FilePickerFragment extends Fragment implements LoaderManager.Loader
         inflater.inflate(R.menu.filepickermenu, menu);
     }
 
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item = menu.findItem(R.id.switch_sdcard);
+
+        item.setIcon(onInternalStorage ? R.drawable.ic_sd_storage_white_24dp : R.drawable.ic_phone_android_white_24dp);
+        item.setVisible(isDeviceCapableOfSDCard());
+
+    }
+
+    private boolean isDeviceCapableOfSDCard(){
+        return mController.deviceHasSDCard();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
@@ -387,6 +409,17 @@ public class FilePickerFragment extends Fragment implements LoaderManager.Loader
         if (i == R.id.action_create_folder) {
             NewFolderFragment.showDialog((getActivity()).getSupportFragmentManager(), FilePickerFragment.this);
 
+            return true;
+        }
+
+        if(i == R.id.switch_sdcard){
+            if(onInternalStorage)
+                goToDir(mController.getSDCard());
+            else
+                goToDir(mController.getInternalStorage());
+
+            onInternalStorage = !onInternalStorage;
+            Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
             return true;
         }
 
