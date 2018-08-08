@@ -2,15 +2,15 @@ package org.lucasr.twowayview.core;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.OnItemTouchListener;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 
-abstract class ClickItemTouchListener implements OnItemTouchListener {
+import androidx.core.view.MotionEventCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
+abstract class ClickItemTouchListener implements RecyclerView.OnItemTouchListener {
     private static final String LOGTAG = "ClickItemTouchListener";
 
     private final GestureDetector mGestureDetector;
@@ -21,11 +21,7 @@ abstract class ClickItemTouchListener implements OnItemTouchListener {
     }
 
     private boolean isAttachedToWindow(RecyclerView hostView) {
-        if (Build.VERSION.SDK_INT >= 19) {
-            return hostView.isAttachedToWindow();
-        } else {
-            return (hostView.getHandler() != null);
-        }
+        return hostView.isAttachedToWindow();
     }
 
     private boolean hasAdapter(RecyclerView hostView) {

@@ -3,7 +3,7 @@ package io.mgba;
 import org.junit.Test;
 
 import java.io.File;
-import io.mgba.Model.IO.FilesManager;
+import io.mgba.model.io.FilesManager;
 
 import static org.junit.Assert.assertEquals;
 

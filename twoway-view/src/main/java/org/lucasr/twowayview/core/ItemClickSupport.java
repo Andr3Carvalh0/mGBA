@@ -1,11 +1,12 @@
 package org.lucasr.twowayview.core;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.HapticFeedbackConstants;
 import android.view.SoundEffectConstants;
 import android.view.View;
 
 import org.lucasr.twowayview.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ItemClickSupport {
     private final RecyclerView mRecyclerView;

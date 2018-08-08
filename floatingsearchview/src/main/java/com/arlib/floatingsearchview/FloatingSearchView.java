@@ -28,23 +28,8 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
-import android.support.v4.view.ViewPropertyAnimatorUpdateListener;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.graphics.drawable.DrawerArrowDrawable;
-import android.support.v7.view.menu.MenuBuilder;
-import android.support.v7.view.menu.MenuItemImpl;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -62,8 +47,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.arlib.floatingsearchview.util.Util;
@@ -78,6 +61,20 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuItemImpl;
+import androidx.cardview.widget.CardView;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewPropertyAnimatorListenerAdapter;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A search UI widget that implements a floating search box also called persistent
@@ -280,11 +277,7 @@ public class FloatingSearchView extends FrameLayout {
             applyXmlAttributes(attrs);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            setBackground(mBackgroundDrawable);
-        } else {
-            setBackgroundDrawable(mBackgroundDrawable);
-        }
+        setBackground(mBackgroundDrawable);
 
         setupQueryBar();
 
@@ -422,24 +415,16 @@ public class FloatingSearchView extends FrameLayout {
 
         });
 
-        mMenuView.setOnVisibleWidthChanged(new MenuView.OnVisibleWidthChangedListener() {
-            @Override
-            public void onItemsMenuVisibleWidthChanged(int newVisibleWidth) {
-                handleOnVisibleMenuItemsWidthChanged(newVisibleWidth);
-            }
-        });
+        mMenuView.setOnVisibleWidthChanged(newVisibleWidth -> handleOnVisibleMenuItemsWidthChanged(newVisibleWidth));
 
         mMenuView.setActionIconColor(mActionMenuItemColor);
         mMenuView.setOverflowColor(mOverflowIconColor);
 
         mClearButton.setVisibility(View.INVISIBLE);
-        mClearButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSearchInput.setText("");
-                if (mOnClearSearchActionListener != null) {
-                    mOnClearSearchActionListener.onClearSearchClicked();
-                }
+        mClearButton.setOnClickListener(v -> {
+            mSearchInput.setText("");
+            if (mOnClearSearchActionListener != null) {
+                mOnClearSearchActionListener.onClearSearchClicked();
             }
         });
 
@@ -471,74 +456,62 @@ public class FloatingSearchView extends FrameLayout {
 
         });
 
-        mSearchInput.setOnFocusChangeListener(new TextView.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+        mSearchInput.setOnFocusChangeListener((v, hasFocus) -> {
 
-                if (mSkipQueryFocusChangeEvent) {
-                    mSkipQueryFocusChangeEvent = false;
-                } else if (hasFocus != mIsFocused) {
-                    setSearchFocusedInternal(hasFocus);
-                }
+            if (mSkipQueryFocusChangeEvent) {
+                mSkipQueryFocusChangeEvent = false;
+            } else if (hasFocus != mIsFocused) {
+                setSearchFocusedInternal(hasFocus);
             }
         });
 
-        mSearchInput.setOnKeyboardDismissedListener(new SearchInputView.OnKeyboardDismissedListener() {
-            @Override
-            public void onKeyboardDismissed() {
-                if (mCloseSearchOnSofteKeyboardDismiss) {
-                    setSearchFocusedInternal(false);
-                }
-            }
-        });
-
-        mSearchInput.setOnSearchKeyListener(new SearchInputView.OnKeyboardSearchKeyClickListener() {
-            @Override
-            public void onSearchKeyClicked() {
-                if (mSearchListener != null) {
-                    mSearchListener.onSearchAction(getQuery());
-                }
-                mSkipTextChangeEvent = true;
-                mSkipTextChangeEvent = true;
-                if (mIsTitleSet) {
-                    setSearchBarTitle(getQuery());
-                } else {
-                    setSearchText(getQuery());
-                }
+        mSearchInput.setOnKeyboardDismissedListener(() -> {
+            if (mCloseSearchOnSofteKeyboardDismiss) {
                 setSearchFocusedInternal(false);
             }
         });
 
-        mLeftAction.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (isSearchBarFocused()) {
-                    setSearchFocusedInternal(false);
-                } else {
-                    switch (mLeftActionMode) {
-                        case LEFT_ACTION_MODE_SHOW_HAMBURGER:
-                            if(mLeftMenuClickListener != null){
-                                mLeftMenuClickListener.onClick(mLeftAction);
-                            }else {
-                                toggleLeftMenu();
-                            }
-                            break;
-                        case LEFT_ACTION_MODE_SHOW_SEARCH:
-                            setSearchFocusedInternal(true);
-                            break;
-                        case LEFT_ACTION_MODE_SHOW_HOME:
-                            if (mOnHomeActionClickListener != null) {
-                                mOnHomeActionClickListener.onHomeClicked();
-                            }
-                            break;
-                        case LEFT_ACTION_MODE_NO_LEFT_ACTION:
-                            //do nothing
-                            break;
-                    }
-                }
-
+        mSearchInput.setOnSearchKeyListener(() -> {
+            if (mSearchListener != null) {
+                mSearchListener.onSearchAction(getQuery());
             }
+            mSkipTextChangeEvent = true;
+            mSkipTextChangeEvent = true;
+            if (mIsTitleSet) {
+                setSearchBarTitle(getQuery());
+            } else {
+                setSearchText(getQuery());
+            }
+            setSearchFocusedInternal(false);
+        });
+
+        mLeftAction.setOnClickListener(v -> {
+
+            if (isSearchBarFocused()) {
+                setSearchFocusedInternal(false);
+            } else {
+                switch (mLeftActionMode) {
+                    case LEFT_ACTION_MODE_SHOW_HAMBURGER:
+                        if(mLeftMenuClickListener != null){
+                            mLeftMenuClickListener.onClick(mLeftAction);
+                        }else {
+                            toggleLeftMenu();
+                        }
+                        break;
+                    case LEFT_ACTION_MODE_SHOW_SEARCH:
+                        setSearchFocusedInternal(true);
+                        break;
+                    case LEFT_ACTION_MODE_SHOW_HOME:
+                        if (mOnHomeActionClickListener != null) {
+                            mOnHomeActionClickListener.onHomeClicked();
+                        }
+                        break;
+                    case LEFT_ACTION_MODE_NO_LEFT_ACTION:
+                        //do nothing
+                        break;
+                }
+            }
+
         });
 
         refreshLeftIcon();
@@ -1236,14 +1209,11 @@ public class FloatingSearchView extends FrameLayout {
                     setInterpolator(SUGGEST_ITEM_ADD_ANIM_INTERPOLATOR).
                     setDuration(mSuggestionSectionAnimDuration).
                     translationY(newTranslationY)
-                    .setUpdateListener(new ViewPropertyAnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(View view) {
+                    .setUpdateListener(view -> {
 
-                            if (mOnSuggestionsListHeightChanged != null) {
-                                float newSuggestionsHeight = Math.abs(view.getTranslationY() - fullyInvisibleTranslationY);
-                                mOnSuggestionsListHeightChanged.onSuggestionsListHeightChanged(newSuggestionsHeight);
-                            }
+                        if (mOnSuggestionsListHeightChanged != null) {
+                            float newSuggestionsHeight = Math.abs(view.getTranslationY() - fullyInvisibleTranslationY);
+                            mOnSuggestionsListHeightChanged.onSuggestionsListHeightChanged(newSuggestionsHeight);
                         }
                     })
                     .setListener(new ViewPropertyAnimatorListenerAdapter() {

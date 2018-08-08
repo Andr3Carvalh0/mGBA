@@ -1,9 +1,10 @@
 package org.lucasr.twowayview.layout;
 
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
 
 import org.lucasr.twowayview.core.TwoWayLayoutManager.Direction;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Core logic for applying item vertical and horizontal spacings via item

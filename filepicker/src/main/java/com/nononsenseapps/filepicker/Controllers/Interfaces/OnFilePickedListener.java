@@ -1,7 +1,7 @@
 package com.nononsenseapps.filepicker.Controllers.Interfaces;
 
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * This interface must be implemented by activities that contain this

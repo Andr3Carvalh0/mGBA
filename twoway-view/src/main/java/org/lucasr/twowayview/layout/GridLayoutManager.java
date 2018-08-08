@@ -18,12 +18,12 @@ package org.lucasr.twowayview.layout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v7.widget.RecyclerView.Recycler;
-import android.support.v7.widget.RecyclerView.State;
 import android.util.AttributeSet;
 import android.view.View;
 
 import org.lucasr.twowayview.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class GridLayoutManager extends BaseLayoutManager {
     private static final String LOGTAG = "GridLayoutManager";
@@ -83,7 +83,7 @@ public class GridLayoutManager extends BaseLayoutManager {
     }
 
     @Override
-    void moveLayoutToPosition(int position, int offset, Recycler recycler, State state) {
+    void moveLayoutToPosition(int position, int offset, RecyclerView.Recycler recycler, RecyclerView.State state) {
         final Lanes lanes = getLanes();
         lanes.reset(offset);
 

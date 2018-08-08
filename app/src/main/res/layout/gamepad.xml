@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,7 +36,7 @@
             android:background="@null"
             app:srcCompat="@drawable/select_button" />
 
-        <android.support.v4.widget.Space
+        <Space
             android:layout_width="16dp"
             android:layout_height="wrap_content" />
 
@@ -92,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/a_button" />
 
-    <io.mgba.UI.Overlays.DpadController
+    <io.mgba.ui.overlays.DpadController
         android:id="@+id/dpad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,4 +114,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/menu_button" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

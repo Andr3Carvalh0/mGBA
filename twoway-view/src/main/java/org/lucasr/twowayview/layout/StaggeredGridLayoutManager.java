@@ -21,14 +21,13 @@ import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.Recycler;
-import android.support.v7.widget.RecyclerView.State;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.lucasr.twowayview.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class StaggeredGridLayoutManager extends GridLayoutManager {
     private static final String LOGTAG = "StaggeredGridLayoutManager";
@@ -88,7 +87,7 @@ public class StaggeredGridLayoutManager extends GridLayoutManager {
     }
 
     @Override
-    void moveLayoutToPosition(int position, int offset, Recycler recycler, State state) {
+    void moveLayoutToPosition(int position, int offset, RecyclerView.Recycler recycler, RecyclerView.State state) {
         final boolean isVertical = isVertical();
         final Lanes lanes = getLanes();
 

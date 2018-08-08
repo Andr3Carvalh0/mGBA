@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,14 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/bottomsheet_header"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/game_header_bs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottomsheet_header"
             android:background="@drawable/material2_bottomsheet">
 
             <TextView
-                android:id="@+id/gameDescription"
+                android:id="@+id/game_desc_bs"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
                 android:layout_marginStart="@dimen/body_margin"
@@ -31,12 +31,12 @@
                 android:maxLines="4"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cover"
-                app:layout_constraintTop_toBottomOf="@+id/gameTitle"
+                app:layout_constraintStart_toEndOf="@+id/game_cover_bs"
+                app:layout_constraintTop_toBottomOf="@+id/game_title_bs"
                 tools:text="Lisbon is a great city if you arent from Portugal!" />
 
             <me.grantland.widget.AutofitTextView
-                android:id="@+id/gameTitle"
+                android:id="@+id/game_title_bs"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/body_margin"
@@ -47,13 +47,13 @@
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cover"
+                app:layout_constraintStart_toEndOf="@+id/game_cover_bs"
                 app:layout_constraintTop_toTopOf="parent"
                 autofit:minTextSize="14sp"
                 tools:text="Lisbon" />
 
             <ImageView
-                android:id="@+id/cover"
+                android:id="@+id/game_cover_bs"
                 android:layout_width="@dimen/cover_size"
                 android:layout_height="@dimen/cover_size"
                 android:layout_alignParentStart="true"
@@ -63,31 +63,31 @@
                 android:background="@drawable/placeholder"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/bottomsheet_header"
+            android:layout_below="@+id/game_header_bs"
             android:background="@color/white">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/savestate_recyclerview"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/game_savelist_bs"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_below="@+id/savestate_title"
                 android:layout_alignParentStart="true"
+                android:layout_below="@+id/game_savetitle_bs"
+                android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="@dimen/body_margin"
-                android:layout_marginEnd="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/savestate_title" />
+                app:layout_constraintTop_toBottomOf="@+id/game_savetitle_bs" />
 
             <TextView
-                android:id="@+id/savestate_title"
+                android:id="@+id/game_savetitle_bs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -103,21 +103,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/no_savestates_container"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/game_nocontent_container_bs"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_below="@+id/savestate_title"
+                android:layout_below="@+id/game_savetitle_bs"
+                android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="@dimen/body_margin"
-                android:layout_marginEnd="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/savestate_title">
+                app:layout_constraintTop_toBottomOf="@+id/game_savetitle_bs">
 
                 <ImageView
-                    android:id="@+id/no_content_image"
+                    android:id="@+id/game_image_content_bs"
                     android:layout_width="@dimen/sheet_no_content_image"
                     android:layout_height="@dimen/sheet_no_content_image"
                     android:layout_alignParentTop="true"
@@ -131,11 +131,11 @@
                     app:layout_constraintVertical_bias="0.19999999" />
 
                 <TextView
-                    android:id="@+id/no_savestate_message"
+                    android:id="@+id/game_text_content_bs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/no_content_image"
                     android:layout_alignParentStart="true"
+                    android:layout_below="@+id/game_image_content_bs"
                     android:maxLines="1"
                     android:text="@string/no_savestate_message"
                     android:textAlignment="center"
@@ -143,14 +143,14 @@
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/no_content_image" />
-            </android.support.constraint.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/game_image_content_bs" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/game_play_bs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
@@ -159,7 +159,7 @@
         android:src="@drawable/ic_play_arrow_white_24dp"
         app:backgroundTint="@color/theme_default_primary"
         app:fabSize="normal"
-        app:layout_anchor="@id/bottomsheet_header"
+        app:layout_anchor="@id/game_header_bs"
         app:layout_anchorGravity="bottom|right|end" />
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,7 +1,7 @@
 package com.nononsenseapps.filepicker.Controllers.Interfaces;
 
-import android.support.annotation.NonNull;
 import java.io.File;
+import androidx.annotation.NonNull;
 
 /**
  * An interface for the methods required to handle backend-specific stuff.

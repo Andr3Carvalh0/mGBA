@@ -9,16 +9,16 @@ package com.nononsenseapps.filepicker.Views.Fragments;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.nononsenseapps.filepicker.R;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 public abstract class NewItemFragment extends DialogFragment {
 
@@ -57,28 +57,18 @@ public abstract class NewItemFragment extends DialogFragment {
                 }
 
                 Button cancel = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-                cancel.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        dialog.cancel();
-                    }
-                });
+                cancel.setOnClickListener(view -> dialog.cancel());
 
                 final Button ok = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 // Start disabled
                 ok.setEnabled(false);
-                ok.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        String itemName = editText.getText().toString();
-                        if (validateName(itemName)) {
-                            if (listener != null) {
-                                listener.onNewFolder(itemName);
-                            }
-                            dialog.dismiss();
+                ok.setOnClickListener(view -> {
+                    String itemName = editText.getText().toString();
+                    if (validateName(itemName)) {
+                        if (listener != null) {
+                            listener.onNewFolder(itemName);
                         }
+                        dialog.dismiss();
                     }
                 });
 

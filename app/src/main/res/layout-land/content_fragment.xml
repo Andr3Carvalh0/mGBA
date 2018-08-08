@@ -1,33 +1,36 @@
+
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/main_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <org.lucasr.twowayview.layout.TwoWayView
-            android:id="@+id/content_recyclerView"
+            android:id="@+id/main_contentlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:twowayview_layoutManager="SpannableGridLayoutManager"
-            app:twowayview_numColumns="5"
-            app:twowayview_numRows="5"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            app:twowayview_numColumns="3"
+            app:twowayview_numRows="3" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/no_content_container"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_nocontent_container"
         android:layout_width="match_parent"
-
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/no_content_image"
+            android:id="@+id/main_image_content"
             android:layout_width="@dimen/message_width"
             android:layout_height="@dimen/message_width"
-            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/ic_videogame_asset_grey_500_48dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,17 +38,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/no_content_message"
+            android:id="@+id/main_text_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/no_content_image"
-            android:layout_alignStart="@+id/no_content_image"
-            android:layout_alignEnd="@+id/no_content_image"
+            android:layout_alignEnd="@+id/main_image_content"
+            android:layout_alignStart="@+id/main_image_content"
+            android:layout_below="@+id/main_image_content"
             android:text="@string/no_games"
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Material.Medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/no_content_image" />
-    </android.support.constraint.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/main_image_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

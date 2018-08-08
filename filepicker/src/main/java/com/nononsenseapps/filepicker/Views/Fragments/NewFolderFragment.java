@@ -7,9 +7,11 @@
 package com.nononsenseapps.filepicker.Views.Fragments;
 
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
+
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 
 import static com.nononsenseapps.filepicker.Controllers.FilePickerUtils.isValidFileName;
 

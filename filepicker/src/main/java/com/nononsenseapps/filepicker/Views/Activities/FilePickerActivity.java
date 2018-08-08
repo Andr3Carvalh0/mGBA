@@ -4,14 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import com.nononsenseapps.filepicker.Controllers.Interfaces.OnFilePickedListener;
 import com.nononsenseapps.filepicker.R;
 import com.nononsenseapps.filepicker.Views.Fragments.FilePickerFragment;
 import com.nononsenseapps.filepicker.Views.Fragments.Interfaces.FragmentContract;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 public class FilePickerActivity extends AppCompatActivity implements OnFilePickedListener {
     public static final String EXTRA_START_PATH = "nononsense.intent" + ".START_PATH";

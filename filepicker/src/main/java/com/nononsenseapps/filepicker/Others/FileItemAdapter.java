@@ -1,10 +1,6 @@
 package com.nononsenseapps.filepicker.Others;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.util.SortedList;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +10,11 @@ import com.nononsenseapps.filepicker.Others.Interfaces.AdapterCallback;
 import com.nononsenseapps.filepicker.R;
 
 import java.io.File;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SortedList;
 
 public class FileItemAdapter extends RecyclerView.Adapter<FileItemAdapter.DirViewHolder> {
 

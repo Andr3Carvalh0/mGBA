@@ -18,7 +18,6 @@ package org.lucasr.twowayview.layout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -27,6 +26,8 @@ import org.lucasr.twowayview.R;
 import org.lucasr.twowayview.core.TwoWayLayoutManager;
 
 import java.lang.reflect.Constructor;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class TwoWayView extends RecyclerView {
     private static final String LOGTAG = "TwoWayView";

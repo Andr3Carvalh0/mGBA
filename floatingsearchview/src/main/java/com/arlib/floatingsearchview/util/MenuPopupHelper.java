@@ -20,13 +20,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Parcelable;
-import android.support.v7.view.menu.ListMenuItemView;
-import android.support.v7.view.menu.MenuBuilder;
-import android.support.v7.view.menu.MenuItemImpl;
-import android.support.v7.view.menu.MenuPresenter;
-import android.support.v7.view.menu.MenuView;
-import android.support.v7.view.menu.SubMenuBuilder;
-import android.support.v7.widget.ListPopupWindow;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -44,6 +37,14 @@ import android.widget.PopupWindow;
 import com.arlib.floatingsearchview.R;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.view.menu.ListMenuItemView;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuItemImpl;
+import androidx.appcompat.view.menu.MenuPresenter;
+import androidx.appcompat.view.menu.MenuView;
+import androidx.appcompat.view.menu.SubMenuBuilder;
+import androidx.appcompat.widget.ListPopupWindow;
 
 /**
  * Presents a menu as a small, simple popup anchored to another view.
@@ -255,6 +256,7 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
     public void setCallback(Callback cb) {
         mPresenterCallback = cb;
     }
+
     @Override
     public boolean onSubMenuSelected(SubMenuBuilder subMenu) {
         if (subMenu.hasVisibleItems()) {

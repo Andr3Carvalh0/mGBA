@@ -22,14 +22,6 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v7.widget.LinearSmoothScroller;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.Adapter;
-import android.support.v7.widget.RecyclerView.LayoutManager;
-import android.support.v7.widget.RecyclerView.LayoutParams;
-import android.support.v7.widget.RecyclerView.Recycler;
-import android.support.v7.widget.RecyclerView.State;
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
@@ -38,7 +30,10 @@ import org.lucasr.twowayview.R;
 
 import java.util.List;
 
-public abstract class TwoWayLayoutManager extends LayoutManager implements RecyclerView.SmoothScroller.ScrollVectorProvider {
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.RecyclerView;
+
+public abstract class TwoWayLayoutManager extends RecyclerView.LayoutManager implements RecyclerView.SmoothScroller.ScrollVectorProvider {
     private static final String LOGTAG = "TwoWayLayoutManager";
     private RecyclerView mRecyclerView;
     private boolean mIsVertical = true;
@@ -76,15 +71,15 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         mIsVertical = (orientation == Orientation.VERTICAL);
     }
 
-    private static View findNextScrapView(List<ViewHolder> scrapList, Direction direction,
+    private static View findNextScrapView(List<RecyclerView.ViewHolder> scrapList, Direction direction,
                                           int position) {
         final int scrapCount = scrapList.size();
-        ViewHolder closest = null;
+        RecyclerView.ViewHolder closest = null;
         int closestDistance = Integer.MAX_VALUE;
 
         for (int i = 0; i < scrapCount; i++) {
 
-            final ViewHolder holder = scrapList.get(i);
+            final RecyclerView.ViewHolder holder = scrapList.get(i);
             final int distance = holder.getPosition() - position;
 
             if ((distance < 0 && direction == Direction.END) ||
@@ -144,7 +139,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         return (mIsVertical ? getDecoratedBottom(child) : getDecoratedRight(child));
     }
 
-    protected Adapter getAdapter() {
+    protected RecyclerView.Adapter getAdapter() {
         return (mRecyclerView != null ? mRecyclerView.getAdapter() : null);
     }
 
@@ -159,7 +154,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         mLayoutEnd += offset;
     }
 
-    private void recycleChildrenOutOfBounds(Direction direction, Recycler recycler) {
+    private void recycleChildrenOutOfBounds(Direction direction, RecyclerView.Recycler recycler) {
         if (direction == Direction.END) {
             recycleChildrenFromStart(direction, recycler);
         } else {
@@ -167,7 +162,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         }
     }
 
-    private void recycleChildrenFromStart(Direction direction, Recycler recycler) {
+    private void recycleChildrenFromStart(Direction direction, RecyclerView.Recycler recycler) {
         final int childCount = getChildCount();
         final int childrenStart = getStartWithPadding();
 
@@ -192,7 +187,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         }
     }
 
-    private void recycleChildrenFromEnd(Direction direction, Recycler recycler) {
+    private void recycleChildrenFromEnd(Direction direction, RecyclerView.Recycler recycler) {
         final int childrenEnd = getEndWithPadding();
         final int childCount = getChildCount();
 
@@ -219,7 +214,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         }
     }
 
-    private int scrollBy(int delta, Recycler recycler, State state) {
+    private int scrollBy(int delta, RecyclerView.Recycler recycler, RecyclerView.State state) {
         final int childCount = getChildCount();
         if (childCount == 0 || delta == 0) {
             return 0;
@@ -259,7 +254,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         return delta;
     }
 
-    private void fillGap(Direction direction, Recycler recycler, State state) {
+    private void fillGap(Direction direction, RecyclerView.Recycler recycler, RecyclerView.State state) {
         final int childCount = getChildCount();
         final int extraSpace = getExtraLayoutSpace(state);
         final int firstPosition = getFirstVisiblePosition();
@@ -273,11 +268,11 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         }
     }
 
-    private void fillBefore(int pos, Recycler recycler) {
+    private void fillBefore(int pos, RecyclerView.Recycler recycler) {
         fillBefore(pos, recycler, 0);
     }
 
-    private void fillBefore(int position, Recycler recycler, int extraSpace) {
+    private void fillBefore(int position, RecyclerView.Recycler recycler, int extraSpace) {
         final int limit = getStartWithPadding() - extraSpace;
 
         while (canAddMoreViews(Direction.START, limit) && position >= 0) {
@@ -286,11 +281,11 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         }
     }
 
-    private void fillAfter(int pos, Recycler recycler, State state) {
+    private void fillAfter(int pos, RecyclerView.Recycler recycler, RecyclerView.State state) {
         fillAfter(pos, recycler, state, 0);
     }
 
-    private void fillAfter(int position, Recycler recycler, State state, int extraSpace) {
+    private void fillAfter(int position, RecyclerView.Recycler recycler, RecyclerView.State state, int extraSpace) {
         final int limit = getEndWithPadding() + extraSpace;
 
         final int itemCount = state.getItemCount();
@@ -300,7 +295,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         }
     }
 
-    private void fillSpecific(int position, Recycler recycler, State state) {
+    private void fillSpecific(int position, RecyclerView.Recycler recycler, RecyclerView.State state) {
         if (state.getItemCount() <= 0) {
             return;
         }
@@ -329,7 +324,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         correctTooHigh(getChildCount(), recycler, state);
     }
 
-    private void correctTooHigh(int childCount, Recycler recycler, State state) {
+    private void correctTooHigh(int childCount, RecyclerView.Recycler recycler, RecyclerView.State state) {
         // First see if the last item is visible. If it is not, it is OK for the
         // top of the list to be pushed up.
         final int lastPosition = getLastVisiblePosition();
@@ -368,7 +363,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         }
     }
 
-    private void correctTooLow(int childCount, Recycler recycler, State state) {
+    private void correctTooLow(int childCount, RecyclerView.Recycler recycler, RecyclerView.State state) {
         // First see if the first item is visible. If it is not, it is OK for the
         // end of the list to be pushed forward.
         final int firstPosition = getFirstVisiblePosition();
@@ -428,7 +423,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         }
     }
 
-    private void fillFromScrapList(List<ViewHolder> scrapList, Direction direction) {
+    private void fillFromScrapList(List<RecyclerView.ViewHolder> scrapList, Direction direction) {
         final int firstPosition = getFirstVisiblePosition();
 
         int position;
@@ -456,9 +451,9 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         layoutChild(child, direction);
     }
 
-    private View makeAndAddView(int position, Direction direction, Recycler recycler) {
+    private View makeAndAddView(int position, Direction direction, RecyclerView.Recycler recycler) {
         final View child = recycler.getViewForPosition(position);
-        final boolean isItemRemoved = ((LayoutParams) child.getLayoutParams()).isItemRemoved();
+        final boolean isItemRemoved = ((RecyclerView.LayoutParams) child.getLayoutParams()).isItemRemoved();
 
         if (!isItemRemoved) {
             addView(child, (direction == Direction.END ? -1 : 0));
@@ -566,7 +561,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         mLayoutEnd = mLayoutStart;
     }
 
-    protected int getExtraLayoutSpace(State state) {
+    protected int getExtraLayoutSpace(RecyclerView.State state) {
         if (state.hasTargetScrollPosition()) {
             return getTotalSpace();
         } else {
@@ -603,7 +598,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         return mPendingScrollOffset;
     }
 
-    protected int getAnchorItemPosition(State state) {
+    protected int getAnchorItemPosition(RecyclerView.State state) {
         final int itemCount = state.getItemCount();
 
         int pendingPosition = getPendingScrollPosition();
@@ -685,7 +680,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     }
 
     @Override
-    public void onDetachedFromWindow(RecyclerView view, Recycler recycler) {
+    public void onDetachedFromWindow(RecyclerView view, RecyclerView.Recycler recycler) {
         super.onDetachedFromWindow(view, recycler);
         mRecyclerView = null;
     }
@@ -701,7 +696,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     }
 
     @Override
-    public void onLayoutChildren(Recycler recycler, State state) {
+    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
         final ItemSelectionSupport itemSelection = ItemSelectionSupport.from(mRecyclerView);
         if (itemSelection != null) {
             final Bundle itemSelectionState = getPendingItemSelectionState();
@@ -724,13 +719,13 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
         mPendingSavedState = null;
     }
 
-    protected void onLayoutScrapList(Recycler recycler, State state) {
+    protected void onLayoutScrapList(RecyclerView.Recycler recycler, RecyclerView.State state) {
         final int childCount = getChildCount();
         if (childCount == 0 || state.isPreLayout() || !supportsPredictiveItemAnimations()) {
             return;
         }
 
-        final List<ViewHolder> scrapList = recycler.getScrapList();
+        final List<RecyclerView.ViewHolder> scrapList = recycler.getScrapList();
         fillFromScrapList(scrapList, Direction.START);
         fillFromScrapList(scrapList, Direction.END);
     }
@@ -767,9 +762,9 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     @Override
     public RecyclerView.LayoutParams generateDefaultLayoutParams() {
         if (mIsVertical) {
-            return new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+            return new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
         } else {
-            return new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+            return new RecyclerView.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.MATCH_PARENT);
         }
     }
 
@@ -779,7 +774,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     }
 
     @Override
-    public int scrollHorizontallyBy(int dx, Recycler recycler, State state) {
+    public int scrollHorizontallyBy(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
         if (mIsVertical) {
             return 0;
         }
@@ -788,7 +783,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     }
 
     @Override
-    public int scrollVerticallyBy(int dy, Recycler recycler, State state) {
+    public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
         if (!mIsVertical) {
             return 0;
         }
@@ -817,7 +812,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     }
 
     @Override
-    public void smoothScrollToPosition(RecyclerView recyclerView, State state, int position) {
+    public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int position) {
         final LinearSmoothScroller scroller = new LinearSmoothScroller(recyclerView.getContext()) {
             @Override
             public PointF computeScrollVectorForPosition(int targetPosition) {
@@ -837,7 +832,6 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
             protected int getVerticalSnapPreference() {
                 return LinearSmoothScroller.SNAP_TO_START;
             }
-
             @Override
             protected int getHorizontalSnapPreference() {
                 return LinearSmoothScroller.SNAP_TO_START;
@@ -849,7 +843,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     }
 
     @Override
-    public int computeHorizontalScrollOffset(State state) {
+    public int computeHorizontalScrollOffset(RecyclerView.State state) {
         if (getChildCount() == 0) {
             return 0;
         }
@@ -858,7 +852,7 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     }
 
     @Override
-    public int computeVerticalScrollOffset(State state) {
+    public int computeVerticalScrollOffset(RecyclerView.State state) {
         if (getChildCount() == 0) {
             return 0;
         }
@@ -867,27 +861,27 @@ public abstract class TwoWayLayoutManager extends LayoutManager implements Recyc
     }
 
     @Override
-    public int computeHorizontalScrollExtent(State state) {
+    public int computeHorizontalScrollExtent(RecyclerView.State state) {
         return getChildCount();
     }
 
     @Override
-    public int computeVerticalScrollExtent(State state) {
+    public int computeVerticalScrollExtent(RecyclerView.State state) {
         return getChildCount();
     }
 
     @Override
-    public int computeHorizontalScrollRange(State state) {
+    public int computeHorizontalScrollRange(RecyclerView.State state) {
         return state.getItemCount();
     }
 
     @Override
-    public int computeVerticalScrollRange(State state) {
+    public int computeVerticalScrollRange(RecyclerView.State state) {
         return state.getItemCount();
     }
 
     @Override
-    public void onMeasure(Recycler recycler, State state, int widthSpec, int heightSpec) {
+    public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
         super.onMeasure(recycler, state, widthSpec, heightSpec);
     }
 

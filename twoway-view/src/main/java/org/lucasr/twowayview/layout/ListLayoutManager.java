@@ -17,9 +17,9 @@
 package org.lucasr.twowayview.layout;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView.Recycler;
-import android.support.v7.widget.RecyclerView.State;
 import android.util.AttributeSet;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ListLayoutManager extends BaseLayoutManager {
     private static final String LOGTAG = "ListLayoutManager";
@@ -47,7 +47,7 @@ public class ListLayoutManager extends BaseLayoutManager {
     }
 
     @Override
-    void moveLayoutToPosition(int position, int offset, Recycler recycler, State state) {
+    void moveLayoutToPosition(int position, int offset, RecyclerView.Recycler recycler, RecyclerView.State state) {
         getLanes().reset(offset);
     }
 }

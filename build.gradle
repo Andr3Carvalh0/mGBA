@@ -1,10 +1,12 @@
 buildscript {
+    ext.kotlin_version = '1.2.60'
     repositories {
         jcenter()
         google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0-alpha14'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -13,14 +15,15 @@ allprojects {
         jcenter()
         maven { url "https://maven.google.com" }
         maven { url 'https://jitpack.io' }
+        maven { url 'http://oss.sonatype.org/content/repositories/snapshots' }
         google()
     }
 
     project.ext {
-        BuildVersion="27.0.3"
-        AppCompatVersion="27.1.0"
+        BuildVersion="28.0.1"
+        AppCompatVersion="28.0.1"
         minSDK=21
-        maxSDK=27
+        maxSDK=28
     }
 }
 

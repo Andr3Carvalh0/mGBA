@@ -1,6 +1,5 @@
 package io.mgba;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,13 +13,13 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import io.mgba.Data.Database.Game;
-import io.mgba.Data.Platform;
-import io.mgba.Data.Remote.Interfaces.IRequest;
-import io.mgba.Model.Interfaces.IDatabase;
-import io.mgba.Model.Interfaces.IFilesManager;
-import io.mgba.Model.Library;
-import io.mgba.Utils.IDeviceManager;
+import io.mgba.data.database.Game;
+import io.mgba.data.Platform;
+import io.mgba.data.remote.interfaces.IRequest;
+import io.mgba.model.interfaces.IDatabase;
+import io.mgba.model.interfaces.IFilesManager;
+import io.mgba.model.Library;
+import io.mgba.utilities.IDeviceManager;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LibraryTests {

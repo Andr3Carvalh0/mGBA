@@ -2,7 +2,7 @@ package io.mgba;
 
 import org.junit.Test;
 
-import io.mgba.Model.IO.Decoder;
+import io.mgba.model.io.Decoder;
 import static org.junit.Assert.*;
 
 public class DecoderTests {
