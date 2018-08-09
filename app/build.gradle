@@ -72,11 +72,10 @@ dependencies {
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0-rc01'
     implementation 'androidx.room:room-runtime:2.0.0-rc01'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.10'
-    implementation('com.github.florent37:glidepalette:2.1.1', {
-        exclude group: 'com.android.support', 'module': 'palette-v7'
-    })
+    implementation('com.github.florent37:glidepalette:2.1.1', { exclude group: 'com.android.support', 'module': 'palette-v7' })
     implementation 'com.github.bumptech.glide:glide:4.8.0-SNAPSHOT'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.google.dagger:dagger:2.17'
@@ -88,7 +87,7 @@ dependencies {
     implementation 'com.github.apl-devs:appintro:v4.2.3'
     implementation 'com.annimon:stream:1.2.0'
     implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
-    implementation 'com.github.hotchemi:permissionsdispatcher:3.0.1'
+    implementation 'com.github.hotchemi:permissionsdispatcher:4.0.0-alpha1'
     implementation('com.mikepenz:aboutlibraries:6.0.6@aar') { transitive = true }
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -107,7 +106,7 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.17'
     kapt 'com.github.bumptech.glide:compiler:4.8.0-SNAPSHOT'
     kapt 'com.google.dagger:dagger-android-processor:2.17'
-    kapt 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
+    kapt 'com.github.hotchemi:permissionsdispatcher-processor:4.0.0-alpha1'
 
     //Others
     implementation project(':filepicker')

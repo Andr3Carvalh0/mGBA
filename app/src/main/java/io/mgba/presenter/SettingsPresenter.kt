@@ -12,7 +12,7 @@ import io.mgba.utilities.IResourcesManager
 import io.reactivex.annotations.NonNull
 
 class SettingsPresenter(@param:NonNull private val view: ISettingsView, @NonNull resourcesManager: IResourcesManager) : ISettingsPresenter {
-    lateinit var settings: LinkedList<Settings>
+    var settings: LinkedList<Settings> = LinkedList()
 
     override fun onClick(settings: Settings): Any {
         val extras = HashMap<String, String>()

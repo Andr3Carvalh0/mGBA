@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.mgba.Constants
 import io.mgba.data.database.Game
@@ -24,19 +25,20 @@ class GameInformationView : BottomSheetDialogFragment(), View.OnClickListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.library_sheet_view, container, false)
-        val arguments = arguments
+        return inflater.inflate(R.layout.library_sheet_view, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         if (arguments != null)
-            this.game = arguments.getParcelable(Constants.ARG_PLAY_GAME)
+            this.game = arguments!!.getParcelable(Constants.ARG_PLAY_GAME)
 
         prepareView()
-
-        return view
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState!!.putParcelable(Constants.ARG_SHEET_CONTENT, game)
+        outState.putParcelable(Constants.ARG_SHEET_CONTENT, game)
     }
 
     private fun prepareView() {
@@ -57,7 +59,7 @@ class GameInformationView : BottomSheetDialogFragment(), View.OnClickListener {
             val background = game_header_bs.background
 
             if (background is GradientDrawable) {
-                background.setColor(resources.getColor(R.color.colorPrimary))
+                background.setColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
 
             }
         }

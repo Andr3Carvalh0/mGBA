@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.NonNull
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import io.mgba.adapters.GameAdapter
@@ -21,15 +22,18 @@ import kotlinx.android.synthetic.main.content_fragment.*
 
 open class GameFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, IGamesFragment<Game> {
     private var adapter: GameAdapter? = null
-    protected var controller: IGamesPresenter? = null
+    private var controller: IGamesPresenter? = null
 
     private val iLibrary: io.mgba.ui.activities.interfaces.ILibrary
         get() = activity as io.mgba.ui.activities.interfaces.ILibrary
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val mView = prepareView(inflater, container)
+        return prepareView(inflater, container)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if(arguments == null)
             mgba.report(Exception("Game Fragment creation failed because args are null"))
 
@@ -45,17 +49,15 @@ open class GameFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, IGam
 
         showContent(false)
         loadGames()
-
-        return mView
     }
 
-    protected fun prepareRecyclerView() {
+    private fun prepareRecyclerView() {
         main_refresh.setOnRefreshListener(this)
-        main_refresh.setColorSchemeColors(resources.getColor(R.color.pink_accent_color),
-                resources.getColor(R.color.colorPrimary),
-                resources.getColor(R.color.green_accent_color),
-                resources.getColor(R.color.yellow_accent_color),
-                resources.getColor(R.color.cyan_accent_color))
+        main_refresh.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.pink_accent_color),
+                ContextCompat.getColor(context!!, R.color.colorPrimary),
+                ContextCompat.getColor(context!!, R.color.green_accent_color),
+                ContextCompat.getColor(context!!, R.color.yellow_accent_color),
+                ContextCompat.getColor(context!!, R.color.cyan_accent_color))
         main_contentlist.setHasFixedSize(true)
         adapter = GameAdapter(this, context!!, {controller!!.onClick(it)}, main_contentlist)
         main_contentlist.adapter = adapter
@@ -63,7 +65,7 @@ open class GameFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, IGam
     }
 
     protected open fun prepareDrawables() {
-        main_image_content.setImageDrawable(resources.getDrawable(R.drawable.ic_videogame_asset_grey_500_48dp))
+        main_image_content.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_videogame_asset_grey_500_48dp))
         main_text_content.setText(R.string.no_games)
     }
 

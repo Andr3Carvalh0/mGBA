@@ -76,7 +76,8 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, io.mg
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
-        controller!!.onActivityResult(requestCode, resultCode, intent!!)
+        if(intent != null)
+            controller!!.onActivityResult(requestCode, resultCode, intent)
     }
 
     override fun onStop() {

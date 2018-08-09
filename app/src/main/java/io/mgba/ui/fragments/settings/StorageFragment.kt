@@ -11,7 +11,7 @@ import io.mgba.ui.activities.interfaces.ISettings
 class StorageFragment : PreferenceFragmentCompat() {
 
     lateinit var gamesFolder: Preference
-    override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.storage_settings)
 
         gamesFolder = findPreference("games_folder")

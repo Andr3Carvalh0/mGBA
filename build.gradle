@@ -20,10 +20,9 @@ allprojects {
     }
 
     project.ext {
-        BuildVersion="28.0.1"
-        AppCompatVersion="28.0.1"
-        minSDK=21
-        maxSDK=28
+        BuildVersion = "28.0.1"
+        minSDK = 21
+        maxSDK = 28
     }
 }
 

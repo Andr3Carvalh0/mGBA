@@ -13,7 +13,7 @@
     android:layout_height="match_parent"
     tools:context=".Views.Activities.FilePickerActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/nnf_picker_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?nnf_toolbarTheme">
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -55,7 +55,7 @@
     </RelativeLayout>
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@android:id/list"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -66,7 +66,7 @@
 
         tools:listitem="@layout/nnf_filepicker_listitem_dir"/>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

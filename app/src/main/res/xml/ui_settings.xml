@@ -1,4 +1,4 @@
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreference
         android:capitalize="words"
@@ -9,4 +9,4 @@
         android:summary="@string/prefs_not_set_folder_summary"
         android:title="@string/pref_storage" />
 
-</android.support.v7.preference.PreferenceScreen>
+</PreferenceScreen>
