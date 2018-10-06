@@ -6,9 +6,8 @@ import android.os.Bundle
 import com.nononsenseapps.filepicker.Controllers.FilePickerUtils
 import java.util.HashMap
 import androidx.preference.PreferenceFragmentCompat
-import io.mgba.Constants
 import io.mgba.presenter.interfaces.ISettingsPanelPresenter
-import io.mgba.model.interfaces.IPermissionManager
+import io.mgba.data.interfaces.IPermissionManager
 import io.mgba.model.system.PermissionManager
 import io.mgba.R
 import io.mgba.ui.activities.interfaces.ISettingsPanelView

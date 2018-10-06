@@ -14,10 +14,10 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.util.List;
 
-import io.mgba.data.database.Database;
-import io.mgba.data.database.model.Game;
+import io.mgba.data.local.database.Database;
+import io.mgba.data.local.database.model.Game;
 import io.mgba.data.Platform;
-import io.mgba.model.io.Repository;
+import io.mgba.data.io.Repository;
 
 import static org.junit.Assert.assertEquals;
 

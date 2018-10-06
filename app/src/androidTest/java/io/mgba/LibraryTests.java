@@ -13,12 +13,12 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import io.mgba.data.database.model.Game;
+import io.mgba.data.local.database.model.Game;
 import io.mgba.data.Platform;
 import io.mgba.data.remote.interfaces.IRequest;
-import io.mgba.model.interfaces.IDatabase;
-import io.mgba.model.interfaces.IFilesManager;
-import io.mgba.model.Library;
+import io.mgba.data.interfaces.IDatabase;
+import io.mgba.data.interfaces.IFilesManager;
+import io.mgba.data.Library;
 import io.mgba.utilities.DeviceManager;
 
 @RunWith(MockitoJUnitRunner.class)

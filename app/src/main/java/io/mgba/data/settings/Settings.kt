@@ -1,3 +1,7 @@
 package io.mgba.data.settings
 
-class Settings(val title: String, val resource: Int)
+import io.mgba.widgets.RecyclerViewItem
+
+class Settings(val title: String, val resource: Int): RecyclerViewItem {
+    override fun getLetterForItem(position: Int): String = title.substring(0, 1).toUpperCase()
+}

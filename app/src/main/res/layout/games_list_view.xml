@@ -23,7 +23,7 @@
             android:layout_height="@dimen/message_width"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_videogame_asset_grey_500_48dp"
+            android:src="@drawable/ic_controller"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

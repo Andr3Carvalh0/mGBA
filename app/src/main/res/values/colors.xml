@@ -17,4 +17,10 @@
     <color name="cyan_accent_color">#24b7d6</color>
     <color name="grey_accent_color">#5d5d5d</color>
     <color name="pixel_primary_color">#242424</color>
+
+
+
+    <color name="backgroundColor">@color/white</color>
+    <color name="actionColor">@color/colorAccent</color>
+
 </resources>

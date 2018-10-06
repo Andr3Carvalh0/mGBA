@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".main.MainActivity"
             android:theme="@style/AppTheme" />
 
         <activity
@@ -37,13 +37,13 @@
         </activity>
 
         <activity
-            android:name=".ui.activities.SettingsPanelActivity"
+            android:name=".settings.sections.SettingsPanelActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/SettingsTheme" />
-        <activity android:name=".ui.activities.IntroActivity" />
+        <activity android:name=".setup.SetupActivity" />
 
         <activity
-            android:name=".ui.activities.SplashActivity"
+            android:name=".splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -52,8 +52,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.EmulationActivity" />
-        <activity android:name=".ui.activities.SettingsActivity"
+        <activity android:name=".emulation.EmulationActivity" />
+        <activity android:name=".settings.categories.SettingsCategoriesActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/SettingsTheme"/>
     </application>

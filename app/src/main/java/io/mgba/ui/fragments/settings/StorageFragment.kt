@@ -4,7 +4,7 @@ import android.os.Bundle
 
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import io.mgba.model.system.PreferencesManager
+import io.mgba.utilities.PreferencesManager
 import io.mgba.R
 import io.mgba.ui.activities.interfaces.ISettings
 

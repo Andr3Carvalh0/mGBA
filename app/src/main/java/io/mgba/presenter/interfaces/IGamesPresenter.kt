@@ -1,7 +1,7 @@
 package io.mgba.presenter.interfaces
 
 
-import io.mgba.data.database.model.Game
+import io.mgba.data.local.database.model.Game
 import io.mgba.ui.activities.interfaces.ILibrary
 
 interface IGamesPresenter {

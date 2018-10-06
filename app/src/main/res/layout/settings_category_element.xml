@@ -8,22 +8,22 @@
     android:layout_height="56dp">
 
     <ImageView
-        android:id="@+id/setting_icon"
+        android:id="@+id/icon"
         android:layout_width="52dp"
         android:layout_height="0dp"
         android:layout_above="@+id/separator"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/setting_title"
+        android:layout_toStartOf="@+id/title"
         android:scaleType="center"
         android:tint="@color/about_libraries_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_palette_black_24dp" />
+        app:srcCompat="@drawable/ic_themes" />
 
     <TextView
-        android:id="@+id/setting_title"
+        android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -34,7 +34,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/setting_icon"
+        app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -47,6 +47,6 @@
         android:background="#cecece"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/setting_icon"
+        app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

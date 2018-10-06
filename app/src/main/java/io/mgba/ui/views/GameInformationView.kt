@@ -8,10 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import io.mgba.Constants
-import io.mgba.data.database.model.Game
+import io.mgba.data.local.database.model.Game
 import io.mgba.R
-import io.mgba.ui.activities.EmulationActivity
+import io.mgba.emulation.EmulationActivity
 import io.mgba.utilities.GlideUtils
 import io.mgba.utilities.GlideUtils.Colors
 import kotlinx.android.synthetic.main.game_information_view.*
