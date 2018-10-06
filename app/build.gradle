@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion project.ext.maxSDK
-    buildToolsVersion '28.0.1'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "io.mgba"
         minSdkVersion project.ext.minSDK
@@ -41,7 +41,7 @@ android {
 
     externalNativeBuild {
         cmake {
-            path "../mgba/CMakeLists.txt"
+            //path "../mgba/CMakeLists.txt"
         }
     }
 
@@ -62,26 +62,23 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha1'
-    implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-rc01'
-    implementation 'androidx.cardview:cardview:1.0.0-rc01'
-    implementation 'androidx.palette:palette:1.0.0-rc01'
-    implementation 'com.google.android.material:material:1.0.0-rc01'
-    implementation 'androidx.preference:preference:1.0.0-rc01'
-    implementation 'androidx.legacy:legacy-preference-v14:1.0.0-rc01'
-    implementation 'androidx.room:room-runtime:2.0.0-rc01'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.preference:preference:1.0.0'
+    implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
+    implementation 'androidx.room:room-runtime:2.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.10'
     implementation('com.github.florent37:glidepalette:2.1.1', { exclude group: 'com.android.support', 'module': 'palette-v7' })
-    implementation 'com.github.bumptech.glide:glide:4.8.0-SNAPSHOT'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.google.dagger:dagger:2.17'
-    implementation 'com.google.dagger:dagger-android:2.17'
-    implementation 'com.google.dagger:dagger-android-support:2.17'
-    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'me.grantland:autofittextview:0.2.1'
     implementation 'com.google.guava:guava:24.1-jre'
     implementation 'com.github.apl-devs:appintro:v4.2.3'
@@ -92,19 +89,19 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     //Tests
-    testImplementation 'org.mockito:mockito-core:2.15.0'
-    androidTestImplementation 'org.mockito:mockito-android:2.6.3'
-    testImplementation 'androidx.room:room-testing:2.0.0-rc01'
+    testImplementation 'org.mockito:mockito-core:2.19.0'
+    androidTestImplementation 'org.mockito:mockito-android:2.10.0'
+    testImplementation 'androidx.room:room-testing:2.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
     //Annotations
-    kapt "androidx.room:room-compiler:2.0.0-rc01"
-    kapt 'androidx.annotation:annotation:1.0.0-rc01'
+    kapt "androidx.room:room-compiler:2.0.0"
+    kapt 'androidx.annotation:annotation:1.0.0'
     kapt 'com.google.dagger:dagger-compiler:2.17'
-    kapt 'com.github.bumptech.glide:compiler:4.8.0-SNAPSHOT'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
     kapt 'com.google.dagger:dagger-android-processor:2.17'
     kapt 'com.github.hotchemi:permissionsdispatcher-processor:4.0.0-alpha1'
 

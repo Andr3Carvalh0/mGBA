@@ -8,13 +8,14 @@ import androidx.room.TypeConverters
 import io.mgba.data.database.converters.GameConverter
 import io.mgba.data.database.daos.CheatDAO
 import io.mgba.data.database.daos.GameDAO
+import io.mgba.data.database.model.Cheat
+import io.mgba.data.database.model.Game
 
-@androidx.room.Database(entities = arrayOf(Game::class, Cheat::class), version = 7)
+@androidx.room.Database(entities = [Game::class, Cheat::class], version = 1)
 @TypeConverters(GameConverter::class)
 abstract class Database : RoomDatabase() {
 
     abstract fun gameDao(): GameDAO
-
     abstract fun cheatDAO(): CheatDAO
 
     companion object {

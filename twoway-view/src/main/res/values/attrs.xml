@@ -23,6 +23,13 @@
 
     <declare-styleable name="twowayview_TwoWayView">
         <attr name="twowayview_layoutManager" format="string"/>
+        <attr name="twowayview_hideScrollbar" format="boolean" />
+        <attr name="twowayview_showBubble" format="boolean" />
+        <attr name="twowayview_showTrack" format="boolean" />
+        <attr name="twowayview_trackColor" format="color" />
+        <attr name="twowayview_handleColor" format="color" />
+        <attr name="twowayview_bubbleColor" format="color" />
+        <attr name="twowayview_bubbleTextColor" format="color" />
     </declare-styleable>
 
     <declare-styleable name="twowayview_GridLayoutManager">

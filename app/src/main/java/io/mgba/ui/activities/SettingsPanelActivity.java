@@ -10,13 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import io.mgba.Constants;
 import io.mgba.model.system.PermissionManager;
+import io.mgba.model.system.PreferencesManager;
 import io.mgba.presenter.interfaces.ISettingsPanelPresenter;
 import io.mgba.presenter.SettingsPanelPresenter;
 import io.mgba.R;
 import io.mgba.ui.activities.interfaces.ISettings;
 import io.mgba.ui.activities.interfaces.ISettingsPanelView;
-import io.mgba.utilities.IResourcesManager;
-import io.mgba.mgba;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
@@ -38,8 +37,7 @@ public class SettingsPanelActivity extends AppCompatActivity implements ISetting
                 : savedInstanceState.getString(Constants.INSTANCE.getARG_SETTINGS_ID());
 
 
-        controller = new SettingsPanelPresenter(new PermissionManager(this), this,
-                id, (IResourcesManager) getApplication());
+        controller = new SettingsPanelPresenter(new PermissionManager(this), this, id);
 
         setupFragment();
         setupToolbar();
@@ -114,6 +112,6 @@ public class SettingsPanelActivity extends AppCompatActivity implements ISetting
 
     @Override
     public String getPreference(String key, String defaultValue) {
-        return ((mgba)getApplication()).getPreference(key, defaultValue);
+        return PreferencesManager.INSTANCE.get(key, defaultValue);
     }
 }

@@ -1,6 +1,6 @@
 package io.mgba.model.interfaces
 
-import io.mgba.data.database.Game
+import io.mgba.data.database.model.Game
 import io.reactivex.Single
 
 interface ILibrary {

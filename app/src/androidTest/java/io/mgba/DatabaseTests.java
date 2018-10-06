@@ -15,16 +15,16 @@ import java.io.IOException;
 import java.util.List;
 
 import io.mgba.data.database.Database;
-import io.mgba.data.database.Game;
+import io.mgba.data.database.model.Game;
 import io.mgba.data.Platform;
-import io.mgba.model.io.LocalDB;
+import io.mgba.model.io.Repository;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class DatabaseTests {
 
-    private LocalDB database;
+    private Repository database;
     private Database db;
 
     private static Game[] games;
@@ -43,7 +43,7 @@ public class DatabaseTests {
     public void createDb() {
         Context context = InstrumentationRegistry.getTargetContext();
         db = Room.inMemoryDatabaseBuilder(context, Database.class).build();
-        database = new LocalDB(db);
+        database = new Repository(db);
     }
 
     @After

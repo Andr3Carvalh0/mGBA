@@ -10,8 +10,7 @@ abstract class SingleViewHolderAdapter<T> : BaseAdapter<T> {
     protected val layout: Int
     private val createView: (View) -> RecyclerView.ViewHolder
 
-
-    constructor(context: Context, recyclerView: RecyclerView, layout: Int, createView: (View) -> RecyclerView.ViewHolder) : super(context, recyclerView) {
+    constructor(context: Context, recyclerView: RecyclerView, layout: Int, createView: (View) -> RecyclerView.ViewHolder) : super(emptyList(), recyclerView, context) {
         this.layout = layout
         this.createView = createView
     }
@@ -25,5 +24,4 @@ abstract class SingleViewHolderAdapter<T> : BaseAdapter<T> {
         val inflatedView = LayoutInflater.from(parent.context).inflate(layout, parent, false)
         return createView.invoke(inflatedView)
     }
-
 }

@@ -5,12 +5,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import io.mgba.adapters.interfaces.SingleViewHolderAdapter
-import io.mgba.data.database.Game
+import io.mgba.data.database.model.Game
 import io.mgba.R
 import io.mgba.utilities.GlideUtils
-import kotlinx.android.synthetic.main.game.view.*
+import kotlinx.android.synthetic.main.game_item.view.*
 
-class GameAdapter(private val view: Fragment, context: Context, private val onClick: (Game) -> Any, recyclerView: RecyclerView) : SingleViewHolderAdapter<Game>(context, recyclerView, R.layout.game,  { v -> ViewHolder(v) }) {
+class GameAdapter(private val view: Fragment, context: Context, private val onClick: (Game) -> Any, recyclerView: RecyclerView) : SingleViewHolderAdapter<Game>(context, recyclerView, R.layout.game_item,  { v -> ViewHolder(v) }) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val mItem = items[position]

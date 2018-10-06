@@ -3,18 +3,10 @@ package io.mgba.adapters.interfaces
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import java.util.LinkedList
-
 import androidx.recyclerview.widget.RecyclerView
+import org.lucasr.twowayview.listeners.SectionIndexer
 
-abstract class BaseAdapter<T>(items: List<T>, private val instance: RecyclerView, protected var mCtx: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener {
-    protected var items: List<T> = LinkedList()
-
-    constructor(context: Context, recyclerView: RecyclerView) : this(LinkedList<T>(), recyclerView, context) {}
-
-    init {
-        this.items = items
-    }
+abstract class BaseAdapter<T>(protected var items: List<T>, private val instance: RecyclerView, protected var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener, SectionIndexer {
 
     abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
 
@@ -30,4 +22,15 @@ abstract class BaseAdapter<T>(items: List<T>, private val instance: RecyclerView
         this.items = items
         notifyDataSetChanged()
     }
+
+    override fun getLetterForItem(position: Int): String {
+        if(items.isNotEmpty() && items.size < position)
+            return items.toString()
+                        .toCharArray()[0]
+                        .toUpperCase()
+                        .toString()
+
+        return "?"
+    }
+
 }

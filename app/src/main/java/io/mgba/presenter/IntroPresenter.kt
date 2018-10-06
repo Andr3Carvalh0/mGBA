@@ -8,10 +8,6 @@ import com.github.paolorotolo.appintro.AppIntro2Fragment
 import com.github.paolorotolo.appintro.AppIntroFragment
 import com.nononsenseapps.filepicker.Controllers.FilePickerUtils
 import java.util.LinkedList
-import javax.inject.Inject
-
-import androidx.annotation.NonNull
-import io.mgba.model.interfaces.ILibrary
 import io.mgba.presenter.interfaces.IIntroPresenter
 import io.mgba.model.interfaces.IPermissionManager
 import io.mgba.model.system.PermissionManager
@@ -19,53 +15,45 @@ import io.mgba.model.system.PreferencesManager
 import io.mgba.R
 import io.mgba.ui.activities.interfaces.IIntroView
 import io.mgba.ui.activities.MainActivity
-import io.mgba.utilities.IDependencyInjector
-import io.mgba.utilities.IResourcesManager
 import io.mgba.mgba
+import io.mgba.model.Library
+import io.mgba.utilities.ResourcesManager.getColor
+import io.mgba.utilities.ResourcesManager.getString
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import permissions.dispatcher.PermissionRequest
 
-class IntroPresenter(@param:NonNull private val permissionService: IPermissionManager, @NonNull dependencyInjector: IDependencyInjector,
-                     @param:NonNull private val view: IIntroView) : IIntroPresenter {
-    @Inject lateinit var library: ILibrary
-    @Inject lateinit var resourceManager: IResourcesManager
+class IntroPresenter(private val permissionService: IPermissionManager,
+                     private val view: IIntroView) : IIntroPresenter {
 
     private val disposable = CompositeDisposable()
     private var isVisible = true
     private var isDone = false
 
-    private//Welcome-screen
-    //Feature-Library
-    val introFragments: Stream<AppIntroFragment>
+    private val introFragments: Stream<AppIntroFragment>
         get() {
             val slides = LinkedList<AppIntroFragment>()
             slides.add(AppIntro2Fragment.newInstance(
-                    resourceManager!!.getString(R.string.Welcome_Title),
-                    resourceManager!!.getString(R.string.Welcome_Description),
+                    getString(R.string.Welcome_Title),
+                    getString(R.string.Welcome_Description),
                     R.mipmap.ic_launcher,
-                    resourceManager!!.getColor(R.color.colorPrimary)))
+                    getColor(R.color.colorPrimary)))
             slides.add(AppIntro2Fragment.newInstance(
-                    resourceManager!!.getString(R.string.Library_Title),
-                    resourceManager!!.getString(R.string.Library_Description),
+                    getString(R.string.Library_Title),
+                    getString(R.string.Library_Description),
                     R.mipmap.ic_launcher,
-                    resourceManager!!.getColor(R.color.colorPrimary)))
+                    getColor(R.color.colorPrimary)))
 
             return Stream.of(slides)
         }
 
-    init {
-        dependencyInjector.inject(this)
-
-        view.addSlides(introFragments.toList())
-    }
+    init { view.addSlides(introFragments.toList()) }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent) {
         if (requestCode == PermissionManager.DIR_CODE && resultCode == Activity.RESULT_OK) {
             mgba.printLog(TAG, "received result from activity")
-            val dir = FilePickerUtils.getSelectedDir(intent)
-            onEnd(dir)
+            onEnd(FilePickerUtils.getSelectedDir(intent))
         }
     }
 
@@ -106,10 +94,10 @@ class IntroPresenter(@param:NonNull private val permissionService: IPermissionMa
         view.savePreference(PreferencesManager.GAMES_DIRECTORY, dir)
         view.showProgressDialog()
 
-        disposable.add(library!!.reloadGames(dir)
+        disposable.add(Library.reloadGames(dir)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { games ->
+                .subscribe { _ ->
                     isDone = true
                     onEnd()
                 })
@@ -120,15 +108,13 @@ class IntroPresenter(@param:NonNull private val permissionService: IPermissionMa
         view.showProgressDialog()
 
         //House cleaning
-        if (disposable != null && !disposable.isDisposed)
-            disposable.dispose()
+        if (!disposable.isDisposed) disposable.dispose()
 
         if (isVisible)
             view.startActivity(MainActivity::class.java)
     }
 
     companion object {
-
         private val TAG = "mgba:IntroCtr"
     }
 }

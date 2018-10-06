@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import io.mgba.data.database.Game
+import io.mgba.data.database.model.Game
 
 @Dao
 interface GameDAO {

@@ -4,32 +4,21 @@ import android.app.Activity
 import android.content.Intent
 import android.view.MenuItem
 import com.mikepenz.aboutlibraries.LibsBuilder
-import io.mgba.data.database.Game
-import javax.inject.Inject
+import io.mgba.data.database.model.Game
 import io.mgba.presenter.interfaces.IMainPresenter
-import io.mgba.model.interfaces.ILibrary
 import io.mgba.R
+import io.mgba.model.Library
 import io.mgba.ui.activities.interfaces.IMainView
 import io.mgba.ui.activities.SettingsActivity
-import io.mgba.utilities.IDependencyInjector
-import io.mgba.utilities.IResourcesManager
+import io.mgba.utilities.ResourcesManager.getString
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.annotations.NonNull
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 
-class MainPresenter(@param:NonNull private val view: IMainView, @NonNull dependencyInjector: IDependencyInjector) : IMainPresenter {
+class MainPresenter(private val view: IMainView) : IMainPresenter {
 
-    @Inject override lateinit var iLibrary: ILibrary
-        internal set
-    @Inject lateinit var resourcesManager: IResourcesManager
     private val disposable = CompositeDisposable()
-
-    init {
-        dependencyInjector.inject(this)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent) {
         if (requestCode == SETTINGS_CODE && resultCode == Activity.RESULT_OK) {
             throw UnsupportedOperationException()
@@ -42,7 +31,7 @@ class MainPresenter(@param:NonNull private val view: IMainView, @NonNull depende
                     .withActivityTheme(R.style.AboutTheme)
                     .withAboutIconShown(true)
                     .withAboutVersionShown(true)
-                    .withAboutDescription(resourcesManager!!.getString(R.string.About_description))
+                    .withAboutDescription(getString(R.string.About_description))
 
             view.startAboutPanel(aboutPanel)
         }
@@ -62,11 +51,10 @@ class MainPresenter(@param:NonNull private val view: IMainView, @NonNull depende
             view.clearSuggestions()
         } else {
             view.showProgress()
-            disposable.add(iLibrary!!
-                    .query(newQuery)
-                    .subscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(Consumer<List<Game>> { view.showSuggestions(it) }))
+            disposable.add(Library.query(newQuery)
+                                  .subscribeOn(Schedulers.computation())
+                                  .observeOn(AndroidSchedulers.mainThread())
+                                  .subscribe(Consumer<List<Game>> { view.showSuggestions(it) }))
         }
     }
 

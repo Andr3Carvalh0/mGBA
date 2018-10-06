@@ -17,42 +17,38 @@ import io.mgba.model.interfaces.ILibrary
 import io.mgba.presenter.MainPresenter.Companion.DEFAULT_PANEL
 import io.mgba.R
 import io.mgba.ui.activities.interfaces.IMainView
-import io.mgba.utilities.IDependencyInjector
 import kotlinx.android.synthetic.main.activity_library.*
 
-class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, io.mgba.ui.activities.interfaces.ILibrary, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, IMainView {
+class MainActivity(override val libraryService: ILibrary) : AppCompatActivity(), TabLayout.OnTabSelectedListener, io.mgba.ui.activities.interfaces.ILibrary, FloatingSearchView.OnMenuItemClickListener, FloatingSearchView.OnQueryChangeListener, FloatingSearchView.OnSearchListener, IMainView {
 
-    private var controller: IMainPresenter? = null
-
-    override val libraryService: ILibrary
-        get() = controller!!.iLibrary!!
+    private lateinit var controller: IMainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_library)
 
-        controller = MainPresenter(this, application as IDependencyInjector)
+        controller = MainPresenter(this)
 
         prepareToolbar()
         prepareViewPager()
 
         if (savedInstanceState != null) {
-            floating_search_view.onRestoreInstanceState(savedInstanceState.getParcelable<Parcelable>(Constants.MAIN_TOOLBAR_STATE))
+            floatingSearchView.onRestoreInstanceState(savedInstanceState.getParcelable<Parcelable>(Constants.MAIN_TOOLBAR_STATE))
             pager.onRestoreInstanceState(savedInstanceState.getParcelable<Parcelable>(Constants.MAIN_VIEWPAGE_STATE))
         }
     }
 
     private fun prepareToolbar() {
-        floating_search_view.setOnMenuItemClickListener(this)
-        floating_search_view.setOnSearchListener(this)
-        floating_search_view.setOnQueryChangeListener(this)
+        floatingSearchView.setOnMenuItemClickListener(this)
+        floatingSearchView.setOnSearchListener(this)
+        floatingSearchView.setOnQueryChangeListener(this)
     }
 
     private fun prepareViewPager() {
-        tabLayout!!.addTab(tabLayout!!.newTab().setText(getString(R.string.Favorites)))
-        tabLayout!!.addTab(tabLayout!!.newTab().setText(getString(R.string.GBA)))
-        tabLayout!!.addTab(tabLayout!!.newTab().setText(getString(R.string.GBC)))
-        tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.Favorites)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.GBA)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.GBC)))
+        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
         val adapter = TabViewPager(supportFragmentManager)
 
@@ -67,39 +63,38 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, io.mg
         pager.currentItem = tab.position
     }
 
-    override fun onTabUnselected(tab: TabLayout.Tab) {
-
-    }
-
     override fun onTabReselected(tab: TabLayout.Tab) {
         pager.currentItem = tab.position
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
-        if(intent != null)
-            controller!!.onActivityResult(requestCode, resultCode, intent)
+        if(intent != null) controller.onActivityResult(requestCode, resultCode, intent)
     }
 
     override fun onStop() {
         super.onStop()
-        controller!!.onDestroy()
+        controller.onDestroy()
     }
 
+    override fun onTabUnselected(p0: TabLayout.Tab?) {}
+    override fun onSuggestionClicked(searchSuggestion: SearchSuggestion?) {}
+    override fun onSearchAction(currentQuery: String?) {}
+
     override fun onSearchTextChanged(oldQuery: String, newQuery: String) {
-        controller!!.onSearchTextChanged(oldQuery, newQuery)
+        controller.onSearchTextChanged(oldQuery, newQuery)
     }
 
     override fun onActionMenuItemSelected(item: MenuItem) {
-        controller!!.onMenuItemSelected(item)
+        controller.onMenuItemSelected(item)
     }
 
     override fun clearSuggestions() {
-        floating_search_view.clearSuggestions()
+        floatingSearchView.clearSuggestions()
     }
 
     override fun showSuggestions(list: List<SearchSuggestion>) {
-        floating_search_view.swapSuggestions(list)
-        floating_search_view.hideProgress()
+        floatingSearchView.swapSuggestions(list)
+        floatingSearchView.hideProgress()
     }
 
     override fun startAboutPanel(aboutPanel: LibsBuilder) {
@@ -112,21 +107,13 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, io.mg
     }
 
     override fun showProgress() {
-        floating_search_view.showProgress()
+        floatingSearchView.showProgress()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(Constants.MAIN_TOOLBAR_STATE, floating_search_view.onSaveInstanceState())
+        outState.putParcelable(Constants.MAIN_TOOLBAR_STATE, floatingSearchView.onSaveInstanceState())
         outState.putParcelable(Constants.MAIN_VIEWPAGE_STATE, pager.onSaveInstanceState())
-    }
-
-    override fun onSuggestionClicked(searchSuggestion: SearchSuggestion) {
-
-    }
-
-    override fun onSearchAction(currentQuery: String) {
-
     }
 
 }

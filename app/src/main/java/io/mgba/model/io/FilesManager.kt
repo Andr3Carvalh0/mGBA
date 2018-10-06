@@ -5,33 +5,27 @@ import java.io.File
 import java.util.Collections
 import java.util.Comparator
 import java.util.LinkedList
-import io.mgba.data.database.Game
+import io.mgba.data.database.model.Game
 import io.mgba.model.interfaces.IFilesManager
-import io.mgba.mgba.Companion.printLog
+import io.mgba.model.system.PreferencesManager
+import io.mgba.model.system.PreferencesManager.GAMES_DIRECTORY
 
 /**
  * Handles the fetching/filtering of the supported files for the selected dir.
  */
-class FilesManager(directory: String) : IFilesManager {
+object FilesManager : IFilesManager {
 
-    private var gameDir: File? = null
+    private val TAG = "FileService"
 
-    override val gameList: List<File>
-        get() = if (gameDir == null) LinkedList() else fetchGames()
+    private val GBC_FILES_SUPPORTED: List<String> = listOf("gba", "gb")
+    private val GBA_FILES_SUPPORTED: List<String> = listOf("gbc")
+    private var directory: File = File(PreferencesManager[GAMES_DIRECTORY, ""])
+
+    override val gameList: List<File> = if (!directory.exists()) LinkedList() else fetchGames()
 
     override var currentDirectory: String
-        get() = gameDir!!.absolutePath
-        set(directory) {
-            if (directory != "")
-                this.gameDir = File(directory)
-        }
-
-    init {
-        printLog(TAG, "CTOR: $directory")
-
-        if (directory != "")
-            this.gameDir = File(directory)
-    }
+        get() = directory.absolutePath
+        set(directory) { this.directory = File(directory) }
 
     /**
      * Based on the files of the directory, discard the ones we dont need.
@@ -70,60 +64,39 @@ class FilesManager(directory: String) : IFilesManager {
         return listToSort
     }
 
-    private fun fetchGames(): List<File> {
-        val files = gameDir!!.listFiles()
+    private fun fetchGames(): List<File> = filter(directory.listFiles())
 
-        return filter(files)
-    }
-
-    private fun fetchGames(predicate: (File) -> Boolean): List<File> {
-        val files = gameDir!!.listFiles()
-
-        return filter(files, predicate)
-    }
+    private fun fetchGames(predicate: (File) -> Boolean): List<File> = filter(directory.listFiles(), predicate)
 
     override fun getGameList(predicate: (File) -> Boolean): List<File> {
-        return if (gameDir == null) LinkedList() else fetchGames(predicate)
+        return if (!directory.exists()) LinkedList() else fetchGames(predicate)
 
     }
 
-    companion object {
+    /**
+     * Gets the file extension.
+     * For example. For the file 'a.bc' this method will return 'bc'
+     * @param file The file to extract a extension
+     * @return the file's extension
+     */
+    fun getFileExtension(file: File): String {
+        val name = file.name
 
-        private val GBC_FILES_SUPPORTED: LinkedList<String> = LinkedList()
-        private val GBA_FILES_SUPPORTED: LinkedList<String> = LinkedList()
-        private val TAG = "FileService"
+        return if (!name.contains(".")) name.substring(name.length - 3) else name
+                .substring(file.name.lastIndexOf("."))
+                .substring(1)
+                .toLowerCase()
 
-        init {
-            GBA_FILES_SUPPORTED.add("gba")
-            GBC_FILES_SUPPORTED.add("gb")
-            GBC_FILES_SUPPORTED.add("gbc")
-        }
+    }
 
-        /**
-         * Gets the file extension.
-         * For example. For the file 'a.bc' this method will return 'bc'
-         * @param file The file to extract a extension
-         * @return the file's extension
-         */
-        fun getFileExtension(file: File): String {
-            val name = file.name
+    /**
+     * Gets the filename without the extension
+     * @param file
+     * @return
+     */
+    fun getFileWithoutExtension(file: File): String {
+        val tmp = file.path.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 
-            return if (!name.contains(".")) name.substring(name.length - 3) else name
-                    .substring(file.name.lastIndexOf("."))
-                    .substring(1)
-                    .toLowerCase()
-
-        }
-
-        /**
-         * Gets the filename without the extension
-         * @param file
-         * @return
-         */
-        fun getFileWithoutExtension(file: File): String {
-            val tmp = file.path.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-
-            return tmp[tmp.size - 1].substring(0, tmp[tmp.size - 1].lastIndexOf("."))
-        }
+        return tmp[tmp.size - 1].substring(0, tmp[tmp.size - 1].lastIndexOf("."))
     }
 }

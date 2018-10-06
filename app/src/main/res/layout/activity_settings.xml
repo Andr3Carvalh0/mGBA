@@ -8,7 +8,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/settins_list"
         android:layout_width="match_parent"
-        tools:listitem="@layout/category_element"
+        tools:listitem="@layout/settings_category_element"
         android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

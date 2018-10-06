@@ -2,7 +2,7 @@ package io.mgba;
 
 import org.junit.Test;
 
-import io.mgba.model.io.Decoder;
+import io.mgba.utilities.FileOperations;
 import static org.junit.Assert.*;
 
 public class DecoderTests {
@@ -13,7 +13,7 @@ public class DecoderTests {
 
     @Test
     public void isCalculatingMD5Correctly(){
-        assertEquals(EXPECTED_VALUE, Decoder.calculateMD5(bytes));
+        assertEquals(EXPECTED_VALUE, FileOperations.INSTANCE.calculateMD5(bytes));
     }
 
 }

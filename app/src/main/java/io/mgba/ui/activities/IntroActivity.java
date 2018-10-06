@@ -11,10 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import io.mgba.model.system.PermissionManager;
+import io.mgba.model.system.PreferencesManager;
 import io.mgba.presenter.interfaces.IIntroPresenter;
 import io.mgba.presenter.IntroPresenter;
 import io.mgba.ui.activities.interfaces.IIntroView;
-import io.mgba.utilities.IDependencyInjector;
 import io.mgba.mgba;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -32,8 +32,7 @@ public class IntroActivity extends AppIntro2 implements IIntroView{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        controller = new IntroPresenter(new PermissionManager(this),
-                (IDependencyInjector) getApplication(), this);
+        controller = new IntroPresenter(new PermissionManager(this), this);
     }
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -91,12 +90,12 @@ public class IntroActivity extends AppIntro2 implements IIntroView{
 
     @Override
     public void savePreference(String key, String value) {
-        ((mgba)getApplication()).savePreference(key, value);
+        PreferencesManager.INSTANCE.save(key, value);
     }
 
     @Override
     public void savePreference(String key, boolean value) {
-        ((mgba)getApplication()).savePreference(key, value);
+        PreferencesManager.INSTANCE.save(key, value);
     }
 
     @Override

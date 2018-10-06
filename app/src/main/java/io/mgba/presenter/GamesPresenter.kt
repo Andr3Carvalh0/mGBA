@@ -1,7 +1,7 @@
 package io.mgba.presenter
 
 import io.mgba.presenter.interfaces.IGamesPresenter
-import io.mgba.data.database.Game
+import io.mgba.data.database.model.Game
 import io.mgba.ui.fragments.interfaces.IGamesFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import io.mgba.adapters.interfaces.SingleViewHolderAdapter
 import io.mgba.data.settings.Settings
 import io.mgba.R
-import kotlinx.android.synthetic.main.category_element.view.*
+import kotlinx.android.synthetic.main.settings_category_element.view.*
 
-class SettingsAdapter(settings: List<Settings>, context: Context, private val onClick: (Settings) -> Any, recyclerView: RecyclerView) : SingleViewHolderAdapter<Settings>(settings, recyclerView, context, R.layout.category_element, {v -> ViewHolder(v) }) {
+class SettingsAdapter(settings: List<Settings>, context: Context, private val onClick: (Settings) -> Any, recyclerView: RecyclerView) : SingleViewHolderAdapter<Settings>(settings, recyclerView, context, R.layout.settings_category_element, { v -> ViewHolder(v) }) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items[position]
 
-        (holder as ViewHolder).icon!!.setImageDrawable(mCtx.getDrawable(item.resource))
+        (holder as ViewHolder).icon!!.setImageDrawable(context.getDrawable(item.resource))
         holder.title!!.text = item.title
 
         holder.container!!.setOnClickListener(this)

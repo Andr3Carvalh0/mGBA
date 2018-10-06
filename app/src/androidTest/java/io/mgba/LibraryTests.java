@@ -13,13 +13,13 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import io.mgba.data.database.Game;
+import io.mgba.data.database.model.Game;
 import io.mgba.data.Platform;
 import io.mgba.data.remote.interfaces.IRequest;
 import io.mgba.model.interfaces.IDatabase;
 import io.mgba.model.interfaces.IFilesManager;
 import io.mgba.model.Library;
-import io.mgba.utilities.IDeviceManager;
+import io.mgba.utilities.DeviceManager;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LibraryTests {
@@ -34,7 +34,7 @@ public class LibraryTests {
     IRequest webManager;
 
     @Mock
-    IDeviceManager deviceManager;
+    DeviceManager deviceManager;
 
 
 

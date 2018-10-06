@@ -1,8 +1,8 @@
 package io.mgba.model.interfaces
 
 
-import io.mgba.data.database.Cheat
-import io.mgba.data.database.Game
+import io.mgba.data.database.model.Cheat
+import io.mgba.data.database.model.Game
 
 interface IDatabase {
     val favouritesGames: List<Game>

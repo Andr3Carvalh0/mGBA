@@ -6,7 +6,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
-import io.mgba.data.database.Cheat
+import io.mgba.data.database.model.Cheat
 
 @Dao
 interface CheatDAO {

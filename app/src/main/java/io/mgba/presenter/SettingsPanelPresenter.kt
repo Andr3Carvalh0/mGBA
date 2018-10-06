@@ -18,23 +18,21 @@ import io.mgba.ui.fragments.settings.EmulationFragment
 import io.mgba.ui.fragments.settings.StorageFragment
 import io.mgba.ui.fragments.settings.UIFragment
 import io.mgba.ui.fragments.settings.VideoFragment
-import io.mgba.utilities.IResourcesManager
-import io.reactivex.annotations.NonNull
+import io.mgba.utilities.ResourcesManager.getString
 import permissions.dispatcher.PermissionRequest
 
-class SettingsPanelPresenter(@param:NonNull private val permissionService: IPermissionManager, @param:NonNull private val view: ISettingsPanelView,
-                             @param:NonNull override val title: String, @NonNull resourcesManager: IResourcesManager) : ISettingsPanelPresenter {
+class SettingsPanelPresenter(private val permissionService: IPermissionManager, private val view: ISettingsPanelView,
+                             override val title: String) : ISettingsPanelPresenter {
 
     private val router: HashMap<String, (String) -> PreferenceFragmentCompat> = HashMap()
 
     init {
-
-        router[resourcesManager.getString(R.string.settings_audio)] = { s -> AudioFragment() }
-        router[resourcesManager.getString(R.string.settings_video)] = { s -> VideoFragment() }
-        router[resourcesManager.getString(R.string.settings_emulation)] = { s -> EmulationFragment() }
-        router[resourcesManager.getString(R.string.settings_bios)] = { s -> BiosFragment() }
-        router[resourcesManager.getString(R.string.settings_paths)] = { s -> StorageFragment() }
-        router[resourcesManager.getString(R.string.settings_customization)] = { s -> UIFragment() }
+        router[getString(R.string.settings_audio)] = { s -> AudioFragment() }
+        router[getString(R.string.settings_video)] = { s -> VideoFragment() }
+        router[getString(R.string.settings_emulation)] = { s -> EmulationFragment() }
+        router[getString(R.string.settings_bios)] = { s -> BiosFragment() }
+        router[getString(R.string.settings_paths)] = { s -> StorageFragment() }
+        router[getString(R.string.settings_customization)] = { s -> UIFragment() }
     }
 
     override fun onSaveInstance(outState: Bundle) {
@@ -43,9 +41,7 @@ class SettingsPanelPresenter(@param:NonNull private val permissionService: IPerm
 
     override fun setupFragment() {
         var fragment: PreferenceFragmentCompat? = view.findFragment(TAG + title)
-
-        if (fragment == null)
-            fragment = router[title]!!.invoke(title)
+        if (fragment == null) { fragment = router[title]!!.invoke(title) }
 
         view.switchFragment(fragment, TAG + title)
 
