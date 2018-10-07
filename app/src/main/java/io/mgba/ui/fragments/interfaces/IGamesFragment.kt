@@ -1,6 +1,6 @@
 package io.mgba.ui.fragments.interfaces
 
-import io.mgba.data.local.database.model.Game
+import io.mgba.data.local.model.Game
 
 interface IGamesFragment<T> {
     fun swapContent(items: List<T>)

@@ -7,6 +7,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import io.mgba.main.fragments.FavouritesFragment
 import io.mgba.main.fragments.GameFragment
 import io.mgba.mgba.Companion.printLog
+import io.mgba.utilities.Constants.ARG_PLATFORM
+import io.mgba.utilities.Constants.PLATFORM_FAVS
+import io.mgba.utilities.Constants.PLATFORM_GBA
+import io.mgba.utilities.Constants.PLATFORM_GBC
 
 class TabViewPager(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
@@ -33,9 +37,5 @@ class TabViewPager(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     companion object {
         private val TAG = "mgba:TabPager"
-        val PLATFORM_GBC = 0
-        val ARG_PLATFORM = "platform"
-        val PLATFORM_GBA = 1
-        val PLATFORM_FAVS = 2
     }
 }

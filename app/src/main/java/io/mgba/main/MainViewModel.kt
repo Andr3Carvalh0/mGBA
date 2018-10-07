@@ -6,7 +6,8 @@ import android.view.MenuItem
 import androidx.lifecycle.ViewModel
 import com.mikepenz.aboutlibraries.LibsBuilder
 import io.mgba.R
-import io.mgba.utilities.getString
+import io.mgba.utilities.device.ResourcesManager.getString
+
 class MainViewModel : ViewModel() {
 
     fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent) {
@@ -17,11 +18,11 @@ class MainViewModel : ViewModel() {
 
     fun onMenuItemSelected(item: MenuItem) {
         if (item.itemId == R.id.action_about) {
-            val aboutPanel = LibsBuilder()
+           /* val aboutPanel = LibsBuilder()
                     .withActivityTheme(R.style.AboutTheme)
                     .withAboutIconShown(true)
                     .withAboutVersionShown(true)
-                    .withAboutDescription(getString(R.string.About_description))
+                    .withAboutDescription(getString(R.string.About_description))*/
 
             //view.startAboutPanel(aboutPanel)
         }

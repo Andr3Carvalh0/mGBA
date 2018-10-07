@@ -1,10 +1,13 @@
 package io.mgba.splash
 
+import android.os.Handler
+import android.view.View
 import io.mgba.R
 import io.mgba.base.BaseActivity
 import io.mgba.main.MainActivity
 import io.mgba.setup.SetupActivity
-import io.mgba.utilities.PreferencesManager
+import io.mgba.utilities.device.PreferencesManager
+import io.mgba.utilities.device.PreferencesManager.get
 
 class SplashActivity : BaseActivity<SplashViewModel>() {
 
@@ -12,15 +15,13 @@ class SplashActivity : BaseActivity<SplashViewModel>() {
     override fun getViewModel(): Class<SplashViewModel> = SplashViewModel::class.java
 
     override fun onCreate() {
-        super.onCreate()
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
 
-        if(PreferencesManager[PreferencesManager.SETUP_DONE, false]) {
-            MainActivity.start(this)
-        } else {
-            SetupActivity.start(this)
-        }
+        Handler().postDelayed({
+            if(get(PreferencesManager.SETUP_DONE, false)) { MainActivity.start(this) } else { SetupActivity.start(this) }
+            close()
 
-        close()
+        }, 2000)
     }
 
 }

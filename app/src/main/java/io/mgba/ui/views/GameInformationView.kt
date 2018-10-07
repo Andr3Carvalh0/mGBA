@@ -8,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import io.mgba.data.local.database.model.Game
 import io.mgba.R
+import io.mgba.data.local.model.Game
 import io.mgba.emulation.EmulationActivity
-import io.mgba.utilities.GlideUtils
-import io.mgba.utilities.GlideUtils.Colors
+import io.mgba.utilities.io.GlideUtils
+import io.mgba.utilities.io.GlideUtils.Colors
 import kotlinx.android.synthetic.main.game_information_view.*
 import java.lang.RuntimeException
 
@@ -34,27 +34,24 @@ class GameInformationView : BottomSheetDialogFragment(), View.OnClickListener {
         if(arguments == null) throw RuntimeException("The bottomsheet could retrive the game_item!")
 
         arguments?.let {
-            this.game = it.getParcelable(Constants.ARG_PLAY_GAME)!!
+            //this.game = it.getParcelable(ARG_PLAY_GAME)!!
             prepareView()
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putParcelable(Constants.ARG_SHEET_CONTENT, game)
-    }
 
     private fun prepareView() {
-        game_title_bs.text = game.getName()
+        game_title_bs.text = game.name
         game_desc_bs.text = game.description
 
-        if (game_cover_bs != null && game.coverURL != null) {
-            GlideUtils.init(this, game.coverURL!!)
+        if (game_cover_bs != null && game.cover != null) {
+            GlideUtils.init(this, game.cover!!)
                     .setPlaceholders(R.drawable.placeholder, R.drawable.error)
-                    .colorView(Colors.VIBRANT, Colors.DARK_MUTED, game_play_bs, game_savetitle_bs)
-                    .colorView(Colors.LIGHT_MUTED, Colors.LIGHT_VIBRANT, game_text_content_bs, game_image_content_bs)
-                    .colorViewWithCustomBackground(Colors.LIGHT_MUTED, Colors.LIGHT_VIBRANT, game_header_bs)
-                    .colorView(Colors.LIGHT_VIBRANT, true, game_title_bs)
-                    .colorView(Colors.LIGHT_VIBRANT, false, game_desc_bs)
+                    .colorView(Colors.VIBRANT, Colors.DARK_MUTED, listOf(game_play_bs, game_savetitle_bs))
+                    .colorView(Colors.LIGHT_MUTED, Colors.LIGHT_VIBRANT, listOf(game_text_content_bs, game_image_content_bs))
+                    .colorViewWithCustomBackground(Colors.LIGHT_MUTED, Colors.LIGHT_VIBRANT, listOf(game_header_bs))
+                    .colorView(Colors.LIGHT_VIBRANT, true, listOf(game_title_bs))
+                    .colorView(Colors.LIGHT_VIBRANT, false, listOf(game_desc_bs))
                     .build(game_cover_bs)
         } else {
             //set header color back to normal
@@ -69,7 +66,7 @@ class GameInformationView : BottomSheetDialogFragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         val it = Intent(context, EmulationActivity::class.java)
-        it.putExtra(Constants.ARG_PLAY_GAME, game)
+        //it.putExtra(ARG_PLAY_GAME, game)
         requireContext().startActivity(it)
     }
 
@@ -77,7 +74,7 @@ class GameInformationView : BottomSheetDialogFragment(), View.OnClickListener {
 
         fun show(game: Game): GameInformationView {
             val args = Bundle()
-            args.putParcelable(Constants.ARG_PLAY_GAME, game)
+            //args.putParcelable(Constants.ARG_PLAY_GAME, game)
 
             val frag = GameInformationView()
             frag.arguments = args

@@ -21,7 +21,7 @@ allprojects {
 
     project.ext {
         BuildVersion = "28.0.3"
-        minSDK = 21
+        minSDK = 23
         maxSDK = 28
     }
 }

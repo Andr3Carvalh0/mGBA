@@ -10,28 +10,22 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import io.mgba.main.adapters.GameAdapter
-import io.mgba.presenter.interfaces.IGamesPresenter
-import io.mgba.data.local.database.model.Game
 import io.mgba.R
+import io.mgba.data.local.model.Game
 import io.mgba.ui.fragments.interfaces.IGamesFragment
 import io.mgba.ui.views.GameInformationView
 import io.mgba.mgba
 import kotlinx.android.synthetic.main.games_list_view.*
 
-open class GameFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, IGamesFragment<Game> {
+open class GameFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener{
     private lateinit var adapter: GameAdapter
-    private lateinit var controller: IGamesPresenter
-
-    private val iLibrary: io.mgba.ui.activities.interfaces.ILibrary
-        get() = activity as io.mgba.ui.activities.interfaces.ILibrary
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return prepareView(inflater, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+       /* super.onViewCreated(view, savedInstanceState)
         if(arguments == null)
             mgba.report(Exception("Game Fragment creation failed because args are null"))
 
@@ -47,7 +41,7 @@ open class GameFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, IGam
         }
 
         showContent(false)
-        loadGames()
+        loadGames()*/
     }
 
     private fun prepareRecyclerView() {
@@ -58,8 +52,8 @@ open class GameFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, IGam
                 ContextCompat.getColor(context!!, R.color.yellow_accent_color),
                 ContextCompat.getColor(context!!, R.color.cyan_accent_color))*/
         list.setHasFixedSize(true)
-        adapter = GameAdapter(this, context!!, { controller.onClick(it) }, list)
-        list.adapter = adapter
+        //list.adapter = GameAdapter(requireContext()) { controller.onClick(it) }
+        //list.adapter as
 
     }
 
@@ -68,7 +62,7 @@ open class GameFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, IGam
         noContentMessage.setText(R.string.no_games)
     }
 
-    override fun showContent(state: Boolean) {
+    fun showContent(state: Boolean) {
         noContent.visibility = if (state) View.GONE else View.VISIBLE
         list.visibility = if (state) View.VISIBLE else View.GONE
     }
@@ -78,39 +72,29 @@ open class GameFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, IGam
     }
 
     private fun loadGames() {
-        controller.loadGames(iLibrary)
+        //controller.loadGames(iLibrary)
     }
 
     override fun onRefresh() {
-        controller.onRefresh(iLibrary)
+       // controller.onRefresh(iLibrary)
     }
 
-    override fun onStop() {
-        super.onStop()
-        controller.onDestroy()
-    }
 
-    override fun swapContent(items: List<Game>) {
+    fun swapContent(items: List<Game>) {
         showContent(items.isNotEmpty())
-        adapter.swap(items)
+        //adapter.swap(items)
     }
 
-    override fun stopRefreshing() {
+    fun stopRefreshing() {
         refreshLayout.isRefreshing = false
     }
 
 
-    override fun handleItemClick(game: Game) {
+    fun handleItemClick(game: Game) {
         val sheet = GameInformationView.show(game)
         sheet.show(fragmentManager, TAG + "_SHEET")
     }
 
-    override fun onSaveInstanceState(@NonNull outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        list.layoutManager?.let {
-            outState.putParcelable(Constants.MAIN_RECYCLER_CONTENT, it.onSaveInstanceState())
-        }
-    }
 
     companion object {
         private const val TAG = "BaseFragment"

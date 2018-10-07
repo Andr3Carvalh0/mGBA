@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="io.mgba">
 
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.gamepad"
-        android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen"
+                  android:required="true" />
+    <uses-feature android:name="android.hardware.gamepad"
+                  android:required="false" />
     <uses-feature android:glEsVersion="0x00020000" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".mgba"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".main.MainActivity"
-            android:theme="@style/AppTheme" />
+        android:roundIcon="@mipmap/ic_launcher"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
+        android:theme="@style/MainTheme">
 
-        <activity
-            android:name="com.nononsenseapps.filepicker.Views.Activities.FilePickerActivity"
-            android:label="@string/app_name"
-            android:theme="@style/FilePickerTheme">
+        <activity android:name=".splash.SplashActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/SplashStyle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".main.MainActivity"
+                  android:theme="@style/MainTheme" />
+
+        <activity android:name="com.nononsenseapps.filepicker.Views.Activities.FilePickerActivity"
+                  android:label="@string/app_name"
+                  android:theme="@style/FilePickerTheme">
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".settings.sections.SettingsPanelActivity"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/SettingsTheme" />
-        <activity android:name=".setup.SetupActivity" />
+        <activity android:name=".settings.sections.SettingsPanelActivity"
+                  android:label="@string/title_activity_settings"
+                  android:theme="@style/MainTheme" />
 
-        <activity
-            android:name=".splash.SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".setup.SetupActivity"
+                  android:theme="@style/SetupTheme"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".emulation.EmulationActivity" />
+        <activity android:name=".emulation.EmulationActivity"
+                  android:theme="@style/MainTheme"/>
+
         <activity android:name=".settings.categories.SettingsCategoriesActivity"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/SettingsTheme"/>
-    </application>
+                  android:label="@string/title_activity_settings"
+                  android:theme="@style/MainTheme"/>
 
+    </application>
 </manifest>

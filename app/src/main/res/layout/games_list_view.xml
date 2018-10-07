@@ -1,15 +1,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/backgroundCardColor"
     android:layout_height="match_parent">
 
-        <org.lucasr.twowayview.TwoWayView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:twowayview_layoutManager="SpannableGridLayoutManager"
-            app:twowayview_numColumns="3"
-            app:twowayview_numRows="3" />
+    <org.lucasr.twowayview.TwoWayView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:twowayview_layoutManager="SpannableGridLayoutManager"
+        app:twowayview_numColumns="3"
+        app:twowayview_numRows="3" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

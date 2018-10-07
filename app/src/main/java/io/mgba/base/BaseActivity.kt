@@ -3,12 +3,17 @@ package io.mgba.base
 import android.os.Bundle
 import android.view.View
 import android.app.Activity
+import android.os.Build
+import android.os.Build.VERSION_CODES.M
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
+import io.mgba.R
 import io.mgba.widgets.MaterialSnackbar
 
 abstract class BaseActivity<T : ViewModel> : AppCompatActivity() {
@@ -20,7 +25,14 @@ abstract class BaseActivity<T : ViewModel> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(getLayout())
         vm = ViewModelProviders.of(this).get(getViewModel())
+        colorizeStatusbar()
         onCreate()
+    }
+
+    private fun colorizeStatusbar() {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.statusbarColor)
     }
 
     open fun onCreate(){}

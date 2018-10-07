@@ -424,7 +424,7 @@ public class FastScroller extends LinearLayout {
             mRecyclerView.getLayoutManager().scrollToPosition(targetPos);
 
             if (mShowBubble && mSectionIndexer != null) {
-                mBubbleView.setText(mSectionIndexer.getLetterForItem(targetPos));
+                mBubbleView.setText(mSectionIndexer.getLetterForItem());
             }
         }
     }

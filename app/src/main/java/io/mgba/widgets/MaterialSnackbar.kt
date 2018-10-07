@@ -5,7 +5,7 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import com.google.android.material.snackbar.Snackbar
 import io.mgba.R
-import io.mgba.utilities.dp
+import io.mgba.utilities.device.dp
 
 object MaterialSnackbar{
 

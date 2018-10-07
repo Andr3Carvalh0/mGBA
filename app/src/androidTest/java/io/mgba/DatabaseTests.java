@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.util.List;
 
-import io.mgba.data.local.database.Database;
+import io.mgba.data.local.Database;
 import io.mgba.data.local.database.model.Game;
 import io.mgba.data.Platform;
 import io.mgba.data.io.Repository;
