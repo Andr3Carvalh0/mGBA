@@ -1,17 +1,13 @@
 package io.mgba.setup
 
-import android.content.Intent
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nononsenseapps.filepicker.Controllers.FilePickerUtils
 import io.mgba.utilities.device.PreferencesManager
-import io.mgba.main.MainActivity
-import io.mgba.mgba
-import io.mgba.data.Library
-import io.mgba.utilities.permissions.PermissionsManager
 
 class SetupViewModel : ViewModel() {
 
+    companion object {
+        const val DIRECTORY_CODE = 327
+    }
 
     // Since this Single object runs outside the UI Thread, we will leave it be.
     // In case of a onPause event, we will not terminate it. It will do want it need and when finished,
@@ -32,6 +28,14 @@ class SetupViewModel : ViewModel() {
                     //isDone = true
                     end()
                 })*/
+    }
+
+    fun handleDirectory(path: String?) {
+
+    }
+
+    fun handleCancellation() {
+
     }
 
 

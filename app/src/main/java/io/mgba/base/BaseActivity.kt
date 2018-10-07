@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import io.mgba.R
+import io.mgba.utilities.device.ResourcesManager
 import io.mgba.widgets.MaterialSnackbar
 
 abstract class BaseActivity<T : ViewModel> : AppCompatActivity() {
@@ -32,7 +33,7 @@ abstract class BaseActivity<T : ViewModel> : AppCompatActivity() {
     private fun colorizeStatusbar() {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.statusbarColor)
+        window.statusBarColor = ResourcesManager.getColor(R.color.statusbarColor)
     }
 
     open fun onCreate(){}

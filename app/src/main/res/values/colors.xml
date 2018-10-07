@@ -18,6 +18,11 @@
     <color name="purple_primary">#5c2784</color>
     <color name="purple_primary_dark">#510987</color>
 
+    <color name="gameboy_pink">@color/pink_accent_color</color>
+    <color name="gameboy_purple">@color/purple_primary</color>
+    <color name="gameboy_yellow">@color/yellow_accent_color</color>
+    <color name="gameboy_green">@color/green_accent_color</color>
+    <color name="gameboy_blue">@color/cyan_accent_color</color>
 
     <color name="backgroundCardColor">@color/white</color>
     <color name="separatorColor">@color/pale_grey</color>

@@ -8,7 +8,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="settings_title">Settings</string>
     <string name="about_title">About</string>
-    <string name="toolbar_title_tip">Search games...</string>
+    <string name="toolbar_title_tip">Search games…</string>
     <string name="About_description">mGBA is Copyright © 2013 – 2017 Jeffrey Pfau.\nmGBA for Android developed by André Carvalho.\nIt is distributed under the Mozilla Public License version 2.0. A copy of the license is available in the distributed LICENSE file.</string>
     <string name="Favorites">Favourites</string>
     <string name="GBA">Gameboy Advance</string>
@@ -27,9 +27,9 @@
     <string name="restart_description">To change the library folder mgba must restart.</string>
     <string name="restart_positive">Restart now</string>
     <string name="Cancel">Cancel</string>
-    <string name="Progress_Title">Please wait...</string>
+    <string name="Progress_Title">Please wait…</string>
     <string name="Progress_desc">Loading your library.</string>
-    <string name="preparing_your_library">Importing your library...</string>
+    <string name="preparing_your_library">Importing your library…</string>
     <string name="settings">Settings</string>
     <string name="settings_audio">Audio</string>
     <string name="settings_video">Video</string>
@@ -37,4 +37,10 @@
     <string name="settings_bios">BIOS</string>
     <string name="settings_paths">Folders</string>
     <string name="settings_customization">Themes</string>
+    <string name="welcome_title">Welcome to mGBA!</string>
+    <string name="welcome_description">A simple GameBoy Advance emulator following the beautiful Material Design</string>
+    <string name="organize_title">Organize</string>
+    <string name="organize_description">Just pick a folder, and mGBA will handle it, including getting the game\'s cover, cheats and much more!</string>
+    <string name="done_title">Let\'s get started!</string>
+    <string name="done_description">Hope you enjoy it.</string>
 </resources>

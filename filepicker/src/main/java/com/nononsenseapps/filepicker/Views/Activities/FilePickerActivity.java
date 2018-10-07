@@ -1,7 +1,10 @@
 package com.nononsenseapps.filepicker.Views.Activities;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import com.nononsenseapps.filepicker.Controllers.Interfaces.OnFilePickedListener;
@@ -12,43 +15,61 @@ import com.nononsenseapps.filepicker.Views.Fragments.Interfaces.FragmentContract
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class FilePickerActivity extends AppCompatActivity implements OnFilePickedListener {
     public static final String EXTRA_START_PATH = "nononsense.intent" + ".START_PATH";
+
+    public static void start(String path, AppCompatActivity context, int code){
+        Intent intent = new Intent(context, FilePickerActivity.class);
+        intent.putExtra(FilePickerActivity.EXTRA_START_PATH, path);
+
+        context.startActivityForResult(intent, code);
+    }
 
     protected static final String TAG = "filepicker_fragment";
 
     private FragmentContract fragment;
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.nnf_activity_filepicker);
+        FilePickerActivityPermissionsDispatcher.onGrantWithPermissionCheck(this);
+    }
 
+    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void onGrant() {
         Intent intent = getIntent();
-        String startPath = Environment.getExternalStorageDirectory().getPath();
 
         if (intent != null) {
-            startPath = intent.getStringExtra(EXTRA_START_PATH);
+            String path = intent.getStringExtra(EXTRA_START_PATH);
+
+            fragment = (FilePickerFragment) getSupportFragmentManager().findFragmentByTag(TAG);
+            if (fragment == null) { fragment = getFragment(path); }
+            else { getSupportFragmentManager().beginTransaction().replace(R.id.fragment, (FilePickerFragment)fragment, TAG).commit(); }
+
+            setResult(Activity.RESULT_CANCELED);
+        } else {
+            onCancelled();
         }
+    }
 
-        FragmentManager fm = getSupportFragmentManager();
-        fragment = (FilePickerFragment) fm.findFragmentByTag(TAG);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // NOTE: delegate the permission handling to generated method
+        FilePickerActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
 
-        if (fragment == null) {
-            fragment = getFragment(startPath);
-        }
-
-        if (fragment != null) {
-            fm.beginTransaction().replace(R.id.fragment, (FilePickerFragment)fragment, TAG)
-                    .commit();
-        }
-
-        // Default to cancelled
-        setResult(Activity.RESULT_CANCELED);
+    @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void onDenial() {
+        onCancelled();
     }
 
     protected FragmentContract getFragment(@Nullable final String startPath){
@@ -64,10 +85,10 @@ public class FilePickerActivity extends AppCompatActivity implements OnFilePicke
 
     @Override
     public void onBackPressed() {
-
-        if(fragment != null){
-            if(!fragment.onBackPress())
+        if(fragment != null) {
+            if(!fragment.onBackPress()) {
                 onCancelled();
+            }
         }
     }
 
