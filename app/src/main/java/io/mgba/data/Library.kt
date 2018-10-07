@@ -12,26 +12,44 @@ object Library {
 
     private val gamesRepository = Database.getInstance(mgba.context).gameDao()
     private val cheatsRepository = Database.getInstance(mgba.context).cheatDAO()
+    private val gamesService = getGamesService()
 
 
-    private fun save(game: Game) { runOnBackground { gamesRepository.insert(game) } }
-    private fun remove(game: Game) { runOnBackground { gamesRepository.delete(game) } }
+    fun save(game: Game) { runOnBackground { gamesRepository.insert(game) } }
+    fun remove(game: Game) { runOnBackground { gamesRepository.delete(game) } }
+    fun clear() { runOnBackground { gamesRepository.clearLibrary() }}
 
-    private fun query(query: String): LiveData<List<Game>> = gamesRepository.query(query)
+    fun query(query: String): LiveData<List<Game>> = gamesRepository.query(query)
 
-    private fun monitorGameboyAdvanced(): LiveData<List<Game>> = gamesRepository.monitorGameboyAdvancedGames()
-    private fun monitorGameboyColor(): LiveData<List<Game>> = gamesRepository.monitorGameboyColorGames()
-    private fun monitorFavourites(): LiveData<List<Game>> = gamesRepository.monitorFavouriteGames()
+    fun monitorGameboyAdvanced(): LiveData<List<Game>> = gamesRepository.monitorGameboyAdvancedGames()
+    fun monitorGameboyColor(): LiveData<List<Game>> = gamesRepository.monitorGameboyColorGames()
+    fun monitorFavourites(): LiveData<List<Game>> = gamesRepository.monitorFavouriteGames()
 
+    fun populateGame(id: String) {
+        val game = gamesRepository.get(id)
 
-    private fun searchWeb(game: Game) {
-        try {
-            val json = getGamesService().getGameInformation(game.mD5!!, getDeviceLanguage())
-                                             .execute()
-                                             .body()
-        } catch (e: Exception) {
-            mgba.report(e)
+        game.mD5?.let {
+            try {
+                gamesService.getGameInformation(it, getDeviceLanguage())
+                                                       .execute()
+                                                       .body()
+                                                       ?.let {
+                                                            game.cover = it.cover
+                                                            game.description = it.description
+                                                            game.name = it.name
+                                                            game.released = it.released
+                                                            game.developer = it.developer
+                                                            game.genre = it.genre
+                                                       }
+
+                gamesRepository.update(game)
+
+            } catch (e: Exception) {
+                mgba.report(e)
+            }
+
         }
+
 
     }
 

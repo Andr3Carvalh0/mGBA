@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Environment
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -15,8 +14,9 @@ import com.github.paolorotolo.appintro.model.SliderPage
 import com.nononsenseapps.filepicker.Controllers.FilePickerUtils
 import com.nononsenseapps.filepicker.Views.Activities.FilePickerActivity
 import io.mgba.R
+import io.mgba.main.MainActivity
 import io.mgba.utilities.device.ResourcesManager
-
+import io.mgba.utilities.nonNullObserve
 
 class SetupActivity : AppIntro2() {
 
@@ -44,17 +44,27 @@ class SetupActivity : AppIntro2() {
                                                     it.bgColor = ResourcesManager.getColor(R.color.gameboy_blue) }))
 
         showSkipButton(false)
-        isProgressButtonEnabled = true
+        isProgressButtonEnabled = false
         setFadeAnimation()
 
+        vm.onDone.nonNullObserve(this) {
+            if(it) {
+                MainActivity.start(this)
+                finish()
+            }
+        }
     }
 
     override fun onSlideChanged(oldFragment: Fragment?, newFragment: Fragment?) {
-        newFragment?.let { colorizeStatusbar((it as AppIntroFragment).defaultBackgroundColor) }
+        newFragment?.let {
+            val color = (it as AppIntroFragment).defaultBackgroundColor
+            colorizeStatusbar(color)
+            isProgressButtonEnabled = color == ResourcesManager.getColor(R.color.gameboy_blue)
+        }
     }
 
     override fun onDonePressed(fragment: Fragment) {
-        FilePickerActivity.start(Environment.getExternalStorageDirectory().path, this, SetupViewModel.DIRECTORY_CODE)
+        FilePickerActivity.start(this, SetupViewModel.DIRECTORY_CODE)
     }
 
     private fun colorizeStatusbar(color: Int) {

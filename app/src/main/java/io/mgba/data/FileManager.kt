@@ -1,5 +1,7 @@
 package io.mgba.data
 
+import io.mgba.utilities.Constants.PLATFORM_GBA
+import io.mgba.utilities.Constants.PLATFORM_GBC
 import java.io.File
 import io.mgba.utilities.device.PreferencesManager.GAMES_DIRECTORY
 import io.mgba.utilities.device.PreferencesManager.get
@@ -7,7 +9,7 @@ import io.mgba.utilities.device.PreferencesManager.get
 /**
  * Handles the fetching/filtering of the supported files for the selected dir.
  */
-object FilesManager {
+object FileManager {
 
     private val TAG = "FileService"
 
@@ -18,7 +20,7 @@ object FilesManager {
     val gameList: List<File> = if (!directory.exists()) emptyList() else fetchGames()
     var path: String
         get() = directory.absolutePath
-        set(directory) { FilesManager.directory = File(directory) }
+        set(directory) { FileManager.directory = File(directory) }
 
     /**
      * Based on the files of the directory, discard the ones we dont need.
@@ -34,6 +36,14 @@ object FilesManager {
     }
 
     private fun fetchGames(): List<File> = filter(directory.listFiles())
+
+    fun getPlatform(file: File): Int {
+        if(GBC_FILES_SUPPORTED.contains(getFileExtension(file))){
+            return PLATFORM_GBC
+        }
+
+        return PLATFORM_GBA
+    }
 
     /**
      * Gets the file extension.

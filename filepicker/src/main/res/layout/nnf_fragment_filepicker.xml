@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:elevation="4dp"
+        android:elevation="8dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?nnf_toolbarTheme">
@@ -63,7 +63,6 @@
         android:layout_below="@+id/nnf_picker_toolbar"
         android:descendantFocusability="afterDescendants"
         android:focusable="true"
-
         tools:listitem="@layout/nnf_filepicker_listitem_dir"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

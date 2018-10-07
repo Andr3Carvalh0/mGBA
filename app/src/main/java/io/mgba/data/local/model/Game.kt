@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import io.mgba.data.FilesManager
+import io.mgba.data.FileManager
 import io.mgba.utilities.Constants.PLATFORM_UNKNOWN
 import io.mgba.widgets.RecyclerViewItem
 
@@ -20,7 +20,7 @@ class Game : RecyclerViewItem{
     var name: String? = null
         get() {
             field?.let { return it }
-            return FilesManager.getFileWithoutExtension(file)
+            return FileManager.getFileWithoutExtension(file)
         }
 
     @ColumnInfo

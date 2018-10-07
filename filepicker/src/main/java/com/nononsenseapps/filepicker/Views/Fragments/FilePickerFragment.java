@@ -137,8 +137,7 @@ public class FilePickerFragment extends Fragment implements LoaderManager.Loader
 
         Toolbar toolbar = view.findViewById(R.id.nnf_picker_toolbar);
 
-        if (toolbar != null)
-            setupToolbar(toolbar);
+        if (toolbar != null) setupToolbar(toolbar);
 
         mController = new FilePickerController(getActivity().getApplicationContext(), new File(startPath));
 

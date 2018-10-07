@@ -25,9 +25,8 @@ import permissions.dispatcher.RuntimePermissions;
 public class FilePickerActivity extends AppCompatActivity implements OnFilePickedListener {
     public static final String EXTRA_START_PATH = "nononsense.intent" + ".START_PATH";
 
-    public static void start(String path, AppCompatActivity context, int code){
+    public static void start(AppCompatActivity context, int code){
         Intent intent = new Intent(context, FilePickerActivity.class);
-        intent.putExtra(FilePickerActivity.EXTRA_START_PATH, path);
 
         context.startActivityForResult(intent, code);
     }
@@ -43,26 +42,19 @@ public class FilePickerActivity extends AppCompatActivity implements OnFilePicke
         FilePickerActivityPermissionsDispatcher.onGrantWithPermissionCheck(this);
     }
 
-    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
     void onGrant() {
-        Intent intent = getIntent();
+        fragment = (FilePickerFragment) getSupportFragmentManager().findFragmentByTag(TAG);
+        if (fragment == null) { fragment = getFragment(Environment.getExternalStorageDirectory().getPath()); }
 
-        if (intent != null) {
-            String path = intent.getStringExtra(EXTRA_START_PATH);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, (FilePickerFragment)fragment, TAG).commit();
 
-            fragment = (FilePickerFragment) getSupportFragmentManager().findFragmentByTag(TAG);
-            if (fragment == null) { fragment = getFragment(path); }
-            else { getSupportFragmentManager().beginTransaction().replace(R.id.fragment, (FilePickerFragment)fragment, TAG).commit(); }
-
-            setResult(Activity.RESULT_CANCELED);
-        } else {
-            onCancelled();
-        }
+        setResult(Activity.RESULT_CANCELED);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // NOTE: delegate the permission handling to generated method
         FilePickerActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }

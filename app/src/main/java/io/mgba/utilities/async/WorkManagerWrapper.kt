@@ -25,6 +25,20 @@ object WorkManagerWrapper {
         workManager.beginUniqueWork(tag, policy, request).enqueue()
     }
 
+    fun scheduleToRunWithExtras(worker: Class<out Worker>, extras: List<Pair<String, String>>, tag: String, replace: Boolean = false) {
+        val data = Data.Builder()
+        extras.forEach { k -> data.putString(k.first, k.second) }
+
+        val request = OneTimeWorkRequest.Builder(worker)
+                .setInputData(data.build())
+                .build()
+
+        val policy = if(replace) ExistingWorkPolicy.REPLACE else ExistingWorkPolicy.KEEP
+
+        workManager.beginUniqueWork(tag, policy, request).enqueue()
+
+    }
+
     fun scheduleToRunWhenConnectedWithExtras(worker: Class<out Worker>, extras: List<Pair<String, Int>>, tag: String, replace: Boolean = false) {
         val constraints = Constraints.Builder()
                                                 .setRequiredNetworkType(NetworkType.CONNECTED)

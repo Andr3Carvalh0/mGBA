@@ -11,8 +11,10 @@
     android:id="@+id/nnf_item_container"
     android:layout_width="match_parent"
     android:layout_height="?android:listPreferredItemHeight"
-    android:background="?selectableItemBackground"
     android:focusable="true"
+    android:clickable="true"
+    android:background="@color/white"
+    android:foreground="?android:attr/selectableItemBackground"
     android:minHeight="?android:listPreferredItemHeight"
     android:orientation="horizontal">
 

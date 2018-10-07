@@ -30,6 +30,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation "com.google.android.material:material:1.0.0"
+    implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
 
     implementation "com.github.hotchemi:permissionsdispatcher:3.3.1"
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.3.1"

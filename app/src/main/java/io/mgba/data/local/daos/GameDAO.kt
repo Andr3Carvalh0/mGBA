@@ -25,6 +25,9 @@ interface GameDAO {
     @Transaction
     fun delete(games: Game)
 
+    @Query("SELECT * FROM Games WHERE id = :game")
+    fun get(game: String): Game
+
     @Query("DELETE FROM Games")
     @Transaction
     fun clearLibrary()
