@@ -3,7 +3,9 @@ package io.mgba.setup
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -58,7 +60,7 @@ class SetupActivity : AppIntro2() {
     override fun onSlideChanged(oldFragment: Fragment?, newFragment: Fragment?) {
         newFragment?.let {
             val color = (it as AppIntroFragment).defaultBackgroundColor
-            colorizeStatusbar(color)
+            //colorizeStatusbar(color)
             isProgressButtonEnabled = color == ResourcesManager.getColor(R.color.gameboy_blue)
         }
     }
