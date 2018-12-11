@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3" xmlns:ns1="http://schemas.android.com/tools"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/src/main/res"/><source path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/build/generated/res/rs/debug"/><source path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/src/main/res"><file name="fastscroll_track" path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/src/main/res/drawable/fastscroll_track.xml" qualifiers="" type="drawable"/><file name="fastscroll_handle" path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/src/main/res/drawable/fastscroll_handle.xml" qualifiers="" type="drawable"/><file name="fastscroll_bubble" path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/src/main/res/drawable/fastscroll_bubble.xml" qualifiers="" type="drawable"/><file name="fastscroller" path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/src/main/res/layout/fastscroller.xml" qualifiers="" type="layout"/><file path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/src/main/res/values/dimens.xml" qualifiers=""><dimen name="twowayview_bubble_radius">44dp</dimen><dimen name="twowayview_bubble_size">88dp</dimen><dimen name="twowayview_bubble_textsize">48sp</dimen><dimen name="twowayview_bubble_padding">16dp</dimen><dimen name="twowayview_handle_height">40dp</dimen><dimen name="twowayview_handle_width">4dp</dimen><dimen name="twowayview_handle_radius">2dp</dimen><dimen name="twowayview_track_width">1dp</dimen><dimen name="twowayview_scrollbar_margin_top">8dp</dimen><dimen name="twowayview_scrollbar_margin_bottom">8dp</dimen><dimen name="twowayview_scrollbar_padding_start">8dp</dimen><dimen name="twowayview_scrollbar_padding_end">8dp</dimen></file><file path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/src/main/res/values/attrs.xml" qualifiers=""><declare-styleable name="twowayview_TwoWayLayoutManager">
+        <attr name="android:orientation" ns1:ignore="ResourceName"/>
+    </declare-styleable><declare-styleable name="twowayview_TwoWayView">
+        <attr format="string" name="twowayview_layoutManager"/>
+        <attr format="boolean" name="twowayview_hideScrollbar"/>
+        <attr format="boolean" name="twowayview_showBubble"/>
+        <attr format="boolean" name="twowayview_showTrack"/>
+        <attr format="color" name="twowayview_trackColor"/>
+        <attr format="color" name="twowayview_handleColor"/>
+        <attr format="color" name="twowayview_bubbleColor"/>
+        <attr format="color" name="twowayview_bubbleTextColor"/>
+    </declare-styleable><declare-styleable name="twowayview_GridLayoutManager">
+        <attr format="integer" name="twowayview_numColumns"/>
+        <attr format="integer" name="twowayview_numRows"/>
+    </declare-styleable><declare-styleable name="twowayview_SpacingItemDecoration">
+        <attr name="android:verticalSpacing" ns1:ignore="ResourceName"/>
+        <attr name="android:horizontalSpacing" ns1:ignore="ResourceName"/>
+    </declare-styleable><declare-styleable name="twowayview_DividerItemDecoration">
+        <attr name="android:divider" ns1:ignore="ResourceName"/>
+        <attr format="reference" name="twowayview_verticalDivider"/>
+        <attr format="reference" name="twowayview_horizontalDivider"/>
+    </declare-styleable><declare-styleable name="twowayview_StaggeredGridViewChild">
+        <attr format="integer" name="twowayview_span"/>
+    </declare-styleable><declare-styleable name="twowayview_SpannableGridViewChild">
+        <attr format="integer" name="twowayview_colSpan"/>
+        <attr format="integer" name="twowayview_rowSpan"/>
+    </declare-styleable></file><file path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/src/main/res/values/ids.xml" qualifiers=""><item name="twowayview_item_click_support" type="id"/><item name="twowayview_item_selection_support" type="id"/><item name="twowayview_fastscroller" type="id"/></file></source><source path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/build/generated/res/rs/debug"/><source path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/acarvalho/Documents/Development/Android/Personal/mGBA/twoway-view/src/debug/res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="twowayview_StaggeredGridViewChild">
+        <attr format="integer" name="twowayview_span"/>
+    </declare-styleable><declare-styleable name="twowayview_GridLayoutManager">
+        <attr format="integer" name="twowayview_numColumns"/>
+        <attr format="integer" name="twowayview_numRows"/>
+    </declare-styleable><declare-styleable name="twowayview_TwoWayLayoutManager">
+        <attr name="android:orientation" ns1:ignore="ResourceName"/>
+    </declare-styleable><declare-styleable name="twowayview_DividerItemDecoration">
+        <attr name="android:divider" ns1:ignore="ResourceName"/>
+        <attr format="reference" name="twowayview_verticalDivider"/>
+        <attr format="reference" name="twowayview_horizontalDivider"/>
+    </declare-styleable><declare-styleable name="twowayview_TwoWayView">
+        <attr format="string" name="twowayview_layoutManager"/>
+        <attr format="boolean" name="twowayview_hideScrollbar"/>
+        <attr format="boolean" name="twowayview_showBubble"/>
+        <attr format="boolean" name="twowayview_showTrack"/>
+        <attr format="color" name="twowayview_trackColor"/>
+        <attr format="color" name="twowayview_handleColor"/>
+        <attr format="color" name="twowayview_bubbleColor"/>
+        <attr format="color" name="twowayview_bubbleTextColor"/>
+    </declare-styleable><declare-styleable name="twowayview_SpacingItemDecoration">
+        <attr name="android:verticalSpacing" ns1:ignore="ResourceName"/>
+        <attr name="android:horizontalSpacing" ns1:ignore="ResourceName"/>
+    </declare-styleable><declare-styleable name="twowayview_SpannableGridViewChild">
+        <attr format="integer" name="twowayview_colSpan"/>
+        <attr format="integer" name="twowayview_rowSpan"/>
+    </declare-styleable></configuration></mergedItems></merger>
